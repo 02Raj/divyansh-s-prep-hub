@@ -1,0 +1,30 @@
+import { ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+interface BreadcrumbItem {
+  label: string;
+  path?: string;
+}
+
+interface BreadcrumbProps {
+  items: BreadcrumbItem[];
+}
+
+export function Breadcrumb({ items }: BreadcrumbProps) {
+  return (
+    <nav className="breadcrumb mb-6">
+      {items.map((item, index) => (
+        <span key={index} className="flex items-center gap-2">
+          {index > 0 && <ChevronRight className="h-4 w-4" />}
+          {item.path ? (
+            <Link to={item.path} className="hover:text-primary transition-colors">
+              {item.label}
+            </Link>
+          ) : (
+            <span className="text-foreground font-medium">{item.label}</span>
+          )}
+        </span>
+      ))}
+    </nav>
+  );
+}
