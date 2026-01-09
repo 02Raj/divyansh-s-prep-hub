@@ -8,174 +8,139 @@ import {
   Database, 
   Atom,
   ArrowRight,
+  Sparkles,
   BookOpen,
-  GraduationCap
+  Users
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const technologies = [
-  { 
-    name: 'JavaScript', 
-    icon: Code2, 
-    path: '/topics/javascript',
-    description: 'ES6+, closures, async/await, and more',
-    topics: 6
-  },
-  { 
-    name: 'Angular', 
-    icon: Component, 
-    path: '/topics/angular',
-    description: 'Components, services, RxJS, signals',
-    topics: 8
-  },
-  { 
-    name: 'Java', 
-    icon: Coffee, 
-    path: '/topics/java',
-    description: 'OOP, collections, streams, threading',
-    topics: 5
-  },
-  { 
-    name: 'Spring Boot', 
-    icon: Leaf, 
-    path: '/topics/springboot',
-    description: 'REST APIs, JPA, security, testing',
-    topics: 5
-  },
-  { 
-    name: 'Databases', 
-    icon: Database, 
-    path: '/topics/databases',
-    description: 'SQL joins, indexes, MongoDB aggregation',
-    topics: 5
-  },
-  { 
-    name: 'React', 
-    icon: Atom, 
-    path: '/topics/react',
-    description: 'Hooks, context, performance, patterns',
-    topics: 5
-  }
+const categories = [
+  { id: 'javascript', name: 'JavaScript', icon: Code2, count: 25, color: 'from-amber-500 to-orange-600' },
+  { id: 'angular', name: 'Angular', icon: Component, count: 30, color: 'from-rose-500 to-pink-600' },
+  { id: 'java', name: 'Java', icon: Coffee, count: 20, color: 'from-orange-500 to-red-600' },
+  { id: 'springboot', name: 'Spring Boot', icon: Leaf, count: 18, color: 'from-emerald-500 to-green-600' },
+  { id: 'databases', name: 'Databases', icon: Database, count: 15, color: 'from-blue-500 to-cyan-600' },
+  { id: 'react', name: 'React', icon: Atom, count: 22, color: 'from-cyan-500 to-blue-600' },
+];
+
+const stats = [
+  { label: 'Interview Topics', value: '200+', icon: BookOpen },
+  { label: 'Technologies', value: '8', icon: Code2 },
+  { label: 'Happy Learners', value: '1K+', icon: Users },
 ];
 
 export default function Index() {
   return (
-    <Layout>
-      <div className="mx-auto max-w-4xl px-4 py-12 lg:px-8">
+    <Layout showSidebar={false}>
+      <div className="relative overflow-hidden">
         {/* Hero Section */}
-        <div className="mb-16 text-center animate-fade-in">
-          <h1 className="text-4xl font-bold text-foreground mb-4 md:text-5xl">
-            Master Your Next
-            <span className="text-primary"> Tech Interview</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Comprehensive interview preparation covering Java, Spring Boot, Angular, React, 
-            and more. Curated by developers, for developers.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="gap-2">
-              <Link to="/topics/angular">
-                Start Learning
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="gap-2">
-              <Link to="/interview-prep">
-                <GraduationCap className="h-4 w-4" />
-                Interview Sets
-              </Link>
-            </Button>
+        <div className="relative px-4 py-20 lg:py-32">
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/10 via-transparent to-transparent blur-3xl" />
+          
+          <div className="relative mx-auto max-w-4xl text-center">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+              <Sparkles className="h-4 w-4" />
+              Your Interview Prep Companion
+            </div>
+            
+            <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              Master Your Next
+              <span className="block gradient-text">Technical Interview</span>
+            </h1>
+            
+            <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+              A comprehensive collection of interview questions and answers for 
+              Java Full Stack Developers. Covering JavaScript, Angular, React, Java, 
+              Spring Boot, and Databases.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button asChild size="lg" className="rounded-xl h-12 px-8 text-base shadow-lg shadow-primary/25">
+                <Link to="/topics/javascript">
+                  Start Learning
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="rounded-xl h-12 px-8 text-base">
+                <Link to="/about">
+                  About Me
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Technology Cards */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Explore Topics
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {technologies.map((tech, index) => (
-              <Link
-                key={tech.name}
-                to={tech.path}
-                className="content-card group animate-fade-in"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <tech.icon className="h-6 w-6" />
+        {/* Stats */}
+        <div className="border-y border-border bg-card/50">
+          <div className="mx-auto max-w-5xl px-4 py-8">
+            <div className="grid grid-cols-3 gap-8">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <stat.icon className="h-5 w-5" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {tech.name}
-                      </h3>
-                      <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">
-                        {tech.topics} topics
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                      {tech.description}
-                    </p>
-                  </div>
+                  <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Categories Grid */}
+        <div className="mx-auto max-w-6xl px-4 py-20">
+          <div className="mb-12 text-center">
+            <h2 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl">
+              Choose Your Path
+            </h2>
+            <p className="text-muted-foreground">
+              Select a technology to start exploring interview topics
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map((category, index) => (
+              <Link
+                key={category.id}
+                to={`/topics/${category.id}`}
+                className="content-card group opacity-0 animate-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${category.color} text-white shadow-lg`}>
+                    <category.icon className="h-6 w-6" />
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-1">
+                  {category.name}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {category.count} interview topics
+                </p>
               </Link>
             ))}
           </div>
         </div>
 
-        {/* Quick Links */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <Link to="/blogs" className="content-card group">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
-                <BookOpen className="h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  Technical Blog
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  In-depth articles and tutorials
-                </p>
-              </div>
-              <ArrowRight className="h-5 w-5 ml-auto text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
-          </Link>
-
-          <Link to="/interview-prep" className="content-card group">
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-success/10 text-success">
-                <GraduationCap className="h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  Interview Sets
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Curated question collections
-                </p>
-              </div>
-              <ArrowRight className="h-5 w-5 ml-auto text-muted-foreground group-hover:text-primary transition-colors" />
-            </div>
-          </Link>
-        </div>
-
-        {/* Footer Stats */}
-        <div className="mt-16 pt-8 border-t border-border">
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold text-primary">30+</div>
-              <div className="text-sm text-muted-foreground">Interview Topics</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-primary">6</div>
-              <div className="text-sm text-muted-foreground">Technologies</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-primary">8</div>
-              <div className="text-sm text-muted-foreground">Interview Sets</div>
-            </div>
+        {/* CTA Section */}
+        <div className="border-t border-border bg-gradient-to-b from-transparent to-primary/5">
+          <div className="mx-auto max-w-4xl px-4 py-20 text-center">
+            <h2 className="mb-4 text-2xl font-bold text-foreground sm:text-3xl">
+              Ready to Ace Your Interview?
+            </h2>
+            <p className="mb-8 text-muted-foreground max-w-xl mx-auto">
+              Start preparing today with our comprehensive collection of curated 
+              interview questions and detailed explanations.
+            </p>
+            <Button asChild size="lg" className="rounded-xl h-12 px-8 text-base shadow-lg shadow-primary/25">
+              <Link to="/interview-prep">
+                View Interview Sets
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
