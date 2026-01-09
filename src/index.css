@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
+    --background: 210 40% 98%;
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
@@ -15,38 +15,38 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 213 94% 30%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 238 84% 67%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
+    --secondary: 220 14% 96%;
     --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 24 95% 53%;
+    --accent: 262 83% 58%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 213 94% 30%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 238 84% 67%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 213 94% 30%;
+    --sidebar-primary: 238 84% 67%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent: 220 14% 96%;
     --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 213 94% 30%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 238 84% 67%;
 
     /* Custom tokens */
-    --code-bg: 220 13% 18%;
+    --code-bg: 222 47% 11%;
     --code-foreground: 210 40% 98%;
     --highlight: 48 96% 89%;
     --success: 142 76% 36%;
@@ -55,20 +55,22 @@
     --warning-foreground: 0 0% 100%;
     --info: 199 89% 48%;
     --info-foreground: 0 0% 100%;
+    --gradient-start: 238 84% 67%;
+    --gradient-end: 262 83% 58%;
   }
 
   .dark {
-    --background: 222 47% 11%;
+    --background: 222 47% 6%;
     --foreground: 210 40% 98%;
 
-    --card: 222 47% 15%;
+    --card: 222 47% 9%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 15%;
+    --popover: 222 47% 9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 213 94% 58%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 238 84% 67%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
@@ -76,7 +78,7 @@
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 24 95% 53%;
+    --accent: 262 83% 58%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
@@ -84,22 +86,29 @@
 
     --border: 217 33% 17%;
     --input: 217 33% 17%;
-    --ring: 213 94% 58%;
+    --ring: 238 84% 67%;
 
-    --sidebar-background: 222 47% 13%;
+    --sidebar-background: 222 47% 7%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 213 94% 58%;
-    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-primary: 238 84% 67%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 217 33% 17%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 33% 17%;
-    --sidebar-ring: 213 94% 58%;
+    --sidebar-ring: 238 84% 67%;
+
+    --code-bg: 222 47% 5%;
+    --highlight: 238 84% 67%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
@@ -114,13 +123,16 @@
 
 @layer components {
   .topic-chip {
-    @apply px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer;
-    @apply bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground;
-    @apply border border-border hover:border-primary;
+    @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer;
+    @apply bg-secondary text-secondary-foreground;
+    @apply border border-border;
+    @apply hover:bg-primary hover:text-primary-foreground hover:border-primary;
+    @apply hover:shadow-md hover:-translate-y-0.5;
   }
 
   .topic-chip.active {
-    @apply bg-primary text-primary-foreground border-primary;
+    @apply bg-primary text-primary-foreground border-primary shadow-lg;
+    box-shadow: 0 4px 14px 0 hsl(var(--primary) / 0.4);
   }
 
   .topic-chip.easy {
@@ -145,49 +157,52 @@
 
   .sidebar-link.active {
     @apply bg-primary/10 text-primary font-semibold;
+    @apply border-l-2 border-primary;
   }
 
   .code-block {
-    @apply rounded-lg overflow-hidden my-4;
+    @apply rounded-xl overflow-hidden my-6 shadow-lg;
     background-color: hsl(var(--code-bg));
   }
 
   .code-block pre {
-    @apply p-4 overflow-x-auto text-sm;
+    @apply p-5 overflow-x-auto text-sm leading-relaxed;
     color: hsl(var(--code-foreground));
   }
 
   .question-section {
-    @apply py-8 border-b border-border scroll-mt-24 transition-all duration-300;
+    @apply py-8 scroll-mt-24 transition-all duration-500;
   }
 
   .question-section.active {
-    @apply -mx-6 px-6 rounded-lg border-l-4 border-l-primary;
-    background-color: hsl(var(--highlight) / 0.3);
+    @apply bg-primary/5 -mx-6 px-6 rounded-2xl border-l-4 border-l-primary;
   }
 
   .nav-link {
-    @apply px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors;
+    @apply px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all duration-200;
+    @apply rounded-lg hover:bg-secondary;
   }
 
   .nav-link.active {
-    @apply text-primary font-semibold;
+    @apply text-primary font-semibold bg-primary/10;
   }
 
   .skill-badge {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium;
-    @apply bg-secondary text-secondary-foreground border border-border;
+    @apply inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium;
+    @apply bg-card text-card-foreground border border-border;
+    @apply shadow-sm transition-all duration-300;
+    @apply hover:shadow-md hover:-translate-y-0.5 hover:border-primary/30;
   }
 
   .social-link {
-    @apply inline-flex items-center justify-center w-12 h-12 rounded-full transition-all duration-200;
-    @apply bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground;
-    @apply hover:scale-110 hover:shadow-lg;
+    @apply inline-flex items-center justify-center w-14 h-14 rounded-2xl transition-all duration-300;
+    @apply bg-card text-card-foreground border border-border shadow-sm;
+    @apply hover:scale-110 hover:shadow-xl;
   }
 
   .content-card {
-    @apply bg-card rounded-xl border border-border p-6 transition-all duration-200;
-    @apply hover:shadow-lg hover:border-primary/30;
+    @apply bg-card rounded-2xl border border-border p-6 transition-all duration-300;
+    @apply hover:shadow-xl hover:border-primary/20 hover:-translate-y-1;
   }
 
   .breadcrumb {
@@ -196,6 +211,22 @@
 
   .breadcrumb a {
     @apply hover:text-primary transition-colors;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
+  }
+
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border rounded-2xl shadow-xl;
+  }
+
+  .search-input {
+    @apply w-full rounded-xl border border-border bg-card px-4 py-3 text-sm;
+    @apply placeholder:text-muted-foreground;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
+    @apply transition-all duration-300;
   }
 }
 
@@ -221,5 +252,36 @@
 
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background-color: hsl(var(--muted-foreground));
+  }
+
+  .animate-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 }

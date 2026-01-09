@@ -9,11 +9,14 @@ import {
   BookOpen, 
   GraduationCap, 
   Mail,
-  ChevronDown
+  ChevronDown,
+  PanelLeftClose,
+  PanelLeft
 } from 'lucide-react';
 import { useState } from 'react';
 import { categories } from '@/data/categories';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 const iconMap: Record<string, React.ReactNode> = {
   'code-2': <Code2 className="h-4 w-4" />,
@@ -41,7 +44,12 @@ const pathMap: Record<string, string> = {
   'contact': '/contact'
 };
 
-export function Sidebar() {
+interface SidebarProps {
+  collapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
+}
+
+export function Sidebar({ collapsed = false, onCollapsedChange }: SidebarProps) {
   const location = useLocation();
   const [expandedCategories, setExpandedCategories] = useState<string[]>(['databases']);
 
@@ -57,7 +65,24 @@ export function Sidebar() {
   const isParentActive = (categoryId: string) => location.pathname.startsWith(pathMap[categoryId]);
 
   return (
-    <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-64 shrink-0 overflow-y-auto border-r border-border bg-sidebar py-6 lg:block scrollbar-thin">
+    <aside 
+      className={cn(
+        "sticky top-16 hidden h-[calc(100vh-4rem)] shrink-0 overflow-y-auto border-r border-border bg-sidebar py-4 lg:block scrollbar-thin transition-all duration-300",
+        collapsed ? "w-16" : "w-64"
+      )}
+    >
+      {/* Collapse Toggle */}
+      <div className="px-3 mb-4 flex justify-end">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => onCollapsedChange?.(!collapsed)}
+          className="h-8 w-8 rounded-lg"
+        >
+          {collapsed ? <PanelLeft className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+        </Button>
+      </div>
+
       <nav className="space-y-1 px-3">
         {categories.map((category) => (
           <div key={category.id}>
@@ -66,23 +91,27 @@ export function Sidebar() {
                 <button
                   onClick={() => toggleCategory(category.id)}
                   className={cn(
-                    'sidebar-link w-full justify-between',
+                    'sidebar-link w-full',
+                    collapsed ? 'justify-center px-2' : 'justify-between',
                     isParentActive(category.id) && 'active'
                   )}
+                  title={collapsed ? category.name : undefined}
                 >
                   <span className="flex items-center gap-3">
                     {iconMap[category.icon]}
-                    {category.name}
+                    {!collapsed && category.name}
                   </span>
-                  <ChevronDown 
-                    className={cn(
-                      'h-4 w-4 transition-transform',
-                      expandedCategories.includes(category.id) && 'rotate-180'
-                    )} 
-                  />
+                  {!collapsed && (
+                    <ChevronDown 
+                      className={cn(
+                        'h-4 w-4 transition-transform duration-300',
+                        expandedCategories.includes(category.id) && 'rotate-180'
+                      )} 
+                    />
+                  )}
                 </button>
-                {expandedCategories.includes(category.id) && (
-                  <div className="ml-7 mt-1 space-y-1 animate-fade-in">
+                {!collapsed && expandedCategories.includes(category.id) && (
+                  <div className="ml-7 mt-1 space-y-1">
                     {category.subcategories.map((sub) => (
                       <Link
                         key={sub.id}
@@ -103,11 +132,13 @@ export function Sidebar() {
                 to={pathMap[category.id]}
                 className={cn(
                   'sidebar-link',
+                  collapsed ? 'justify-center px-2' : '',
                   isActive(pathMap[category.id]) && 'active'
                 )}
+                title={collapsed ? category.name : undefined}
               >
                 {iconMap[category.icon]}
-                {category.name}
+                {!collapsed && category.name}
               </Link>
             )}
           </div>

@@ -9,16 +9,17 @@ interface TopicChipsProps {
 
 export function TopicChips({ topics, activeTopicId, onTopicClick }: TopicChipsProps) {
   return (
-    <div className="flex flex-wrap gap-2">
-      {topics.map((topic) => (
+    <div className="flex flex-wrap gap-2.5">
+      {topics.map((topic, index) => (
         <button
           key={topic.id}
           onClick={() => onTopicClick(topic.id)}
           className={cn(
-            'topic-chip',
+            'topic-chip opacity-0 animate-in',
             topic.difficulty,
             activeTopicId === topic.id && 'active'
           )}
+          style={{ animationDelay: `${index * 30}ms` }}
         >
           {topic.name}
         </button>
