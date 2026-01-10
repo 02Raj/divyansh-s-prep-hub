@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import TopicPage from "./pages/TopicPage";
 import BlogsPage from "./pages/BlogsPage";
 import InterviewPrepPage from "./pages/InterviewPrepPage";
+import InterviewSetDetailPage from "./pages/InterviewSetDetailPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import ContributePage from "./pages/ContributePage";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/topics/:category/:subcategory" element={<TopicPage />} />
             <Route path="/blogs" element={<BlogsPage />} />
             <Route path="/interview-prep" element={<InterviewPrepPage />} />
+            <Route path="/interview-set/:id" element={<InterviewSetDetailPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/contribute" element={<ContributePage />} />
