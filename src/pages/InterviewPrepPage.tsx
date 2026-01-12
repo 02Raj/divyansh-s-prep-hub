@@ -82,12 +82,12 @@ export default function InterviewPrepPage() {
               >
                 System Design
               </TabsTrigger>
-              <TabsTrigger 
+              {/* <TabsTrigger 
                 value="medium-articles" 
                 className="rounded-none border-b-2 border-transparent px-4 py-3 text-sm font-medium data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-primary"
               >
                 Medium Articles
-              </TabsTrigger>
+              </TabsTrigger> */}
               <TabsTrigger 
                 value="java-spring-sets" 
                 className="rounded-none border-b-2 border-transparent px-4 py-3 text-sm font-medium data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-primary"
