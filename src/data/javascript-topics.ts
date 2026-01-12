@@ -160,5 +160,159 @@ Dog.prototype.bark = function() {
 const dog = new Dog('Rex');
 dog.speak(); // Rex makes a sound
 dog.bark();  // Rex barks!`
-  }
+  },
+  {
+  id: 'js-array-methods',
+  name: 'Array Methods',
+  category: 'JavaScript',
+  difficulty: 'easy',
+  description: 'Array methods are built-in JavaScript functions used to perform operations like iteration, transformation, filtering, and reduction on arrays.',
+  bulletPoints: [
+    'map() is used to transform array elements',
+    'filter() returns elements based on a condition',
+    'reduce() reduces array to a single value',
+    'forEach() iterates without returning a new array'
+  ],
+  codeExample: `const nums = [1, 2, 3];
+const doubled = nums.map(n => n * 2);
+console.log(doubled);`
+},
+
+{
+  id: 'js-callbacks',
+  name: 'Callback in JavaScript',
+  category: 'JavaScript',
+  difficulty: 'easy',
+  description: 'A callback is a function passed as an argument to another function and executed later, usually after an async task completes.',
+  bulletPoints: [
+    'Callbacks enable asynchronous behavior',
+    'They are commonly used in timers and events',
+    'Callback hell occurs with deeply nested callbacks',
+    'Promises help avoid callback hell'
+  ],
+  codeExample: `setTimeout(() => {
+  console.log('Executed later');
+}, 1000);`
+},
+
+{
+  id: 'js-call-apply-bind',
+  name: 'call, apply and bind',
+  category: 'JavaScript',
+  difficulty: 'medium',
+  description: 'call, apply, and bind are used to explicitly set the value of "this" inside a function.',
+  bulletPoints: [
+    'call() accepts arguments individually',
+    'apply() accepts arguments as an array',
+    'bind() returns a new function with fixed this',
+    'Useful for function borrowing'
+  ],
+  codeExample: `function greet(city) {
+  console.log(this.name + ' from ' + city);
+}
+const user = { name: 'Divyansh' };
+greet.call(user, 'Delhi');`
+},
+
+{
+  id: 'js-debounce-throttle',
+  name: 'Debounce and Throttle',
+  category: 'JavaScript',
+  difficulty: 'medium',
+  description: 'Debounce and throttle are performance optimization techniques used to control function execution frequency.',
+  bulletPoints: [
+    'Debounce delays execution until inactivity',
+    'Throttle limits execution to fixed intervals',
+    'Used in scroll and resize events',
+    'Improves performance and UX'
+  ],
+  codeExample: `function debounce(fn, delay) {
+  let timer;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(fn, delay);
+  };
+}`
+},
+
+{
+  id: 'js-deep-shallow-copy',
+  name: 'Deep Copy and Shallow Copy',
+  category: 'JavaScript',
+  difficulty: 'medium',
+  description: 'Shallow copy copies references, while deep copy duplicates all nested objects.',
+  bulletPoints: [
+    'Object.assign creates shallow copy',
+    'Spread operator also creates shallow copy',
+    'JSON.parse/stringify creates deep copy',
+    'StructuredClone is modern deep copy'
+  ],
+  codeExample: `const obj = { a: 1, b: { c: 2 } };
+const deep = JSON.parse(JSON.stringify(obj));`
+},
+
+{
+  id: 'js-dom',
+  name: 'Document Object Model (DOM)',
+  category: 'JavaScript',
+  difficulty: 'easy',
+  description: 'DOM represents HTML as a tree structure that JavaScript can manipulate.',
+  bulletPoints: [
+    'DOM allows dynamic HTML updates',
+    'Elements can be selected using querySelector',
+    'Events are handled via DOM',
+    'DOM manipulation impacts performance'
+  ],
+  codeExample: `document.querySelector('h1').innerText = 'Hello';`
+},
+
+{
+  id: 'js-event-delegation',
+  name: 'Event Delegation and Propagation',
+  category: 'JavaScript',
+  difficulty: 'medium',
+  description: 'Event delegation uses bubbling to handle events efficiently.',
+  bulletPoints: [
+    'Event bubbling moves bottom to top',
+    'Capturing moves top to bottom',
+    'Delegation reduces event listeners',
+    'Uses event.target'
+  ],
+  codeExample: `document.body.addEventListener('click', e => {
+  console.log(e.target);
+});`
+},
+
+{
+  id: 'js-variables',
+  name: 'Variable Declarations',
+  category: 'JavaScript',
+  difficulty: 'easy',
+  description: 'JavaScript provides var, let, and const for variable declaration.',
+  bulletPoints: [
+    'var is function scoped',
+    'let and const are block scoped',
+    'const cannot be reassigned',
+    'let avoids hoisting issues'
+  ],
+  codeExample: `let x = 10;
+const y = 20;`
+},
+
+{
+  id: 'js-es6',
+  name: 'ES6 Features',
+  category: 'JavaScript',
+  difficulty: 'easy',
+  description: 'ES6 introduced modern JavaScript syntax and features.',
+  bulletPoints: [
+    'Arrow functions simplify syntax',
+    'Destructuring extracts values',
+    'Spread operator expands data',
+    'Template literals support interpolation'
+  ],
+  codeExample: `const name = 'JS';
+console.log(\`Hello \${name}\`);`
+}
+
 ];
