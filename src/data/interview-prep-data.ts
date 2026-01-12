@@ -349,6 +349,63 @@ export const javaSpringInterviewSets: InterviewSetDetail[] = [
     "What are Accumulators in Java Stream API?",
     "What does collectors.groupingBy() do?"
   ]
+},
+{
+  id: 'java-set-5',
+  title: 'Java Backend – Real Time Interview Round',
+  company: 'Mphasis',
+  date: '2025-12-22', 
+  questionCount: 37,
+  technology: 'Java Backend / Spring Boot / Microservices',
+  questions: [
+    // Core Java
+    "What are virtual threads in Java 21, and how do they differ from platform threads?",
+    "Difference between record, class, and sealed class.",
+    "How does pattern matching for switch work in Java 17+?",
+    "Internal working of ConcurrentHashMap.",
+    "CompletableFuture.thenApply() vs thenCompose().",
+    "What are text blocks, and where are they useful?",
+    "Java memory management using G1GC / ZGC.",
+    "Difference between equals() and hashCode(), and why it matters.",
+
+    // Spring & Spring Boot
+    "How does Spring Boot auto-configuration work internally?",
+    "Difference between @Component, @Service, and @Repository.",
+    "How do you implement global exception handling?",
+    "How does Spring Boot externalize configuration for environments?",
+    "Securing REST APIs using JWT.",
+    "Role of Spring Boot Actuator in production.",
+    "Transaction propagation in @Transactional.",
+    "Integrating Kafka with Spring Boot.",
+
+    // Microservices
+    "Advantages and challenges of microservices architecture.",
+    "Saga pattern for distributed transactions.",
+    "Secure service-to-service communication.",
+    "Eventual consistency and how to handle it.",
+
+    // Coding
+    "Find the first non-repeating character in a string.",
+    "Reverse a linked list.",
+    "Longest substring without repeating characters.",
+
+    // Databases, DevOps & Cloud
+    "SQL query to fetch the second-highest salary.",
+    "How Kafka partitions enable scalability.",
+    "What is a Kafka consumer group?",
+    "Difference between Docker image vs container.",
+    "Liveness vs readiness probes in Kubernetes.",
+    "Designing idempotent REST APIs.",
+    "API versioning and why it’s required.",
+    "Kubernetes auto-scaling mechanisms.",
+    "Synchronous REST vs asynchronous messaging.",
+    "What is a Dead Letter Queue (DLQ)?",
+    "Securing secrets in cloud applications.",
+    "Blue-green vs canary deployments.",
+    "Monitoring microservices in production.",
+    "Horizontal vs vertical scaling."
+  ]
 }
+
 
 ];
