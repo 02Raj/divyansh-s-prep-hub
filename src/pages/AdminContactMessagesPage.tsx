@@ -31,8 +31,8 @@ export default function AdminContactMessagesPage() {
         throw new Error('Failed to fetch messages');
       }
       
-      const data = await response.json();
-      setMessages(data);
+          const result = await response.json();
+        setMessages(result.data);
     } catch (err) {
       setError('Failed to load contact messages. Make sure the backend is running.');
     } finally {

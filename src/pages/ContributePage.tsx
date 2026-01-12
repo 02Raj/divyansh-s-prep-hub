@@ -96,15 +96,23 @@ export default function ContributePage() {
         </div>
 
         {/* CTA */}
-        <div className="text-center">
-          <Button size="lg" className="gap-2">
-            <Github className="h-5 w-5" />
-            View on GitHub
-          </Button>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Star the repo if you find it helpful! ⭐
-          </p>
-        </div>
+<div className="text-center">
+  <Button size="lg" className="gap-2" asChild>
+    <a
+      href="https://github.com/02Raj/divyansh-s-prep-hub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Github className="h-5 w-5" />
+      View on GitHub
+    </a>
+  </Button>
+
+  <p className="mt-4 text-sm text-muted-foreground">
+    Star the repo if you find it helpful! ⭐
+  </p>
+</div>
+
       </div>
     </Layout>
   );

@@ -322,5 +322,33 @@ export const javaSpringInterviewSets: InterviewSetDetail[] = [
       "What is Hibernate? First-level vs second-level cache.",
       "How to optimize database queries?"
     ]
-  }
+  },
+  {
+  id: 'java-set-4',
+  title: 'Java Backend – Real Time Interview Round',
+  company: 'Zensar Technology',
+  date: '2026-01-09',
+  questionCount: 17,
+  technology: 'Java Backend',
+  questions: [
+    "Given an array {12, 3, 4, 1, 6, 9} and target sum = 24, find triplet (3, 9, 12).",
+    "Find the 3rd largest salary in SQL.",
+    "String str = \"Test Java With Java 8\" – find duplicate words using Stream API.",
+    "What is the use of default and static methods in an interface?",
+    "Record class vs Lombok – which one is preferable and why?",
+    "Is PUT request idempotent or not?",
+    "Comparator vs Comparable – how to implement them?",
+    "What is CQRS design pattern and when is it used?",
+    "What is bean scope in Spring Boot? How many types are there?",
+    "Can we overload or override a final method?",
+    "If your API is failing in production, what steps will you follow to resolve it?",
+    "Difference between HashTable, HashMap, and ConcurrentHashMap. When to use which?",
+    "Set<Employee> with duplicate objects added – what will be the output size and why?",
+    "String s = null; String s1 = \"Java\"; What is the output of System.out.println(s + s1)?",
+    "Map vs flatMap – real-time use cases of flatMap?",
+    "What are Accumulators in Java Stream API?",
+    "What does collectors.groupingBy() do?"
+  ]
+}
+
 ];

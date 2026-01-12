@@ -161,7 +161,7 @@ export default function InterviewPrepPage() {
 
           {/* Tab 3: JavaScript & Coding Prep */}
           <TabsContent value="javascript-prep" className="mt-6">
-            <div className="bg-background border border-border rounded-lg p-6 mb-6">
+            {/* <div className="bg-background border border-border rounded-lg p-6 mb-6">
               <div className="flex items-center gap-6 flex-wrap">
                 <div className="flex items-center gap-2">
                   <Star className="h-5 w-5 text-yellow-500" />
@@ -179,7 +179,7 @@ export default function InterviewPrepPage() {
                   <span className="text-muted-foreground text-sm">watchers</span>
                 </div>
               </div>
-            </div>
+            </div>  */}
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-background border border-border rounded-lg p-6">

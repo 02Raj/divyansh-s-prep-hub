@@ -15,7 +15,7 @@ export const categories: Category[] = [
     ]
   },
   { id: 'react', name: 'React', icon: 'atom' },
-  { id: 'blogs', name: 'Blogs', icon: 'book-open' },
+  // { id: 'blogs', name: 'Blogs', icon: 'book-open' },
   { id: 'interview-prep', name: 'Interview Prep', icon: 'graduation-cap' },
   { id: 'contact', name: 'Contact', icon: 'mail' }
 ];

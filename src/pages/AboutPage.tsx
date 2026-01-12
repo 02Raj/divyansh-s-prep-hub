@@ -13,7 +13,8 @@ import {
   Server,
   GitBranch,
   MapPin,
-  Briefcase
+  Briefcase,
+  Globe
 } from 'lucide-react';
 
 const skills = [
@@ -28,11 +29,32 @@ const skills = [
 ];
 
 const socialLinks = [
-  { name: 'GitHub', icon: Github, url: 'https://github.com/divyanshraj', color: 'hover:bg-foreground hover:text-background' },
-  { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/in/divyanshraj', color: 'hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5]' },
-  { name: 'Twitter/X', icon: Twitter, url: 'https://twitter.com/divyanshraj', color: 'hover:bg-foreground hover:text-background' },
-  { name: 'Email', icon: Mail, url: 'mailto:divyansh@example.com', color: 'hover:bg-primary hover:text-primary-foreground hover:border-primary' }
+  {
+    name: 'GitHub',
+    icon: Github,
+    url: 'https://github.com/02Raj',
+    color: 'hover:bg-foreground hover:text-background'
+  },
+  {
+    name: 'LinkedIn',
+    icon: Linkedin,
+    url: 'https://www.linkedin.com/in/divyansh-raj-049542202',
+    color: 'hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5]'
+  },
+  {
+    name: 'Twitter/X',
+    icon: Twitter,
+    url: 'https://twitter.com/Divyans50724144',
+    color: 'hover:bg-foreground hover:text-background'
+  },
+  // {
+  //   name: 'Portfolio',
+  //   icon: Globe, // make sure Globe icon is imported
+  //   url: 'https://portfolio-divyansh-tech.vercel.app/',
+  //   color: 'hover:bg-primary hover:text-primary-foreground hover:border-primary'
+  // }
 ];
+
 
 export default function AboutPage() {
   return (
@@ -117,7 +139,7 @@ export default function AboutPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        {/* <div className="grid grid-cols-3 gap-4">
           {[
             { value: '200+', label: 'Interview Topics' },
             { value: '8', label: 'Technologies' },
@@ -132,7 +154,7 @@ export default function AboutPage() {
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </Layout>
   );

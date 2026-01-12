@@ -1,73 +1,129 @@
-# Welcome to your Lovable project
+# 🚀 Learn with Divyansh – Interview Preparation Platform
 
-## Project info
+**Learn with Divyansh** is a personal interview preparation and learning platform designed for developers preparing for **frontend, backend, and full-stack interviews**.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+This project focuses on **structured content, real interview questions, and a clean documentation-style UI**, making it ideal for **self-study, revision, and portfolio showcase**.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🎯 Project Purpose
 
-**Use Lovable**
+The main goal of this project is to:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- Organize interview preparation in a **topic-wise and readable format**
+- Document **real interview experiences and question sets**
+- Provide a **distraction-free learning environment**
+- Act as a **personal interview notes + revision hub**
 
-Changes made via Lovable will be committed automatically to this repo.
+This is **not a job portal** or a flashy marketing website.  
+It is a **learning-focused interview preparation platform**.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🧠 What This Platform Offers
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
+### 📚 Interview Preparation Topics
+- JavaScript
+- Angular
+- Java
+- Spring Boot
+- Databases (SQL & MongoDB)
 - React
-- shadcn-ui
-- Tailwind CSS
+- System Design (conceptual)
 
-## How can I deploy this project?
+### 📝 Interview Questions
+- Frequently asked Angular & JavaScript questions
+- Simple explanations
+- Easy-to-revise format
+- Text-focused, documentation-style layout
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+### 🎯 Real Interview Sets
+- Actual interview question sets
+- Company name & interview year included
+- Separate sections for:
+  - **Angular Interview Sets**
+  - **Java / Spring Boot Interview Sets**
+- Clean list-based layout (no card grids)
 
-## Can I connect a custom domain to my Lovable project?
+### 💻 Coding & Interview Prep
+- JavaScript core concepts
+- Coding interview patterns
+- Problem-solving approaches
+- Checklist-style learning
 
-Yes, you can!
+### ✍️ Blogs / Medium Articles
+- Curated technical articles
+- Filter by:
+  - JavaScript
+  - Angular
+  - Java
+  - Spring Boot
+- Medium links are hard-coded and easy to update
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### 📬 Contact & Feedback
+- Visitors can submit queries or feedback
+- Messages are stored securely in the backend
+- **Admin-only page** to view submitted contact messages
+- No authentication required for contact submission
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## 🧩 Design Philosophy
+
+- Clean & minimal UI
+- Content-first approach
+- Documentation / notes-style experience
+- No unnecessary animations or clutter
+- Optimized for **reading and quick revision**
+
+The platform should feel like:
+
+> **“Your personal interview preparation notebook”**
+
+---
+
+## 🏗️ Project Nature
+
+- Frontend-driven application
+- Backend used **only** for Contact feature
+- No external APIs for learning content
+- No authentication for interview content
+- Interview questions & sets are **hard-coded**
+- Backend can be extended later if needed
+
+---
+
+## 📂 Main Sections
+
+- Interview Questions
+- My Angular Interview Sets
+- JavaScript & Coding Prep
+- Java Coding / Interview Prep
+- Medium Articles
+- My Java / Spring Boot Interview Sets
+- Blogs
+- Contact
+- About Me
+
+---
+
+## ▶️ Run Locally
+
+### Prerequisites
+- Node.js
+- npm
+
+### Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/02Raj/divyansh-s-prep-hub.git
+
+# Navigate to project directory
+cd learn-with-divyansh
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev

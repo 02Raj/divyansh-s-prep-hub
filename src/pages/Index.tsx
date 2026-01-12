@@ -73,7 +73,7 @@ export default function Index() {
         </div>
 
         {/* Stats */}
-        <div className="border-y border-border bg-card/50">
+        {/* <div className="border-y border-border bg-card/50">
           <div className="mx-auto max-w-5xl px-4 py-8">
             <div className="grid grid-cols-3 gap-8">
               {stats.map((stat) => (
@@ -87,7 +87,7 @@ export default function Index() {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Categories Grid */}
         <div className="mx-auto max-w-6xl px-4 py-20">
