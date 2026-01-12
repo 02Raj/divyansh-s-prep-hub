@@ -100,7 +100,7 @@ SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
     codeExample: `// Insert document
 db.users.insertOne({
   name: "Divyansh",
-  email: "divyansh@example.com",
+  email: "divyanshraj02@gmail.com",
   skills: ["Java", "Spring Boot", "MongoDB"],
   address: {
     city: "Bangalore",
@@ -113,7 +113,7 @@ db.users.find({ "skills": "Java" });
 
 // Update document
 db.users.updateOne(
-  { email: "divyansh@example.com" },
+  { email: "divyanshraj02@gmail.com" },
   { $push: { skills: "React" } }
 );`
   },

@@ -87,7 +87,7 @@ export default function AboutPage() {
             <span className="h-4 w-px bg-border" />
             <span className="flex items-center gap-1.5">
               <Briefcase className="h-4 w-4" />
-              5+ Years Experience
+              3+ Years Experience
             </span>
           </div>
           
