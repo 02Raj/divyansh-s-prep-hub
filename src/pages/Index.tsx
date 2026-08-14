@@ -19,7 +19,7 @@ const categories = [
   { id: 'angular', name: 'Angular', icon: Component, count: 30, color: 'from-rose-500 to-pink-600' },
   { id: 'java', name: 'Java', icon: Coffee, count: 20, color: 'from-orange-500 to-red-600' },
   { id: 'springboot', name: 'Spring Boot', icon: Leaf, count: 18, color: 'from-emerald-500 to-green-600' },
-  { id: 'databases', name: 'Databases', icon: Database, count: 15, color: 'from-blue-500 to-cyan-600' },
+  { id: 'databases', name: 'Databases', icon: Database, count: 23, color: 'from-blue-500 to-cyan-600' },
   { id: 'react', name: 'React', icon: Atom, count: 22, color: 'from-cyan-500 to-blue-600' },
 ];
 

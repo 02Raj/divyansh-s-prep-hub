@@ -13,7 +13,8 @@ import { javascriptTopics } from '@/data/javascript-topics';
 import { angularTopics } from '@/data/angular-topics';
 import { javaTopics } from '@/data/java-topics';
 import { springBootTopics } from '@/data/springboot-topics';
-import { databaseTopics } from '@/data/database-topics';
+import { sqlTopics } from '@/data/sql-topics';
+import { mongodbTopics } from '@/data/mongodb-topics';
 import { reactTopics } from '@/data/react-topics';
 
 const topicDataMap: Record<string, { topics: InterviewTopic[]; title: string; description: string; parent?: string }> = {
@@ -42,19 +43,15 @@ const topicDataMap: Record<string, { topics: InterviewTopic[]; title: string; de
     title: 'React', 
     description: 'Hooks, state management, performance, and modern patterns'
   },
-  databases: { 
-    topics: databaseTopics, 
-    title: 'Databases', 
-    description: 'SQL, NoSQL, queries, indexing, and optimization techniques'
-  },
+
   sql: { 
-    topics: databaseTopics.filter(t => t.category === 'SQL'), 
-    title: 'SQL', 
-    description: 'Relational databases, queries, joins, and transactions',
+    topics: sqlTopics, 
+    title: 'SQL & PostgreSQL', 
+    description: 'Relational databases, queries, joins, window functions, and Postgres MVCC',
     parent: 'Databases' 
   },
   mongodb: { 
-    topics: databaseTopics.filter(t => t.category === 'MongoDB'), 
+    topics: mongodbTopics, 
     title: 'MongoDB', 
     description: 'Document databases, aggregation, and schema design',
     parent: 'Databases' 
