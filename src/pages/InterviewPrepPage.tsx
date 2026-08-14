@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { 
   AlertCircle, 
   Star, 
@@ -13,11 +14,12 @@ import {
   CheckCircle2, 
   Circle,
   ExternalLink,
-  ArrowRight
+  ArrowRight,
+  BookOpen
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { realInterviewQuestions, QuestionCategory } from '@/data/real-interview-questions';
 import { 
-  interviewQuestions,
   angularInterviewSets,
   javascriptTopicsList,
   codingPatterns,
@@ -31,7 +33,15 @@ import { useNavigate } from 'react-router-dom';
 
 export default function InterviewPrepPage() {
   const [activeTab, setActiveTab] = useState('interview-questions');
+  const [selectedCategory, setSelectedCategory] = useState<QuestionCategory | 'All'>('All');
   const navigate = useNavigate();
+
+  const categories: (QuestionCategory | 'All')[] = ['All', 'Java', 'Spring Boot', 'Microservices', 'Angular', 'JavaScript', 'SQL', 'System Design', 'Java Coding', 'JS Coding', 'Other'];
+
+  const filteredQuestions = selectedCategory === 'All' 
+    ? realInterviewQuestions 
+    : realInterviewQuestions.filter(q => q.category === selectedCategory);
+
 
   const handleViewQuestions = (set: InterviewSetDetail) => {
     navigate(`/interview-set/${set.id}`, { state: { set } });
@@ -100,23 +110,113 @@ export default function InterviewPrepPage() {
 
           {/* Tab 1: Interview Questions */}
           <TabsContent value="interview-questions" className="mt-6">
-            <div className="bg-background border border-border rounded-lg p-6">
-              <h2 className="text-xl font-semibold mb-4 text-foreground">
-                Mixed Interview Questions
-              </h2>
-              <p className="text-muted-foreground mb-6 text-sm">
-                Angular + JavaScript + System Design questions for quick revision
-              </p>
-              <div className="space-y-3">
-                {interviewQuestions.map((question, index) => (
-                  <div 
-                    key={index} 
-                    className="py-2 px-3 bg-muted/30 rounded-md text-foreground text-sm hover:bg-muted/50 transition-colors"
-                  >
-                    {question}
-                  </div>
-                ))}
+            <div className="bg-background border border-border rounded-lg p-6 shadow-sm">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                <div>
+                  <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                    <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                    Real Interview Questions
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    Authentic questions collected from real interviews, organized in S-E-E format.
+                  </p>
+                </div>
               </div>
+
+              {/* Category Filters */}
+              <ScrollArea className="w-full pb-4 mb-2">
+                <div className="flex gap-2">
+                  {categories.map((cat) => (
+                    <Badge 
+                      key={cat} 
+                      variant={selectedCategory === cat ? 'default' : 'outline'}
+                      className="cursor-pointer whitespace-nowrap text-xs py-1 px-3"
+                      onClick={() => setSelectedCategory(cat)}
+                    >
+                      {cat}
+                    </Badge>
+                  ))}
+                </div>
+                <ScrollBar orientation="horizontal" />
+              </ScrollArea>
+
+              <Accordion type="multiple" className="w-full">
+                {filteredQuestions.map((q) => (
+                  <AccordionItem key={q.id} value={q.id} className="border-border">
+                    <AccordionTrigger className="text-left hover:no-underline py-4">
+                      <div className="flex flex-col md:flex-row gap-2 md:gap-4 md:items-center w-full pr-4">
+                        <span className="font-medium text-[15px] flex-1 leading-snug">{q.question}</span>
+                        <div className="flex items-center gap-2 shrink-0 mt-2 md:mt-0">
+                          <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-300 border-none">
+                            🔥 Asked {q.frequency}x
+                          </Badge>
+                          <Badge variant="outline" className="text-muted-foreground whitespace-nowrap">
+                            {q.category}
+                          </Badge>
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-2 pb-6">
+                      <div className="space-y-4 text-sm bg-muted/30 p-5 rounded-lg border border-border">
+                        
+                        {/* Companies & Variations */}
+                        {(q.companies.length > 0 || q.variations.length > 0) && (
+                          <div className="flex flex-col gap-2 mb-4 pb-4 border-b border-border/50">
+                            {q.companies.length > 0 && (
+                              <div className="flex flex-wrap gap-2 items-center">
+                                <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Asked In:</span>
+                                {q.companies.map(c => <Badge key={c} variant="secondary" className="text-[10px] h-5 px-1.5">{c}</Badge>)}
+                              </div>
+                            )}
+                            {q.variations.length > 0 && (
+                              <div className="text-xs text-muted-foreground">
+                                <span className="font-medium">Also asked as: </span>
+                                {q.variations.join(' | ')}
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Simple */}
+                        <div>
+                          <h4 className="font-semibold text-foreground mb-1 text-[13px] uppercase tracking-wider text-primary">Simple Answer</h4>
+                          <p className="text-foreground leading-relaxed">{q.answerSEE.simple}</p>
+                        </div>
+
+                        {/* Explain */}
+                        <div>
+                          <h4 className="font-semibold text-foreground mb-1 text-[13px] uppercase tracking-wider text-primary">Explanation</h4>
+                          <p className="text-muted-foreground leading-relaxed">{q.answerSEE.explain}</p>
+                        </div>
+
+                        {/* Example / Say it in interview */}
+                        <div className="bg-background p-4 rounded-md border-l-4 border-l-primary shadow-sm">
+                          <h4 className="font-semibold text-foreground mb-2 text-[13px] uppercase tracking-wider text-primary">🗣️ Say it in interview</h4>
+                          <p className="text-foreground italic leading-relaxed">
+                            {q.answerSEE.example}
+                          </p>
+                        </div>
+
+                        {/* 10s Summary */}
+                        <div className="flex items-start gap-2 bg-green-50 dark:bg-green-950/20 text-green-800 dark:text-green-300 p-3 rounded-md mt-2">
+                          <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" />
+                          <div>
+                            <span className="font-semibold text-xs uppercase tracking-wider block mb-1">10-Second Summary</span>
+                            <p className="font-medium">{q.answerSEE.summary10s}</p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+                {filteredQuestions.length === 0 && (
+                  <div className="py-12 text-center text-muted-foreground border border-dashed border-border rounded-lg mt-4">
+                    <BookOpen className="h-8 w-8 mx-auto mb-3 opacity-50" />
+                    <p>No questions found for this category yet.</p>
+                  </div>
+                )}
+              </Accordion>
             </div>
           </TabsContent>
 
