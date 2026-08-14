@@ -1457,11 +1457,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-do-microservices-communicate-with-each-other",
     "category": "Microservices",
     "question": "How do microservices communicate with each other?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [
       "Flipkart"
     ],
-    "variations": [],
+    "variations": [
+      "How do microservices communicate?"
+    ],
     "answerSEE": {
       "simple": "Synchronously via REST/gRPC or asynchronously via Message Brokers like Kafka/RabbitMQ.",
       "explain": "Synchronous communication blocks the caller until a response is received, which is good for querying data but creates tight coupling. Asynchronous communication uses events/messages, which is fire-and-forget, leading to loose coupling and better fault tolerance.",
@@ -1553,11 +1555,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-did-you-handle-global-exception-handling",
     "category": "Spring Boot",
     "question": "How did you handle global exception handling?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [
       "Flipkart"
     ],
-    "variations": [],
+    "variations": [
+      "Global Exception Handling"
+    ],
     "answerSEE": {
       "simple": "By using @RestControllerAdvice and @ExceptionHandler annotations in Spring Boot.",
       "explain": "@RestControllerAdvice intercepts exceptions thrown globally across all controllers. Inside it, methods annotated with @ExceptionHandler specify which exception to catch (like CustomNotFoundException). We then return a standardized JSON error response.",
@@ -1633,11 +1637,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-happens-when-a-kafka-broker-goes-down",
     "category": "Microservices",
     "question": "What happens when a Kafka broker goes down?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [
       "Flipkart"
     ],
-    "variations": [],
+    "variations": [
+      "Kafka Broker Goes Down"
+    ],
     "answerSEE": {
       "simple": "Kafka automatically elects a new leader from the in-sync replicas (ISR) for the partitions that were on the down broker.",
       "explain": "Kafka replicates partitions across multiple brokers. One is the Leader, others are Followers. If a broker crashes, the cluster controller detects it and promotes one of the in-sync follower replicas on another broker to be the new leader.",
@@ -1889,7 +1895,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-controlleradvice",
     "category": "Spring Boot",
     "question": "What is @ControllerAdvice?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
     "variations": [],
     "answerSEE": {
@@ -2277,9 +2283,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "lazy-vs-eager-loading",
     "category": "Spring Boot",
     "question": "Lazy vs Eager Loading?",
-    "frequency": 1,
+    "frequency": 3,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Lazy vs Eager Loading",
+      "Lazy vs Eager"
+    ],
     "answerSEE": {
       "simple": "Eager loading fetches related data immediately. Lazy loading waits and fetches related data only when it is accessed.",
       "explain": "In JPA/Hibernate, a `@OneToMany` relationship is Lazy by default (avoids massive queries), while `@ManyToOne` is Eager. Lazy loading improves initial query performance but can cause the N+1 select problem.",
@@ -2615,7 +2624,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "comparable-vs-comparator",
     "category": "Java",
     "question": "Comparable vs Comparator",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
     "variations": [],
     "answerSEE": {
@@ -3240,8 +3249,1603 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"@Repository is a specialization of @Component, so the bean registration part still works even without it — Spring still finds and creates the bean. What you LOSE without @Repository is automatic Persistence Exception Translation. Spring has a post-processor that wraps repository beans annotated with @Repository in a proxy — this proxy catches vendor-specific exceptions like Hibernate's ConstraintViolationException or raw SQLException and translates them into Spring's unified DataAccessException hierarchy. Without @Repository, my catch blocks looking for DataAccessException never trigger — I'd be forced to catch vendor-specific exceptions directly, which tightly couples my business logic to the specific persistence technology I'm using. This matters a lot if I ever want to swap from Hibernate to a different JPA provider — my exception handling code stays unchanged because it's all catching Spring's unified exceptions.\"",
       "summary10s": "@Repository=@Component + automatic Persistence Exception Translation. Without it, vendor-specific exceptions (Hibernate/JDBC) are NOT wrapped into Spring's DataAccessException — your catch blocks for DataAccessException silently never trigger."
     }
+  },
+  {
+    "id": "hashmap-collision-handling",
+    "category": "Java",
+    "question": "HashMap Collision Handling",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Multiple keys with same bucket index stored as LinkedList, becomes Red-Black Tree after 8 entries.",
+      "explain": "hashCode determines bucket index, two different keys can get same index — collision\nJava 7 and below — linked list in bucket, O(n) worst case lookup\nJava 8 plus — list converts to Red-Black Tree when bucket has more than 8 entries, O(log n)\nequals() used to find exact key within bucket\ntreeify threshold is 8, untreeify threshold is 6 — hysteresis prevents thrashing",
+      "example": "\"When two keys hash to the same bucket that is a collision. Java stores them as a linked list in that bucket. Java 8 improved this — when a bucket accumulates more than 8 entries it converts to a Red-Black Tree giving O(log n) lookup instead of O(n). When entries reduce below 6 it converts back to list. equals() is always used to find the exact key within the bucket.\"",
+      "summary10s": "Same bucket=collision, LinkedList for few entries, Red-Black Tree after 8 for O(log n), equals finds exact key."
+    }
+  },
+  {
+    "id": "fail-fast-vs-fail-safe-iterator",
+    "category": "Java",
+    "question": "Fail-Fast vs Fail-Safe Iterator",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Fail-Fast vs Fail-Safe"
+    ],
+    "answerSEE": {
+      "simple": "Fail-fast throws exception on modification during iteration, Fail-safe iterates over a copy — no exception.",
+      "explain": "Fail-fast — ArrayList, HashMap, tracks modCount, throws ConcurrentModificationException immediately on structural change\nFail-safe — CopyOnWriteArrayList, ConcurrentHashMap, iterates over snapshot copy\nFail-safe may see stale data — snapshot not reflect latest additions\nUse fail-safe in multithreaded scenarios",
+      "example": "\"Fail-fast iterators detect structural modification during iteration by tracking modCount. Any add or remove increments modCount. Iterator checks on every next call — mismatch means someone modified the collection and it throws immediately rather than producing wrong results. Fail-safe iterators in concurrent collections work on a snapshot — no exception possible but you might miss recent updates.\"",
+      "summary10s": "Fail-fast=modCount check throws immediately, Fail-safe=snapshot no exception may see stale data."
+    }
+  },
+  {
+    "id": "completablefuture-vs-executorservice",
+    "category": "Java",
+    "question": "CompletableFuture vs ExecutorService",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ExecutorService manages thread pool and task execution, CompletableFuture composes async tasks with callbacks.",
+      "explain": "ExecutorService — submit tasks, get Future back, get() blocks thread until result ready\nCompletableFuture — non-blocking callbacks, chain transformations, combine results, handle errors\nCompletableFuture uses ExecutorService internally — ForkJoinPool by default\nCompletableFuture for complex async pipelines, ExecutorService for simple parallel task submission",
+      "example": "\"ExecutorService is for managing thread pools and submitting tasks. The old Future from submit requires blocking get() call to get result. CompletableFuture is the modern approach — I chain thenApply, thenCompose, handle errors with exceptionally, combine multiple futures with allOf. No blocking needed — callbacks run when result is ready. For parallel API calls CompletableFuture with allOf is much cleaner than managing multiple Futures manually.\"",
+      "summary10s": "ExecutorService=thread pool blocking get(), CompletableFuture=non-blocking callbacks composable pipeline."
+    }
+  },
+  {
+    "id": "synchronization-method-vs-block-level",
+    "category": "Java",
+    "question": "Synchronization Method vs Block Level",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Method-level locks entire method on object, block-level locks only specific code section — better performance.",
+      "explain": "Method level — synchronized on entire method, lock held for full method duration\nBlock level — synchronized on specific object for specific lines only\nSmaller critical section means less contention and better throughput\nCan synchronize on different objects — finer grained locking",
+      "example": "\"Method-level synchronization locks the entire method on the object's monitor — every caller waits even if they only need a small part of the method. Block-level lets me define exactly what needs protection. I identify the shared mutable state and wrap only those lines. This reduces the time lock is held and allows more concurrent execution. Always prefer smallest possible critical section.\"",
+      "summary10s": "Method=entire method locked, Block=only critical lines locked, smaller critical section=better throughput."
+    }
+  },
+  {
+    "id": "memory-leak-in-java",
+    "category": "Java",
+    "question": "Memory Leak in Java",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Objects that are no longer needed but still referenced — GC cannot collect them, heap grows over time.",
+      "explain": "Static collections growing without bound — cache without eviction policy\nThreadLocal not removed in thread pool — previous request's data held indefinitely\nEvent listeners or callbacks not unregistered — listener holds reference to object\nInner class holding implicit reference to outer class — outer class cannot be collected\nUnclosed resources — connections, streams held in open state",
+      "example": "\"Java memory leaks happen when objects are still referenced but no longer needed. Classic example is a static HashMap used as cache — if I keep adding and never remove, it grows until OOM. ThreadLocal in thread pool is dangerous — threads are reused, old ThreadLocal value from previous request accumulates. I detect leaks with heap dump analysis in Eclipse MAT — look for objects with unexpectedly high retention.\"",
+      "summary10s": "Still referenced but not needed — static cache no eviction, ThreadLocal not removed, listeners not unregistered."
+    }
+  },
+  {
+    "id": "volatile-practical-usage",
+    "category": "Java",
+    "question": "volatile Practical Usage",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use volatile for flags read by multiple threads — ensures fresh value from main memory not CPU cache.",
+      "explain": "Without volatile — each CPU core caches the variable, other threads see stale value\nWith volatile — every read goes to main memory, every write goes to main memory\nCommon use — boolean running flag to stop a thread gracefully\nDoes not make compound operations atomic — increment is not atomic with volatile\nUse AtomicBoolean or AtomicInteger for atomic compound operations",
+      "example": "\"Practical use of volatile is a shutdown flag. If main thread sets running equals false to stop a worker thread, without volatile the worker thread reads from its CPU cache and never sees the change — infinite loop. With volatile, worker thread reads from main memory on every iteration and sees the updated value. I never use volatile for counters — increment is read-modify-write, three operations not one.\"",
+      "summary10s": "volatile=visibility from main memory, use for flags not counters, compound operations still not atomic."
+    }
+  },
+  {
+    "id": "thread-pool-sizing-in-production",
+    "category": "System Design",
+    "question": "Thread Pool Sizing in Production",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "CPU-bound tasks — number of cores, IO-bound tasks — higher thread count based on wait time ratio.",
+      "explain": "CPU-bound — threads compete for CPU, optimal is CPU cores or cores plus one\nIO-bound — threads spend time waiting, can have many more threads than cores\nFormula for IO-bound — threads = cores × (1 + wait time / CPU time)\nToo few threads — CPU idle while threads wait. Too many — context switching overhead\nMonitor thread dump and CPU utilization to tune",
+      "example": "\"Thread pool sizing depends on task type. For CPU-intensive like cryptography or complex computation — thread count equals number of CPU cores. Adding more just causes context switching. For IO-bound like DB queries or HTTP calls — threads spend most time waiting, so more threads can run. Rule of thumb for IO-bound — cores multiplied by 1 plus wait-to-CPU ratio. I also monitor with thread dumps and adjust based on actual CPU utilization and response times.\"",
+      "summary10s": "CPU-bound=core count, IO-bound=cores×(1+wait/CPU ratio), monitor and tune based on actual metrics."
+    }
+  },
+  {
+    "id": "api-versioning-strategies",
+    "category": "Microservices",
+    "question": "API Versioning Strategies",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "URI versioning is most common, header versioning is cleaner but less visible.",
+      "explain": "URI versioning — /api/v1/users, /api/v2/users — visible, cacheable, simple\nHeader versioning — Accept: application/vnd.api.v2+json — clean URLs but harder to test in browser\nRequest param — /api/users?version=2 — easy but messy\nNever delete old version immediately — deprecate first, give consumers migration time",
+      "example": "\"I use URI versioning — /api/v1 and /api/v2 prefixes. It is visible in URLs, easy to test in browser and Postman, cacheable by proxies. When I release v2 I keep v1 running with a deprecation notice in response headers. I give consumers a migration window — usually 3 to 6 months — then retire v1. Breaking changes always get a new version, non-breaking changes go in same version.\"",
+      "summary10s": "URI versioning most common, keep old version during migration window, deprecate before removing."
+    }
+  },
+  {
+    "id": "securing-microservices-internally",
+    "category": "Microservices",
+    "question": "Securing Microservices Internally",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JWT at API Gateway for external, service-to-service uses mutual TLS or internal service tokens.",
+      "explain": "External requests — API Gateway validates JWT before forwarding\nService-to-service — internal JWT tokens with short expiry or mutual TLS\nNo service exposed directly to outside — only Gateway port is public\nNetwork policies in Kubernetes — restrict which services can talk to which\nSecrets management — Vault or Kubernetes secrets for credentials",
+      "example": "\"For external security JWT validation at API Gateway handles authentication — no individual service needs to repeat it. For service-to-service calls I use short-lived internal tokens — each service has a service account token it includes in headers. Kubernetes network policies restrict communication — payment service can only be called by order service, not by any service. No microservice port is exposed outside the cluster.\"",
+      "summary10s": "Gateway validates external JWT, internal service tokens or mTLS, network policies restrict service communication."
+    }
+  },
+  {
+    "id": "handling-timeout-between-microservices",
+    "category": "Microservices",
+    "question": "Handling Timeout Between Microservices",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Set explicit connect and read timeouts on all outgoing calls, add circuit breaker to stop waiting on failures.",
+      "explain": "Never use default infinite timeout — one slow service blocks all threads\nConfigure connection timeout and read timeout on RestTemplate or WebClient\nCircuit Breaker opens when failures cross threshold — stops waiting, returns fallback\nResilience4j @TimeLimiter annotation enforces timeout at method level\nCombine timeout with retry and circuit breaker for complete resilience",
+      "example": "\"I configure explicit timeouts on every outgoing call — typically 2 seconds connect timeout and 5 seconds read timeout. Without this one slow downstream service blocks Tomcat threads until they exhaust. I add Resilience4j circuit breaker — after 5 failures in 10 seconds circuit opens and returns fallback immediately without waiting. This is the combination — timeout stops waiting, circuit breaker stops repeated waiting.\"",
+      "summary10s": "Set connect and read timeout on all calls, circuit breaker stops repeated timeouts, Resilience4j @TimeLimiter."
+    }
+  },
+  {
+    "id": "handling-1-lakh-records-without-performance-impact",
+    "category": "System Design",
+    "question": "Handling 1 Lakh Records Without Performance Impact",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Never fetch all at once — paginate, stream, or process asynchronously in batches.",
+      "explain": "Pagination — return 20-50 records per page, client requests next page\nDatabase streaming — JPA scroll or JDBC ResultSet streaming, process row by row\nAsync export — generate file in background, notify when ready, return download link\nSpring Batch — process large datasets in configurable chunks with fault tolerance\nDatabase level — LIMIT OFFSET or keyset pagination for better performance at high offsets",
+      "example": "\"For APIs browsing data I use pagination — 50 records per page, client gets total count to show page navigation. For bulk exports like downloading all transactions to Excel I use async processing — return 202 Accepted with a job ID, process with Spring Batch in background, store result in S3, notify via email or webhook when ready. Streaming is for when I need to process each record without loading all into memory.\"",
+      "summary10s": "Pagination for browsing, async+Spring Batch for export, streaming for record-by-record processing."
+    }
+  },
+  {
+    "id": "kafka-vs-rabbitmq",
+    "category": "System Design",
+    "question": "Kafka vs RabbitMQ",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Kafka is for high-throughput event streaming with replay, RabbitMQ is for traditional message queuing with routing.",
+      "explain": "Kafka — log-based, messages persisted by time not consumption, replay possible, high throughput\nRabbitMQ — traditional broker, message deleted after consumption, complex routing with exchanges\nKafka for event sourcing, audit logs, stream processing, high volume\nRabbitMQ for task queues, RPC patterns, complex routing logic\nKafka consumers control their own offset — can reprocess old messages anytime",
+      "example": "\"Kafka shines when I need replay capability — new service can read all historical events from beginning. RabbitMQ deletes messages after consumption — no replay. Kafka handles millions of messages per second with horizontal scaling. RabbitMQ has better support for complex routing patterns with exchanges and binding keys. For event-driven microservices and audit trails I choose Kafka. For job queues or RPC patterns RabbitMQ is simpler.\"",
+      "summary10s": "Kafka=log-based replay high throughput, RabbitMQ=traditional broker complex routing message deleted after consume."
+    }
+  },
+  {
+    "id": "consumer-lag-and-monitoring",
+    "category": "System Design",
+    "question": "Consumer Lag and Monitoring",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Consumer lag is how far behind consumers are from latest messages — monitor to detect slow processing.",
+      "explain": "Lag = latest offset in partition minus consumer's current offset\nHigh lag means consumers are not keeping up with producer rate\nMonitor with kafka-consumer-groups script or tools like Kafka UI, Confluent Control Center\nPrometheus with JMX exporter exposes lag metrics to Grafana\nFix — increase consumer instances, optimize processing, increase partition count",
+      "example": "\"Consumer lag tells me if consumers are keeping up with producers. If producer writes 1000 messages per second and consumer processes 800, lag grows by 200 per second. I monitor lag with Kafka consumer groups command or through our Grafana dashboard fed by Prometheus JMX metrics. When lag crosses a threshold I alert and investigate — is processing slow, is consumer crashing, do we need more partitions and consumers.\"",
+      "summary10s": "Lag=latest offset minus consumer offset, monitor via Prometheus Grafana, fix with more consumers or optimize processing."
+    }
+  },
+  {
+    "id": "dead-letter-queue-usage",
+    "category": "System Design",
+    "question": "Dead Letter Queue Usage",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "DLQ receives messages that failed processing after all retries — prevents losing data and blocking the queue.",
+      "explain": "Consumer fails to process a message — retries configured number of times\nAfter max retries exhausted — message sent to DLQ topic\nMain consumer continues processing other messages — not blocked by poison pill\nDLQ messages investigated, fixed, and replayed manually or by a DLQ consumer\nAlert on DLQ messages — each one means a processing failure",
+      "example": "\"DLQ prevents one bad message from blocking all processing. If a message causes exception repeatedly, after 3 retries it gets routed to the dead letter topic. Our main consumer continues with the next message. We have a DLQ consumer that logs and alerts on these messages — operations team investigates the root cause. Once fixed we can replay the DLQ messages. Common causes — malformed payload, downstream service down during processing.\"",
+      "summary10s": "DLQ=failed messages after max retries, prevents blocking, investigate and replay after fix."
+    }
+  },
+  {
+    "id": "idempotency-in-event-driven-systems",
+    "category": "System Design",
+    "question": "Idempotency in Event-Driven Systems",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Processing same message multiple times produces same result — needed because Kafka guarantees at-least-once delivery.",
+      "explain": "Kafka at-least-once — message may be delivered more than once in failure scenarios\nConsumer must be idempotent — duplicate processing must not cause duplicate side effects\nTrack processed message IDs in Redis or DB — check before processing\nUse upsert instead of insert — duplicate DB write has no effect\nExactly-once in Kafka — requires transactional producers and consumer, complex setup",
+      "example": "\"Kafka delivers at-least-once by default — after a consumer crash it may reprocess messages. I make consumers idempotent. Each message has a unique ID. Before processing I check Redis if that ID was already processed. If yes, I skip and acknowledge. If no, I process, mark ID as processed in Redis with TTL, commit offset. Upsert at database level provides second layer — duplicate processing just updates to same values.\"",
+      "summary10s": "At-least-once means duplicates possible, track message ID in Redis, skip if already processed, upsert at DB level."
+    }
+  },
+  {
+    "id": "composite-index-vs-single-index",
+    "category": "SQL",
+    "question": "Composite Index vs Single Index",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Single index on one column, composite index on multiple columns — useful when queries filter multiple columns together.",
+      "explain": "Single index — speeds up WHERE on that one column\nComposite index — speeds up WHERE using all or leftmost prefix of indexed columns\nLeft-most prefix rule — composite index on A,B,C helps WHERE A, WHERE A and B, WHERE A B C\nDoes not help WHERE B alone or WHERE C alone without A\nColumn order in composite index matters — put highest cardinality and most filtered first",
+      "example": "\"Composite index is powerful when queries always filter on multiple columns together. If 90 percent of queries have WHERE department equals something AND status equals something, a composite index on department and status is much better than two separate indexes. The leftmost prefix rule matters — composite index on department,status,date also helps queries filtering just department. Column order is critical — most selective column first.\"",
+      "summary10s": "Composite=multiple columns, leftmost prefix rule, order matters put most selective first, helps WHERE on prefix columns."
+    }
+  },
+  {
+    "id": "optimizing-slow-sql-query",
+    "category": "SQL",
+    "question": "Optimizing Slow SQL Query",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "EXPLAIN plan first, add missing indexes, rewrite query, reduce data fetched.",
+      "explain": "plan first, add missing indexes, rewrite query, reduce data fetched.\nExplain:\nEXPLAIN ANALYZE — shows actual execution plan, identifies full table scans and cost\nAdd index on WHERE, JOIN, ORDER BY columns\nAvoid SELECT star — fetch only needed columns\nFix N plus 1 with JOIN instead of multiple queries\nCheck for functions on indexed columns in WHERE — defeats index use",
+      "example": "\"I start with EXPLAIN ANALYZE to see exactly what the database is doing. Full table scan on a large table is the main warning sign. I add missing indexes on WHERE and JOIN columns. Common mistake I fix is function on indexed column in WHERE clause — WHERE YEAR(created_at) equals 2024 cannot use index on created_at. Rewrite as WHERE created_at between range. I also check for implicit type conversions that prevent index use.\"",
+      "summary10s": "EXPLAIN ANALYZE first, add index on WHERE/JOIN, avoid functions on indexed columns, no SELECT star."
+    }
+  },
+  {
+    "id": "transaction-propagation-levels",
+    "category": "Spring Boot",
+    "question": "Transaction Propagation Levels",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Propagation controls how a transaction behaves when called from within another transaction.",
+      "explain": "REQUIRED — default, use existing transaction or create new one\nREQUIRES_NEW — always create new independent transaction, suspend existing\nNESTED — create savepoint within existing transaction, can rollback to savepoint\nSUPPORTS — use existing if available, run without if not\nMANDATORY — must have existing transaction, throws if none\nNEVER — must not run in transaction, throws if one exists",
+      "example": "\"REQUIRED is my default — if caller has transaction use it, otherwise create one. I use REQUIRES_NEW when I need independent transaction — audit logging that must commit even if main transaction rolls back. NESTED is for sub-operations that can fail independently without rolling back the whole transaction — like processing optional enrichment data where failure is acceptable. MANDATORY is for methods that absolutely require a transaction context.\"",
+      "summary10s": "REQUIRED=use or create, REQUIRES_NEW=always new independent, NESTED=savepoint within existing, MANDATORY=must have one."
+    }
+  },
+  {
+    "id": "first-non-repeated-character",
+    "category": "Java Coding",
+    "question": "First Non-Repeated Character",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Build frequency map, then iterate original string to find first character with count 1.",
+      "explain": "Map freq = build frequency from string. For each char in original string order — if freq.get(ch) equals 1 return ch.\nStream approach: str.chars().mapToObj(c -> (char)c).filter(c -> Collections.frequency(str.chars().mapToObj(x -> (char)x).collect(toList()), c) == 1).findFirst()\nEfficient approach: Map freq = new LinkedHashMap. For each char — freq.merge(ch, 1, Integer::sum). freq.entrySet().stream().filter(e -> e.getValue() == 1).map(Map.Entry::getKey).findFirst()",
+      "example": "\"Two-pass solution is most readable and efficient. First pass builds frequency map. Second pass iterates original string — not the map which has no guaranteed order — and returns first character with count 1. LinkedHashMap preserves insertion order so I can also filter entrySet directly. O(n) time, O(k) space where k is character set size.\"",
+      "summary10s": "Build frequency map, iterate original string order, return first with count=1, O(n) time."
+    }
+  },
+  {
+    "id": "group-employees-by-department",
+    "category": "Java Coding",
+    "question": "Group Employees by Department",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Collectors.groupingBy with department getter — returns Map of department to list of employees.",
+      "explain": "Map result = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment))\nCount per department: Map countByDept = employees.stream().collect(groupingBy(Employee::getDepartment, counting()))\nAverage salary per department: Map avgSalary = employees.stream().collect(groupingBy(Employee::getDepartment, averagingDouble(Employee::getSalary)))",
+      "example": "\"groupingBy is the key operator here. It groups stream elements by the classifier function and puts them in a Map. Value is a List by default. I can change the downstream collector — counting() for count per group, averagingDouble for average salary, mapping to extract just names. Very flexible. This single operator replaces what would be a complex loop with a Map and multiple list operations.\"",
+      "summary10s": "collect(groupingBy(Employee::getDepartment)) returns Map<String,List<Employee>>, downstream collectors for aggregation."
+    }
+  },
+  {
+    "id": "custom-lru-cache",
+    "category": "Java Coding",
+    "question": "Custom LRU Cache",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Extend LinkedHashMap with accessOrder true, override removeEldestEntry for eviction.",
+      "explain": "class LRUCache extends LinkedHashMap: private int capacity\nconstructor(capacity): super(capacity, 0.75f, true) // accessOrder=true this.capacity = capacity\noverride removeEldestEntry(eldest): return size() > capacity\nget(key) — returns value, updates access order automatically put(key, value) — adds or updates, evicts eldest if over capacity\nFor thread-safe version wrap with Collections.synchronizedMap or use ReentrantReadWriteLock.",
+      "example": "\"LinkedHashMap with accessOrder true is perfect for LRU. Every get or put moves the accessed entry to the end of the internal linked list. The front always has the least recently used entry. I extend it and override removeEldestEntry to return true when size exceeds capacity — LinkedHashMap automatically removes the eldest front entry. O(1) get and put. For thread safety I use ReentrantReadWriteLock — multiple concurrent reads allowed, exclusive write lock.\"",
+      "summary10s": "LinkedHashMap accessOrder=true, removeEldestEntry evicts oldest, O(1) operations, add lock for thread safety."
+    }
+  },
+  {
+    "id": "sql-duplicate-records-in-employee-table",
+    "category": "SQL",
+    "question": "SQL Duplicate Records in Employee Table",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Find duplicate rows by name and department: SELECT name, department, COUNT() as count FROM employees GROUP BY name, department HAVING COUNT() greater than 1",
+      "explain": "Find duplicate rows by name and department: SELECT name, department, COUNT() as count FROM employees GROUP BY name, department HAVING COUNT() greater than 1\nSee full duplicate rows: SELECT * FROM employees WHERE (name, department) IN (SELECT name, department FROM employees GROUP BY name, department HAVING COUNT(*) greater than 1)\nKeep one record delete rest: DELETE FROM employees WHERE id NOT IN (SELECT MIN(id) FROM employees GROUP BY name, email)",
+      "example": "\"To find duplicates I GROUP BY the columns that define uniqueness and use HAVING COUNT greater than 1. This shows what is duplicated. To see the full rows I use that as a subquery with IN clause. To delete duplicates while keeping one record per group I delete rows whose ID is not the minimum ID in each group — keeps the first occurrence of each duplicate group.\"",
+      "summary10s": "GROUP BY unique columns HAVING COUNT>1, delete WHERE id NOT IN SELECT MIN(id) GROUP BY to remove duplicates."
+    }
+  },
+  {
+    "id": "find-missing-number-in-array",
+    "category": "Java Coding",
+    "question": "Find Missing Number in Array",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use sum formula — expected sum minus actual sum gives the missing number.",
+      "explain": "Array contains n numbers from 1 to n+1 with one missing\nExpected sum of 1 to n+1 = (n+1)(n+2)/2\nActual sum = sum all elements in array\nMissing number = expected sum minus actual sum\nO(n) time, O(1) space — no sorting needed\nLogic: int n = arr.length. int expected = (n + 1) * (n + 2) / 2. int actual = IntStream.of(arr).sum() or loop sum. Missing = expected minus actual.\nXOR approach for large numbers avoiding overflow: XOR all indices 1 to n+1, XOR all array elements, result is missing number.",
+      "example": "\"Math approach is most elegant — expected sum of 1 to n plus 1 using Gauss formula minus actual sum of array elements gives the missing number. O(n) single pass, O(1) space. No sorting needed. If overflow is a concern for very large arrays I use XOR approach — XOR all expected numbers with all actual numbers, duplicate XORs cancel out leaving the missing number.\"",
+      "summary10s": "Expected sum formula (n+1)(n+2)/2 minus actual sum = missing number, O(n) time O(1) space."
+    }
+  },
+  {
+    "id": "what-is-global-exception-handling",
+    "category": "Spring Boot",
+    "question": "What is Global Exception Handling?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "One centralized class handles all exceptions from all controllers — consistent error responses, clean controller code.",
+      "explain": "@RestControllerAdvice class with @ExceptionHandler per exception type\nEach handler maps exception to appropriate HTTP status and structured error body\nAlways include a catch-all Exception handler as final fallback\nStructured error response — timestamp, status code, error message, request path\n\nCode:\n@RestControllerAdvice\npublic class GlobalExceptionHandler {\n    \n    @ExceptionHandler(ResourceNotFoundException.class)\n    public ResponseEntity<ErrorResponse> handleNotFound(\n            ResourceNotFoundException ex, HttpServletRequest request) {\n        ErrorResponse error = new ErrorResponse(\n            HttpStatus.NOT_FOUND.value(),\n            ex.getMessage(),\n            request.getRequestURI(),\n            LocalDateTime.now()\n        );\n        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);\n    }\n    \n    @ExceptionHandler(MethodArgumentNotValidException.class)\n    public ResponseEntity<ErrorResponse> handleValidation(\n            MethodArgumentNotValidException ex) {\n        Map<String, String> errors = ex.getBindingResult()\n            .getFieldErrors().stream()\n            .collect(Collectors.toMap(\n                FieldError::getField,\n                FieldError::getDefaultMessage));\n        return ResponseEntity.badRequest().body(new ValidationErrorResponse(errors));\n    }\n    \n    @ExceptionHandler(Exception.class) // catch-all fallback\n    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {\n        return ResponseEntity.internalServerError()\n            .body(new ErrorResponse(500, \"Internal server error\", null, LocalDateTime.now()));\n    }\n}",
+      "example": "\"Global exception handling means one place handles all exceptions. I create a @RestControllerAdvice class with specific @ExceptionHandler methods — ResourceNotFoundException returns 404 with error details, validation exceptions return 400 with field-level errors, and a catch-all Exception handler returns 500. Controllers stay completely clean with no try-catch. All API errors return the same structured JSON format which makes it predictable for API consumers.\"",
+      "summary10s": "@RestControllerAdvice with @ExceptionHandler per type, specific handlers plus catch-all Exception fallback, consistent structured JSON error response."
+    }
+  },
+  {
+    "id": "what-is-responseentity",
+    "category": "Spring Boot",
+    "question": "What is ResponseEntity?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ResponseEntity gives full control over the HTTP response — status code, headers, and body all in one object.",
+      "explain": "Wrapper for HTTP response, generic type for the body\nResponseEntity.ok(body) — 200 with body\nResponseEntity.status(HttpStatus.CREATED).body(body) — 201 with body\nResponseEntity.noContent().build() — 204 with no body\nCan add custom headers — Location header after creating resource\n\nCode:\n@GetMapping(\"/{id}\")\npublic ResponseEntity<UserDTO> getUser(@PathVariable Long id) {\n    UserDTO user = userService.findById(id);\n    return ResponseEntity.ok(user); // 200 OK with body\n}\n\n@PostMapping\npublic ResponseEntity<UserDTO> createUser(@RequestBody @Valid CreateUserRequest req) {\n    UserDTO created = userService.create(req);\n    URI location = URI.create(\"/api/users/\" + created.getId());\n    return ResponseEntity.created(location).body(created); // 201 with Location header\n}\n\n@DeleteMapping(\"/{id}\")\npublic ResponseEntity<Void> deleteUser(@PathVariable Long id) {\n    userService.delete(id);\n    return ResponseEntity.noContent().build(); // 204 No Content\n}",
+      "example": "\"ResponseEntity wraps the entire HTTP response — I control the status code, response headers, and body. Without it, Spring assumes 200 for every successful response. With ResponseEntity I return 201 Created with a Location header after creating a resource, 204 No Content after deletion, and 404 with an error body when resource is not found. It is the clean way to express proper REST semantics.\"",
+      "summary10s": "ResponseEntity = full HTTP response control (status + headers + body). ok()=200, created()=201, noContent()=204, status(code).body(obj) for custom."
+    }
+  },
+  {
+    "id": "how-to-return-proper-http-status-codes",
+    "category": "Spring Boot",
+    "question": "How to Return Proper HTTP Status Codes",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use ResponseEntity with explicit status, or @ResponseStatus on exception classes for automatic mapping.",
+      "explain": "200 OK — successful GET, PUT, PATCH with body\n201 Created — successful POST that creates a resource, include Location header\n204 No Content — successful DELETE, no body\n400 Bad Request — validation failure, malformed request\n401 Unauthorized — not authenticated\n403 Forbidden — authenticated but not authorized\n404 Not Found — resource does not exist\n500 Internal Server Error — unexpected server failure",
+      "example": "\"I map HTTP status codes to business outcomes carefully. GET that finds something returns 200. POST that creates returns 201 with Location header pointing to the new resource. DELETE returns 204 with no body. Resource not found throws a custom ResourceNotFoundException annotated with @ResponseStatus NOT_FOUND which the global exception handler catches and returns 404. Validation failures return 400 with field-level error details. This makes the API self-documenting through standard HTTP semantics.\"",
+      "summary10s": "200=found, 201=created+Location, 204=deleted, 400=validation, 401=not authenticated, 403=no permission, 404=not found, 500=server error."
+    }
+  },
+  {
+    "id": "how-file-upload-works-in-spring-boot",
+    "category": "Spring Boot",
+    "question": "How File Upload Works in Spring Boot",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Client sends multipart/form-data request, Spring binds it to @RequestParam MultipartFile, service processes and stores.",
+      "explain": "Client sends file as multipart/form-data content type\n@RequestParam MultipartFile file in controller captures the uploaded file\nMultipartFile provides — getOriginalFilename, getBytes, getInputStream, getSize, getContentType\nStore to filesystem, cloud storage like S3, or database as bytes\nConfigure max file size in application.properties\n\nCode:\n// Controller\n@PostMapping(\"/upload\")\npublic ResponseEntity<String> uploadFile(\n        @RequestParam(\"file\") MultipartFile file,\n        @RequestParam(\"description\") String description) {\n    \n    if (file.isEmpty()) {\n        return ResponseEntity.badRequest().body(\"File is empty\");\n    }\n    \n    // Validate file type\n    String contentType = file.getContentType();\n    if (!\"application/pdf\".equals(contentType) && \n        !contentType.startsWith(\"image/\")) {\n        return ResponseEntity.badRequest().body(\"Invalid file type\");\n    }\n    \n    String filename = fileService.store(file);\n    return ResponseEntity.ok(\"File uploaded: \" + filename);\n}\n\n// Service\n@Service\npublic class FileService {\n    private final Path uploadDir = Paths.get(\"uploads\");\n    \n    public String store(MultipartFile file) {\n        String filename = UUID.randomUUID() + \"_\" + file.getOriginalFilename();\n        try {\n            Files.copy(file.getInputStream(), uploadDir.resolve(filename));\n        } catch (IOException e) {\n            throw new FileStorageException(\"Could not store file\", e);\n        }\n        return filename;\n    }\n}\n\n// application.properties\nspring.servlet.multipart.max-file-size=10MB\nspring.servlet.multipart.max-request-size=10MB",
+      "example": "\"File upload uses multipart/form-data encoding. The controller method receives a MultipartFile parameter — Spring automatically binds the uploaded file to it. I validate the file before processing — check it is not empty, verify content type matches allowed types, check file size. For storage I write to the filesystem with a UUID prefix to avoid naming conflicts, or in production I stream directly to S3 using AWS SDK to avoid storing on server disk.\"",
+      "summary10s": "@RequestParam MultipartFile file, validate size and content type, UUID-prefix filename, store to disk or stream to S3, configure max sizes in properties."
+    }
+  },
+  {
+    "id": "how-multipart-request-handling-works",
+    "category": "Spring Boot",
+    "question": "How Multipart Request Handling Works",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring's MultipartResolver parses multipart/form-data boundary-separated parts into individual MultipartFile objects.",
+      "explain": "HTTP multipart separates parts using boundary string in Content-Type header\nStandardServletMultipartResolver — built into Spring Boot, no extra config needed\nEach part has its own Content-Disposition header with field name and filename\nSpring maps each part to method parameters by name\nMultiple files — use @RequestParam List of MultipartFile or MultipartFile array\n\nCode:\n// Multiple files + metadata in one request\n@PostMapping(\"/upload-batch\")\npublic ResponseEntity<List<String>> uploadMultiple(\n        @RequestParam(\"files\") List<MultipartFile> files,\n        @RequestParam(\"category\") String category) {\n    \n    List<String> uploadedNames = files.stream()\n        .filter(f -> !f.isEmpty())\n        .map(fileService::store)\n        .collect(Collectors.toList());\n    \n    return ResponseEntity.ok(uploadedNames);\n}\n\n// Mixed - file + JSON in one request using @RequestPart\n@PostMapping(\"/upload-with-metadata\")\npublic ResponseEntity<String> uploadWithMetadata(\n        @RequestPart(\"file\") MultipartFile file,\n        @RequestPart(\"metadata\") @Valid FileMetadata metadata) {\n    // metadata is deserialized from JSON part\n    fileService.storeWithMetadata(file, metadata);\n    return ResponseEntity.ok(\"Success\");\n}",
+      "example": "\"Multipart requests split the body into parts separated by a boundary string. Spring Boot has multipart resolver enabled by default — it parses the boundary, reads each part, and maps them to method parameters by name. For mixed requests with a file and JSON metadata, I use @RequestPart — the JSON part gets deserialized automatically by Jackson while the file part becomes a MultipartFile. This avoids the awkward pattern of sending metadata as separate form fields.\"",
+      "summary10s": "Spring's MultipartResolver parses boundary-separated parts, @RequestParam for simple files, @RequestPart for mixed file+JSON in one request."
+    }
+  },
+  {
+    "id": "how-pagination-works-in-spring-boot",
+    "category": "Spring Boot",
+    "question": "How Pagination Works in Spring Boot",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pass Pageable as parameter to repository, return Page — Spring generates LIMIT/OFFSET SQL and COUNT query automatically.",
+      "explain": "Pageable — interface carrying page number, page size, and sort\nPageRequest.of(page, size, sort) — creates concrete Pageable instance\nPage<T> response — contains content list plus totalElements, totalPages, hasNext\nSpring Data runs two queries — one with LIMIT/OFFSET for data, one COUNT for totals\nController accepts page, size, sort as query parameters from client\n\nCode:\n// Repository\npublic interface EmployeeRepository extends JpaRepository<Employee, Long> {\n    Page<Employee> findByDepartment(String department, Pageable pageable);\n}\n\n// Service\npublic Page<EmployeeDTO> getEmployees(String dept, int page, int size, String sortBy) {\n    Pageable pageable = PageRequest.of(\n        page, size, Sort.by(Sort.Direction.ASC, sortBy));\n    return employeeRepository.findByDepartment(dept, pageable)\n        .map(employeeMapper::toDTO);\n}\n\n// Controller\n@GetMapping\npublic ResponseEntity<Page<EmployeeDTO>> getEmployees(\n        @RequestParam String department,\n        @RequestParam(defaultValue = \"0\") int page,\n        @RequestParam(defaultValue = \"10\") int size,\n        @RequestParam(defaultValue = \"name\") String sortBy) {\n    return ResponseEntity.ok(\n        employeeService.getEmployees(department, page, size, sortBy));\n}\n// GET /employees?department=Finance&page=0&size=10&sortBy=name",
+      "example": "\"Pagination in Spring Data JPA uses three components. Pageable carries the request — page number zero-indexed, size, and optional sort. PageRequest.of builds the Pageable. The repository method accepts Pageable and returns Page<T> which contains the data subset plus metadata like total count and total pages. Spring generates two SQL queries automatically — one with LIMIT and OFFSET for the actual data, one COUNT for pagination metadata. The frontend uses totalPages to build page navigation.\"",
+      "summary10s": "PageRequest.of(page, size, sort) creates Pageable, pass to repo, get Page<T> back with content+totalElements+totalPages. Spring runs LIMIT/OFFSET + COUNT automatically."
+    }
+  },
+  {
+    "id": "how-sorting-works-in-spring-boot",
+    "category": "Spring Boot",
+    "question": "How Sorting Works in Spring Boot",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Three approaches — OrderBy in method name (fixed), Sort parameter (dynamic), Pageable with embedded sort (combined with pagination).",
+      "explain": "Method name derivation — findAllByOrderByNameAsc, fixed at compile time\nSort parameter — findByDepartment(String dept, Sort sort), runtime decided\nSort.by(Direction, field) for single field, Sort.Order.asc/desc for multi-field\nCombined with Pageable — PageRequest.of(page, size, Sort.by(field)) for pagination+sorting together\n\nCode:\npublic interface EmployeeRepository extends JpaRepository<Employee, Long> {\n    // Fixed sort via method name\n    List<Employee> findAllByOrderBySalaryDesc();\n    \n    // Dynamic sort via Sort parameter\n    List<Employee> findByDepartment(String department, Sort sort);\n}\n\n// Single field dynamic sort\nSort sort = Sort.by(Sort.Direction.valueOf(direction.toUpperCase()), sortField);\nemployeeRepository.findByDepartment(\"Finance\", sort);\n\n// Multi-field sort\nSort multiSort = Sort.by(Sort.Order.asc(\"name\"), Sort.Order.desc(\"salary\"));\nemployeeRepository.findByDepartment(\"Finance\", multiSort);\n\n// Combined with pagination\nPageable pageable = PageRequest.of(0, 10, Sort.by(\"name\").ascending());\nemployeeRepository.findAll(pageable);",
+      "example": "\"Spring Data JPA provides three sorting options. OrderBy in the method name is hardcoded — findAllByOrderBySalaryDesc always sorts by salary descending. When sort field or direction must be decided at runtime — like from a request parameter — I add Sort as a method parameter and build it dynamically with Sort.by. For APIs that need both pagination and sorting, I embed the Sort directly inside PageRequest.of so one Pageable object carries everything.\"",
+      "summary10s": "OrderBy in method name = fixed compile-time, Sort parameter = dynamic runtime, embed Sort in PageRequest for pagination+sorting combined."
+    }
+  },
+  {
+    "id": "how-to-handle-cors-in-spring-boot",
+    "category": "Spring Boot",
+    "question": "How to Handle CORS in Spring Boot",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "CORS allows browsers to make requests to a different origin — configure allowed origins, methods, and headers.",
+      "explain": "Browser blocks cross-origin requests by default — CORS headers tell browser to allow specific origins\n@CrossOrigin on specific controller or method — quick but requires adding to every controller\nGlobal WebMvcConfigurer — one place configures CORS for all endpoints\nSpring Security with CORS — must configure CORS before security filters or security blocks it\nProduction — allow only specific frontend URLs not wildcard\n\nCode:\n// Option 1: @CrossOrigin on controller\n@CrossOrigin(origins = \"http://localhost:4200\")\n@RestController\npublic class UserController { }\n\n// Option 2: Global WebMvcConfigurer\n@Configuration\npublic class WebConfig implements WebMvcConfigurer {\n    @Override\n    public void addCorsMappings(CorsRegistry registry) {\n        registry.addMapping(\"/api/**\")\n            .allowedOrigins(\"http://localhost:4200\", \"https://myapp.com\")\n            .allowedMethods(\"GET\", \"POST\", \"PUT\", \"DELETE\", \"PATCH\")\n            .allowedHeaders(\"*\")\n            .allowCredentials(true)\n            .maxAge(3600);\n    }\n}\n\n// Option 3: With Spring Security\n@Bean\npublic SecurityFilterChain filterChain(HttpSecurity http) throws Exception {\n    http.cors(cors -> cors.configurationSource(corsConfigurationSource()))\n        .csrf(csrf -> csrf.disable())\n        ...\n    return http.build();\n}\n\n@Bean\npublic CorsConfigurationSource corsConfigurationSource() {\n    CorsConfiguration config = new CorsConfiguration();\n    config.setAllowedOrigins(List.of(\"http://localhost:4200\"));\n    config.setAllowedMethods(List.of(\"GET\",\"POST\",\"PUT\",\"DELETE\"));\n    config.setAllowCredentials(true);\n    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();\n    source.registerCorsConfiguration(\"/**\", config);\n    return source;\n}",
+      "example": "\"CORS is a browser security mechanism — when my Angular frontend on localhost:4200 calls my Spring Boot API on localhost:8080, the browser blocks it as cross-origin unless the API explicitly allows it. For development I use @CrossOrigin on controllers, but for production I configure CORS globally in WebMvcConfigurer specifying exact allowed origins. When Spring Security is involved, CORS configuration must go through SecurityFilterChain otherwise the security filter rejects the preflight OPTIONS request before it even reaches the CORS configuration.\"",
+      "summary10s": "CORS = browser security for cross-origin requests. @CrossOrigin per controller or global WebMvcConfigurer. With Spring Security, configure CorsConfigurationSource in SecurityFilterChain."
+    }
+  },
+  {
+    "id": "spring-data-jpa-vs-jpa-vs-hibernate",
+    "category": "Spring Boot",
+    "question": "Spring Data JPA vs JPA vs Hibernate",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JPA is the specification, Hibernate is the implementation, Spring Data JPA removes boilerplate on top.",
+      "explain": "JPA — standard specification, defines @Entity, @Id, EntityManager, JPQL — no actual code\nHibernate — implements JPA, does the actual SQL generation and execution via JDBC\nSpring Data JPA — built on JPA, provides Repository interfaces eliminating DAO boilerplate\nStack: Spring Data JPA → JPA → Hibernate → JDBC → Database",
+      "example": "\"JPA is like a rulebook — it defines how Java objects should map to database tables but provides no implementation. Hibernate follows that rulebook and does the actual work — reads my annotations, generates SQL, manages caching. Spring Data JPA sits on top and removes boilerplate — I just declare an interface extending JpaRepository and get findById, findAll, save, delete for free. I code against JPA standard so theoretically I could swap Hibernate for EclipseLink without changing my application code.\"",
+      "summary10s": "JPA=spec no code, Hibernate=implements JPA generates SQL, Spring Data JPA=zero-boilerplate Repository on top. Stack: SpringDataJPA→JPA→Hibernate→JDBC→DB."
+    }
+  },
+  {
+    "id": "crudrepository-vs-jparepository",
+    "category": "Spring Boot",
+    "question": "CrudRepository vs JpaRepository",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "CrudRepository has basic CRUD, JpaRepository extends it with JPA-specific batch operations and flush control.",
+      "explain": "CrudRepository — save, findById, findAll returns Iterable, delete, count, existsById\nPagingAndSortingRepository — adds findAll(Pageable) and findAll(Sort)\nJpaRepository — extends both, adds: deleteInBatch, saveAllAndFlush, getReferenceById, flush\nJpaRepository returns List not Iterable — more convenient for most use cases\nUse JpaRepository always unless explicitly restricting capabilities to callers",
+      "example": "\"JpaRepository is the most complete — it extends CrudRepository for basic CRUD and PagingAndSortingRepository for pagination, then adds JPA-specific methods. deleteInBatch sends one DELETE query instead of N individual ones — critical for performance when deleting many records. getReferenceById returns a proxy without a DB hit, useful for setting foreign key relationships without loading the full entity. I always use JpaRepository unless I want to restrict what repository methods are visible to callers.\"",
+      "summary10s": "CrudRepository=basic CRUD, PagingAndSorting=adds pagination, JpaRepository=all of above plus deleteInBatch, flush, getReferenceById. Use JpaRepository always."
+    }
+  },
+  {
+    "id": "how-transactions-work-internally",
+    "category": "Spring Boot",
+    "question": "How Transactions Work Internally",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Transactional creates an AOP proxy — proxy opens transaction before method, commits on success, rolls back on exception.",
+      "explain": "Spring creates CGLIB proxy wrapping the bean at startup\nWhen method is called, proxy intercepts — opens connection, begins transaction\nMethod executes with that connection in thread-local TransactionSynchronizationManager\nOn normal return — proxy commits and closes connection\nOn RuntimeException — proxy rolls back\nChecked exceptions do NOT rollback by default",
+      "example": "\"@Transactional uses AOP. Spring wraps my @Service bean in a CGLIB proxy at startup. When I call a transactional method, the proxy intercepts the call, gets a connection from the pool, begins a transaction, and stores the connection in a thread-local variable. All JPA operations in that thread use that same connection and transaction. On normal return the proxy commits. On unchecked exception it rolls back. Two things I always mention — checked exceptions don't rollback by default, and calling a @Transactional method from within the same class bypasses the proxy.\"",
+      "summary10s": "CGLIB proxy intercepts call, opens transaction, commit on success, rollback on RuntimeException. Checked exceptions need rollbackFor. Self-invocation bypasses proxy."
+    }
+  },
+  {
+    "id": "transaction-propagation-types",
+    "category": "Spring Boot",
+    "question": "Transaction Propagation Types",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Propagation controls what happens when a transactional method is called from another transactional method.",
+      "explain": "REQUIRED — default, use existing transaction or create new one\nREQUIRES_NEW — always create new transaction, suspend existing one\nNESTED — create savepoint within existing transaction, can rollback to savepoint\nSUPPORTS — use existing transaction if present, run without if not\nMANDATORY — must have existing transaction, throw if none\nNEVER — must NOT run in transaction, throw if one exists",
+      "example": "\"REQUIRED is what I use 99% of the time — join existing transaction or create one. REQUIRES_NEW is critical for audit logging in banking — when a payment fails and rolls back, I still want the failure audit log to commit. REQUIRES_NEW suspends the outer transaction, commits the audit log independently, then resumes outer. NESTED is useful when I want partial rollback capability — if the optional enrichment step fails I rollback to the savepoint but keep the main operation going.\"",
+      "summary10s": "REQUIRED=use or create(default), REQUIRES_NEW=always new(audit logs), NESTED=savepoint within, MANDATORY=must exist, SUPPORTS=optional, NEVER=must not exist."
+    }
+  },
+  {
+    "id": "transaction-isolation-levels",
+    "category": "Spring Boot",
+    "question": "Transaction Isolation Levels",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Isolation level controls what a transaction can see from other concurrent transactions — trade-off between consistency and performance.",
+      "explain": "READ_UNCOMMITTED — can see uncommitted changes (dirty reads) — almost never use\nREAD_COMMITTED — only see committed data, default for most databases\nREPEATABLE_READ — same query returns same result within transaction, prevents non-repeatable reads\nSERIALIZABLE — fully isolated, transactions run as if sequential — slowest but safest\nProblems each prevents:\nLevel              | Dirty Read | Non-Repeatable Read | Phantom Read\nREAD_UNCOMMITTED   | Possible   | Possible            | Possible\nREAD_COMMITTED     | Prevented  | Possible            | Possible\nREPEATABLE_READ    | Prevented  | Prevented           | Possible\nSERIALIZABLE       | Prevented  | Prevented           | Prevented\n\nDirty read — reading uncommitted data that might be rolled back\nNon-repeatable read — same row returns different values in same transaction\nPhantom read — new rows appear in same query within same transaction",
+      "example": "\"READ_COMMITTED is the practical default — I only see committed data, preventing dirty reads. For financial operations where I read a balance, check it, then debit — I need REPEATABLE_READ to ensure the balance doesn't change between my read and write. SERIALIZABLE prevents phantom reads too but locks more aggressively. For banking I use REPEATABLE_READ for critical balance checks and @Version optimistic locking to handle concurrent updates instead of SERIALIZABLE for better throughput.\"",
+      "summary10s": "READ_COMMITTED=no dirty reads(default), REPEATABLE_READ=consistent reads in transaction, SERIALIZABLE=fully isolated but slow. Use READ_COMMITTED+@Version for banking."
+    }
+  },
+  {
+    "id": "what-is-n-1-problem",
+    "category": "Spring Boot",
+    "question": "What is N+1 Problem",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "N+1 Problem"
+    ],
+    "answerSEE": {
+      "simple": "One query fetches N parents, then N additional queries fire one per parent to load their children — total N+1 queries.",
+      "explain": "Fetch 10 orders — 1 query. Access each order's items lazily — 10 more queries. Total 11\nSilently kills performance — 100 customers means 101 queries, 1000 means 1001\nLooks fine in tests with small data, catastrophic in production with real volume\nDetect with show_sql enabled in dev — count queries per request\nHibernate Batch Fetching can partially help but JOIN FETCH is the proper fix\n\nExample:\n// N+1 problem\nList<Order> orders = orderRepository.findAll();  // 1 query: SELECT * FROM orders\norders.forEach(order -> {\n    // EACH iteration fires a query: SELECT * FROM items WHERE order_id = ?\n    System.out.println(order.getItems().size()); // N queries!\n});\n// Total: 1 + N queries\n\n// Fix with JOIN FETCH\n@Query(\"SELECT o FROM Order o JOIN FETCH o.items\")\nList<Order> findAllWithItems(); // 1 query with JOIN: SELECT o.*, i.* FROM orders o JOIN items i",
+      "example": "\"N+1 is when Hibernate fires one query for the list and then one additional query per element to load a lazy relationship. Loading 100 orders and accessing items for each fires 101 queries — unnoticed in development with 5 rows of test data but catastrophic in production with 10,000 orders. I always enable show_sql in development and count queries per API call. As soon as I see the same query pattern repeating I know there's an N+1 and fix it with JOIN FETCH.\"",
+      "summary10s": "1 query for list + N queries for lazy child = N+1. Enable show_sql to detect, fix with JOIN FETCH or @EntityGraph."
+    }
+  },
+  {
+    "id": "how-to-solve-n-1-problem",
+    "category": "Spring Boot",
+    "question": "How to Solve N+1 Problem",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JOIN FETCH in JPQL, @EntityGraph on repository method, or Hibernate batch fetching — all load relationships in fewer queries.",
+      "explain": "// Solution 1: JOIN FETCH in @Query\n@Query(\"SELECT o FROM Order o JOIN FETCH o.items WHERE o.customerId = :id\")\nList<Order> findByCustomerWithItems(@Param(\"id\") Long customerId);\n// ONE query with JOIN — no lazy loading\n\n// Solution 2: @EntityGraph — cleaner approach\n@EntityGraph(attributePaths = {\"items\", \"items.product\"})\nList<Order> findByCustomerId(Long customerId);\n// Spring generates LEFT JOIN FETCH automatically\n\n// Solution 3: Batch size configuration\n@OneToMany(mappedBy = \"order\")\n@BatchSize(size = 50) // Hibernate fetches 50 items at once instead of 1 per order\nprivate List<OrderItem> items;\n// Reduces N+1 to ceil(N/50)+1 queries — not perfect but better than N\n\n// Solution 4: Separate query for specific use case\nList<Order> orders = orderRepository.findByCustomerId(customerId);\nMap<Long, List<Item>> itemsByOrder = itemRepository\n    .findByOrderIdIn(orders.stream().map(Order::getId).collect(toList()))\n    .stream().collect(groupingBy(Item::getOrderId));\n// 2 queries total regardless of order count",
+      "example": "\"My preferred solution is JOIN FETCH or @EntityGraph. JOIN FETCH in the JPQL query loads the parent and children in a single SQL JOIN — one query regardless of collection size. @EntityGraph is cleaner as it doesn't require writing the full JPQL, just specifying which attribute paths to eagerly load for that specific query. For cases where I cannot modify the query, I use @BatchSize on the collection — Hibernate then fetches items in batches of N instead of one per parent, reducing 1000 queries to 20.\"",
+      "summary10s": "JOIN FETCH or @EntityGraph = single SQL with JOIN. @BatchSize = reduces N+1 to N/batchSize+1. Choose JOIN FETCH for complete fix."
+    }
+  },
+  {
+    "id": "jpql-vs-native-query",
+    "category": "Spring Boot",
+    "question": "JPQL vs Native Query",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JPQL uses entity class names and is database-independent, Native Query uses actual table names and is database-specific.",
+      "explain": "JPQL — queries against entity model not DB schema, JPA specification standard\nNative SQL — actual SQL with real table and column names, database-specific syntax\nJPQL advantages — database portability, compile-time checking, works with entity state\nNative advantages — use any DB feature, window functions, full-text search, performance hints\nChoose JPQL by default, native only when JPQL cannot express the requirement\nCode:\n// JPQL — entity class name Employee, field name firstName\n@Query(\"SELECT e FROM Employee e WHERE e.firstName = :name AND e.salary > :sal\")\nList<Employee> findHighEarners(@Param(\"name\") String name, @Param(\"sal\") BigDecimal sal);\n\n// Native SQL — table name employees, column name first_name\n@Query(value = \"SELECT * FROM employees WHERE first_name = :name AND salary > :sal\",\n       nativeQuery = true)\nList<Employee> findHighEarnersNative(@Param(\"name\") String name, @Param(\"sal\") BigDecimal sal);\n\n// Native for DB-specific features\n@Query(value = \"SELECT *, ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) as rank \" +\n               \"FROM employees\",\n       nativeQuery = true)\nList<Object[]> findEmployeeRankings(); // ROW_NUMBER not available in JPQL",
+      "example": "\"JPQL is my default because it works at the entity level — I use Employee not the employees table name, firstName not first_name column. If I switch databases, my JPQL queries still work. Native SQL is for situations JPQL cannot handle — window functions like ROW_NUMBER, full-text search using MATCH AGAINST, database-specific JSON operations, or when I need a complex optimized query with specific indexes hints. The trade-off is tight coupling to the database vendor.\"",
+      "summary10s": "JPQL=entity names database-portable, Native=table names database-specific. Use JPQL by default, native for DB-specific features like window functions."
+    }
+  },
+  {
+    "id": "how-query-works",
+    "category": "Spring Boot",
+    "question": "How @Query Works",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Query defines a custom JPQL or SQL query on a repository method — overrides Spring Data's method name derivation.",
+      "explain": "@Param binds method parameter to named parameter in query\nWithout nativeQuery — JPQL parsed, entity/field names used\nnativeQuery=true — raw SQL with table/column names\n@Modifying required for UPDATE/DELETE queries — tells Spring this is a write operation\n@Transactional needed on modifying queries to execute in a transaction context\nCode:\n// JPQL with named params\n@Query(\"SELECT e FROM Employee e WHERE e.department.name = :deptName AND e.salary BETWEEN :min AND :max\")\nList<Employee> findByDeptAndSalaryRange(\n    @Param(\"deptName\") String deptName,\n    @Param(\"min\") BigDecimal min,\n    @Param(\"max\") BigDecimal max);\n\n// Modifying query — needs @Modifying and @Transactional\n@Modifying\n@Transactional\n@Query(\"UPDATE Employee e SET e.status = :status WHERE e.department.id = :deptId\")\nint updateStatusByDepartment(@Param(\"deptId\") Long deptId, @Param(\"status\") String status);\n\n// Native with pagination\n@Query(value = \"SELECT * FROM employees WHERE dept_id = :deptId\",\n       countQuery = \"SELECT COUNT(*) FROM employees WHERE dept_id = :deptId\",\n       nativeQuery = true)\nPage<Employee> findByDeptNative(@Param(\"deptId\") Long deptId, Pageable pageable);",
+      "example": "\"@Query gives me full control over the query when method name derivation becomes too complex or insufficient. For read queries I just add @Query with the JPQL or SQL. For UPDATE and DELETE I add @Modifying to tell Spring this query changes data — without it Spring throws an exception. When using native queries with pagination, I also need to provide a separate countQuery because Spring cannot derive the count from the native query automatically.\"",
+      "summary10s": "@Query for custom JPQL/SQL, @Param binds parameters, @Modifying+@Transactional for UPDATE/DELETE, countQuery for native pagination."
+    }
+  },
+  {
+    "id": "pagination-with-jpa",
+    "category": "Spring Boot",
+    "question": "Pagination with JPA",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pass Pageable into repository method, return Page — contains data subset plus totalElements and totalPages metadata.",
+      "explain": "Pageable carries — page number (0-indexed), page size, optional sort\nPageRequest.of(page, size, Sort) — concrete Pageable implementation\nPage<T> response — getContent(), getTotalElements(), getTotalPages(), hasNext()\nSpring runs two queries — LIMIT/OFFSET for data, COUNT for totals\nMap Page<Entity> to Page<DTO> using page.map(mapper::toDTO)",
+      "example": "\"Spring Data JPA pagination needs three things. Pageable parameter in the repository method. PageRequest.of in the service to build it. Page<T> as the return type. Spring generates the LIMIT OFFSET query automatically plus a separate COUNT query — the Page object includes both the current page data and total count so the frontend can calculate total pages. Important — page numbers are zero-indexed, so page 0 is the first page.\"",
+      "summary10s": "PageRequest.of(page, size, sort)→Pageable parameter→Page<T> response. Spring auto-generates LIMIT/OFFSET + COUNT. Page numbers zero-indexed."
+    }
+  },
+  {
+    "id": "optimistic-vs-pessimistic-locking",
+    "category": "Spring Boot",
+    "question": "Optimistic vs Pessimistic Locking",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Optimistic checks for conflict at commit time, Pessimistic locks the row immediately preventing concurrent access.",
+      "explain": "Optimistic — no DB lock, uses @Version field, fails at commit if version changed by another transaction\nPessimistic — SELECT FOR UPDATE locks the row, other transactions wait until lock released\nOptimistic — better throughput for low-conflict scenarios, fails with OptimisticLockException\nPessimistic — guaranteed no conflict, but lower throughput and risk of deadlock\nBanking — @Version for account balance updates, pessimistic for critical inventory deduction\nCode:\n// Optimistic locking\n@Entity\npublic class Account {\n    @Id private Long id;\n    private BigDecimal balance;\n    \n    @Version\n    private Long version; // automatically managed by Hibernate\n}\n\n// Two concurrent transactions:\n// TX1: read account (version=1), deduct 100\n// TX2: read account (version=1), deduct 200\n// TX1 commits first: version becomes 2\n// TX2 tries to commit: WHERE id=? AND version=1 → no rows → OptimisticLockException!\n\n// Pessimistic locking\n@Lock(LockModeType.PESSIMISTIC_WRITE)\n@Query(\"SELECT a FROM Account a WHERE a.id = :id\")\nAccount findByIdForUpdate(@Param(\"id\") Long id);\n// Generates: SELECT * FROM accounts WHERE id = ? FOR UPDATE\n// Other transactions block until this transaction commits",
+      "example": "\"Optimistic locking assumes conflicts are rare — no DB lock is acquired. @Version adds a version column, Hibernate includes it in every UPDATE. If two transactions update the same row, the second one finds the version has changed and throws OptimisticLockException — I catch it and retry. Pessimistic locking immediately locks the database row with SELECT FOR UPDATE — no other transaction can modify it until I commit. I use optimistic for most business operations and pessimistic for truly critical sections like stock deduction where losing a retry is unacceptable.\"",
+      "summary10s": "Optimistic=@Version check at commit, OptimisticLockException on conflict, high throughput. Pessimistic=SELECT FOR UPDATE row lock, blocks others, guaranteed no conflict."
+    }
+  },
+  {
+    "id": "what-is-version",
+    "category": "Spring Boot",
+    "question": "What is @Version",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Version marks a field Hibernate manages automatically for optimistic locking — auto-increments on every update, prevents lost updates.",
+      "explain": "Hibernate automatically increments @Version field on every UPDATE\nSQL generated: UPDATE account SET balance=?, version=version+1 WHERE id=? AND version=?\nIf WHERE clause matches zero rows (another transaction already updated) — OptimisticLockException\nType can be int, Integer, long, Long, or Timestamp\nNever manually set the @Version field — Hibernate manages it entirely\nCode:\n@Entity\npublic class Account {\n    @Id\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\n    private Long id;\n    \n    private BigDecimal balance;\n    \n    @Version\n    private Long version; // DO NOT set this manually\n}\n\n// What Hibernate generates for every save:\n// UPDATE accounts SET balance = ?, version = 3 WHERE id = ? AND version = 2\n// If another transaction already changed version to 3:\n// WHERE id=1 AND version=2 → 0 rows updated → OptimisticLockException thrown\n\n// Handling the exception\ntry {\n    accountRepository.save(account);\n} catch (OptimisticLockingFailureException e) {\n    // Reload and retry\n    account = accountRepository.findById(account.getId()).orElseThrow();\n    // re-apply the change\n    accountRepository.save(account);\n}",
+      "example": "\"@Version adds a version column that Hibernate manages automatically. Every UPDATE Hibernate generates includes WHERE version equals current value and increments it. If another transaction already updated the row and incremented the version, the WHERE clause matches nothing and Hibernate throws OptimisticLockingFailureException. I catch it, reload the entity with fresh data, reapply my change, and retry. The field type can be Long for most cases — I never touch it in application code.\"",
+      "summary10s": "@Version auto-increments on every UPDATE, included in WHERE clause, zero rows matched = OptimisticLockException. Never manually set it."
+    }
+  },
+  {
+    "id": "entity-lifecycle-states",
+    "category": "Spring Boot",
+    "question": "Entity Lifecycle States",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Four states — Transient (new), Persistent (managed), Detached (session closed), Removed (scheduled delete).",
+      "explain": "Transient — new object, not in DB, Hibernate not tracking it\nPersistent — attached to Hibernate session, all changes auto-synced to DB at flush\nDetached — was persistent but session closed, changes NOT tracked anymore\nRemoved — marked for deletion, DELETE on flush or commit\nState transitions:\nnew Employee() → TRANSIENT (not in DB, not tracked)\n    ↓ entityManager.persist() / repository.save()\nPERSISTENT (tracked, auto-sync on flush)\n    ↓ session closes\nDETACHED (changes not tracked)\n    ↓ entityManager.merge()\nPERSISTENT (re-attached)\n    ↓ entityManager.remove()\nREMOVED → deleted on flush",
+      "example": "\"Understanding entity states helps debug subtle bugs. Transient is a new Java object — Hibernate does not know about it. Persistent means it is managed — any field change I make is automatically detected and synced to DB at flush time, no explicit save call needed. Detached is the common trap — entity was loaded in one transaction, transaction ended, entity is now detached. If I change it and save it in a new transaction I must use merge. Removed means I called delete — it is scheduled for deletion on the next flush or commit.\"",
+      "summary10s": "Transient=new not tracked, Persistent=managed auto-synced, Detached=session closed changes ignored, Removed=scheduled for deletion. persist→Persistent, session close→Detached, merge→re-Persistent."
+    }
+  },
+  {
+    "id": "what-is-dirty-checking",
+    "category": "Spring Boot",
+    "question": "What is Dirty Checking",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Hibernate automatically detects changes to persistent entities and generates UPDATE queries — no explicit save() needed for updates.",
+      "explain": "When entity is in Persistent state, Hibernate takes a snapshot at load time\nAt flush time — Hibernate compares current state with snapshot\nIf any field changed — automatically generates UPDATE SQL for those fields\nThis is why update operations within @Transactional work without calling save()\nOnly works for persistent entities — detached entities need explicit merge/save\nCode:\n@Service\n@Transactional\npublic class EmployeeService {\n    \n    public void updateSalary(Long id, BigDecimal newSalary) {\n        Employee emp = employeeRepository.findById(id)\n            .orElseThrow(() -> new ResourceNotFoundException(\"Not found\"));\n        \n        // Just change the field — NO explicit save() call needed!\n        emp.setSalary(newSalary);\n        \n        // At end of @Transactional method:\n        // Hibernate compares current salary with snapshot\n        // Detects change → generates: UPDATE employees SET salary=? WHERE id=?\n        // Commits automatically\n    }\n}",
+      "example": "\"Dirty checking means Hibernate watches persistent entities automatically. When I load an employee within a transaction, Hibernate takes a snapshot of all its field values. At flush time before commit, Hibernate compares current field values with the snapshot. If salary changed, it generates and executes an UPDATE automatically — I never call save() for updates within a transaction. This is one of the most misunderstood JPA behaviors — calling save() on a managed entity is redundant but harmless.\"",
+      "summary10s": "Hibernate snapshots entity at load, compares at flush, auto-generates UPDATE for changed fields — no explicit save() needed for updates within @Transactional."
+    }
+  },
+  {
+    "id": "save-vs-saveandflush",
+    "category": "Spring Boot",
+    "question": "save() vs saveAndFlush()",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "save() stages changes in persistence context, saveAndFlush() immediately writes to DB within the same transaction.",
+      "explain": "save() — marks entity as persistent, actual SQL may not execute until flush happens at commit\nsaveAndFlush() — immediately executes SQL to DB, useful when subsequent logic needs DB-generated values\nflush() — forces SQL execution without committing the transaction\nUse case for saveAndFlush — save entity then call a stored procedure that needs that data in same transaction\nCode:\n// save() — SQL executes at transaction commit\nEmployee emp = new Employee(\"Alice\", \"Engineering\");\nemployeeRepository.save(emp);\n// At this point, emp.id might be null if DB assigns it\n// SQL executes when transaction flushes (usually at commit)\n\n// saveAndFlush() — SQL executes immediately\nEmployee emp = new Employee(\"Alice\", \"Engineering\");\nemployeeRepository.saveAndFlush(emp);\n// emp.id is populated NOW — DB has the row, generated ID is available\nLong empId = emp.getId(); // available immediately\n\n// Use case — save then immediately reference\nDepartment dept = new Department(\"Engineering\");\ndepartmentRepository.saveAndFlush(dept); // flush to DB now\n// Now I can reference dept.getId() in the next query\nList<Employee> emps = employeeRepository.findByDepartmentId(dept.getId());",
+      "example": "\"save() stages the entity in the persistence context but SQL execution timing is controlled by Hibernate's flush mode — usually at transaction commit. saveAndFlush() forces immediate SQL execution to the database right now, still within the same transaction. I use saveAndFlush when I need the database-generated ID or need to reference the saved record in a subsequent query within the same transaction. For normal use save() is sufficient and better for batching multiple operations.\"",
+      "summary10s": "save()=stages in context SQL at flush/commit, saveAndFlush()=immediate SQL to DB. Use saveAndFlush when DB-generated ID needed immediately or for same-transaction reference."
+    }
+  },
+  {
+    "id": "how-auditing-works-in-jpa",
+    "category": "Spring Boot",
+    "question": "How Auditing Works in JPA",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@CreatedDate, @LastModifiedDate, @CreatedBy, @LastModifiedBy auto-populate audit fields — enable with @EnableJpaAuditing.",
+      "explain": "Add @EnableJpaAuditing on @SpringBootApplication or @Configuration class\nAbstract base entity with @EntityListeners(AuditingEntityListener.class) and audit fields\nEntities extend the base entity to inherit audit fields\nAuditorAware bean provides current user for @CreatedBy and @LastModifiedBy\n@CreationTimestamp and @UpdateTimestamp are Hibernate-specific alternatives\nCode:\n// Enable auditing\n@SpringBootApplication\n@EnableJpaAuditing(auditorAwareRef = \"auditorProvider\")\npublic class Application { }\n\n// AuditorAware bean — provides current user\n@Bean\npublic AuditorAware<String> auditorProvider() {\n    return () -> Optional.of(\n        SecurityContextHolder.getContext()\n            .getAuthentication().getName()\n    );\n}\n\n// Base auditing entity\n@MappedSuperclass\n@EntityListeners(AuditingEntityListener.class)\npublic abstract class BaseAuditEntity {\n    @CreatedDate\n    @Column(updatable = false)\n    private LocalDateTime createdAt;\n    \n    @LastModifiedDate\n    private LocalDateTime updatedAt;\n    \n    @CreatedBy\n    @Column(updatable = false)\n    private String createdBy;\n    \n    @LastModifiedBy\n    private String lastModifiedBy;\n}\n\n// All entities extend it\n@Entity\npublic class Account extends BaseAuditEntity {\n    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)\n    private Long id;\n    private BigDecimal balance;\n    // createdAt, updatedAt, createdBy, lastModifiedBy inherited automatically\n}",
+      "example": "\"JPA auditing eliminates manually setting createdAt and updatedBy in every service method. I enable it with @EnableJpaAuditing, create a base entity class with @MappedSuperclass and @EntityListeners pointing to AuditingEntityListener, then annotate fields with @CreatedDate, @LastModifiedDate, @CreatedBy, @LastModifiedBy. The AuditorAware bean provides the current username from Spring Security context. All my entities extend this base class and get auditing for free without any code in service layer.\"",
+      "summary10s": "@EnableJpaAuditing + @EntityListeners(AuditingEntityListener) + @CreatedDate/@LastModifiedDate/@CreatedBy/@LastModifiedBy + AuditorAware bean for username."
+    }
+  },
+  {
+    "id": "concurrenthashmap-internal-working",
+    "category": "Java",
+    "question": "ConcurrentHashMap internal working",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ConcurrentHashMap allows multiple threads to read/write safely without locking the entire map.",
+      "explain": "Uses bucket-level locking (segment locking in older versions, CAS + synchronized in Java 8+)\nOnly the specific bucket being modified is locked, not the whole map\nReads are mostly lock-free, giving high concurrency",
+      "example": "\"ConcurrentHashMap achieves thread-safety without locking the whole map. In Java 8 onwards, it uses CAS operations and synchronizes only on the specific bucket being updated, not the entire structure. This makes reads mostly lock-free and gives much better performance than a synchronized HashMap in multi-threaded scenarios.\"",
+      "summary10s": "Locks only the bucket, not the whole map — high concurrency."
+    }
+  },
+  {
+    "id": "daemon-thread",
+    "category": "Java",
+    "question": "Daemon Thread",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A daemon thread is a background thread that doesn't stop the JVM from exiting.",
+      "explain": "JVM exits once all non-daemon (user) threads finish, ignoring daemon threads\nSet using thread.setDaemon(true) before calling start()\nUsed for background tasks like garbage collection, logging",
+      "example": "\"A daemon thread runs in the background and doesn't prevent the JVM from shutting down — once all normal threads finish, the JVM exits even if daemon threads are still running. Garbage collection is a classic example. We set it using setDaemon(true) before starting the thread.\"",
+      "summary10s": "Background thread — JVM doesn't wait for it to finish."
+    }
+  },
+  {
+    "id": "solid-principles-with-real-time-example",
+    "category": "Java",
+    "question": "SOLID principles with real-time example",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "SOLID is a set of 5 design principles that make code more maintainable and extensible.",
+      "explain": "S — Single Responsibility: one class, one job\nO — Open/Closed: open for extension, closed for modification\nL, I, D — Liskov substitution, Interface segregation, Dependency inversion (depend on abstractions)\nExample: Instead of one PaymentService handling Card, UPI, NetBanking logic, split into separate strategy classes implementing a common PaymentMethod interface.",
+      "example": "\"SOLID is a set of five principles for writing clean, maintainable code. For example, in a payment module, instead of writing all payment logic in one class, I'd apply Single Responsibility and Open/Closed by creating separate classes for each payment type implementing a common interface — so adding a new payment method doesn't require changing existing code. This also naturally follows Dependency Inversion since the service depends on the interface, not concrete classes.\"",
+      "summary10s": "5 principles → one job per class, extend don't modify, depend on abstractions."
+    }
+  },
+  {
+    "id": "optional-ispresent-vs-ifpresent",
+    "category": "Java",
+    "question": "Optional: isPresent() vs ifPresent()",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "isPresent() checks if a value exists; ifPresent() runs code only if the value exists.",
+      "explain": "isPresent() returns boolean, needs manual if-check\nifPresent(consumer) takes a lambda, executes it only when value is present\nifPresent() is more functional-style, avoids extra null checks",
+      "example": "\"isPresent() just returns a boolean telling us whether a value is present, so we still need an if-condition. ifPresent() is more functional — we pass a lambda, and it only executes that lambda if the value exists, so it avoids writing extra if-blocks. I prefer ifPresent() for cleaner code when I just need to act on the value.\"",
+      "summary10s": "isPresent = boolean check, ifPresent = lambda runs automatically."
+    }
+  },
+  {
+    "id": "jvm-memory-management",
+    "category": "Java",
+    "question": "JVM Memory Management",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JVM manages memory using different areas like Heap, Stack, and Metaspace, and cleans unused objects via Garbage Collection.",
+      "explain": "Heap — stores objects, divided into Young Gen (Eden, Survivor) and Old Gen\nStack — stores method calls and local variables, per thread\nGC automatically removes objects with no references (Minor GC for Young Gen, Major GC for Old Gen)",
+      "example": "\"\"JVM memory is mainly divided into Heap and Stack. Objects are created in the Heap, which itself is split into Young and Old Generation for efficient garbage collection. The Stack holds method calls and local variables per thread. Garbage Collector automatically removes \nobjects that no longer have references, so we don't manage memory manually like in C++.\"\"",
+      "summary10s": "Heap for objects, Stack for method calls, GC auto-cleans unused ones."
+    }
+  },
+  {
+    "id": "how-do-you-implement-jwt-authentication",
+    "category": "Microservices",
+    "question": "How do you implement JWT authentication?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JWT authentication means the server issues a signed token after login, and the client sends it on every request instead of a session.",
+      "explain": "Login → generate JWT (with user info + expiry) → sign with secret key\nClient sends token in Authorization: Bearer <token> header\nA filter (extends OncePerRequestFilter) validates token on each request before reaching controller",
+      "example": "\"After a successful login, I generate a JWT containing user details and an expiry, signed with a secret key. The client stores this token and sends it in the Authorization header for every request. I implement a custom filter extending OncePerRequestFilter that validates the token and sets the authentication in the SecurityContext before the request reaches the controller.\"",
+      "summary10s": "Login → issue JWT → validate via filter on every request."
+    }
+  },
+  {
+    "id": "oauth2-vs-jwt",
+    "category": "Microservices",
+    "question": "OAuth2 vs JWT",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "OAuth2 is an authorization framework/protocol; JWT is just a token format that can be used within it.",
+      "explain": "OAuth2 — defines how to get access (flows like Authorization Code, Client Credentials)\nJWT — a self-contained token format, can carry claims, used to represent the OAuth2 access token\nOAuth2 often needs an Authorization Server; JWT can be used standalone too",
+      "example": "\"OAuth2 is a full authorization framework that defines flows for how a client gets access to resources, often involving an Authorization Server, like login with Google. JWT is simply a token format — OAuth2 can use JWT as the access token format, but JWT itself doesn't define any authorization flow. So they solve different problems but are often used together.\"",
+      "summary10s": "OAuth2 = authorization flow, JWT = token format used inside it."
+    }
+  },
+  {
+    "id": "resttemplate-vs-webclient",
+    "category": "Spring Boot",
+    "question": "RestTemplate vs WebClient",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "RestTemplate is the older, blocking way to call REST APIs; WebClient is the newer, non-blocking/reactive way.",
+      "explain": "RestTemplate — synchronous, blocks thread until response, now in maintenance mode\nWebClient — asynchronous, non-blocking, supports reactive streams (Mono/Flux)\nWebClient is recommended for new projects, better under high load",
+      "example": "\"RestTemplate is the traditional way to make REST calls, but it's synchronous and blocks the thread until a response comes back — it's also in maintenance mode now. WebClient is the modern, non-blocking alternative that works well with reactive programming using Mono and Flux. I'd use WebClient for new projects, especially where we're calling multiple services and want better throughput.\"",
+      "summary10s": "RestTemplate = blocking (legacy), WebClient = non-blocking (modern)."
+    }
+  },
+  {
+    "id": "api-gateway-and-why-it-s-required",
+    "category": "Microservices",
+    "question": "API Gateway and why it's required",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "API Gateway is a single entry point that routes client requests to the correct microservice.",
+      "explain": "Handles routing, authentication, rate limiting in one place\nClients don't need to know individual service addresses\nReduces cross-cutting logic duplication across services",
+      "example": "\"API Gateway acts as a single entry point for all client requests and routes them to the right microservice internally. It's required because it centralizes things like authentication, rate limiting, and logging, so individual services don't have to repeat that logic. I've used Spring Cloud Gateway for this in a microservices setup.\"",
+      "summary10s": "Single entry point → routing + auth + rate limiting, centralized."
+    }
+  },
+  {
+    "id": "how-does-transactional-work-internally",
+    "category": "Spring Boot",
+    "question": "How does @Transactional work internally?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Transactional works by wrapping the method call in a proxy that manages commit/rollback.",
+      "explain": "Spring creates a proxy (AOP) around the bean at startup\nProxy starts a transaction before method execution, commits after success\nRolls back automatically on unchecked exceptions (RuntimeException)\nDoesn't work on private methods or self-invocation (calling from within same class)",
+      "example": "\"Internally, Spring uses AOP to create a proxy around the bean. When a method annotated with @Transactional is called through the proxy, it starts a transaction, executes the method, and commits if successful, or rolls back if a runtime exception occurs. One important gotcha I always mention is that it doesn't work if you call the method from within the same class, because that bypasses the proxy.\"",
+      "summary10s": "Proxy wraps method — commits on success, rolls back on runtime exception."
+    }
+  },
+  {
+    "id": "first-level-vs-second-level-cache",
+    "category": "Spring Boot",
+    "question": "First-level vs Second-level cache",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "First-level cache is per-session and always on; second-level cache is shared across sessions and optional.",
+      "explain": "First-level — tied to Hibernate Session, enabled by default, cleared when session closes\nSecond-level — tied to SessionFactory, shared across sessions, needs explicit setup (like EhCache)\nSecond-level reduces DB hits across multiple requests",
+      "example": "\"First-level cache is enabled by default and scoped to a single Hibernate session — it's cleared once the session closes. Second-level cache is optional, scoped to the SessionFactory, and shared across multiple sessions, so it helps reduce database calls across different requests. I've used EhCache as the second-level cache provider in a read-heavy project.\"",
+      "summary10s": "1st-level = per session (default), 2nd-level = shared, needs setup."
+    }
+  },
+  {
+    "id": "how-to-optimize-slow-queries",
+    "category": "Java",
+    "question": "How to optimize slow queries?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Optimize slow queries by indexing, avoiding unnecessary data fetching, and analyzing the execution plan.",
+      "explain": "Add proper indexes on frequently filtered/joined columns\nUse EXPLAIN ANALYZE to check query execution plan\nAvoid SELECT *, fetch only needed columns; use pagination for large data\nFix N+1 issues and use proper fetch strategies",
+      "example": "\"To optimize slow queries, I first check the execution plan using EXPLAIN ANALYZE to see if indexes are being used properly. Then I add indexes on columns used in WHERE or JOIN clauses. I also avoid fetching unnecessary columns, use pagination for large result sets, and make sure I'm not hitting N+1 issues from lazy loading.\"",
+      "summary10s": "Index + EXPLAIN ANALYZE + avoid SELECT * + pagination."
+    }
+  },
+  {
+    "id": "how-do-you-handle-concurrent-updates",
+    "category": "Spring Boot",
+    "question": "How do you handle concurrent updates?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Concurrent updates are handled using optimistic or pessimistic locking to prevent data conflicts.",
+      "explain": "Optimistic locking — @Version field, checks version before update, throws exception on conflict\nPessimistic locking — locks the row in DB (SELECT FOR UPDATE) until transaction completes\nOptimistic is preferred for high-read, low-conflict scenarios; pessimistic for high-conflict critical data",
+      "example": "\"For concurrent updates, I mostly use optimistic locking with a @Version field on the entity — Hibernate checks the version before committing, and throws an OptimisticLockException if someone else updated it first. For more critical operations like inventory or balance updates, where conflicts are more likely, I'd use pessimistic locking to lock the row until the transaction finishes.\"",
+      "summary10s": "Optimistic = @Version check, Pessimistic = row lock (SELECT FOR UPDATE)."
+    }
+  },
+  {
+    "id": "why-override-equals-and-hashcode",
+    "category": "Java",
+    "question": "Why Override equals() and hashCode()?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Why Override equals() and hashCode() Together?"
+    ],
+    "answerSEE": {
+      "simple": "Without overriding, two objects with same data are treated as different objects — breaks collections.",
+      "explain": "Default equals() uses == — compares memory address not content\nDefault hashCode() returns memory-based number — two equal objects get different hash\nHashMap and HashSet use both to store and find objects\nIf equals() says two objects are equal, hashCode() must return same value — this is the contract",
+      "example": "\"Default equals checks reference — two User objects with same id are not equal by default. If I put one in a HashMap and search with another User having same id, it will not find it. Overriding equals to compare id field fixes the logic. But HashMap first uses hashCode to find the bucket — if hashCode is different, it does not even call equals. That is why both must be overridden together.\"",
+      "summary10s": "Default equals=reference, override for content equality, hashCode must match for equal objects or collections break."
+    }
+  },
+  {
+    "id": "what-is-autowired",
+    "category": "Spring Boot",
+    "question": "What is @Autowired?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Autowired tells Spring to automatically inject the matching bean into this field, constructor, or setter.",
+      "explain": "Spring scans IoC container for a bean matching the type\nInjects it without you calling new or writing any wiring code\nCan be used on constructor, setter, or field\nIf multiple beans of same type exist, use @Qualifier to specify which one\nConstructor injection without @Autowired works in Spring 4.3 plus with single constructor",
+      "example": "\"@Autowired delegates object creation to Spring. Instead of writing new UserService() I just declare UserService userService and annotate with @Autowired. Spring finds the bean of that type in its container and injects it. If two beans of same type exist Spring gets confused — I use @Qualifier with the bean name to tell Spring exactly which one to inject.\"",
+      "summary10s": "@Autowired=Spring finds and injects matching bean automatically, @Qualifier for disambiguation."
+    }
+  },
+  {
+    "id": "setter-injection-vs-constructor-injection",
+    "category": "Spring Boot",
+    "question": "Setter Injection vs Constructor Injection",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Constructor injection is for mandatory dependencies, Setter injection is for optional ones.",
+      "explain": "Constructor injection — dependencies passed at object creation, object cannot exist without them, immutable\nSetter injection — dependencies set after object creation, object can exist without them initially\nConstructor injection prevents NullPointerException — dependency always present\nSpring team recommends Constructor injection for all mandatory dependencies",
+      "example": "\"Constructor injection passes dependencies when object is created — the class literally cannot be instantiated without them. This guarantees no NPE from uninjected dependency. Setter injection sets dependencies after creation — object exists but dependency might be null until setter is called. For testing, constructor injection is also cleaner — I pass mocks directly without needing Spring context.\"",
+      "summary10s": "Constructor=mandatory immutable no NPE, Setter=optional set after creation, Constructor preferred."
+    }
+  },
+  {
+    "id": "how-constructor-injection-avoids-nullpointerexception",
+    "category": "Spring Boot",
+    "question": "How Constructor Injection Avoids NullPointerException",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Dependency is set in constructor — object cannot exist without it, so it is never null.",
+      "explain": "Field injection — Spring sets the field after object creation, tiny window where it is null\nIf someone creates the class with new outside Spring context — fields never injected, NPE guaranteed\nConstructor injection — dependency is a constructor parameter, class cannot compile without it\nIn tests without Spring — just pass mock in constructor, field injection would leave it null",
+      "example": "\"With field injection, the field starts as null — Spring injects after object creation. If I accidentally create the class with new somewhere, Spring never injects and NPE happens on first use. With constructor injection, the dependency is required by the constructor — it is impossible to create the object without providing the dependency. Null only if I explicitly pass null which is obvious in code.\"",
+      "summary10s": "Constructor param is required at creation time, object cannot exist without it, impossible to have null dependency."
+    }
+  },
+  {
+    "id": "exception-handling-in-spring-boot",
+    "category": "Spring Boot",
+    "question": "Exception Handling in Spring Boot",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@ControllerAdvice with @ExceptionHandler methods — one central class handles all exceptions.",
+      "explain": "@ControllerAdvice — intercepts exceptions from all controllers globally\n@ExceptionHandler per method — handles specific exception type\nReturns proper HTTP status code and structured error response body\nCatch-all handler for Exception class as final fallback\nAdd correlation ID in response for easy log tracing",
+      "example": "\"I create one GlobalExceptionHandler class with @ControllerAdvice. Each @ExceptionHandler method handles a specific exception — ResourceNotFoundException returns 404 with error message, ValidationException returns 400 with field errors. I always have a catch-all Exception handler at the bottom returning 500 with correlation ID. Controllers stay completely clean — no try-catch needed anywhere.\"",
+      "summary10s": "@ControllerAdvice + @ExceptionHandler per type, specific handlers + catch-all 500, clean controllers."
+    }
+  },
+  {
+    "id": "spring-bean-scopes-where-and-how-to-define",
+    "category": "Spring Boot",
+    "question": "Spring Bean Scopes — Where and How to Define",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Define scope using @Scope annotation on bean definition or in @Component class.",
+      "explain": "@Scope on @Component class — applies to that component\n@Scope on @Bean method — applies to that bean definition\nScope values — singleton, prototype, request, session, application\nRequest and session scopes only work in web application context",
+      "example": "\"Bean scope is defined using @Scope annotation. On a @Component class I add @Scope of prototype directly above the class. On a @Bean method in @Configuration class I add @Scope before the return type. For web scopes like request and session, Spring requires a web application context — these are only valid inside web requests.\"",
+      "summary10s": "@Scope on @Component class or @Bean method, web scopes need web context."
+    }
+  },
+  {
+    "id": "singleton-prototype-request-session-scope",
+    "category": "Spring Boot",
+    "question": "Singleton, Prototype, Request, Session Scope",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Singleton=one instance app-wide, Prototype=new instance every time, Request=one per HTTP request, Session=one per user session.",
+      "explain": "Singleton — default scope, one shared instance, stateless services like UserService\nPrototype — new instance on every getBean() or injection, stateful beans\nRequest — new instance per HTTP request, destroyed after request completes\nSession — new instance per user HTTP session, persists across requests for same user",
+      "example": "\"Singleton is default — one instance shared across entire application, perfect for stateless services. Prototype creates fresh instance every time the bean is requested — I inject it differently using ApplicationContext.getBean or Spring proxy. Request scope is per HTTP request lifecycle — useful for request-specific context holders. Session scope lives for user session duration — useful for user preferences or cart data.\"",
+      "summary10s": "Singleton=one app-wide default, Prototype=new every injection, Request=per HTTP request, Session=per user session."
+    }
+  },
+  {
+    "id": "real-time-use-case-of-prototype-scope",
+    "category": "Spring Boot",
+    "question": "Real-Time Use Case of Prototype Scope",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Prototype when each consumer needs its own independent instance with separate state.",
+      "explain": "Shopping cart — each user's cart is independent, shared cart would mix all users' items\nReport generator — each report generation needs its own state and configuration\nStateful task processors — each task has its own processing state\nEmail template builder — each email build is independent",
+      "example": "\"Best real-time example is a shopping cart bean. If cart is Singleton, all users share the same cart and items get mixed — disaster. With Prototype scope each user gets their own cart instance with its own state. Another example is a report generator bean that accumulates data during generation — Prototype ensures each report job has its own accumulator and they never interfere.\"",
+      "summary10s": "Prototype for stateful beans needing isolation — shopping cart, report generator, task processor per user."
+    }
+  },
+  {
+    "id": "microservices-architecture-functionalities",
+    "category": "Microservices",
+    "question": "Microservices Architecture Functionalities",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Service discovery, API Gateway, load balancing, circuit breaker, distributed tracing, and centralized config.",
+      "explain": "Service discovery — Eureka, services register and find each other dynamically\nAPI Gateway — single entry point, routing, authentication, rate limiting\nCircuit Breaker — Resilience4j, stop calling failing service, return fallback\nDistributed tracing — Zipkin, trace request across multiple services\nCentralized config — Spring Cloud Config Server, one place for all configs\nMessage broker — Kafka or RabbitMQ for async communication",
+      "example": "\"Microservices architecture needs several supporting components. API Gateway is the front door handling auth and routing. Service discovery with Eureka allows dynamic service location without hardcoded URLs. Circuit Breaker with Resilience4j prevents cascade failures. Distributed tracing with Zipkin correlates logs across services. Config Server centralizes configuration. Kafka handles async event-driven communication between services.\"",
+      "summary10s": "Gateway+Eureka+CircuitBreaker+Zipkin+ConfigServer+Kafka = complete microservices ecosystem."
+    }
+  },
+  {
+    "id": "circuit-breaker",
+    "category": "Microservices",
+    "question": "Circuit Breaker",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
+      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
+      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
+      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
+    }
+  },
+  {
+    "id": "jwt-authentication-flow",
+    "category": "Microservices",
+    "question": "JWT Authentication Flow",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Login gets signed token, client sends in header, server validates signature every request.",
+      "explain": "User sends credentials to login endpoint\nServer validates, creates JWT with user ID and roles, signs with secret key\nClient stores JWT and sends in Authorization Bearer header on every request\nJWT filter validates signature and expiry, extracts user info, sets SecurityContext\nStateless — no session stored on server",
+      "example": "\"On login I validate credentials against database. If valid I create JWT containing userId and roles as claims, sign with secret key using HMAC SHA256. Client stores token and sends as Authorization Bearer header. My JWT filter runs before every request — extracts token, validates signature, checks expiry, sets authentication in SecurityContext. No server-side session means any instance can handle any request.\"",
+      "summary10s": "Login=create signed JWT, client sends Bearer header, filter validates signature sets SecurityContext, stateless."
+    }
+  },
+  {
+    "id": "how-to-validate-user-credentials",
+    "category": "Microservices",
+    "question": "How to Validate User Credentials",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Load user by username from DB, verify password matches stored hash using BCrypt.",
+      "explain": "Implement UserDetailsService, override loadUserByUsername\nSpring Security calls this during authentication\nLoad user from database by username or email\nPasswordEncoder.matches() compares raw password with stored BCrypt hash\nIf match — authentication success, JWT generated. If not — throw BadCredentialsException",
+      "example": "\"Spring Security calls my UserDetailsService.loadUserByUsername with the submitted username. I load the user from database and return UserDetails object. Spring Security then calls PasswordEncoder.matches comparing the submitted password against the stored BCrypt hash. If they match authentication succeeds and I generate JWT. If not Spring Security throws BadCredentialsException automatically.\"",
+      "summary10s": "UserDetailsService loads from DB, PasswordEncoder.matches compares raw with BCrypt hash, success=JWT generated."
+    }
+  },
+  {
+    "id": "bcrypt-hashing-or-encryption",
+    "category": "Microservices",
+    "question": "BCrypt — Hashing or Encryption?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "BCrypt is hashing — one-way, cannot be reversed, not encryption.",
+      "explain": "Hashing — one-way function, same input always same output, cannot get original from hash\nEncryption — two-way, can decrypt back to original with key\nBCrypt adds random salt before hashing — same password gives different hash each time\nmatches() re-hashes the input with the stored salt and compares — no decryption needed\nNever encrypt passwords — always hash, if DB breached hashes are useless to attacker",
+      "example": "\"BCrypt is hashing not encryption. Hashing is one-way — I cannot reverse a BCrypt hash to get the original password. BCrypt adds a random salt to the password before hashing so same password produces different hash each time. matches() works by extracting the salt from the stored hash, hashing the input with same salt, and comparing. This is why even if DB is breached, attackers cannot get real passwords.\"",
+      "summary10s": "BCrypt=one-way hashing not encryption, random salt per hash, matches() re-hashes to compare, irreversible."
+    }
+  },
+  {
+    "id": "http-404-vs-500",
+    "category": "Other",
+    "question": "HTTP 404 vs 500",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "404 is client error — resource not found, 500 is server error — something crashed on server.",
+      "explain": "404 Not Found — client requested a resource that does not exist, client's problem\n500 Internal Server Error — something unexpected failed on the server, server's problem\n404 examples — wrong URL, deleted resource, typo in endpoint path\n500 examples — unhandled exception, NullPointerException, DB connection failure\n4xx are client errors, 5xx are server errors — important distinction",
+      "example": "\"404 means the client asked for something that does not exist — wrong URL or resource deleted. The server understood the request but has nothing to return. 500 means the server understood the request but something went wrong internally — unhandled exception, database down, out of memory. 404 is client mistake, 500 is server problem. In production I monitor 500 errors closely — each one means something broke on my end.\"",
+      "summary10s": "404=resource not found client error, 500=server crashed internal error, 4xx=client fault 5xx=server fault."
+    }
+  },
+  {
+    "id": "json-parsing-issues-in-projects",
+    "category": "Other",
+    "question": "JSON Parsing Issues in Projects",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Common JSON issues — field name mismatch, date format, null values, type mismatch.",
+      "explain": "Field name mismatch — JSON uses snake_case, Java uses camelCase, use @JsonProperty\nDate format — JSON sends string, Java expects specific format, use @JsonFormat\nUnknown fields — JSON has extra fields Java object does not, use @JsonIgnoreProperties\nNull values — missing field in JSON causes null, use @JsonInclude or Optional handling\nType mismatch — JSON number comes as string, configure ObjectMapper or use @JsonDeserialize",
+      "example": "\"Most common JSON parsing issue I faced was field name mismatch — external API sent user_name but my DTO had userName. Fixed with @JsonProperty on the field. Date parsing was another issue — API sent dates as strings in different formats. I used @JsonFormat with the exact pattern. For APIs sending extra unknown fields I added @JsonIgnoreProperties to prevent deserialization failures.\"",
+      "summary10s": "@JsonProperty for name mismatch, @JsonFormat for dates, @JsonIgnoreProperties for extra fields, handle nulls defensively."
+    }
+  },
+  {
+    "id": "json-structure-issues",
+    "category": "Other",
+    "question": "JSON Structure Issues",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Nested structure, array vs object mismatch, wrapped responses need custom deserialization.",
+      "explain": "Nested response — API returns data wrapped in response object, use wrapper DTO or @JsonPath\nArray vs object — API sometimes returns single object sometimes array for same field\nDynamic fields — API returns different keys based on condition, use Map or @JsonAnySetter\nDeeply nested — use nested DTO classes matching the structure exactly\nGeneric wrapper — create ApiResponse of T with data field of generic type",
+      "example": "\"Common structure issue I faced was API returning response wrapped in a data key — response was object with status and data fields where data contained actual content. I created a wrapper DTO ApiResponse of T with a data field of type T. Jackson deserializes the wrapper, I get the actual content from data field. Another issue was inconsistent structure — sometimes field was object sometimes array. I used @JsonDeserialize with custom deserializer to handle both cases.\"",
+      "summary10s": "Wrapper DTO for nested responses, custom deserializer for inconsistent structures, Map for dynamic keys."
+    }
+  },
+  {
+    "id": "what-is-spring-data-jpa",
+    "category": "Spring Boot",
+    "question": "What is Spring Data JPA?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Data JPA is a Spring module that makes database operations very easy. It sits on top of JPA and removes boilerplate code. We can write simple repository interfaces, and Spring automatically creates the queries for us. This helps us focus on business logic instead of writing database code.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "explain-features-of-spring-data-jpa",
+    "category": "Spring Boot",
+    "question": "Explain features of Spring Data JPA?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Data JPA provides several useful features. It gives built-in CRUD operations, supports query creation using method names, and allows custom JPQL or native SQL when needed. It also offers pagination and sorting out of the box. Overall, it removes most boilerplate code and makes database work much simpler.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "how-to-create-a-custom-repository-class-in-spring-jpa",
+    "category": "Spring Boot",
+    "question": "How to create a custom Repository class in Spring JPA?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To create a custom repository in Spring JPA, we first extend JpaRepository in an interface. Then we add our own custom methods, and Spring automatically provides the implementation. If we need more advanced logic, we can create a separate custom interface and its implementation class and link them with the main repository.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "difference-between-crudrepository-and-jparepository",
+    "category": "Spring Boot",
+    "question": "Difference between CrudRepository and JpaRepository",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "CrudRepository gives only basic CRUD operations like save, find, update, and delete. JpaRepository extends CrudRepository and adds extra JPA features like pagination, sorting, flushing, and batch operations. So, JpaRepository is more powerful and is preferred in most real applications.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "write-a-custom-query-in-spring-jpa",
+    "category": "Spring Boot",
+    "question": "Write a custom query in Spring JPA",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "We can write custom queries in Spring JPA using the @Query annotation. It allows us to write JPQL or native SQL inside the repository method. We can also use @Param to pass method arguments into the query.",
+      "explain": "",
+      "example": "\"@Query(\\\"SELECT u FROM User u WHERE u.firstName = :firstName\\\") List<User> findByFirstName(@Param(\\\"firstName\\\") String firstName);\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "what-is-the-purpose-of-the-save-method-in-crudrepository",
+    "category": "Spring Boot",
+    "question": "What is the purpose of the save() method in CrudRepository?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The save() method is used to insert or update an entity. If the record does not exist, it creates a new one. If the record already exists, it updates it based on the primary key. So save() works for both create and update operations automatically.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "what-is-the-use-of-modifying-annotation",
+    "category": "Spring Boot",
+    "question": "What is the use of @Modifying annotation?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The @Modifying annotation is used when a query changes the data, like update or delete. It tells Spring Data JPA that this is not a select query but a write operation, so the changes must be executed and committed to the database.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "difference-between-findbyid-and-getone",
+    "category": "Spring Boot",
+    "question": "Difference between findById() and getOne()",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "findById() hits the database immediately and returns an Optional, so it safely handles missing records. getOne() does not fetch the data immediately; it returns a proxy and loads the data lazily. If the entity does not exist, getOne() throws an EntityNotFoundException.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "use-of-temporal-annotation",
+    "category": "Spring Boot",
+    "question": "Use of @Temporal annotation",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The @Temporal annotation is used to tell JPA how to store a Date or Calendar field in the database. It specifies whether the field should be saved as only DATE, only TIME, or full TIMESTAMP. This helps JPA map Java date types correctly to SQL date types.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "write-a-query-method-for-sorting-in-spring-data-jpa",
+    "category": "Spring Boot",
+    "question": "Write a query method for sorting in Spring Data JPA",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "In Spring Data JPA, we can sort results by adding OrderBy and the field name in the method. Then we specify Asc or Desc to define the sorting direction, and Spring generates the query automatically.",
+      "explain": "",
+      "example": "\"List<User> findByOrderByLastNameAsc();\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "explain-transactional-annotation-in-spring",
+    "category": "Spring Boot",
+    "question": "Explain @Transactional annotation in Spring",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The @Transactional annotation makes a method run inside a transaction. It treats multiple database operations as one unit, so either all succeed or all fail. If an exception occurs, the transaction is rolled back and the changes are not saved. This helps maintain data consistency.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "what-is-the-difference-between-fetchtype-eager-and-fetchtype-lazy",
+    "category": "Spring Boot",
+    "question": "What is the difference between FetchType.Eager and FetchType.Lazy?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Eager fetch loads the related data immediately along with the main entity, which can cause unnecessary data loading. Lazy fetch loads the related data only when it is actually needed, which improves performance. So eager means load now, lazy means load later.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "use-of-id-annotation",
+    "category": "Spring Boot",
+    "question": "Use of @Id annotation",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The @Id annotation marks the primary key of an entity. It tells JPA which field is the unique identifier, so the framework can track, save, update, and manage the entity correctly.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "how-will-you-create-a-composite-primary-key-in-spring-jpa",
+    "category": "Spring Boot",
+    "question": "How will you create a composite primary key in Spring JPA.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To create a composite primary key in Spring JPA, I create a separate class marked with @Embeddable that contains the key fields. Then in the entity, I use @EmbeddedId to use that class as the primary key. This lets JPA treat multiple fields as a single primary key.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "what-is-the-use-of-enablejparepositories-method",
+    "category": "Spring Boot",
+    "question": "What is the use of @EnableJpaRepositories method?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The @EnableJpaRepositories annotation activates Spring Data JPA in the application. It tells Spring where to scan for repository interfaces and sets up the required JPA components so that repository methods work automatically.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "what-are-the-rules-to-follow-to-declare-custom-methods-in-repository",
+    "category": "Spring Boot",
+    "question": "What are the rules to follow to declare custom methods in Repository.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To declare custom methods in a repository, we follow Spring Data JPA’s naming conventions. The method should start with prefixes like findBy, deleteBy, or countBy, and then include the entity field names with keywords like And, Or, or OrderBy. When the naming rule is correct, Spring automatically generates the query, so no manual query writing is needed.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "explain-querybyexample-in-spring-data-jpa",
+    "category": "Spring Boot",
+    "question": "Explain QueryByExample in spring data jpa.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Query By Example lets us build dynamic queries without writing SQL. We create an example object with the fields we want to match, and Spring Data JPA automatically generates the query using the non-null fields. It’s useful for flexible searches where conditions change at runtime.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "what-is-pagination-and-how-to-implement-pagination-in-spring-data",
+    "category": "Spring Boot",
+    "question": "What is pagination and how to implement pagination in spring data?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pagination means breaking large data into smaller pages so the application loads faster. In Spring Data, we implement it using Pageable and PageRequest. We pass Pageable to the repository method, and Spring automatically returns a Page object with the required page, size, and sorting. This makes handling large datasets efficient and simple.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "explain-few-crudrepository-methods",
+    "category": "Spring Boot",
+    "question": "Explain few CrudRepository methods",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "CrudRepository provides basic database operations. save() is used to insert or update records, findById() retrieves a record by its primary key, deleteById() removes a specific record, findAll() returns all records, and count() gives the total number of records. These cover the core CRUD operations used in most applications.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "difference-between-delete-and-deleteinbatch-methods",
+    "category": "Spring Boot",
+    "question": "Difference between delete() and deleteInBatch() methods",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "delete() removes one entity at a time, while deleteInBatch() deletes a whole collection of entities in one batch. deleteInBatch() is more efficient for multiple deletions because it reduces the number of database calls.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "how-do-you-execute-a-complex-query-involving-multiple-tables-and-conditions-in-spring-jpa",
+    "category": "Spring Boot",
+    "question": "How do you execute a complex query involving multiple tables and conditions in Spring JPA?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "For complex queries, I use the @Query annotation on repository methods and write JPQL or native SQL. This lets me join multiple tables and apply custom conditions easily. It gives full control when the standard CRUD or method-name queries are not enough.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "your-application-requires-inserting-thousands-of-records-at-once-how-do-you-optimize-this-batch-process-in-spring-jpa",
+    "category": "Spring Boot",
+    "question": "Your application requires inserting thousands of records at once. How do you optimize this batch process in Spring JPA?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To optimize bulk inserts, I enable Hibernate batch processing by setting hibernate.jdbc.batch_size in application.properties. This allows Hibernate to group multiple inserts into batches instead of running each insert separately. It reduces database round trips and makes large insert operations much faster.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "you-have-entities-with-bidirectional-relationships-how-do-you-avoid-issues-like-infinite-recursion",
+    "category": "Spring Boot",
+    "question": "You have entities with bidirectional relationships. How do you avoid issues like infinite recursion?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I handle bidirectional relationships by setting the correct mappedBy on the owning side of the relationship. To avoid infinite recursion during JSON serialization, I use @JsonManagedReference and @JsonBackReference, or I use DTOs to control what gets returned. This keeps the relationship consistent and prevents serialization loops.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "how-do-you-handle-schema-migration-in-a-spring-jpa-project-when-the-schema-changes",
+    "category": "Spring Boot",
+    "question": "How do you handle schema migration in a Spring JPA project when the schema changes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I use migration tools like Flyway or Liquibase to manage schema changes. These tools run versioned SQL scripts during application startup, so every schema update is tracked and applied automatically. This keeps the database in sync with new business requirements and ensures safe, consistent migrations across all environments.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "you-are-experiencing-performance-issues-with-frequently-accessed-data-how-do-you-implement-caching-in-spring-jpa",
+    "category": "Spring Boot",
+    "question": "You are experiencing performance issues with frequently accessed data. How do you implement caching in Spring JPA?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I use Spring’s Cache abstraction with a cache provider like Redis or EhCache. By adding @Cacheable to frequently accessed methods, the results are stored in the cache instead of hitting the database each time. This reduces repeated queries and significantly improves performance.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "what-do-you-know-about-hibernate",
+    "category": "Spring Boot",
+    "question": "What do you know about Hibernate?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "",
+      "explain": "",
+      "example": "\"Hibernate is a popular ORM framework that maps Java objects to database tables. It removes the need for writing SQL for most operations and lets us work with the database using objects. It also manages relationships, caching, lazy loading, and transactions, making database work much easier and cleaner.\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "explain-each-annotation-in-a-jpa-entity",
+    "category": "Spring Boot",
+    "question": "Explain each annotation in a JPA entity",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "",
+      "explain": "",
+      "example": "\"@Entity marks the class as a JPA entity. @Id identifies the primary key. @GeneratedValue tells JPA to auto-generate the ID. @ManyToOne defines a relationship where many child records link to one parent. Each annotation helps JPA map the class properly to the database.\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "mapping-structure",
+    "category": "Spring Boot",
+    "question": "Mapping structure",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "",
+      "explain": "",
+      "example": "\"The entity has relationships like @ManyToOne or @OneToMany. The owning side holds the foreign key, and the mappedBy side defines the relationship. This structure tells JPA how entities connect and how joins should be handled.\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "copy-constructor-logic",
+    "category": "Java Coding",
+    "question": "Copy constructor logic",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "",
+      "explain": "",
+      "example": "\"A copy constructor creates a new object by copying values from another entity. This is useful for protecting the original entity or sending safe copies to the UI without exposing internal fields.\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "caching-strategy",
+    "category": "Spring Boot",
+    "question": "Caching strategy",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "",
+      "explain": "",
+      "example": "\"The caching strategy controls how JPA stores entities in memory to avoid repeated database hits. For example, READ_ONLY or NONSTRICT_READ_WRITE improves performance by reducing queries. The right strategy depends on how often data changes.\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "spring-data-jpa-main-interfaces",
+    "category": "Spring Boot",
+    "question": "Spring Data JPA main interfaces",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "",
+      "explain": "",
+      "example": "\"The main Spring Data JPA interfaces are CrudRepository, PagingAndSortingRepository, and JpaRepository. CrudRepository provides basic CRUD operations, PagingAndSortingRepository adds pagination and sorting, and JpaRepository extends both and adds JPA-specific features like batch operations and flushing. In real projects, JpaRepository is used most of the time.\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "jpa-hibernet",
+    "category": "Spring Boot",
+    "question": "JPA/HIBERNET?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What is JPA,Spring Data JPA,Hibernet?"
+    ],
+    "answerSEE": {
+      "simple": "JPA does not perform database operations itself. It only defines annotations and APIs. Hibernate is one of the most popular implementations of JPA which reads those annotations and handles the actual persistence logic with the database.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "explain-jpa-hibernate-and-spring-data-jpa",
+    "category": "Spring Boot",
+    "question": "Explain JPA, Hibernate, and Spring Data JPA",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JPA is a rule book, Hibernate is a tool that follows those rules, Spring Data JPA makes using Hibernate very easy.",
+      "explain": "JPA (Java Persistence API) is just a specification. It tells how Java objects should be mapped to database tables, but it does not do the work itself. Hibernate is an implementation of JPA. It actually talks to the database and performs operations like insert, update, delete, and fetch. Spring Data JPA sits on top of JPA and Hibernate. It removes boilerplate code by providing ready-made repository methods like save(), findById(), and findAll().",
+      "example": "\"I create an entity using JPA annotations like @Entity. Hibernate converts that entity into SQL and talks to the database. Spring Data JPA lets me write just a repository interface instead of SQL queries.\"",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "jpa-custom-query",
+    "category": "Spring Boot",
+    "question": "JPA Custom Query",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Custom query means writing our own SQL or JPQL instead of relying on automatic JPA queries.",
+      "explain": "Used when default JPA methods are not enough. Can write JPQL or native SQL queries. Defined using @Query annotation. Gives more control over complex queries.",
+      "example": "\"In JPA, custom queries are used when the built-in repository methods are not enough. We write JPQL or native SQL queries using the @Query annotation. This allows us to handle complex joins or filtering conditions. It gives more control compared to derived query methods.\"",
+      "summary10s": "Custom query = write JPQL/SQL manually using @Query."
+    }
+  },
+  {
+    "id": "jpa-inbuilt-derived-query-methods",
+    "category": "Spring Boot",
+    "question": "JPA Inbuilt (Derived Query Methods)",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Inbuilt queries are automatically generated by Spring Data JPA based on method names.",
+      "explain": "No need to write SQL. Method name defines the query logic. Spring converts method name → SQL query. Useful for simple queries.",
+      "example": "\"Spring Data JPA provides built-in or derived queries where the query is automatically generated from the method name. For example, a method like findByEmail will automatically generate the SQL query. This reduces boilerplate code for simple database operations.\"",
+      "summary10s": "Inbuilt query = method name automatically converted to SQL."
+    }
+  },
+  {
+    "id": "query-annotation",
+    "category": "Spring Boot",
+    "question": "@Query Annotation",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Query allows us to write custom JPQL or native SQL queries inside the repository.",
+      "explain": "Used for complex queries. Supports JPQL and native SQL. Allows parameters using :name. Provides more flexibility than derived queries.",
+      "example": "\"The @Query annotation in Spring Data JPA allows us to define custom queries directly in the repository interface. We can write JPQL or native SQL queries and pass parameters dynamically. It is mainly used when derived query methods are not sufficient.\"",
+      "summary10s": "@Query = write custom JPQL or SQL inside repository."
+    }
+  },
+  {
+    "id": "jpa-internal-working-entitymanager-orm",
+    "category": "Spring Boot",
+    "question": "JPA – Internal Working (EntityManager, ORM)",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JPA works by mapping Java objects to database tables and managing them using EntityManager.",
+      "explain": "JPA uses ORM (Object Relational Mapping) to map class → table. EntityManager manages entity lifecycle (persist, update, delete). It uses a persistence context (cache) to track objects. Converts operations into SQL queries using provider like Hibernate.",
+      "example": "\"JPA internally works using ORM, where Java classes are mapped to database tables. The EntityManager is responsible for managing the lifecycle of entities like persist, update, and delete. It maintains a persistence context to track changes, and based on that it generates SQL queries using providers like Hibernate. This abstraction helps us work with objects instead of writing SQL manually.\"",
+      "summary10s": "JPA = EntityManager + ORM → converts objects into SQL and manages lifecycle automatically."
+    }
   }
 ];
+;
+;
+;
+;
+;
 ;
 ;
 ;
