@@ -78,14 +78,15 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-equals-hashcode",
     "category": "Java",
     "question": "Why do we need to override equals() and hashCode() together?",
-    "frequency": 8,
+    "frequency": 9,
     "companies": [
       "Amazon",
       "Walmart",
       "Morgan Stanley"
     ],
     "variations": [
-      "What happens if you only override equals() in HashMap?"
+      "What happens if you only override equals() in HashMap?",
+      "equals() and hashCode()"
     ],
     "answerSEE": {
       "simple": "HashMap uses hashCode() to find the correct bucket, and equals() to find the exact object in that bucket. Both must be consistent.",
@@ -269,12 +270,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "angular-dependency-injection",
     "category": "Angular",
     "question": "Dependency Injection",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [
       "Deloitte"
     ],
     "variations": [
-      "What is Dependency Injection in Angular? Explain the different provider scopes."
+      "What is Dependency Injection in Angular? Explain the different provider scopes.",
+      "Dependency Injection in Spring Boot"
     ],
     "answerSEE": {
       "simple": "DI means Angular provides a class's dependencies instead of the class creating them itself.",
@@ -1971,9 +1973,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-are-the-solid-principles",
     "category": "System Design",
     "question": "What are the SOLID principles?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "SOLID Principles"
+    ],
     "answerSEE": {
       "simple": "Five design principles: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion.",
       "explain": "They make object-oriented designs more understandable, flexible, and maintainable. They prevent code from becoming tightly coupled and rigid.",
@@ -1999,9 +2003,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "explain-the-factory-design-pattern",
     "category": "System Design",
     "question": "Explain the Factory Design Pattern.",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Factory Design Pattern"
+    ],
     "answerSEE": {
       "simple": "A creational pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.",
       "explain": "Instead of calling `new Object()`, you call a factory method. This encapsulates the instantiation logic, making the system loosely coupled and easier to extend.",
@@ -2097,9 +2103,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 1,
+    "frequency": 3,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "map() vs flatMap()"
+    ],
     "answerSEE": {
       "simple": "map() transforms one element into one new element. flatMap() transforms one element into a stream of elements and flattens them into a single stream.",
       "explain": "If you use map() on a list of lists, you get a Stream of Lists. If you use flatMap(), you get a Stream of the individual items from all the inner lists combined.",
@@ -2111,7 +2119,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-a-functional-interface",
     "category": "Java",
     "question": "What is a Functional Interface?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
     "variations": [],
     "answerSEE": {
@@ -2532,5 +2540,709 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "While my core expertise is Java backend, I have worked with Angular on the frontend. I can build components, manage state using RxJS BehaviorSubjects, and consume REST APIs using HttpClient. I am comfortable making UI changes and debugging the full flow from the browser network tab down to the database.",
       "summary10s": "Be honest. Highlight your ability to build components, use RxJS, and connect frontend to your backend APIs."
     }
+  },
+  {
+    "id": "what-is-optional-in-java-8",
+    "category": "Java",
+    "question": "What is Optional in Java 8?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Optional is a wrapper class used to avoid null checks and NullPointerException.",
+      "explain": "Wraps a value that may or may not be present\nMethods like isPresent(), orElse(), ifPresent() handle absence safely\nEncourages explicit null-handling instead of silent NPEs\n\nExample: Optional<String> name = Optional.ofNullable(getName()); name.orElse(\"Unknown\");",
+      "example": "\"Optional is a container object used to represent a value that might be absent, mainly to avoid explicit null checks and NullPointerException. Instead of returning null from a method, I return Optional and the caller can safely handle it using orElse() or ifPresent(). I use it mostly in service/repository layers where a lookup might not find a result.\"",
+      "summary10s": "Wrapper to avoid null checks — orElse(), ifPresent(), isPresent()."
+    }
+  },
+  {
+    "id": "what-is-apache-kafka-why-asynchronous",
+    "category": "Microservices",
+    "question": "What is Apache Kafka? Why asynchronous?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Kafka is a distributed messaging system used for high-throughput, real-time event streaming between services.",
+      "explain": "Producer sends messages to a Topic without waiting for the Consumer to process them\nConsumer reads messages independently, at its own pace\nThis decoupling of send/receive timing is why it's called asynchronous",
+      "example": "\"Kafka is a distributed event streaming platform used for building real-time data pipelines between microservices. It's called asynchronous because the Producer just publishes a message to a topic and moves on — it doesn't wait for the Consumer to process it. The Consumer reads and processes messages independently, whenever it's ready, so the two are fully decoupled in time.\"",
+      "summary10s": "Producer sends, doesn't wait — Consumer reads later = asynchronous."
+    }
+  },
+  {
+    "id": "query-returns-1-lakh-records-how-to-improve-performance",
+    "category": "SQL",
+    "question": "Query returns 1 lakh records — how to improve performance?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Improve it using pagination, indexing, and fetching only required columns.",
+      "explain": "Use pagination (LIMIT/OFFSET or Spring Data Pageable) instead of loading all at once\nAdd indexes on filter/sort columns, check plan via EXPLAIN ANALYZE\nFetch only needed columns (avoid SELECT *), stream large results if processing server-side",
+      "example": "\"First, I'd avoid loading all 1 lakh records into memory at once — I'd use pagination with Spring Data's Pageable to fetch data in chunks. I'd also check if proper indexes exist on the columns used in WHERE or ORDER BY, using EXPLAIN ANALYZE to verify. If it's a batch job that must process everything, I'd use streaming instead of loading it all into a List.\"",
+      "summary10s": "Paginate + index + select only needed columns."
+    }
+  },
+  {
+    "id": "default-static-methods-in-functional-interface",
+    "category": "Java",
+    "question": "Default & Static methods in Functional Interface",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Default and static methods let interfaces have method bodies without breaking the single-abstract-method rule.\\",
+      "explain": "Default methods are called on an instance/object, using instance.methodName()\nStatic methods are called directly on the interface, using InterfaceName.methodName()\nBoth don't count toward the \"single abstract method\" requirement\n          Default method → has implementation and is inherited by implementing classes.\nStatic method → belongs to the interface and is called using the interface name.\n\nApproach: Define a functional interface with one abstract method, add a default and a static method, then implement and call them.\n@FunctionalInterface\ninterface Calculator {\n    int calculate(int a, int b);\n\n    default void printResult(int a, int b) {\n        System.out.println(\"Result: \" + calculate(a, b));\n    }\n\n    static Calculator getAdder() {\n        return (a, b) -> a + b;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Calculator add = Calculator.getAdder(); // static method call\n        add.printResult(5, 3);                  // default method call → Result: 8\n    }\n}",
+      "example": "\"Default methods are called on an object instance, like add.printResult(), and they provide a common implementation shared across all implementations. Static methods belong to the interface itself, called like Calculator.getAdder(), usually for factory or utility logic. Both were introduced in Java 8 so interfaces could evolve without breaking existing implementations.\"",
+      "summary10s": "Default → call on object, Static → call on interface name directly."
+    }
+  },
+  {
+    "id": "findfirst-vs-findany",
+    "category": "Java",
+    "question": "findFirst() vs findAny()",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "findFirst() always returns the first matching element; findAny() returns any matching element, useful in parallel streams.",
+      "explain": "findFirst() — respects encounter order, deterministic\nfindAny() — no order guarantee, can return faster in parallel streams\nBoth return an Optional<T>",
+      "example": "\"findFirst() guarantees it returns the first element that matches, respecting the stream's order. findAny() doesn't guarantee which matching element you get — it just returns whichever one it finds first, which makes it more efficient in parallel streams since there's no ordering constraint. I use findFirst() when order matters, and findAny() when I just need any match and I'm optimizing for performance.\"",
+      "summary10s": "findFirst = ordered, findAny = faster in parallel, no order guarantee."
+    }
+  },
+  {
+    "id": "comparable-vs-comparator",
+    "category": "Java",
+    "question": "Comparable vs Comparator",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Comparable defines a class's natural ordering; Comparator defines custom ordering from outside the class.",
+      "explain": "Comparable — compareTo(), inside the class, single default order\nComparator — compare(), external, multiple custom sort strategies\nComparator often used with lambdas for flexible sorting",
+      "example": "\"Comparable is implemented inside the class to define its one natural sort order, using compareTo(). Comparator is external and lets me define multiple different sorting strategies without modifying the original class, using compare(). In real projects, I mostly use Comparator with lambdas when I need to sort a list by different fields depending on the situation.\"",
+      "summary10s": "Comparable = one default order, Comparator = multiple custom orders."
+    }
+  },
+  {
+    "id": "hashmap-vs-concurrenthashmap",
+    "category": "Java",
+    "question": "HashMap vs ConcurrentHashMap",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
+      "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
+      "example": "\"HashMap isn't thread-safe — using it with multiple threads can lead to data corruption or infinite loops in older Java versions. ConcurrentHashMap solves this by locking only the specific bucket being updated instead of the whole map, so multiple threads can work on different parts simultaneously. I always use ConcurrentHashMap in multi-threaded scenarios, like a shared cache.\"",
+      "summary10s": "HashMap = not thread-safe, ConcurrentHashMap = bucket-level locking, thread-safe."
+    }
+  },
+  {
+    "id": "arraylist-vs-linkedlist",
+    "category": "Java",
+    "question": "ArrayList vs LinkedList",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ArrayList is backed by a dynamic array; LinkedList is backed by a doubly linked list.",
+      "explain": "ArrayList — fast random access (O(1)), slow insert/delete in middle (O(n))\nLinkedList — fast insert/delete (O(1)) once position is known, slow random access (O(n))\nArrayList is used more often in practice; LinkedList mainly when frequent insert/delete needed\n\n       ArrayList → Fast random access (get()), slower insertion/deletion in the middle.\n       LinkedList → Fast insertion/deletion, slower random access.\n       ArrayList uses less memory; LinkedList uses more memory because each node stores previous and next references.\n     \n  Use ArrayList for frequent reads and LinkedList for frequent insertions/deletions.",
+      "example": "\"ArrayList is backed by a dynamic array, so accessing an element by index is very fast, but inserting or deleting in the middle requires shifting elements. LinkedList is backed by nodes with pointers, so insertion and deletion are faster once you're at the right position, but random access is slower since it has to traverse. In practice, I use ArrayList most of the time unless there's heavy insertion/deletion.\"",
+      "summary10s": "ArrayList = fast access, LinkedList = fast insert/delete, slow access."
+    }
+  },
+  {
+    "id": "types-of-stream-operations",
+    "category": "Java",
+    "question": "Types of Stream operations",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Stream operations are of two types — intermediate and terminal.",
+      "explain": "Intermediate — filter(), map(), sorted() — return a Stream, lazy (not executed immediately)\nTerminal — collect(), forEach(), count() — trigger execution, return a result\nA stream pipeline needs exactly one terminal operation to actually run",
+      "example": "\"Stream operations fall into two categories — intermediate operations like filter, map, and sorted, which return another stream and are lazy, and terminal operations like collect, forEach, or count, which actually trigger the pipeline execution and produce a final result. Nothing runs until a terminal operation is called — that's the lazy evaluation behavior of Streams.\"",
+      "summary10s": "Intermediate = lazy (filter/map), Terminal = triggers execution (collect/forEach)."
+    }
+  },
+  {
+    "id": "lazy-evaluation-in-streams",
+    "category": "Java",
+    "question": "Lazy Evaluation in Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Lazy evaluation means intermediate stream operations don't run until a terminal operation is called.",
+      "explain": "filter(), map() etc. just build up the pipeline definition\nActual processing happens only when collect(), forEach(), etc. is invoked\nImproves performance — avoids unnecessary processing if not all elements are needed (e.g., with findFirst())",
+      "example": "\"Streams are lazily evaluated, meaning operations like filter or map don't actually execute when we write them — they just define the pipeline. Processing only starts when a terminal operation like collect() or forEach() is called. This is efficient because, for something like findFirst(), the stream can stop processing as soon as it finds a match, instead of going through every element.\"",
+      "summary10s": "Nothing runs until terminal operation — enables short-circuiting like findFirst()."
+    }
+  },
+  {
+    "id": "kafka-producer-consumer-topic-partition-offset",
+    "category": "Microservices",
+    "question": "Kafka Producer, Consumer, Topic, Partition, Offset",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "These are the core building blocks of how Kafka stores and delivers messages.",
+      "explain": "Producer — publishes messages to a Topic\nTopic — a category of messages, split into Partitions for scalability\nConsumer — reads messages from partitions, tracked via Offset (message position)",
+      "example": "\"In Kafka, a Producer publishes messages to a Topic, which is like a category or channel. Each Topic is split into Partitions to allow parallel processing and scalability. A Consumer reads messages from these partitions, and Kafka tracks each Consumer's position using an Offset, so it knows exactly where to resume reading from if it restarts.\"",
+      "summary10s": "Producer→Topic (split into Partitions)→Consumer reads, tracked via Offset."
+    }
+  },
+  {
+    "id": "component-vs-service-vs-repository",
+    "category": "Spring Boot",
+    "question": "@Component vs @Service vs @Repository",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "All are specializations of @Component, used to indicate the layer of the class.",
+      "explain": "@Component — generic Spring-managed bean\n@Service — business logic layer, semantic clarity\n@Repository — data access layer, also translates DB exceptions into Spring's DataAccessException",
+      "example": "\"All three are technically @Component under the hood, so Spring detects them the same way through component scanning. But we use @Service for business logic and @Repository for the data access layer — @Repository additionally translates database-specific exceptions into Spring's unified DataAccessException, which is a real functional difference, not just naming.\"",
+      "summary10s": "Same base (@Component), Repository also translates DB exceptions."
+    }
+  },
+  {
+    "id": "restcontroller-vs-controller",
+    "category": "Spring Boot",
+    "question": "@RestController vs @Controller",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RestController returns data directly (like JSON); @Controller is used for returning views.",
+      "explain": "@Controller — typically returns a view name (used with Thymeleaf/JSP)\n@RestController = @Controller + @ResponseBody — returns data directly serialized as JSON/XML\nREST APIs almost always use @RestController",
+      "example": "\"@Controller is traditionally used when we're returning a view, like a Thymeleaf template. @RestController is a combination of @Controller and @ResponseBody, so every method's return value is directly serialized into the response body, usually as JSON. Since I mostly build REST APIs, I use @RestController almost everywhere.\"",
+      "summary10s": "@Controller = returns view, @RestController = @Controller + @ResponseBody (returns JSON)."
+    }
+  },
+  {
+    "id": "dry-and-kiss",
+    "category": "System Design",
+    "question": "DRY and KISS",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "DRY means don't repeat logic; KISS means keep the design as simple as possible.",
+      "explain": "DRY — extract common/repeated code into reusable methods, utilities, or base classes\nKISS — avoid unnecessary complexity, over-engineering, or premature optimization\nBoth lead to more maintainable, readable code",
+      "example": "\"DRY means avoiding duplicate logic — if I see the same validation or calculation repeated in multiple places, I extract it into a shared method or utility class. KISS is about not over-engineering — I try to solve the problem with the simplest design that works, instead of adding unnecessary abstraction layers or patterns that aren't actually needed yet.\"",
+      "summary10s": "DRY = don't repeat code, KISS = keep design simple, avoid over-engineering."
+    }
+  },
+  {
+    "id": "singleton-design-pattern",
+    "category": "System Design",
+    "question": "Singleton Design Pattern",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Singleton ensures only one instance of a class exists throughout the application.",
+      "explain": "Private constructor + static instance + static access method\nCommon uses: config managers, logging, connection pools\nNeeds thread-safety handling (double-checked locking, enum) in multi-threaded apps",
+      "example": "\"Singleton restricts a class to just one instance, typically implemented with a private constructor and a static getInstance() method. I've used it for things like a configuration manager that should be shared across the app. In multi-threaded environments, I'd make sure it's thread-safe using double-checked locking or an enum-based implementation.\"",
+      "summary10s": "One instance only — private constructor + static access, thread-safe if needed."
+    }
+  },
+  {
+    "id": "strategy-design-pattern",
+    "category": "System Design",
+    "question": "Strategy Design Pattern",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Strategy pattern lets you swap between different algorithms/behaviors at runtime using a common interface.",
+      "explain": "Define a common interface, multiple implementations (strategies)\nContext class holds a reference to the strategy interface, not a concrete class\nAvoids long if-else/switch chains for choosing behavior\nExample: Different discount strategies (FlatDiscount, PercentageDiscount) implementing a common DiscountStrategy interface.",
+      "example": "\"Strategy pattern lets me define a family of algorithms behind a common interface and swap between them at runtime. I've used this for discount calculation — instead of a big if-else block, I had separate strategy classes like FlatDiscount and PercentageDiscount, and the context class just called strategy.apply() without caring which one it was. It makes adding a new strategy easy without touching existing code.\"",
+      "summary10s": "Swap algorithms at runtime via a common interface — avoids if-else chains."
+    }
+  },
+  {
+    "id": "observer-design-pattern",
+    "category": "System Design",
+    "question": "Observer Design Pattern",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Observer pattern lets multiple objects (observers) get notified automatically when a subject's state changes.",
+      "explain": "Subject maintains a list of observers, notifies all of them on state change\nObservers implement a common update/listener interface\nCommon in event-driven systems — e.g., Spring's ApplicationEventPublisher",
+      "example": "\"Observer pattern is used when multiple components need to react to a change in one place without tight coupling. The subject keeps a list of observers and notifies them all when something changes. In Spring, I've used this indirectly through ApplicationEventPublisher — for example, publishing an OrderPlacedEvent that multiple listeners react to, like sending an email and updating inventory, without the order service knowing about either of them directly.\"",
+      "summary10s": "Subject notifies all observers on change — like Spring's ApplicationEventPublisher."
+    }
+  },
+  {
+    "id": "adapter-design-pattern",
+    "category": "System Design",
+    "question": "Adapter Design Pattern",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Adapter pattern converts one interface into another that the client expects, so incompatible classes can work together.",
+      "explain": "Wraps an existing class with a new interface the client understands\nUseful when integrating a third-party library with a different interface than what your code expects\nDoesn't change the original class, just wraps it\nExample: Wrapping a legacy XmlPaymentGateway behind a new PaymentGateway interface your app expects.",
+      "example": "\"Adapter pattern is useful when I need to integrate an existing class or third-party library whose interface doesn't match what my application expects. I wrap that class inside an adapter that implements the interface my code uses, translating calls internally. I've used this when integrating a legacy payment gateway that returned XML, wrapping it behind our standard PaymentGateway interface so the rest of the app didn't need to know the difference.\"",
+      "summary10s": "Wraps incompatible interface into the one your code expects."
+    }
+  },
+  {
+    "id": "internal-working-of-hashmap",
+    "category": "Java",
+    "question": "Internal working of HashMap",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
+      "explain": "hash(key) determines the bucket index\nCollisions handled via linked list; converts to Red-Black Tree if a bucket has 8+ entries (Java 8+)\nResizes (doubles capacity) when load factor threshold (default 0.75) is crossed",
+      "example": "\"HashMap calculates a hash from the key to decide which bucket it goes into. If multiple keys collide into the same bucket, Java 8 uses a linked list, but converts it to a Red-Black Tree once that bucket has 8 or more entries, to keep lookups fast. It also resizes by doubling its capacity once the map exceeds the load factor, which is 0.75 by default.\"",
+      "summary10s": "Hash → bucket, collisions via list→tree(8+), resizes at 0.75 load factor."
+    }
+  },
+  {
+    "id": "internal-working-of-hashset",
+    "category": "Java",
+    "question": "Internal working of HashSet",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "HashSet is internally backed by a HashMap, where each element is stored as a key with a dummy constant value.",
+      "explain": "add(element) internally calls map.put(element, PRESENT) — a fixed dummy Object\nUniqueness comes from HashMap's key uniqueness (hashCode + equals check)\nAll HashMap behavior (buckets, collisions, resizing) applies underneath",
+      "example": "\"HashSet is basically a wrapper around a HashMap — every time we add an element, it's stored internally as a key in the map, with a dummy constant value attached. So the uniqueness guarantee of HashSet comes directly from HashMap's key uniqueness, based on hashCode and equals. That's also why HashSet requires proper equals and hashCode implementations on custom objects, just like HashMap keys do.\"",
+      "summary10s": "HashSet = HashMap internally, element as key, dummy value — uniqueness from map keys."
+    }
+  },
+  {
+    "id": "why-use-transactional",
+    "category": "Spring Boot",
+    "question": "Why use @Transactional?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Transactional ensures a group of database operations either all succeed together or all roll back.",
+      "explain": "Wraps a method in a transaction boundary automatically\nAvoids manual begin/commit/rollback code\nEnsures data consistency when multiple DB writes must happen together",
+      "example": "\"I use @Transactional to make sure a set of database operations behave as a single atomic unit — either everything commits, or everything rolls back if something fails. It saves me from manually writing begin, commit, and rollback logic. I typically apply it at the service layer, especially for methods that involve multiple related writes, like updating an order and deducting inventory together.\"",
+      "summary10s": "Groups DB operations into one atomic unit — auto commit/rollback."
+    }
+  },
+  {
+    "id": "can-transactional-be-applied-to-private-or-static-methods",
+    "category": "Spring Boot",
+    "question": "Can @Transactional be applied to private or static methods?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "No — @Transactional doesn't work on private or static methods because it relies on Spring's proxy mechanism.",
+      "explain": "Spring creates a proxy around the bean; proxies can only intercept public method calls made from outside the class\nPrivate methods can't be overridden/proxied — the annotation is silently ignored\nStatic methods belong to the class, not an instance — proxies can't intercept them at all",
+      "example": "\"@Transactional won't work on private or static methods, because Spring implements it using proxies, and a proxy can only intercept calls to public methods invoked from outside the class. Since a private method can't be overridden by a subclass proxy, and a static method isn't tied to an instance at all, Spring simply can't wrap either of them — the annotation gets silently ignored, which is a common gotcha.\"",
+      "summary10s": "Proxy can't intercept private/static methods — annotation is silently ignored."
+    }
+  },
+  {
+    "id": "which-exceptions-trigger-rollback-with-transactional",
+    "category": "Spring Boot",
+    "question": "Which exceptions trigger rollback with @Transactional?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "By default, only unchecked exceptions (RuntimeException and its subclasses) trigger a rollback.",
+      "explain": "Unchecked exceptions (RuntimeException, Error) → automatic rollback\nChecked exceptions → NO automatic rollback by default, transaction commits\nOverride this using @Transactional(rollbackFor = Exception.class) to rollback on checked exceptions too",
+      "example": "\"By default, @Transactional only rolls back on unchecked exceptions, like RuntimeException. If a checked exception is thrown, Spring actually commits the transaction by default, which surprises a lot of people. If I need a checked exception to also trigger a rollback, I explicitly configure it using rollbackFor, like @Transactional(rollbackFor = Exception.class).\"",
+      "summary10s": "Default: rollback on RuntimeException only. Use rollbackFor for checked exceptions."
+    }
+  },
+  {
+    "id": "java-singleton-vs-spring-singleton-bean-scope",
+    "category": "Spring Boot",
+    "question": "Java Singleton vs Spring Singleton Bean scope",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Java Singleton is one instance per JVM; Spring Singleton is one instance per Spring container (ApplicationContext).",
+      "explain": "Java Singleton — enforced by private constructor, truly one instance across the entire JVM\nSpring Singleton — one instance per ApplicationContext, but you CAN create multiple new instances manually, and multiple contexts give multiple \"singletons\"\nSpring doesn't restrict instantiation via constructor — it's a container-managed convention, not a JVM-level guarantee",
+      "example": "\"The classic Java Singleton pattern enforces just one instance across the entire JVM, usually by making the constructor private. Spring's singleton scope is different — it just means one instance per Spring container, but Spring doesn't stop me from calling new on that class manually to create additional instances, since the constructor is public. So Spring singleton is more of a container-managed convention rather than a hard JVM-level guarantee like the traditional pattern.\"",
+      "summary10s": "Java Singleton = one per JVM (enforced). Spring Singleton = one per container (convention, not enforced)."
+    }
+  },
+  {
+    "id": "filter-employees-by-experience-salary-sort-ascending-descending",
+    "category": "Java Coding",
+    "question": "Filter Employees by experience & salary, sort ascending/descending",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Streams to filter by conditions, then sort using a Comparator.",
+      "explain": "Approach: Filter with filter() on experience and salary thresholds, then sort with sorted() using Comparator.comparing(), reversing for descending order.\nimport java.util.*;\nimport java.util.stream.*;\n\nrecord Employee(String name, int id, double salary, int experience) {}\n\npublic class EmployeeFilter {\n    public static void main(String[] args) {\n        List<Employee> employees = List.of(\n            new Employee(\"A\", 1, 50000, 3),\n            new Employee(\"B\", 2, 80000, 6),\n            new Employee(\"C\", 3, 60000, 5)\n        );\n\n        List<Employee> result = employees.stream()\n            .filter(e -> e.experience() >= 5 && e.salary() >= 55000)\n            .sorted(Comparator.comparing(Employee::salary).reversed()) // descending\n            .collect(Collectors.toList());\n\n        result.forEach(e -> System.out.println(e.name() + \" - \" + e.salary()));\n    }\n}",
+      "example": "\"I'd use Java Streams — filter the list based on the experience and salary conditions using filter(), then sort with sorted() and a Comparator on salary. For descending order, I just chain .reversed() on the Comparator, or swap to Comparator.comparing(...).reversed() — it's a clean one-liner instead of writing custom sorting logic.\"",
+      "summary10s": "filter() for conditions + sorted(Comparator...reversed()) for order."
+    }
+  },
+  {
+    "id": "bufferedinputstream-vs-bufferedoutputstream",
+    "category": "Java",
+    "question": "BufferedInputStream vs BufferedOutputStream",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "BufferedInputStream reads data efficiently by buffering input, BufferedOutputStream writes data efficiently by buffering output — both reduce actual disk/network IO operations.",
+      "explain": "BufferedInputStream — wraps another InputStream, reads chunks into internal buffer (8KB default), subsequent reads served from buffer without hitting disk\nBufferedOutputStream — wraps another OutputStream, accumulates writes in buffer, flushes to disk only when buffer is full or flush() called\nWithout buffering — every read/write is a system call to OS — very slow for small frequent reads\nBoth are Filter Streams — they wrap and enhance other streams\nAlways close or use try-with-resources — unflushed buffer data can be lost",
+      "example": "\"Without buffering, reading a file byte by byte means thousands of system calls to the OS — extremely slow. BufferedInputStream reads a large chunk into memory first, then subsequent reads come from that in-memory buffer — far fewer system calls. BufferedOutputStream accumulates writes in memory and flushes in one large write instead of many small ones. They are wrappers around other streams — I always wrap FileInputStream with BufferedInputStream for performance.\"",
+      "summary10s": "Buffered streams reduce IO system calls by reading/writing chunks to memory buffer instead of disk for every byte."
+    }
+  },
+  {
+    "id": "why-is-string-immutable-in-java",
+    "category": "Java",
+    "question": "Why is String Immutable in Java?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "String objects cannot be changed after creation — any modification creates a new String object, never modifying the original.",
+      "explain": "Security — String used for class loading, DB URLs, network connections — mutable String would be a security vulnerability\nString Pool — JVM reuses String literals safely because immutable objects can be shared without copy\nThread Safety — immutable objects need no synchronization, inherently thread-safe\nHashCode Caching — String caches its hashCode, works correctly only because value never changes\nHashMap key safety — String is the safest map key because hashCode never changes after put",
+      "example": "\"String immutability serves four purposes. Security — if I pass a file path to a method, the method cannot secretly change the path after my security check. String pool efficiency — JVM reuses identical literals safely because two variables pointing to the same pooled String cannot affect each other through one changing it. Thread safety — multiple threads can read the same String simultaneously without locks. HashCode caching — String caches hashCode for fast HashMap lookups, valid only because the value never changes.\"",
+      "summary10s": "String immutable for security, string pool sharing, thread safety, and hashCode caching — all four depend on value never changing."
+    }
+  },
+  {
+    "id": "what-are-filter-streams",
+    "category": "Java",
+    "question": "What are Filter Streams?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Filter Streams wrap other streams to add functionality — they delegate actual IO to the wrapped stream while adding their own behavior on top.",
+      "explain": "Design Pattern — Decorator pattern, wraps a stream and enhances it\nThey take another stream as constructor argument\nExamples — BufferedInputStream wraps FileInputStream to add buffering, DataInputStream wraps to read primitives, CipherInputStream wraps to add encryption\nCan chain multiple filter streams — BufferedInputStream(CipherInputStream(FileInputStream))\nDo not perform actual IO themselves — delegate to wrapped stream\nCode:\n// Chaining filter streams — Decorator pattern\nInputStream raw = new FileInputStream(\"data.bin\");\nInputStream decrypted = new CipherInputStream(raw, cipher);     // adds decryption\nInputStream buffered = new BufferedInputStream(decrypted);       // adds buffering\nDataInputStream data = new DataInputStream(buffered);           // adds primitive reading\n\n// Reading automatically decrypts, buffers, and parses\nint value = data.readInt(); // three layers of decoration",
+      "example": "\"Filter streams implement the Decorator design pattern. They wrap another stream and add functionality without changing the interface. BufferedInputStream wraps FileInputStream — it delegates actual file reading to FileInputStream but adds an in-memory buffer layer on top. I can chain multiple filter streams — wrap with CipherInputStream for decryption, wrap that with BufferedInputStream for buffering. Each layer adds one responsibility.\"",
+      "summary10s": "Filter streams=Decorator pattern, wrap another stream adding functionality, delegate actual IO to wrapped stream, can chain multiple layers."
+    }
+  },
+  {
+    "id": "marker-interfaces",
+    "category": "Java",
+    "question": "Marker Interfaces",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Marker interfaces are empty interfaces with no methods — they mark a class to inform the JVM or framework that special treatment is needed.",
+      "explain": "Serializable — marks class as eligible for serialization by ObjectOutputStream\nCloneable — marks class as eligible for Object.clone() without throwing CloneNotSupportedException\nRandomAccess — marks List implementations as supporting fast random access\nRemote — marks object as eligible for RMI (Remote Method Invocation)\nModern alternative — annotations (@FunctionalInterface, @Deprecated) serve similar purpose more explicitly",
+      "example": "\"Marker interfaces are empty — they contain no methods or fields. Their sole purpose is to tag a class so the JVM or a framework can detect it via instanceof and apply special behavior. Serializable tells ObjectOutputStream that this class can be serialized. Without Serializable, ObjectOutputStream throws NotSerializableException. In modern Java, annotations have largely replaced marker interfaces — @Transactional marks a method for transaction management, @Cacheable marks a method for caching — same concept but more flexible.\"",
+      "summary10s": "Marker interfaces are empty, tag classes for special JVM/framework treatment. Serializable, Cloneable, RandomAccess. Modern replacement is annotations."
+    }
+  },
+  {
+    "id": "what-is-serialization-and-where-have-you-used-it",
+    "category": "Java",
+    "question": "What is Serialization and Where Have You Used It",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Serialization converts a Java object into a byte stream for storage or transmission, deserialization converts bytes back to object.",
+      "explain": "Implement Serializable marker interface — enables ObjectOutputStream to write the object\nserialVersionUID — version control for compatibility between serialized and current class\ntransient — skip field during serialization (passwords, session tokens)\nUsed in — HTTP session persistence, caching (Redis serializes objects), message queues (Kafka object messages), distributed systems\nReal usage:\n@Entity\npublic class UserSession implements Serializable {\n    @Serial\n    private static final long serialVersionUID = 1L;\n    \n    private Long userId;\n    private String role;\n    \n    @Transient // not serialized\n    private transient String sensitiveToken;\n}\n\n// Redis serialization — object to bytes for cache storage\n// Kafka — message payload serialized as bytes for transmission\n// HTTP session — session attributes serialized when stored to DB",
+      "example": "\"Serialization converts object state to a byte stream. In my banking project I used it in three places. Redis cache stores Java objects as serialized bytes — when I put an Account object in Redis it serializes it, when I get it back it deserializes. Kafka message payloads — complex event objects serialized to bytes for transmission. HTTP session replication — in a clustered environment session attributes must be serializable to be replicated across nodes. I always declare serialVersionUID explicitly and mark sensitive fields as transient.\"",
+      "summary10s": "Serialization=object to bytes. Used for Redis caching, Kafka messages, session replication. Always declare serialVersionUID, mark passwords transient."
+    }
+  },
+  {
+    "id": "how-to-store-passwords-in-database",
+    "category": "Spring Boot",
+    "question": "How to Store Passwords in Database",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Never store plain text or reversibly encrypted passwords — always store a one-way hash using BCrypt.",
+      "explain": "Plain text — catastrophic if DB is breached, never acceptable\nSimple hash (MD5, SHA) — vulnerable to rainbow table attacks, fast to brute-force\nBCrypt — slow by design (work factor), includes random salt per password, each hash is unique\nSalt — random bytes added before hashing, prevents rainbow table attacks\nSpring Security PasswordEncoder — use BCryptPasswordEncoder, verify with matches() never manual comparison",
+      "example": "\"Passwords must be one-way hashed with a salt — never encrypted, never plain text. Encryption is reversible if the key is compromised. BCrypt is the standard — it incorporates a random salt so two users with the same password get different hashes, and it has a configurable work factor making brute-force extremely slow. Spring Security's BCryptPasswordEncoder.encode() does all this automatically. matches() compares raw input against the stored hash without ever decoding the stored hash.\"",
+      "summary10s": "Never plain text or encryption — use BCrypt (one-way, salted, slow by design). BCryptPasswordEncoder.encode() to store, matches() to verify, never decrypt."
+    }
+  },
+  {
+    "id": "bcrypt-hashing-mechanism-explained",
+    "category": "Spring Boot",
+    "question": "BCrypt — Hashing Mechanism Explained",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "BCrypt is an adaptive password hashing function — incorporates random salt and work factor making it extremely resistant to brute-force attacks.",
+      "explain": "Cost factor (strength) — default 10, each increment doubles computation time\nRandom salt — 16 bytes of randomness, different hash for same password each time\nOutput includes — algorithm, cost, salt, and hash all in one 60-character string\nmatches() extracts salt from stored hash, re-hashes input, compares\nAs hardware gets faster — increase cost factor, old hashes still work\nCode:\n@Bean\npublic PasswordEncoder passwordEncoder() {\n    return new BCryptPasswordEncoder(12); // strength 12 — about 400ms per hash\n}\n\n// Registration\nString rawPassword = \"userPassword123\";\nString encodedPassword = passwordEncoder.encode(rawPassword);\n// $2a$12$[22charSalt][31charHash] — 60 chars total\nuser.setPassword(encodedPassword);\nuserRepository.save(user);\n\n// Login verification\nboolean matches = passwordEncoder.matches(rawPassword, storedHash);\n// Extracts salt from storedHash, re-hashes rawPassword with that salt, compares",
+      "example": "\"BCrypt output is a 60-character string containing the algorithm version, cost factor, salt, and hash all in one. When verifying, BCrypt extracts the salt from the stored hash, applies it to the input password, and compares — no decryption involved. The cost factor makes BCrypt adaptive — I set it to 12 which takes about 400ms per hash. That is acceptable for login but makes brute-force attacks impractical. If hardware gets faster I increase the cost factor without breaking existing hashes.\"",
+      "summary10s": "BCrypt=one-way, cost factor makes it slow, random salt in output string, matches() extracts salt and re-hashes to verify without decrypting."
+    }
+  },
+  {
+    "id": "encryption-vs-hashing",
+    "category": "Spring Boot",
+    "question": "Encryption vs Hashing",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Encryption is reversible with a key (two-way), Hashing is irreversible (one-way) — use encryption for data you need back, hashing for passwords you only need to verify.",
+      "explain": "Encryption — encrypt(data, key)=ciphertext, decrypt(ciphertext, key)=original data. Reversible\nHashing — hash(data)=digest, no way to get original data back. One-way\nHashing has no key — same input always produces same output (deterministic)\nEncryption has key — same input with different keys produces different output\nUse encryption for — credit card numbers, sensitive data you need to retrieve\nUse hashing for — passwords, you verify by re-hashing never by decrypting",
+      "example": "\"Encryption and decryption are inverse operations — what encryption locks, decryption unlocks using a key. Hashing has no reverse — given a hash you cannot get the original data. For passwords I want hashing because I never need to retrieve the original password, I only need to verify that what a user types matches what was stored. For data I need to retrieve later — like storing an encrypted credit card number — I use encryption. Encrypting passwords is wrong because if someone gets the encryption key they can decrypt all passwords.\"",
+      "summary10s": "Encryption=reversible with key (two-way), Hashing=irreversible one-way. Encrypt data you need back, hash passwords you only need to verify."
+    }
+  },
+  {
+    "id": "what-is-rsa-and-where-is-it-used",
+    "category": "Spring Boot",
+    "question": "What is RSA and Where is it Used",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "RSA is an asymmetric encryption algorithm — uses a public key to encrypt and a private key to decrypt (or vice versa for digital signatures).",
+      "explain": "Asymmetric — two mathematically linked keys, public and private\nEncrypt with public key — only private key holder can decrypt\nSign with private key — anyone with public key can verify signature\nUsed in — HTTPS/TLS for key exchange, SSH authentication, JWT RS256 signing, digital signatures, certificate authorities\nSlower than symmetric encryption — used to exchange a symmetric key then switch to AES",
+      "example": "\"RSA is built on a mathematical problem that is easy to compute forward but practically impossible to reverse — factoring large prime numbers. In HTTPS, RSA is used during TLS handshake to securely exchange a symmetric AES session key. For JWT with RS256 algorithm, the server signs tokens with its private key, clients verify with the public key — this means clients can verify token authenticity without having the signing secret. In my project I used RSA for JWT signing so that multiple services could verify tokens by sharing only the public key, never the private key.\"",
+      "summary10s": "RSA=asymmetric two-key system. Public key encrypts or verifies, private key decrypts or signs. Used in TLS, JWT RS256, SSH, digital signatures."
+    }
+  },
+  {
+    "id": "how-is-csrf-protection-implemented",
+    "category": "Spring Boot",
+    "question": "How is CSRF Protection Implemented",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "CSRF protection ensures form submissions and state-changing requests come from your own frontend by using an unpredictable token that malicious sites cannot forge.",
+      "explain": "CSRF attack — malicious site tricks authenticated user's browser into making unwanted requests\nCSRF token — unique per-session random value, server validates it on every state-changing request\nSpring Security includes CSRF protection by default for non-REST apps\nFor REST APIs with JWT (stateless) — CSRF not needed because no session cookies used\nSameSite cookie attribute — modern alternative, browser only sends cookie for same-site requests\nCode:\n// For REST APIs with JWT — disable CSRF (stateless, no cookie session)\n@Bean\npublic SecurityFilterChain filterChain(HttpSecurity http) throws Exception {\n    http\n        .csrf(csrf -> csrf.disable()) // Safe for stateless JWT APIs\n        .sessionManagement(session -> \n            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))\n        ...\n    return http.build();\n}\n\n// For traditional web apps — keep CSRF enabled (default)\n// Spring Security sends X-CSRF-TOKEN in response\n// Frontend must include it in every POST/PUT/DELETE request header\n// Malicious site cannot read this token from another origin (Same-Origin Policy)",
+      "example": "\"CSRF exploits the fact that browsers automatically send cookies with every request. A malicious site can trigger a form submit to your bank's API and the browser sends the session cookie. CSRF token prevents this — it is embedded in the form and must be included in the request header. The malicious site cannot read it due to Same-Origin Policy. For REST APIs using JWT in Authorization header — not cookies — CSRF is not needed because the malicious site cannot forge the Authorization header. So I disable CSRF for stateless JWT-based APIs.\"",
+      "summary10s": "CSRF token=unpredictable value in form, malicious site cannot read it. Disable CSRF for stateless JWT APIs — no session cookie means no CSRF risk."
+    }
+  },
+  {
+    "id": "authenticationmanager-and-authenticationprovider",
+    "category": "Spring Boot",
+    "question": "AuthenticationManager and AuthenticationProvider",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "AuthenticationManager delegates to AuthenticationProvider which actually verifies credentials — authentication flows through them in sequence.",
+      "explain": "AuthenticationManager — interface with authenticate(Authentication) method, single entry point for authentication\nProviderManager — most common implementation, holds a list of AuthenticationProviders\nAuthenticationProvider — actual credential verification, one per authentication mechanism\nDaoAuthenticationProvider — loads UserDetails from DB, verifies password with PasswordEncoder\nMultiple providers — app can support username/password AND LDAP AND OTP simultaneously\nFlow:\nLogin Request → AuthenticationManager (ProviderManager)\n    → Tries AuthenticationProvider 1 (DaoAuthenticationProvider)\n        → UserDetailsService.loadUserByUsername()\n        → PasswordEncoder.matches()\n        → Returns Authentication if success\n    → Tries AuthenticationProvider 2 (LdapAuthenticationProvider) if 1 fails\n    → Returns successful Authentication or throws AuthenticationException\n\n// Custom AuthenticationProvider\n@Component\npublic class OtpAuthenticationProvider implements AuthenticationProvider {\n    @Override\n    public Authentication authenticate(Authentication auth) {\n        String username = auth.getName();\n        String otp = auth.getCredentials().toString();\n        // verify OTP logic\n        if (otpService.isValid(username, otp)) {\n            return new UsernamePasswordAuthenticationToken(username, null, authorities);\n        }\n        throw new BadCredentialsException(\"Invalid OTP\");\n    }\n    \n    @Override\n    public boolean supports(Class<?> auth) {\n        return OtpAuthenticationToken.class.isAssignableFrom(auth);\n    }\n}",
+      "example": "\"AuthenticationManager is the front door — it receives the authentication request and delegates to a list of AuthenticationProviders. Each provider handles a specific authentication type. DaoAuthenticationProvider handles username/password — it calls UserDetailsService to load the user from DB, then PasswordEncoder.matches() to verify the password. For my banking app with OTP login, I created a custom AuthenticationProvider for OTP verification alongside the standard one for password — both registered with the same ProviderManager.\"",
+      "summary10s": "AuthenticationManager=front door delegates to providers. AuthenticationProvider=actual verification. DaoAuthenticationProvider=DB user + password check. Multiple providers for multiple auth types."
+    }
+  },
+  {
+    "id": "jwt-what-it-contains-and-authentication-flow",
+    "category": "Spring Boot",
+    "question": "JWT — What it Contains and Authentication Flow",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JWT is a compact self-contained signed token with three parts — Header, Payload, Signature — carrying user identity without server-side session.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
+    }
+  },
+  {
+    "id": "oauth-vs-oauth-2-0",
+    "category": "Spring Boot",
+    "question": "OAuth vs OAuth 2.0",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "OAuth 1.0 used complex cryptographic request signing, OAuth 2.0 simplified this using HTTPS and bearer tokens — OAuth 2.0 is the standard today.",
+      "explain": "OAuth 1.0 — required cryptographic signature on every request, complex to implement, no standard for mobile\nOAuth 2.0 — relies on HTTPS for security, simpler token-based, supports multiple grant types\nGrant types — Authorization Code (web), PKCE (mobile/SPA), Client Credentials (server-to-server), Implicit (deprecated)\nOAuth 2.0 roles — Resource Owner (user), Client (app), Authorization Server (issues tokens), Resource Server (API)\nOAuth 2.0 is authorization not authentication — OpenID Connect (OIDC) adds identity layer on top",
+      "example": "\"OAuth 1.0 required every API request to be cryptographically signed — complex timestamp and nonce management making it hard to implement correctly. OAuth 2.0 dropped this complexity by relying on HTTPS for transport security and using simpler bearer tokens. OAuth 2.0 also introduced multiple grant types for different scenarios — Authorization Code for traditional web apps, PKCE for mobile and single-page apps, Client Credentials for machine-to-machine. When people say 'Login with Google', that is OAuth 2.0 with OpenID Connect on top for identity.\"",
+      "summary10s": "OAuth 1.0=complex cryptographic signing on every request. OAuth 2.0=simpler HTTPS+bearer tokens, multiple grant types. OAuth 2.0 is today's standard. Add OIDC for authentication."
+    }
+  },
+  {
+    "id": "preauthorize-and-postauthorize",
+    "category": "Spring Boot",
+    "question": "@PreAuthorize and @PostAuthorize",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@PreAuthorize checks authorization BEFORE method executes, @PostAuthorize checks AFTER and can restrict based on the returned object.",
+      "explain": "Enable with @EnableMethodSecurity on configuration class\n@PreAuthorize — evaluate SpEL expression before method runs, throws AccessDeniedException if false\n@PostAuthorize — evaluate after method returns, useful when authorization depends on the result\nhasRole — checks user has specific role in SecurityContext\nhasAuthority — checks specific authority/permission string\nreturnObject — available in @PostAuthorize, refers to the method's return value\nCode:\n@EnableMethodSecurity\n@Configuration\npublic class SecurityConfig { }\n\n@Service\npublic class AccountService {\n    \n    // Method only executes if user has ADMIN role\n    @PreAuthorize(\"hasRole('ADMIN')\")\n    public List<Account> getAllAccounts() { ... }\n    \n    // Multiple conditions with AND/OR\n    @PreAuthorize(\"hasRole('MANAGER') or hasAuthority('ACCOUNT_READ')\")\n    public Account getAccount(Long id) { ... }\n    \n    // Access method parameter in expression\n    @PreAuthorize(\"hasRole('ADMIN') or #userId == authentication.principal.id\")\n    public UserProfile getUserProfile(@P(\"userId\") Long userId) {\n        // User can access their own profile, admin can access any\n    }\n    \n    // @PostAuthorize — check after method returns\n    // Blocks response if returned account does not belong to current user\n    @PostAuthorize(\"returnObject.ownerId == authentication.principal.id or hasRole('ADMIN')\")\n    public Account getAccountById(Long id) {\n        return accountRepository.findById(id).orElseThrow();\n    }\n}",
+      "example": "\"@PreAuthorize prevents unauthorized method execution — if the SpEL expression evaluates to false the method never runs, throwing AccessDeniedException immediately. I use it for role checks like hasRole ADMIN or hasAuthority ACCOUNT_WRITE. @PostAuthorize is unique — the method executes and retrieves data, but the response is blocked if the post-condition fails. In my banking project I used @PostAuthorize to ensure users cannot access other customers' account details even if they somehow guess the ID — the returnObject is checked against the current authenticated user's ID.\"",
+      "summary10s": "@PreAuthorize=SpEL check BEFORE method, blocks execution. @PostAuthorize=SpEL check AFTER using returnObject, blocks response. Enable with @EnableMethodSecurity."
+    }
+  },
+  {
+    "id": "configure-multiple-databases-in-spring-boot",
+    "category": "Spring Boot",
+    "question": "Configure Multiple Databases in Spring Boot",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Create separate DataSource, EntityManagerFactory, and TransactionManager beans for each database — use @Primary on the main one.",
+      "explain": "Each database needs its own DataSource, JPA EntityManagerFactory, and PlatformTransactionManager\n@Primary on the main database beans — default for auto-wiring\n@Qualifier for explicitly selecting the secondary database beans\nSeparate packages for entities of each database — each EntityManagerFactory scans its own package\nSeparate @EnableTransactionManagement and @EnableJpaRepositories per database\nCode:\n// Primary database configuration\n@Configuration\n@EnableTransactionManagement\n@EnableJpaRepositories(\n    basePackages = \"com.app.primary.repository\",\n    entityManagerFactoryRef = \"primaryEntityManagerFactory\",\n    transactionManagerRef = \"primaryTransactionManager\"\n)\npublic class PrimaryDatabaseConfig {\n    \n    @Primary\n    @Bean\n    @ConfigurationProperties(\"spring.datasource.primary\")\n    public DataSource primaryDataSource() {\n        return DataSourceBuilder.create().build();\n    }\n    \n    @Primary\n    @Bean\n    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(\n            @Qualifier(\"primaryDataSource\") DataSource ds,\n            EntityManagerFactoryBuilder builder) {\n        return builder\n            .dataSource(ds)\n            .packages(\"com.app.primary.entity\") // scans only this package\n            .persistenceUnit(\"primary\")\n            .build();\n    }\n    \n    @Primary\n    @Bean\n    public PlatformTransactionManager primaryTransactionManager(\n            @Qualifier(\"primaryEntityManagerFactory\") EntityManagerFactory emf) {\n        return new JpaTransactionManager(emf);\n    }\n}\n\n// Secondary database configuration\n@Configuration\n@EnableJpaRepositories(\n    basePackages = \"com.app.secondary.repository\",\n    entityManagerFactoryRef = \"secondaryEntityManagerFactory\",\n    transactionManagerRef = \"secondaryTransactionManager\"\n)\npublic class SecondaryDatabaseConfig {\n    \n    @Bean\n    @ConfigurationProperties(\"spring.datasource.secondary\")\n    public DataSource secondaryDataSource() {\n        return DataSourceBuilder.create().build();\n    }\n    \n    @Bean\n    public LocalContainerEntityManagerFactoryBean secondaryEntityManagerFactory(\n            @Qualifier(\"secondaryDataSource\") DataSource ds,\n            EntityManagerFactoryBuilder builder) {\n        return builder.dataSource(ds)\n            .packages(\"com.app.secondary.entity\")\n            .persistenceUnit(\"secondary\")\n            .build();\n    }\n    \n    @Bean\n    public PlatformTransactionManager secondaryTransactionManager(\n            @Qualifier(\"secondaryEntityManagerFactory\") EntityManagerFactory emf) {\n        return new JpaTransactionManager(emf);\n    }\n}\n\n// application.properties\n// spring.datasource.primary.url=jdbc:mysql://localhost/primarydb\n// spring.datasource.primary.username=user1\n// spring.datasource.secondary.url=jdbc:postgresql://localhost/secondarydb\n// spring.datasource.secondary.username=user2",
+      "example": "\"Multiple databases require separate Spring configuration beans for each. Each database gets its own DataSource, EntityManagerFactory scanning only its own entity package, and TransactionManager. I mark the main database beans with @Primary so they are the default for auto-wiring. The secondary database beans are selected with @Qualifier. The critical part is keeping entity packages strictly separated — each EntityManagerFactory must scan only its own entities otherwise they get confused. Repositories in each package get the right EntityManagerFactory through the @EnableJpaRepositories basePackages configuration.\"",
+      "summary10s": "Separate DataSource+EntityManagerFactory+TransactionManager per DB. @Primary on main. @EnableJpaRepositories with basePackages and refs pointing to correct beans. Separate entity packages strictly."
+    }
+  },
+  {
+    "id": "trailing-zeroes-in-factorial",
+    "category": "Java Coding",
+    "question": "Trailing Zeroes in Factorial",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Count factors of 5 in the number — each pair of 2 and 5 creates a trailing zero, and there are always more 2s than 5s.",
+      "explain": "Trailing zero is created by 10 = 2 × 5 in the factorial\nFactorial always has more factors of 2 than 5, so count factors of 5 only\nEvery multiple of 5 contributes one 5. Multiples of 25 contribute two 5s. Multiples of 125 contribute three\nFormula — count = n/5 + n/25 + n/125 + ... until divisor exceeds n\nO(log n) time, O(1) space\nCode:\npublic int trailingZeroes(int n) {\n    int count = 0;\n    \n    // Each power of 5 contributes additional factor of 5\n    while (n >= 5) {\n        n /= 5;        // floor division\n        count += n;    // add multiples of 5, 25, 125...\n    }\n    \n    return count;\n}\n\n// Trace for n = 100:\n// Iteration 1: n = 100/5 = 20, count = 20 (multiples of 5: 5,10,15...100)\n// Iteration 2: n = 20/5 = 4,  count = 24 (multiples of 25: 25,50,75,100 add extra 5)\n// Iteration 3: n = 4/5 = 0,   loop ends\n// Answer: 24\n\n// Verify: 100! has 24 trailing zeroes\n\n// Alternative explicit version:\npublic int trailingZeroesExplicit(int n) {\n    int count = 0;\n    for (long power = 5; power <= n; power *= 5) {\n        count += n / power;\n    }\n    return count;\n}\n\n// Edge cases:\n// n=0 → 0\n// n=4 → 0 (no factors of 5)\n// n=5 → 1 (one factor of 5)\n// n=25 → 6 (five from multiples of 5, one extra from 25 itself)",
+      "example": "\"Every trailing zero needs one factor of 2 and one factor of 5. Factorial always has more factors of 2 than 5, so I only need to count factors of 5. Multiples of 5 each contribute one factor. Multiples of 25 contribute two. Multiples of 125 contribute three. The pattern means I divide n by increasing powers of 5 and sum the results. For n equals 100 — 100 divided by 5 is 20 multiples of 5, then 100 divided by 25 is 4 additional multiples of 25, total 24 trailing zeroes. Loop runs log base 5 of n times — very efficient.\"",
+      "summary10s": "Count factors of 5 only (more 2s always available). Divide n by 5, add to count, repeat. Total = n/5 + n/25 + n/125... O(log n)."
+    }
+  },
+  {
+    "id": "features-of-java-8-and-java-17",
+    "category": "Java",
+    "question": "Features of Java 8 and Java 17",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Java 8 introduced functional programming, Java 17 added modern syntax features and is the current LTS.",
+      "explain": "Lambda expressions — short anonymous functions for functional interfaces\nStream API — declarative collection processing\nOptional — container to handle null safely\nDefault and static methods in interfaces\nNew Date Time API — LocalDate, LocalDateTime replacing broken Date/Calendar\n\nExplain Java 17:\nSealed classes — restrict which classes can extend, using permits\nRecords — immutable data class, auto-generates boilerplate\nPattern matching for instanceof — no explicit cast needed\nText blocks — multiline strings without escape characters\nEnhanced switch expressions with arrow syntax",
+      "example": "\"Java 8 was the functional programming revolution — Lambdas, Streams, and Optional changed how I write collection processing code. Java 17 is the current LTS and brought Records which eliminate DTO boilerplate, Sealed classes for controlled inheritance hierarchies, and Pattern matching for instanceof which removes explicit casting. I use Records heavily for API DTOs now — one line replaces 30 lines of constructor, getters, equals, hashCode.\"",
+      "summary10s": "Java 8=Lambda+Streams+Optional+DateTime API, Java 17=Records+Sealed+Pattern matching+Text blocks."
+    }
+  },
+  {
+    "id": "what-problem-does-stream-api-solve",
+    "category": "Java",
+    "question": "What Problem Does Stream API Solve",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Stream API solves verbose, imperative, hard-to-read collection processing by replacing loops with declarative pipelines.",
+      "explain": "Before Streams — nested for loops, temporary variables, mutable state for filtering/transforming\nStreams — chain operations declaratively, describe WHAT not HOW\nReduces boilerplate — filter, map, collect replace 10+ lines of loop code\nEnables easy parallelization — parallelStream() without rewriting logic\nImproves readability — pipeline reads like the problem statement\nBefore vs After:\n// Before Streams — imperative, verbose\nList<String> activeUserNames = new ArrayList<>();\nfor (User user : users) {\n    if (user.isActive()) {\n        activeUserNames.add(user.getName().toUpperCase());\n    }\n}\n\n// With Streams — declarative, concise\nList<String> activeUserNames = users.stream()\n    .filter(User::isActive)\n    .map(User::getName)\n    .map(String::toUpperCase)\n    .collect(Collectors.toList());",
+      "example": "\"Before Java 8, processing collections meant writing explicit loops with mutable accumulator variables — verbose and error-prone, especially when chaining multiple operations like filter then transform then collect. Stream API solves this by letting me describe the transformation pipeline declaratively. I say what I want — filter active users, map to uppercase names, collect to list — without managing loop counters or temporary lists manually. It also makes parallel processing trivial by just calling parallelStream().\"",
+      "summary10s": "Streams replace verbose imperative loops with declarative chainable pipelines, easier to read and parallelize."
+    }
+  },
+  {
+    "id": "two-interfaces-with-same-default-method-resolving-conflict",
+    "category": "Java",
+    "question": "Two Interfaces With Same Default Method — Resolving Conflict",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Compiler forces the implementing class to override the conflicting method explicitly.",
+      "explain": "If Class C implements Interface A and B, both having identical default method signature — compile error\nJava cannot decide which default implementation to inherit — ambiguous\nClass must override the method to resolve ambiguity itself\nInside the override, call a specific interface's version using InterfaceName.super.methodName()\nCode:\ninterface A {\n    default void greet() { System.out.println(\"Hello from A\"); }\n}\ninterface B {\n    default void greet() { System.out.println(\"Hello from B\"); }\n}\n\nclass C implements A, B {\n    @Override\n    public void greet() {\n        A.super.greet();  // explicitly call A's version\n        // OR B.super.greet();\n        // OR write completely new logic here\n        System.out.println(\"Custom greet in C\");\n    }\n}",
+      "example": "\"Compiler refuses to compile until I resolve this explicitly — it cannot guess which default method I want. I must override greet() in class C. Inside the override I have full control — I can call A's version specifically using A.super.greet(), call B's version, call both, or write entirely new logic. This explicit resolution prevents the classic diamond problem from silently picking the wrong behavior.\"",
+      "summary10s": "Compiler error on identical default methods, class must override, use InterfaceName.super.method() to delegate to specific version."
+    }
+  },
+  {
+    "id": "imperative-vs-functional-programming",
+    "category": "Java",
+    "question": "Imperative vs Functional Programming",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Imperative tells the computer HOW to do something step by step, Functional tells it WHAT to do declaratively.",
+      "explain": "Imperative — explicit control flow, mutable state, loops, step-by-step instructions\nFunctional — pure functions, immutability, composition, declarative transformations\nImperative — easier to trace execution order, but verbose for collection processing\nFunctional — more concise, easier to parallelize, but can be less intuitive for control-flow-heavy logic\nJava supports both — traditional loops are imperative, Streams are functional\nSide by side:\n// Imperative — HOW\nint sum = 0;\nfor (int num : numbers) {\n    if (num % 2 == 0) {\n        sum += num;\n    }\n}\n\n// Functional — WHAT\nint sum = numbers.stream()\n    .filter(num -> num % 2 == 0)\n    .mapToInt(Integer::intValue)\n    .sum();",
+      "example": "\"Imperative programming describes the exact steps — initialize a sum variable, loop through, check condition, add. It is explicit about control flow and mutates state along the way. Functional programming describes the result I want — filter even numbers, sum them — without me managing the loop mechanics or mutable accumulator. Java lets me mix both — I use imperative for complex control flow with multiple exit conditions, and functional Streams for straightforward collection transformations.\"",
+      "summary10s": "Imperative=explicit steps and mutable state HOW, Functional=declarative transformations WHAT, Java supports both."
+    }
+  },
+  {
+    "id": "mock-vs-static-mock-in-junit",
+    "category": "Spring Boot",
+    "question": "Mock vs Static Mock in JUnit",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Mock creates a mock for instance methods on an object, static mock (mockStatic) mocks static methods of a class.",
+      "explain": "@Mock — Mockito creates a mock instance of a class/interface, used for instance method calls\nRegular mocking only works for objects injected as dependencies — instance method calls\nStatic methods belong to the class not an instance — cannot be mocked with regular @Mock\nmockStatic() — Mockito's MockedStatic API specifically for mocking static method calls\nUsed for utility classes — like mocking LocalDateTime.now() or a static helper method\nCode:\n// Regular @Mock — for instance methods\n@Mock\nprivate UserRepository userRepository;\n\n@Test\nvoid testFindUser() {\n    when(userRepository.findById(1L)).thenReturn(Optional.of(user));\n    // mocks an instance method call\n}\n\n// Static mock — for static methods\n@Test\nvoid testWithStaticMock() {\n    try (MockedStatic<LocalDateTime> mockedStatic = \n            Mockito.mockStatic(LocalDateTime.class)) {\n        mockedStatic.when(LocalDateTime::now)\n            .thenReturn(LocalDateTime.of(2024, 1, 1, 0, 0));\n        \n        // Now any code calling LocalDateTime.now() gets fixed date\n        LocalDateTime result = myService.getCurrentTimestamp();\n        assertEquals(LocalDateTime.of(2024, 1, 1, 0, 0), result);\n    }\n    // Static mock automatically cleaned up after try-with-resources\n}",
+      "example": "\"@Mock creates a mock object for a dependency — I use it when my class calls instance methods on injected objects like a repository. Regular Mockito cannot intercept static method calls because static methods are not called on an instance. For that I use mockStatic which returns a MockedStatic object inside a try-with-resources block. This is essential for testing code that calls static utility methods like LocalDateTime.now() — I fix the time so my test is deterministic.\"",
+      "summary10s": "@Mock=mocks instance methods on injected objects, mockStatic()=mocks static method calls via MockedStatic, use try-with-resources to scope it."
+    }
+  },
+  {
+    "id": "abstract-class-vs-interface",
+    "category": "Java",
+    "question": "Abstract Class vs Interface",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Abstract class is a partial implementation with shared state, Interface is a pure contract with multiple implementation allowed.",
+      "explain": "Abstract class — constructors, instance variables, mix of abstract and concrete methods\nInterface — no constructors, no instance state (only constants), can have default/static methods since Java 8\nInheritance — class extends only ONE abstract class but implements MULTIPLE interfaces\nUse abstract class — when subclasses share common state and behavior (is-a with shared implementation)\nUse interface — when defining a capability/contract that unrelated classes can implement (can-do)\nComparison table:\n                 Abstract Class          Interface\nConstructor      Yes                     No\nInstance fields  Yes (any access mod)    No (only static final constants)\nMethods          Abstract + concrete     Abstract + default + static\nMultiple inherit No (extends one)        Yes (implements many)\nAccess modifiers Any (private/protected) public by default\nUse case         Shared state/behavior   Capability contract",
+      "example": "\"Abstract class is for when related classes share common state and behavior — like an Animal class with a name field and breathe method that all animals inherit. A class can extend only one abstract class. Interface defines a contract of what a class CAN DO — Flyable, Serializable — without caring about shared state. A class can implement multiple interfaces. My rule of thumb — if it's about what something IS with shared implementation, abstract class; if it's about what something CAN DO as a capability, interface.\"",
+      "summary10s": "Abstract class=shared state+behavior, single inheritance. Interface=pure contract, multiple implementation, no state."
+    }
+  },
+  {
+    "id": "aggregation-association-composition-code-examples",
+    "category": "System Design",
+    "question": "Aggregation, Association, Composition — Code Examples",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Association is general relationship, Aggregation is weak HAS-A (independent lifecycle), Composition is strong HAS-A (dependent lifecycle).",
+      "explain": "Association — two classes are related, neither owns the other, can exist independently, loosest coupling\nAggregation — HAS-A relationship, child CAN exist without parent, parent just holds a reference (whole-part, but part is independent)\nComposition — HAS-A relationship, child CANNOT exist without parent, parent fully owns and manages child's lifecycle (strongest coupling)\nCode for all three:\n// 1. ASSOCIATION — Teacher and Student are related, but independent\n// Neither owns the other. Both can exist without each other.\nclass Teacher {\n    private String name;\n    // Teacher doesn't \"contain\" Student, just relates to it\n}\n\nclass Student {\n    private String name;\n    private Teacher teacher; // association — just a reference\n    \n    public Student(String name, Teacher teacher) {\n        this.name = name;\n        this.teacher = teacher; // teacher created elsewhere, independently\n    }\n}\n// Usage: Teacher exists in DB regardless of student\nTeacher t = new Teacher(\"Mr. Smith\");\nStudent s = new Student(\"Alice\", t); // s references t, both independent\n\n\n// 2. AGGREGATION — Department HAS Employees, but Employee can exist \n// without Department (e.g., transferred to another department)\nclass Employee {\n    private String name;\n}\n\nclass Department {\n    private String deptName;\n    private List<Employee> employees; // aggregation — holds reference\n    \n    public Department(String deptName, List<Employee> employees) {\n        this.deptName = deptName;\n        this.employees = employees; // employees created OUTSIDE, passed in\n    }\n}\n// Usage: Employees created independently, THEN added to department\nEmployee e1 = new Employee(\"Bob\");\nEmployee e2 = new Employee(\"Carol\");\nList<Employee> emps = new ArrayList<>(List.of(e1, e2));\nDepartment dept = new Department(\"Engineering\", emps);\n// If dept is destroyed, e1 and e2 still exist independently!\n\n\n// 3. COMPOSITION — Car HAS-A Engine, Engine CANNOT exist without Car\n// Engine's lifecycle is entirely controlled by Car\nclass Engine {\n    private String type;\n    public Engine(String type) {\n        this.type = type;\n    }\n}\n\nclass Car {\n    private final Engine engine; // composition — created INSIDE Car\n    \n    public Car(String engineType) {\n        this.engine = new Engine(engineType); // Car creates its own Engine\n        // Engine has no meaning or existence outside this Car\n    }\n}\n// Usage: Engine is born and dies with the Car\nCar car = new Car(\"V8\");\n// car = null; → engine is also garbage collected, no other reference exists",
+      "example": "\"Association is the loosest — Teacher and Student reference each other but neither creates nor owns the other; both exist completely independently in the system. Aggregation is a HAS-A relationship where Department holds a list of Employees, but those Employees are created outside and passed in — if I delete the Department, employees still exist, maybe transferred elsewhere. Composition is the strongest — Car creates its own Engine internally in its constructor. The Engine has no independent existence; if the Car object is destroyed, the Engine goes with it. The key differentiator is lifecycle ownership and where the object is instantiated.\"",
+      "summary10s": "Association=independent reference, Aggregation=HAS-A but child created outside survives parent, Composition=HAS-A child created inside dies with parent."
+    }
+  },
+  {
+    "id": "lru-cache-implementation",
+    "category": "System Design",
+    "question": "LRU Cache Implementation",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use LinkedHashMap with accessOrder=true and override removeEldestEntry to evict the least recently used entry automatically.",
+      "explain": "LinkedHashMap with accessOrder true — every get() or put() moves that entry to the end of internal order\nFront of the map is always the least recently used entry\nOverride removeEldestEntry() — return true when size exceeds capacity, triggering automatic eviction\nGives O(1) get and put — no manual list management needed\nFor production-grade thread safety, wrap with synchronization or use ConcurrentLinkedHashMap\nComplete Implementation:\nimport java.util.LinkedHashMap;\nimport java.util.Map;\n\npublic class LRUCache<K, V> extends LinkedHashMap<K, V> {\n    private final int capacity;\n    \n    public LRUCache(int capacity) {\n        // initialCapacity, loadFactor, accessOrder=true (critical!)\n        super(capacity, 0.75f, true);\n        this.capacity = capacity;\n    }\n    \n    @Override\n    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {\n        // Called automatically after every put()\n        // Return true → eldest (least recently used) entry gets removed\n        return size() > capacity;\n    }\n    \n    public static void main(String[] args) {\n        LRUCache<Integer, String> cache = new LRUCache<>(3);\n        \n        cache.put(1, \"A\");\n        cache.put(2, \"B\");\n        cache.put(3, \"C\");\n        System.out.println(cache); // {1=A, 2=B, 3=C}\n        \n        cache.get(1); // access 1 → moves it to end (most recently used)\n        cache.put(4, \"D\"); // capacity exceeded → evicts 2 (least recently used)\n        \n        System.out.println(cache); // {3=C, 1=A, 4=D} — 2 is evicted!\n    }\n}\n\n// Thread-safe version\nclass ThreadSafeLRUCache<K, V> {\n    private final LRUCache<K, V> cache;\n    \n    public ThreadSafeLRUCache(int capacity) {\n        this.cache = new LRUCache<>(capacity);\n    }\n    \n    public synchronized V get(K key) {\n        return cache.get(key);\n    }\n    \n    public synchronized void put(K key, V value) {\n        cache.put(key, value);\n    }\n}\n\n// Manual implementation without LinkedHashMap (for deeper interview follow-up)\n// Uses HashMap + Doubly Linked List for true O(1) without relying on built-in ordering\nclass ManualLRUCache {\n    class Node {\n        int key, value;\n        Node prev, next;\n        Node(int key, int value) { this.key = key; this.value = value; }\n    }\n    \n    private final int capacity;\n    private final Map<Integer, Node> map = new HashMap<>();\n    private final Node head = new Node(0, 0); // dummy head\n    private final Node tail = new Node(0, 0); // dummy tail\n    \n    public ManualLRUCache(int capacity) {\n        this.capacity = capacity;\n        head.next = tail;\n        tail.prev = head;\n    }\n    \n    public int get(int key) {\n        if (!map.containsKey(key)) return -1;\n        Node node = map.get(key);\n        remove(node);\n        insertAtFront(node); // mark as recently used\n        return node.value;\n    }\n    \n    public void put(int key, int value) {\n        if (map.containsKey(key)) {\n            remove(map.get(key));\n        }\n        if (map.size() == capacity) {\n            map.remove(tail.prev.key); // evict least recently used\n            remove(tail.prev);\n        }\n        Node newNode = new Node(key, value);\n        map.put(key, newNode);\n        insertAtFront(newNode);\n    }\n    \n    private void remove(Node node) {\n        node.prev.next = node.next;\n        node.next.prev = node.prev;\n    }\n    \n    private void insertAtFront(Node node) {\n        node.next = head.next;\n        node.prev = head;\n        head.next.prev = node;\n        head.next = node;\n    }\n}",
+      "example": "\"The quick solution extends LinkedHashMap with accessOrder true — every get or put automatically reorders entries so the front always has the least recently used item. I override removeEldestEntry to return true once size exceeds capacity, which triggers automatic eviction with zero manual list management. For interviews wanting deeper understanding without relying on built-in features, I implement it manually with a HashMap for O(1) key lookup combined with a doubly linked list for O(1) reordering — get moves the node to front, put evicts from the tail when capacity is exceeded.\"",
+      "summary10s": "Quick=LinkedHashMap(accessOrder=true)+override removeEldestEntry. Manual=HashMap+DoublyLinkedList for O(1) get/put without relying on LinkedHashMap."
+    }
+  },
+  {
+    "id": "repository-annotation-use-and-what-happens-without-it",
+    "category": "Spring Boot",
+    "question": "@Repository Annotation — Use and What Happens Without It",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Repository marks the data access layer and enables automatic exception translation — without it, exceptions stay as raw vendor-specific exceptions instead of Spring's unified hierarchy.",
+      "explain": "@Repository is a specialization of @Component — registers the class as a Spring bean via component scanning\nPrimary added value — Persistence Exception Translation, a Spring AOP feature\nWithout @Repository — class still works as a bean if you use plain @Component, BUT exception translation does NOT happen\nWith exception translation — raw JDBC/Hibernate exceptions (like SQLException, ConstraintViolationException) get wrapped into Spring's unified DataAccessException hierarchy\nThis unified hierarchy lets you catch DataAccessException regardless of which underlying DB driver or persistence technology you use — JDBC, Hibernate, JPA all translate to the same exception types\nWhat happens without @Repository:\n// WITH @Repository\n@Repository\npublic class UserDao {\n    @PersistenceContext\n    private EntityManager entityManager;\n    \n    public User findById(Long id) {\n        return entityManager.find(User.class, id);\n    }\n}\n// If a constraint violation occurs internally:\n// Hibernate's ConstraintViolationException \n//   → automatically translated by Spring's PersistenceExceptionTranslationPostProcessor\n//   → becomes Spring's DataIntegrityViolationException (extends DataAccessException)\n\n// Calling code can catch the UNIFIED exception:\ntry {\n    userDao.save(user);\n} catch (DataAccessException e) {\n    // Works regardless of whether underlying impl is Hibernate, JPA, or plain JDBC\n}\n\n\n// WITHOUT @Repository (using plain @Component instead)\n@Component  // bean registration still works!\npublic class UserDao {\n    @PersistenceContext\n    private EntityManager entityManager;\n    \n    public User findById(Long id) {\n        return entityManager.find(User.class, id);\n    }\n}\n// Same constraint violation now throws RAW Hibernate exception:\n// jakarta.persistence.PersistenceException or ConstraintViolationException\n// NOT translated to Spring's DataAccessException\n\ntry {\n    userDao.save(user);\n} catch (DataAccessException e) {\n    // This catch block is NEVER reached!\n    // Must catch the vendor-specific exception instead:\n} catch (PersistenceException e) {\n    // tightly coupled to JPA/Hibernate specifically\n}",
+      "example": "\"@Repository is a specialization of @Component, so the bean registration part still works even without it — Spring still finds and creates the bean. What you LOSE without @Repository is automatic Persistence Exception Translation. Spring has a post-processor that wraps repository beans annotated with @Repository in a proxy — this proxy catches vendor-specific exceptions like Hibernate's ConstraintViolationException or raw SQLException and translates them into Spring's unified DataAccessException hierarchy. Without @Repository, my catch blocks looking for DataAccessException never trigger — I'd be forced to catch vendor-specific exceptions directly, which tightly couples my business logic to the specific persistence technology I'm using. This matters a lot if I ever want to swap from Hibernate to a different JPA provider — my exception handling code stays unchanged because it's all catching Spring's unified exceptions.\"",
+      "summary10s": "@Repository=@Component + automatic Persistence Exception Translation. Without it, vendor-specific exceptions (Hibernate/JDBC) are NOT wrapped into Spring's DataAccessException — your catch blocks for DataAccessException silently never trigger."
+    }
   }
 ];
+;
+;
+;
+;
