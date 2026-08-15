@@ -24,7 +24,7 @@ Process raw interview experiences pasted by the user (e.g., from LinkedIn) and i
   
 - **IF IT IS NEW:**
   - Create a new `RealInterviewQuestion` object.
-  - Categorize it properly (`Java`, `Spring Boot`, `Microservices`, `Angular`, `JavaScript`, `SQL`, `System Design`, `Java Coding`, `JS Coding`). If a question does not fit into any of these main categories (e.g. general HR, generic networking, unrelated tools), place it in the `Other` category.
+  - Categorize it properly (`Java`, `Spring Boot`, `Microservices`, `Angular`, `JavaScript`, `SQL`, `System Design`, `Java Coding`, `JS Coding`, `DevOps`). If a question does not fit into any of these main categories (e.g. general HR, generic networking, unrelated tools), place it in the `Other` category.
   - Set `frequency` to 1.
   - Add the `Company Name` (if any).
   - **Order Rule:** When inserting multiple new questions, always arrange them logically in sequence from **Basic to Advanced**. Do not insert advanced questions before the fundamental/basic ones within the same category.

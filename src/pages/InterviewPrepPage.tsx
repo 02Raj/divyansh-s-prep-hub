@@ -36,7 +36,7 @@ export default function InterviewPrepPage() {
   const [selectedCategory, setSelectedCategory] = useState<QuestionCategory | 'All'>('All');
   const navigate = useNavigate();
 
-  const categories: (QuestionCategory | 'All')[] = ['All', 'Java', 'Spring Boot', 'Microservices', 'Angular', 'JavaScript', 'SQL', 'System Design', 'Java Coding', 'JS Coding', 'Other'];
+  const categories: (QuestionCategory | 'All')[] = ['All', 'Java', 'Spring Boot', 'Microservices', 'Angular', 'JavaScript', 'SQL', 'System Design', 'Java Coding', 'JS Coding', 'DevOps', 'Other'];
 
   const filteredQuestions = selectedCategory === 'All' 
     ? realInterviewQuestions 

@@ -1,4 +1,4 @@
-export type QuestionCategory = 'Java' | 'Spring Boot' | 'Microservices' | 'Angular' | 'JavaScript' | 'SQL' | 'Java Coding' | 'JS Coding' | 'System Design' | 'Other';
+export type QuestionCategory = 'Java' | 'Spring Boot' | 'Microservices' | 'Angular' | 'JavaScript' | 'SQL' | 'Java Coding' | 'JS Coding' | 'System Design' | 'DevOps' | 'Other';
 
 export interface RealInterviewQuestion {
   id: string;
@@ -138,13 +138,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "spring-transactional-fails",
     "category": "Spring Boot",
     "question": "In what scenarios does the @Transactional annotation fail to work?",
-    "frequency": 7,
+    "frequency": 8,
     "companies": [
       "EPAM",
       "Capgemini"
     ],
-    "variations": [
-      "Why is my @Transactional not rolling back?"
+    "variations": ["Why is my @Transactional not rolling back?",
+      "Why can @Transactional fail during self-invocation?"
     ],
     "answerSEE": {
       "simple": "@Transactional relies on Spring AOP proxies. It fails if the proxy is bypassed (like self-invocation) or if a checked exception is thrown.",
@@ -2095,9 +2095,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "stream-vs-parallel-stream",
     "category": "Java",
     "question": "Stream vs Parallel Stream?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Why does using parallelStream() sometimes make performance worse?"
+    ],
     "answerSEE": {
       "simple": "Stream processes elements sequentially on a single thread. Parallel Stream divides elements into chunks and processes them concurrently on multiple threads.",
       "explain": "Parallel streams use the common ForkJoinPool. They are faster for massive datasets or CPU-intensive tasks, but slower for small tasks due to thread overhead. They are also dangerous if the operations are stateful.",
@@ -2181,9 +2183,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "explain-the-bean-lifecycle",
     "category": "Spring Boot",
     "question": "Explain the Bean Lifecycle.",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "What is the complete lifecycle of a Spring bean?"
+    ],
     "answerSEE": {
       "simple": "Instantiation -> Dependency Injection -> Initialization (@PostConstruct) -> Use -> Destruction (@PreDestroy).",
       "explain": "First, Spring creates the object. Second, it injects dependencies. Third, it calls any initialization methods (like @PostConstruct). Then the bean is ready for use. On shutdown, it calls destruction methods.",
@@ -2213,9 +2217,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "primary-vs-qualifier",
     "category": "Spring Boot",
     "question": "@Primary vs @Qualifier?",
-    "frequency": 1,
+    "frequency": 3,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "What happens when two beans of the same type are available?",
+      "How do @Primary and @Qualifier resolve bean conflicts?"
+    ],
     "answerSEE": {
       "simple": "@Primary sets a default bean when multiple exist. @Qualifier specifies exactly which bean to inject by name.",
       "explain": "If you have two implementations of an interface, Spring won't know which to inject and will throw an error. @Primary solves this globally by making one the default. @Qualifier solves it locally at the injection point.",
@@ -2255,9 +2262,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-are-spring-profiles",
     "category": "Spring Boot",
     "question": "What are Spring Profiles?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "How do Spring profiles work internally?"
+    ],
     "answerSEE": {
       "simple": "Profiles allow you to map parts of your configuration or beans to different environments (e.g., dev, test, prod).",
       "explain": "You can load different properties (application-dev.yml vs application-prod.yml) or conditionally load beans using @Profile depending on the active environment.",
@@ -2638,9 +2647,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "hashmap-vs-concurrenthashmap",
     "category": "Java",
     "question": "HashMap vs ConcurrentHashMap",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "When would you choose ConcurrentHashMap over HashMap?"
+    ],
     "answerSEE": {
       "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
       "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
@@ -2722,9 +2733,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "restcontroller-vs-controller",
     "category": "Spring Boot",
     "question": "@RestController vs @Controller",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "What is the difference between @Controller and @RestController?"
+    ],
     "answerSEE": {
       "simple": "@RestController returns data directly (like JSON); @Controller is used for returning views.",
       "explain": "@Controller — typically returns a view name (used with Thymeleaf/JSP)\n@RestController = @Controller + @ResponseBody — returns data directly serialized as JSON/XML\nREST APIs almost always use @RestController",
@@ -2806,9 +2819,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "internal-working-of-hashmap",
     "category": "Java",
     "question": "Internal working of HashMap",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Why can HashMap become slow even with a good hash function?"
+    ],
     "answerSEE": {
       "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
       "explain": "hash(key) determines the bucket index\nCollisions handled via linked list; converts to Red-Black Tree if a bucket has 8+ entries (Java 8+)\nResizes (doubles capacity) when load factor threshold (default 0.75) is crossed",
@@ -3298,9 +3313,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "synchronization-method-vs-block-level",
     "category": "Java",
     "question": "Synchronization Method vs Block Level",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Why can synchronized code become a production bottleneck?"
+    ],
     "answerSEE": {
       "simple": "Method-level locks entire method on object, block-level locks only specific code section — better performance.",
       "explain": "Method level — synchronized on entire method, lock held for full method duration\nBlock level — synchronized on specific object for specific lines only\nSmaller critical section means less contention and better throughput\nCan synchronize on different objects — finer grained locking",
@@ -3312,9 +3329,15 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "memory-leak-in-java",
     "category": "Java",
     "question": "Memory Leak in Java",
-    "frequency": 1,
+    "frequency": 6,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Why can memory keep increasing even after GC runs?",
+      "How would you identify a memory leak in a Java application?",
+      "Why can an object remain in memory even when you think it's no longer needed?",
+      "How would you debug a Java application that suddenly starts consuming 90% memory?",
+      "What would you check first if a Java application suddenly starts throwing OutOfMemoryError?"
+    ],
     "answerSEE": {
       "simple": "Objects that are no longer needed but still referenced — GC cannot collect them, heap grows over time.",
       "explain": "Static collections growing without bound — cache without eviction policy\nThreadLocal not removed in thread pool — previous request's data held indefinitely\nEvent listeners or callbacks not unregistered — listener holds reference to object\nInner class holding implicit reference to outer class — outer class cannot be collected\nUnclosed resources — connections, streams held in open state",
@@ -3972,9 +3995,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "jvm-memory-management",
     "category": "Java",
     "question": "JVM Memory Management",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Why can increasing JVM heap size sometimes make the problem worse?"
+    ],
     "answerSEE": {
       "simple": "JVM manages memory using different areas like Heap, Stack, and Metaspace, and cleans unused objects via Garbage Collection.",
       "explain": "Heap — stores objects, divided into Young Gen (Eden, Survivor) and Old Gen\nStack — stores method calls and local variables, per thread\nGC automatically removes objects with no references (Minor GC for Young Gen, Major GC for Old Gen)",
@@ -4840,13 +4865,370 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "summary10s": "JPA = EntityManager + ORM → converts objects into SQL and manages lifecycle automatically."
     }
   }
+,
+  {
+    "id": "springapplication-run-behind-scenes",
+    "category": "Spring Boot",
+    "question": "What happens after SpringApplication.run() is called?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot sets up the ApplicationContext, triggers auto-configuration, starts the embedded server, and loads beans.",
+      "explain": "When you call run(), Spring Boot creates the appropriate ApplicationContext (web or standard). It then registers a ShutdownHook, parses application.properties, runs ComponentScan and AutoConfiguration, and finally starts the embedded Tomcat/Jetty before triggering any ApplicationRunners.",
+      "example": "\"When I call SpringApplication.run(), Spring bootstraps the entire environment. It first creates the ApplicationContext, then evaluates all the auto-configuration rules. After wiring up the beans, it fires up the embedded Tomcat server so the app is ready to accept requests without any manual server configuration on my part.\"",
+      "summary10s": "Creates context -> Loads properties -> Scans/Auto-configures beans -> Starts embedded server."
+    }
+  },
+  {
+    "id": "springbootapplication-annotations",
+    "category": "Spring Boot",
+    "question": "How does @SpringBootApplication combine multiple annotations?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@SpringBootApplication is a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.",
+      "explain": "@Configuration tags the class as a source of bean definitions. @EnableAutoConfiguration tells Spring Boot to guess and configure beans based on classpath. @ComponentScan tells Spring to look for other components, configurations, and services in the current package and its sub-packages.",
+      "example": "\"Instead of writing three separate annotations, I just put @SpringBootApplication on my main class. It automatically enables component scanning in my base package, marks the class as a configuration source, and turns on Spring Boot's auto-configuration magic all at once.\"",
+      "summary10s": "It combines @Configuration, @EnableAutoConfiguration, and @ComponentScan."
+    }
+  },
+  {
+    "id": "spring-boot-highest-priority-config",
+    "category": "Spring Boot",
+    "question": "Which configuration source gets the highest priority?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Command-line arguments have the highest priority, followed by OS environment variables, then application properties.",
+      "explain": "Spring Boot loads properties in a very specific order. If a property is defined in multiple places, command-line arguments override everything else. After that, environment variables are checked, followed by profile-specific application-{profile}.properties, and finally the default application.properties.",
+      "example": "\"If I want to quickly override a database URL for a single run without changing code, I pass it as a command-line argument like `--spring.datasource.url=...`. Because command-line args have the highest priority in Spring Boot's PropertyResolver, it easily overrides whatever is in application.yml.\"",
+      "summary10s": "Command-line args > Env variables > Profile properties > Default properties."
+    }
+  },
+  {
+    "id": "embedded-tomcat-detection",
+    "category": "Spring Boot",
+    "question": "How is embedded Tomcat detected and started?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot checks the classpath for Tomcat libraries; if found, it auto-configures a ServletWebServerFactory to start it.",
+      "explain": "If you include `spring-boot-starter-web`, it transitively pulls in Tomcat dependencies. During startup, `@EnableAutoConfiguration` detects `Tomcat.class` on the classpath. It then creates a `TomcatServletWebServerFactory` bean which programmatically configures and starts the Tomcat server.",
+      "example": "\"I don't have to install Tomcat on my machine. Just by having `spring-boot-starter-web` in my POM, the Tomcat jars are on the classpath. Spring Boot's auto-configuration sees them, creates a server factory bean, and programmatically starts Tomcat on port 8080 during application startup.\"",
+      "summary10s": "Auto-configuration detects Tomcat on the classpath and programmatically starts it via a WebServerFactory."
+    }
+  },
+  {
+    "id": "configuration-vs-component",
+    "category": "Spring Boot",
+    "question": "What is the difference between @Configuration and a regular class with @Component?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Configuration guarantees that bean methods are intercepted to return a singleton, whereas @Component does not.",
+      "explain": "If a class is annotated with @Configuration, Spring wraps it with a CGLIB proxy. This means if you call a @Bean method directly from another @Bean method within the same class, Spring intercepts the call and returns the cached singleton instance. With @Component, calling a method directly returns a brand new instance.",
+      "example": "\"If I have a @Bean method `dataSource()` and another @Bean method `jdbcTemplate()` that calls `dataSource()`, I must put them in a @Configuration class. The proxy ensures `jdbcTemplate` gets the exact same DataSource singleton. If I used @Component instead, it would instantiate a second DataSource, which is a subtle bug.\"",
+      "summary10s": "@Configuration uses CGLIB proxying to ensure @Bean method calls always return singletons."
+    }
+  },
+  {
+    "id": "spring-boot-choose-server-port",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot choose the server port?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It defaults to 8080, but can be overridden by the server.port property or set to 0 for a random port.",
+      "explain": "Spring Boot reads `server.port` from the environment. If it's not set, it defaults to 8080. If you set `server.port=0`, Spring Boot will scan for a random available port at startup, which is highly useful for parallel integration testing to avoid port binding conflicts.",
+      "example": "\"Normally it runs on 8080, but I usually change it via `server.port=8081` in application.yml. When I write integration tests using `@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)`, Spring Boot sets the port to 0 under the hood, ensuring my tests don't fail if port 8080 is already in use.\"",
+      "summary10s": "Defaults to 8080. Can be overridden in properties or set to 0 for a random free port."
+    }
+  },
+  {
+    "id": "spring-mvc-request-flow",
+    "category": "Spring Boot",
+    "question": "What happens from the moment a REST request reaches the application?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The request hits Tomcat, goes to the DispatcherServlet, gets routed to a Controller, and the response is serialized back.",
+      "explain": "1. Embedded Tomcat receives the HTTP request.\n2. Filters (like Security) intercept it.\n3. DispatcherServlet takes over and consults the HandlerMapping.\n4. The matching @RestController method executes.\n5. The returned object is converted to JSON via HttpMessageConverter (Jackson).\n6. The JSON is written back to the HTTP response.",
+      "example": "\"First, the embedded Tomcat intercepts the incoming request and passes it through any configured Filters. Then, Spring's DispatcherServlet takes it, finds the right controller method using HandlerMapping, executes my business logic, and finally Jackson kicks in via HttpMessageConverter to serialize my returned DTO into a JSON response.\"",
+      "summary10s": "Tomcat -> Filters -> DispatcherServlet -> HandlerMapping -> Controller -> HttpMessageConverter (JSON) -> Response."
+    }
+  },
+  {
+    "id": "spring-request-mapping-internals",
+    "category": "Spring Boot",
+    "question": "How does Spring map a request to the correct controller method?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The DispatcherServlet uses a HandlerMapping to match the URL and HTTP method to a specific controller method.",
+      "explain": "At startup, Spring scans all classes annotated with @Controller or @RestController. It looks at @RequestMapping (or @GetMapping, etc.) and registers the URLs in a RequestMappingHandlerMapping registry. When a request arrives, the DispatcherServlet looks up the URL in this registry to find the exact method to invoke.",
+      "example": "\"When the application starts, Spring builds an in-memory map of all my @GetMapping and @PostMapping paths using RequestMappingHandlerMapping. Later, when a request hits the DispatcherServlet, it simply looks up the exact URL and HTTP method in that map, finds my target controller method, and executes it via reflection.\"",
+      "summary10s": "DispatcherServlet looks up the URL and HTTP method in the HandlerMapping registry built at startup."
+    }
+  },
+  {
+    "id": "spring-boot-json-serialization",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot serialize Java objects into JSON?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It uses the Jackson library and HttpMessageConverters automatically behind the scenes.",
+      "explain": "When a @RestController method returns an object, Spring looks for an appropriate HttpMessageConverter. Since `spring-boot-starter-web` includes Jackson by default, Spring Boot auto-configures a MappingJackson2HttpMessageConverter, which takes the returned Java object and serializes it into a JSON string.",
+      "example": "\"I don't have to manually write JSON conversion code. Because I use @RestController, Spring knows it needs to write the return value to the response body. It loops through its registered HttpMessageConverters, picks the Jackson converter because it supports JSON, and Jackson automatically maps my object's getters to JSON properties.\"",
+      "summary10s": "Uses Jackson via MappingJackson2HttpMessageConverter configured automatically by the web starter."
+    }
+  },
+  {
+    "id": "spring-boot-datasource-autoconfig",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot create a DataSource automatically?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "DataSourceAutoConfiguration checks the classpath for database drivers and reads your properties to build a connection pool.",
+      "explain": "If `spring-jdbc` and a driver (like HikariCP or PostgreSQL) are on the classpath, the `DataSourceAutoConfiguration` triggers. It reads `spring.datasource.url`, `username`, and `password` from application properties. It then instantiates and configures a connection pool (HikariCP by default) as a Spring bean.",
+      "example": "\"As long as I include `spring-boot-starter-data-jpa` and a PostgreSQL driver in my dependencies, Spring Boot's auto-configuration detects them. It automatically reads my database credentials from application.yml and spins up a HikariCP connection pool, exposing it as a DataSource bean that my repositories can use instantly.\"",
+      "summary10s": "DataSourceAutoConfiguration detects drivers on classpath, reads properties, and creates a HikariCP connection pool bean."
+    }
+  },
+  {
+    "id": "spring-data-exception-translation",
+    "category": "Spring Boot",
+    "question": "How does exception translation work in Spring Data?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Data catches database-specific SQL exceptions and converts them into Spring's standard DataAccessException hierarchy.",
+      "explain": "Instead of throwing a vendor-specific SQLException (like a Postgres constraint violation), Spring intercepts it using AOP (PersistenceExceptionTranslationPostProcessor). It maps the vendor error code to a generic, unchecked Spring DataAccessException, shielding your application from database-specific error handling.",
+      "example": "\"If I switch from Oracle to PostgreSQL, I don't have to rewrite my error handling. Spring Data uses a PersistenceExceptionTranslator to catch the raw SQL exceptions and convert them into a uniform `DataIntegrityViolationException`. This keeps my business logic decoupled from the underlying database vendor.\"",
+      "summary10s": "AOP catches raw SQLExceptions and maps them to Spring's vendor-agnostic DataAccessException hierarchy."
+    }
+  },
+  {
+    "id": "actuator-health-metrics",
+    "category": "Spring Boot",
+    "question": "How does Actuator expose health and metrics endpoints?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Actuator auto-configures web endpoints under `/actuator` to expose operational data from internal Spring beans like HealthIndicators and MeterRegistries.",
+      "explain": "By adding `spring-boot-starter-actuator`, auto-configuration registers specific endpoints. The `/health` endpoint aggregates statuses from various `HealthIndicator` beans (like DB, Disk, Redis). The `/metrics` endpoint pulls data from Micrometer's `MeterRegistry`.",
+      "example": "\"I use Actuator for monitoring. Just adding the dependency exposes endpoints like `/actuator/health`. Under the hood, Spring Boot aggregates data from `HealthIndicator` beans—so if my DB goes down, the health endpoint automatically reflects that. I also hook the `/actuator/prometheus` endpoint into our monitoring stack.\"",
+      "summary10s": "Auto-configures endpoints under `/actuator` that read from HealthIndicator beans and Micrometer metrics."
+    }
+  },
+  {
+    "id": "dependency-management-bom",
+    "category": "Spring Boot",
+    "question": "How are dependency versions managed without specifying each version?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot uses a BOM (Bill of Materials) via `spring-boot-dependencies` to enforce compatible versions for hundreds of libraries.",
+      "explain": "When you inherit from `spring-boot-starter-parent` (or use the dependency management plugin), you inherit a giant `<dependencyManagement>` section. This BOM explicitly defines the exact version of Jackson, Hibernate, Tomcat, etc., that have been tested to work together with that specific Spring Boot version.",
+      "example": "\"I never specify versions for things like Jackson or Hibernate in my pom.xml. Because I use `spring-boot-starter-parent`, Spring Boot's BOM (Bill of Materials) automatically provides the correct, tested version for all those dependencies, completely eliminating dependency hell and version conflicts.\"",
+      "summary10s": "Uses a BOM (spring-boot-dependencies) that dictates compatible versions for all common libraries."
+    }
+  },
+  {
+    "id": "spring-boot-executable-jar",
+    "category": "Spring Boot",
+    "question": "What is inside an executable or \"fat\" JAR?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A fat JAR contains your application classes, all third-party dependency JARs, and an embedded server, plus Spring Boot's custom classloader.",
+      "explain": "Normally, Java doesn't allow JARs nested inside a JAR. Spring Boot solves this via the `spring-boot-loader`. The fat JAR contains your `.class` files in `BOOT-INF/classes`, all your Maven dependencies in `BOOT-INF/lib`, and Spring's custom `JarLauncher` at the root to load everything into memory and start the app.",
+      "example": "\"When I run `mvn clean package`, the Spring Boot plugin bundles everything into a single fat JAR. If I unzip it, I see `BOOT-INF/classes` for my code and `BOOT-INF/lib` containing every dependency, including Tomcat. The JAR's manifest points to `JarLauncher`, a custom classloader that makes running nested JARs possible.\"",
+      "summary10s": "Contains your code, all dependencies (including embedded server), and a custom classloader (JarLauncher)."
+    }
+  },
+  {
+    "id": "debug-slow-starting-spring-boot",
+    "category": "Spring Boot",
+    "question": "How would you debug a slow-starting Spring Boot application?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I would use Spring Boot's Startup Tracking feature or enable debug logging to find the bottleneck.",
+      "explain": "You can enable Spring Boot's `ApplicationStartup` tracking (via `BufferingApplicationStartup`) to record time taken by bean instantiation and post-processing. Additionally, setting `logging.level.org.springframework=DEBUG` helps see which components or auto-configurations are hanging.",
+      "example": "\"If an application takes 60 seconds to start, I don't guess. I set `SpringApplication.setApplicationStartup(new BufferingApplicationStartup())` and expose the `/actuator/startup` endpoint. This gives me a timeline of exactly which beans took the longest to instantiate. Often, it's a slow database connection pool init or a huge classpath scan.\"",
+      "summary10s": "Use BufferingApplicationStartup and the /actuator/startup endpoint to see exactly which beans are slow."
+    }
+  },
+  {
+    "id": "spring-boot-production-mistakes",
+    "category": "Spring Boot",
+    "question": "What Spring Boot mistakes commonly cause production performance issues?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "N+1 query problems in JPA, blocking threads in reactive setups, or relying on default connection pool sizes under heavy load.",
+      "explain": "Common issues include: 1) JPA N+1 fetching massive amounts of data lazily inside a loop. 2) Leaving the default Tomcat thread pool (200) or HikariCP connection pool (10) when traffic requires tuning. 3) Accidentally caching too much in memory without eviction policies.",
+      "example": "\"The most common performance killer I've seen is the N+1 query problem using Spring Data JPA, where lazy loading inside a loop triggers thousands of DB queries. Another mistake is forgetting to tune HikariCP. The default pool size of 10 is great for dev, but in a high-throughput production environment, it often causes request queuing.\"",
+      "summary10s": "JPA N+1 query problem, untuned HikariCP connection pools, and blocking operations."
+    }
+  }
+,
+  {
+    "id": "multiple-threads-modify-same-arraylist",
+    "category": "Java",
+    "question": "What happens when multiple threads modify the same ArrayList?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It causes a race condition leading to data corruption, lost updates, or a ConcurrentModificationException.",
+      "explain": "ArrayList is not thread-safe. If one thread is adding an element while another is reading or writing, the internal state (like the size or array index) can get out of sync. This often results in `ArrayIndexOutOfBoundsException` or silent data loss. If one thread iterates while another modifies, it throws `ConcurrentModificationException`.",
+      "example": "\"In a previous project, we accidentally shared a simple ArrayList across multiple request threads to track user sessions. Randomly, we started losing session data and seeing ArrayIndexOutOfBoundsExceptions. We fixed it by switching to a thread-safe `CopyOnWriteArrayList`.\"",
+      "summary10s": "ArrayList is not thread-safe. Use CopyOnWriteArrayList or Collections.synchronizedList instead."
+    }
+  },
+  {
+    "id": "java-thread-gets-blocked",
+    "category": "Java",
+    "question": "What actually happens when a Java thread gets blocked?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The thread's state changes to BLOCKED, and the OS suspends it, putting it in a waiting queue until a lock or resource becomes available.",
+      "explain": "When a thread encounters a `synchronized` block that is already held by another thread, or it waits for an I/O operation (like reading a file or a database query), the JVM notifies the OS. The OS performs a context switch, removing the thread from the CPU and placing it in a blocked queue. This wastes time and resources because the thread sits idle taking up memory.",
+      "example": "\"When I used a synchronous HTTP client to call a slow external API, the executing thread got blocked waiting for the network response. It sat in the BLOCKED state, consuming around 1MB of memory and doing nothing. This is why I prefer non-blocking async clients like WebClient for heavy I/O.\"",
+      "summary10s": "The OS suspends the thread, triggering a context switch. It waits idle, wasting memory."
+    }
+  },
+  {
+    "id": "thread-pool-exhausted",
+    "category": "Java",
+    "question": "What happens when a thread pool becomes exhausted?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "New tasks are queued up. If the queue is also full, the pool rejects the tasks, often throwing a RejectedExecutionException.",
+      "explain": "A ThreadPoolExecutor has a core pool size, a max pool size, and a work queue. If all threads are busy, new tasks go to the queue. If the queue fills up, it creates new threads up to the max size. If the max size is reached and the queue is full, the defined `RejectedExecutionHandler` kicks in (default is throwing `RejectedExecutionException`).",
+      "example": "\"During a flash sale, our Tomcat server received thousands of concurrent requests. Our thread pool hit its max size of 200, and the queue filled up. The application suddenly started returning 503 Service Unavailable errors because Tomcat began rejecting new connections due to thread exhaustion.\"",
+      "summary10s": "Tasks queue up -> queue fills -> max threads reached -> throws RejectedExecutionException."
+    }
+  },
+  {
+    "id": "api-creates-too-many-threads",
+    "category": "Java",
+    "question": "What happens when an API creates too many threads under heavy traffic?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It leads to CPU thrashing due to excessive context switching, and can cause OutOfMemoryErrors since each thread takes memory.",
+      "explain": "Each Java thread consumes about 1MB of heap/stack memory. If you spawn 2,000 threads, that's 2GB gone just for thread overhead. Furthermore, the CPU spends more time switching context between threads than actually executing code, bringing the entire application to a crawl.",
+      "example": "\"I saw a bug where a developer spawned a `new Thread()` for every incoming request instead of using a pool. Under heavy traffic, the server tried to create thousands of threads, leading to an immediate `OutOfMemoryError: unable to create new native thread`, and the application crashed entirely.\"",
+      "summary10s": "Context switching kills CPU performance, and thread stack overhead causes OutOfMemoryError."
+    }
+  },
+  {
+    "id": "too-many-database-connections-slow-app",
+    "category": "Java",
+    "question": "Why can too many database connections slow down the application?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Databases have limited resources. Too many connections cause severe contention for CPU and memory on the DB server, leading to slow queries.",
+      "explain": "Every database connection is a heavy OS process (especially in PostgreSQL). If you open 500 connections, the DB server spends all its time managing those connections and locking resources rather than executing queries. This is called connection thrashing. A small, optimized pool (e.g., 10-20 connections) actually performs better.",
+      "example": "\"We once increased our HikariCP pool size to 200 to handle more traffic, but performance actually plummeted. The database CPU spiked to 100% just from managing connection context switches. We lowered the pool size back to 20, and the throughput ironically doubled because the DB could actually focus on running queries.\"",
+      "summary10s": "Causes DB connection thrashing. Small connection pools (e.g., 10-20) are universally faster."
+    }
+  },
+  {
+    "id": "app-slow-even-when-cpu-low",
+    "category": "Java",
+    "question": "Why can an application be slow even when CPU usage is low?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The application is likely blocked waiting on external I/O, database queries, or a lock, rather than doing actual computations.",
+      "explain": "Low CPU usage with slow performance indicates a bottleneck elsewhere. Threads might be waiting for a slow network API, a slow database query, reading a massive file from disk, or blocked behind a `synchronized` lock. Since they are just waiting (BLOCKED or WAITING state), they aren't using the CPU.",
+      "example": "\"We had an API taking 5 seconds to respond, but server CPU was at 2%. Using a thread dump, I discovered that all worker threads were blocked waiting on a third-party payment gateway that was experiencing latency. The app was slow, but the CPU was perfectly fine because it was just waiting on I/O.\"",
+      "summary10s": "Threads are in a WAITING or BLOCKED state, waiting on slow DBs, APIs, or locks."
+    }
+  },
+  {
+    "id": "exception-swallowed-silently",
+    "category": "Java",
+    "question": "What happens when an exception is swallowed silently?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The application enters an invalid state, but execution continues, making the root cause almost impossible to debug later.",
+      "explain": "Swallowing an exception (catching it with an empty catch block or just logging without re-throwing) breaks the fail-fast principle. The program thinks the operation succeeded, but data might not have been saved or variables might be null. This leads to bizarre bugs (like NullPointerExceptions) much later in the code flow.",
+      "example": "\"A developer caught an `IOException` during file processing and left the catch block empty. Later, the program threw a NullPointerException because the file data was missing. I spent hours debugging the NPE before realizing the actual error happened silently 10 steps earlier. Never swallow exceptions!\"",
+      "summary10s": "Hides the root cause, causes bizarre cascading bugs later in the execution flow."
+    }
+  },
+  {
+    "id": "excessive-logging-impact-performance",
+    "category": "Java",
+    "question": "Why can excessive logging impact production performance?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Writing to a file is a slow I/O operation. Synchronous logging blocks the application thread until the log is written.",
+      "explain": "If you log heavily (especially DEBUG or TRACE levels in production), every logging statement forces a thread to wait for disk I/O. Furthermore, generating complex log strings (like serializing large objects) consumes CPU and memory, triggering more Garbage Collection pauses.",
+      "example": "\"In a high-throughput microservice, a developer accidentally left DEBUG logging on in production. The application's latency spiked by 400ms because hundreds of threads were bottlenecked trying to write massive JSON payloads to a single log file synchronously. Switching to INFO level and using AsyncAppender fixed it instantly.\"",
+      "summary10s": "Disk I/O is slow. Synchronous logging blocks threads and creates string garbage."
+    }
+  },
+  {
+    "id": "investigate-random-api-latency",
+    "category": "Java",
+    "question": "How would you investigate random API latency in a Java service?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Check APM tools for DB/Network latency, review GC logs for \"Stop the World\" pauses, and check for thread pool exhaustion.",
+      "explain": "If latency is random, it's usually one of three things: 1) Major Garbage Collection pauses freezing the JVM. 2) Intermittent slow database queries or connection pool exhaustion (threads waiting for a DB connection). 3) A noisy neighbor on the network or physical host.",
+      "example": "\"Whenever I see random latency spikes, my first stop is the GC logs or an APM tool like New Relic. Once, an API would randomly take 3 seconds to respond. The GC logs showed that a 'Stop the World' full garbage collection was happening exactly at those times because we had a memory leak slowly filling the old generation.\"",
+      "summary10s": "Look for GC 'Stop the World' pauses, DB connection pool contention, or slow external APIs."
+    }
+  },
+  {
+    "id": "10-minutes-to-debug-production-performance",
+    "category": "Java",
+    "question": "You have 10 minutes to debug a production Java performance issue. What's your first move?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I immediately check monitoring dashboards (CPU, Memory, DB load) and take a Thread Dump and a Heap Dump before restarting the app.",
+      "explain": "You must capture the state of the JVM while it's struggling. A Thread Dump (using `jstack`) will instantly tell me if threads are blocked on locks, waiting for a database connection, or stuck in an infinite loop. A Heap Dump (using `jmap`) lets me analyze memory leaks offline.",
+      "example": "\"My absolute first move is checking Grafana to see if CPU or Memory is spiking. If CPU is fine but the app is unresponsive, I immediately run `jstack` to capture a thread dump. Usually, it instantly reveals that 200 threads are BLOCKED waiting for a response from a down downstream service, telling me exactly where to look.\"",
+      "summary10s": "Check metrics, capture a Thread Dump (for blocked threads), and capture a Heap Dump."
+    }
+  }
 ];
-;
-;
-;
-;
-;
-;
-;
-;
-;
