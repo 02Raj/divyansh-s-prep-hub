@@ -2025,10 +2025,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "synchronized-vs-reentrantlock",
     "category": "Java",
     "question": "synchronized vs ReentrantLock?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [
-      "synchronized vs Lock"
+    "variations": ["synchronized vs Lock",
+      "ReentrantLock and tryLock"
     ],
     "answerSEE": {
       "simple": "synchronized is a basic built-in keyword for locking. ReentrantLock is a flexible class offering advanced features like try-lock and fair locking.",
@@ -2041,9 +2041,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-volatile",
     "category": "Java",
     "question": "What is volatile?",
-    "frequency": 1,
+    "frequency": 3,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "volatile Keyword",
+      "Volatile, Synchronized, and Atomic Variables"
+    ],
     "answerSEE": {
       "simple": "A keyword that ensures a variable is always read from and written to main memory, not the thread's local cache.",
       "explain": "Threads often cache variables for performance. If one thread updates a flag, another thread might not see it immediately. Marking it `volatile` guarantees visibility across all threads. However, it does not guarantee atomicity (e.g., count++ is still not safe).",
@@ -2055,9 +2058,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "volatile-vs-atomic-classes",
     "category": "Java",
     "question": "volatile vs Atomic classes?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Atomic Classes"
+    ],
     "answerSEE": {
       "simple": "volatile ensures visibility of a value across threads, but Atomic classes ensure both visibility AND atomicity for operations like incrementing.",
       "explain": "An operation like `count++` is actually 3 steps (read, add, write). `volatile` doesn't stop two threads from reading the same value simultaneously and overwriting each other. `AtomicInteger` uses CAS (Compare-And-Swap) at the hardware level to do it safely without blocking.",
@@ -2069,10 +2074,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-completablefuture",
     "category": "Java",
     "question": "What is CompletableFuture?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [
-      "CompletableFuture use cases"
+    "variations": ["CompletableFuture use cases",
+      "CompletableFuture"
     ],
     "answerSEE": {
       "simple": "It is an advanced asynchronous programming tool in Java that allows you to chain non-blocking tasks and handle errors easily.",
@@ -2085,9 +2090,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-a-race-condition-how-do-you-prevent-it",
     "category": "Java",
     "question": "What is a Race Condition? How do you prevent it?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Race Condition"
+    ],
     "answerSEE": {
       "simple": "A race condition occurs when multiple threads modify shared data simultaneously, causing unpredictable and incorrect results.",
       "explain": "It happens when the outcome depends on the unpredictable timing of thread execution. You prevent it by synchronizing the critical section so only one thread can execute it at a time.",
@@ -3969,9 +3976,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "daemon-thread",
     "category": "Java",
     "question": "Daemon Thread",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Daemon Thread"
+    ],
     "answerSEE": {
       "simple": "A daemon thread is a background thread that doesn't stop the JVM from exiting.",
       "explain": "JVM exits once all non-daemon (user) threads finish, ignoring daemon threads\nSet using thread.setDaemon(true) before calling start()\nUsed for background tasks like garbage collection, logging",
@@ -5316,9 +5325,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-a-deadlock",
     "category": "Java",
     "question": "What is a deadlock?",
-    "frequency": 1,
+    "frequency": 3,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Deadlock",
+      "Deadlocks, Livelocks, Starvation"
+    ],
     "answerSEE": {
       "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
       "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
@@ -5330,9 +5342,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "runnable-vs-callable",
     "category": "Java",
     "question": "Runnable vs Callable",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Creating Threads — Thread, Runnable, Callable"
+    ],
     "answerSEE": {
       "simple": "Runnable doesn't return a result; Callable can return a result and throw checked exceptions.",
       "explain": "Runnable — run(), no return value, no checked exceptions\nCallable — call(), returns a value via Future, can throw checked exceptions",
@@ -5344,9 +5358,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-executorservice",
     "category": "Java",
     "question": "What is ExecutorService?",
-    "frequency": 1,
+    "frequency": 4,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Executor Framework",
+      "ExecutorService and Thread Pools",
+      "Thread Pool"
+    ],
     "answerSEE": {
       "simple": "ExecutorService manages a pool of threads and assigns submitted tasks to them instead of creating a new thread each time.",
       "explain": "Maintains a thread pool + task queue, reuses threads\nDifferent types: FixedThreadPool, CachedThreadPool, ScheduledThreadPool\nAvoids the overhead of constant thread creation/destruction",
@@ -5618,6 +5636,225 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "URL versioning (/api/v1/orders) — simple, visible, gateway-friendly\nHeader versioning — cleaner URLs, but harder to test/discover\nMost teams prefer URL versioning for simplicity and discoverability",
       "example": "\"URL versioning, like /api/v1/orders, is simple, easy for clients to understand, and works well with API Gateways for routing. Header versioning keeps URLs clean but makes the API harder to explore directly. In my experience, most teams go with URL versioning for its simplicity and gateway-friendliness.\"",
       "summary10s": "URL versioning = simple & gateway-friendly; Header versioning = cleaner but harder to test."
+    }
+  }
+,
+  {
+    "id": "concurrency-vs-parallelism",
+    "category": "Java",
+    "question": "Concurrency vs Parallelism",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Basics of Concurrency and Why It Matters"
+    ],
+    "answerSEE": {
+      "simple": "Concurrency is dealing with many tasks, Parallelism is doing many tasks at the same time.",
+      "explain": "Concurrency — single core switches between tasks rapidly, gives illusion of simultaneous\nParallelism — multiple cores run tasks truly at the same time\nConcurrency is about structure, Parallelism is about execution\nJava achieves both — concurrency via threads, parallelism via multi-core CPU",
+      "example": "\"Concurrency means multiple tasks are in progress but not necessarily running at the same instant — like one CPU switching between threads. Parallelism means tasks literally run at the same moment on multiple cores. In Java I write concurrent code and the JVM plus OS decide whether it runs in parallel based on available cores.\"",
+      "summary10s": "Concurrency=juggling tasks, Parallelism=doing tasks simultaneously on multiple cores."
+    }
+  },
+  {
+    "id": "process-vs-thread",
+    "category": "Java",
+    "question": "Process vs Thread",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Process is a running program, Thread is a smaller unit of execution inside a process.",
+      "explain": "Process has its own memory space, isolated from other processes\nThreads share memory within same process — faster communication but risky\nProcess creation is expensive, thread creation is lightweight\nJVM runs as one process, your app can have many threads inside it",
+      "example": "\"A process is an independent running program with its own memory. Threads live inside a process and share its memory. Threads are much lighter to create than processes. In Spring Boot my application is one JVM process and handles each request on a separate thread from Tomcat's thread pool.\"",
+      "summary10s": "Process=own memory isolated, Thread=shared memory inside process, threads are lightweight."
+    }
+  },
+  {
+    "id": "thread-lifecycle",
+    "category": "Java",
+    "question": "Thread Lifecycle",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Thread goes through New, Runnable, Running, Blocked/Waiting, and Terminated states.",
+      "explain": "New — thread created but not started\nRunnable — start() called, waiting for CPU\nRunning — CPU assigned, executing\nBlocked or Waiting — waiting for lock or signal\nTerminated — execution complete or exception thrown",
+      "example": "\"Thread lifecycle starts at New when created, moves to Runnable after start is called. Scheduler assigns CPU and it moves to Running. If it needs a lock held by another thread it goes to Blocked. After wait or sleep it goes to Waiting. When execution finishes it is Terminated. Understanding this helps debug deadlocks and thread starvation.\"",
+      "summary10s": "New → Runnable → Running → Blocked/Waiting → Terminated."
+    }
+  },
+  {
+    "id": "mutex-vs-semaphore",
+    "category": "Java",
+    "question": "Mutex vs Semaphore",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Mutex allows one thread at a time, Semaphore allows N threads at a time.",
+      "explain": "Mutex — binary lock, only owner can release it, for exclusive access\nSemaphore — counter-based, allows N concurrent accesses, for resource pooling\nMutex use case — protect single shared resource like a file write\nSemaphore use case — limit concurrent DB connections to 10",
+      "example": "\"Mutex is like a single key to a room — only one thread enters at a time and only that thread can unlock. Semaphore is like a parking lot with N spaces — up to N threads can proceed simultaneously. I use Mutex for exclusive access to a single resource and Semaphore to limit concurrency like capping API calls to downstream service.\"",
+      "summary10s": "Mutex=one at a time exclusive, Semaphore=N at a time counted."
+    }
+  },
+  {
+    "id": "condition-variables",
+    "category": "Java",
+    "question": "Condition Variables",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Condition variable lets a thread wait for a specific condition to become true.",
+      "explain": "Thread acquires lock, checks condition, if not met calls await to release lock and wait\nAnother thread changes condition and calls signal or signalAll to wake waiting thread\nUsed in Producer-Consumer — consumer waits when queue empty, producer signals when item added\nIn Java — wait and notify on synchronized block, or Condition with ReentrantLock",
+      "example": "\"Condition variables solve the problem of a thread that needs to wait for something to happen. Instead of busy-waiting in a loop, thread calls await which releases the lock and sleeps. When condition is met, another thread calls signal to wake it up. This is the foundation of Producer-Consumer pattern in Java.\"",
+      "summary10s": "Thread waits on condition with await, another thread signals when condition met."
+    }
+  },
+  {
+    "id": "livelock",
+    "category": "Java",
+    "question": "Livelock",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Threads keep responding to each other but neither makes progress — like two people in a corridor stepping aside for each other.",
+      "explain": "Different from deadlock — threads are not blocked, they are active\nBut they keep reacting to each other without doing real work\nCommon in retry logic — both back off and retry at same time repeatedly\nFix — add randomized backoff so threads do not retry in sync",
+      "example": "\"Livelock is tricky because threads appear active but nothing gets done. Like two people in a narrow hallway both stepping aside in the same direction repeatedly. In code this happens with aggressive retry logic where both threads back off and retry simultaneously. Fix is adding randomized backoff so their retry timing differs.\"",
+      "summary10s": "Livelock=active but no progress, threads react to each other, fix with random backoff."
+    }
+  },
+  {
+    "id": "producer-consumer-pattern",
+    "category": "Java",
+    "question": "Producer-Consumer Pattern",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Producer-Consumer Problem and Solutions"
+    ],
+    "answerSEE": {
+      "simple": "Producer adds to shared queue, Consumer takes from it — decoupled by the queue.",
+      "explain": "Producer and Consumer run at different speeds — queue acts as buffer\nProducer waits when queue is full, Consumer waits when queue is empty\nIn Java — BlockingQueue handles waiting automatically\nUsed in Kafka, thread pools, task queues everywhere",
+      "example": "\"Producer-Consumer decouples the producer from the consumer using a shared queue. Producer puts items in, consumer takes items out. If queue is full producer waits, if empty consumer waits. In Java I use BlockingQueue which handles all the waiting and signaling internally. This pattern is everywhere — Kafka is essentially a distributed Producer-Consumer.\"",
+      "summary10s": "Producer adds, Consumer takes, BlockingQueue handles waiting — decoupled by buffer."
+    }
+  },
+  {
+    "id": "reader-writer-problem",
+    "category": "Java",
+    "question": "Reader-Writer Problem",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Multiple readers can read simultaneously, but writer needs exclusive access.",
+      "explain": "Multiple threads reading at same time is safe — no data changes\nOnly one writer at a time, and no readers while writing\nReadWriteLock in Java — readLock for readers, writeLock for writers\nImproves performance for read-heavy scenarios over full mutex",
+      "example": "\"Reader-Writer lock allows multiple threads to read concurrently since reading does not change data. But when a write happens, it locks out all readers and other writers. In Java I use ReadWriteLock — I acquire readLock for all read operations and writeLock for updates. This is much better performance than synchronizing everything for a read-heavy cache.\"",
+      "summary10s": "Multiple readers OK simultaneously, writer needs exclusive lock, use ReadWriteLock."
+    }
+  },
+  {
+    "id": "blockingqueue",
+    "category": "Java",
+    "question": "BlockingQueue",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Thread-safe queue where put blocks when full and take blocks when empty.",
+      "explain": "Put — adds item, blocks if queue is at capacity until space available\nTake — removes item, blocks if queue empty until item available\nNo manual wait and notify needed — built in\nTypes — ArrayBlockingQueue fixed size, LinkedBlockingQueue optionally bounded",
+      "example": "\"BlockingQueue is the backbone of Producer-Consumer in Java. It handles all the synchronization internally. Producer calls put — if queue is full it blocks automatically. Consumer calls take — if queue is empty it blocks. No manual synchronization needed. I use ArrayBlockingQueue when I want a bounded buffer to apply backpressure on the producer.\"",
+      "summary10s": "put blocks when full, take blocks when empty, handles sync automatically."
+    }
+  },
+  {
+    "id": "thread-safe-cache",
+    "category": "Java",
+    "question": "Thread-Safe Cache",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Cache that multiple threads can read and write safely without corruption.",
+      "explain": "Use ConcurrentHashMap as base — thread-safe, no full lock\ncomputeIfAbsent for atomic check-then-put — prevents duplicate loading\nAdd eviction with Caffeine or Guava Cache for production use\nReadWriteLock if using regular HashMap — readers share, writer exclusive",
+      "example": "\"For a thread-safe cache I use ConcurrentHashMap with computeIfAbsent. This atomically checks if key exists and loads value only if missing — no duplicate DB calls. For production I prefer Caffeine cache which is thread-safe and adds eviction, TTL, and max size. Never use plain HashMap with synchronized — too coarse and slow.\"",
+      "summary10s": "ConcurrentHashMap + computeIfAbsent, or Caffeine for production with TTL and eviction."
+    }
+  },
+  {
+    "id": "threadlocal",
+    "category": "Java",
+    "question": "ThreadLocal",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "ThreadLocal and InheritableThreadLocal"
+    ],
+    "answerSEE": {
+      "simple": "ThreadLocal gives each thread its own independent copy of a variable.",
+      "explain": "No sharing between threads — each thread has private copy\nUsed for storing user context, transaction context, request ID per thread\nSpring uses ThreadLocal internally for SecurityContext and transaction management\nMust call remove() after use to prevent memory leaks in thread pools",
+      "example": "\"ThreadLocal is useful when I need per-thread state like storing the current logged-in user or request correlation ID without passing it everywhere. Each thread gets its own copy so there is no sharing or synchronization needed. I always call remove in a finally block because thread pools reuse threads — stale data from previous request would otherwise bleed into next request.\"",
+      "summary10s": "Each thread owns its copy, no sharing, always remove after use in thread pools."
+    }
+  },
+  {
+    "id": "happens-before-jmm",
+    "category": "Java",
+    "question": "Happens-Before in Java Memory Model",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Java Memory Model (JMM)"
+    ],
+    "answerSEE": {
+      "simple": "Happens-before guarantees that one action is visible to another thread before it runs.",
+      "explain": "Without happens-before, threads can see stale values due to CPU caching and reordering\nsynchronized and volatile establish happens-before relationships\nThread start and join also create happens-before guarantees\nThis is why unsynchronized shared variable access is unpredictable",
+      "example": "\"Java Memory Model defines happens-before relationships to guarantee visibility. If action A happens-before B, then B is guaranteed to see all changes made by A. synchronized blocks, volatile writes, and thread start and join all establish this. Without these guarantees the CPU and compiler can reorder instructions and threads can see stale cached values.\"",
+      "summary10s": "Happens-before=visibility guarantee, established by synchronized, volatile, thread start/join."
+    }
+  },
+  {
+    "id": "threadpoolexecutor-internal-working",
+    "category": "Java",
+    "question": "ThreadPoolExecutor — Internal Working",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ThreadPoolExecutor manages core threads, max threads, queue, and rejection policy — understanding all four is key.",
+      "explain": "Core pool size — always kept alive even if idle\nMax pool size — maximum threads created under load\nWork queue — holds tasks when all core threads busy\nKeep alive time — how long extra threads above core size stay idle before termination\nRejection policy — what happens when queue full and max threads reached",
+      "example": "\"ThreadPoolExecutor behavior is sequential — first fills core threads, then queues tasks, then creates threads up to max, then applies rejection policy. If I have core 10, max 20, queue 100 — first 10 requests get core threads, next 100 go to queue, next 10 create extra threads up to max 20, then rejection policy fires for anything beyond. Most common mistake is thinking max threads are created before queue fills — it is the opposite.\"",
+      "summary10s": "Fill core threads → queue tasks → create up to max → reject. Queue fills before max threads created."
+    }
+  },
+  {
+    "id": "virtual-threads",
+    "category": "Java",
+    "question": "Virtual Threads — Future of Java Concurrency",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Virtual threads are lightweight JVM-managed threads — create millions without memory issues.",
+      "explain": "Platform threads — OS threads, expensive, limited to thousands, each uses 1MB stack\nVirtual threads — JVM managed, very lightweight, millions can exist, mounted on carrier threads\nBlocking in virtual thread — JVM unmounts from carrier thread, carrier handles another virtual thread\nPerfect for IO-bound workloads — no need for async reactive code, write simple blocking code",
+      "example": "\"Traditional threads are OS threads — each needs about 1MB stack memory, limited to a few thousand before OOM. Virtual threads from Java 21 are JVM-managed — they are extremely lightweight, millions can exist. When a virtual thread blocks on IO, the JVM unmounts it from the OS thread which then runs another virtual thread. I can write simple blocking code and get throughput of reactive async code. Game changer for web APIs and microservices.\"",
+      "summary10s": "Virtual threads=JVM managed, millions lightweight, block unmounts from carrier, simple blocking code with reactive throughput."
+    }
+  },
+  {
+    "id": "fork-join-framework",
+    "category": "Java",
+    "question": "Fork/Join Framework",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Divide big task into smaller subtasks recursively, process in parallel, merge results — work stealing keeps all cores busy.",
+      "explain": "Extends ExecutorService — designed for divide and conquer recursive algorithms\nRecursiveTask — returns result, RecursiveAction — no result\nfork() — submit subtask to pool asynchronously\njoin() — wait for subtask to complete and get result\nWork stealing — idle threads steal tasks from busy thread's deque, maximizes CPU utilization",
+      "example": "\"ForkJoinPool is designed for recursive divide-and-conquer. I extend RecursiveTask, check if work is small enough to compute directly or needs further splitting. fork() submits subtasks, join() collects results. The key innovation is work stealing — every thread has its own task deque, idle threads steal from busy ones keeping all CPU cores busy. Parallel streams use this pool internally.\"",
+      "summary10s": "Extend RecursiveTask, fork() submits subtask, join() gets result, work stealing keeps all cores busy."
     }
   }
 ];
