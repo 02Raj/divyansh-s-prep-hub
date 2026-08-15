@@ -196,14 +196,14 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "system-design-put-vs-patch",
     "category": "System Design",
     "question": "Difference between PUT and PATCH? How to make PATCH idempotent?",
-    "frequency": 7,
+    "frequency": 8,
     "companies": [
       "Atlassian",
       "Microsoft",
       "Flipkart"
     ],
-    "variations": [
-      "Are all REST methods idempotent?"
+    "variations": ["Are all REST methods idempotent?",
+      "PUT vs PATCH"
     ],
     "answerSEE": {
       "simple": "PUT replaces the entire resource and is always idempotent. PATCH updates partial fields and is not inherently idempotent.",
@@ -2025,9 +2025,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "synchronized-vs-reentrantlock",
     "category": "Java",
     "question": "synchronized vs ReentrantLock?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "synchronized vs Lock"
+    ],
     "answerSEE": {
       "simple": "synchronized is a basic built-in keyword for locking. ReentrantLock is a flexible class offering advanced features like try-lock and fair locking.",
       "explain": "synchronized locks automatically release when the block ends. ReentrantLock requires explicit `lock()` and `unlock()` (usually in a finally block), but gives you the ability to interrupt a waiting thread, try to acquire a lock without blocking, and enforce fairness (longest waiting thread gets the lock).",
@@ -2067,9 +2069,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-completablefuture",
     "category": "Java",
     "question": "What is CompletableFuture?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "CompletableFuture use cases"
+    ],
     "answerSEE": {
       "simple": "It is an advanced asynchronous programming tool in Java that allows you to chain non-blocking tasks and handle errors easily.",
       "explain": "Unlike the old Future, which forced you to block using `.get()`, CompletableFuture provides methods like `thenApply` and `thenCombine` to trigger callbacks automatically when a task finishes.",
@@ -2111,7 +2115,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [],
     "variations": [
       "map() vs flatMap()"
@@ -2155,9 +2159,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-the-difference-between-filter-and-map",
     "category": "Java",
     "question": "What is the difference between filter() and map()?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "filter() vs map()"
+    ],
     "answerSEE": {
       "simple": "filter() selects elements based on a condition, keeping the type the same. map() transforms elements, potentially changing their type.",
       "explain": "filter takes a Predicate (returns boolean). If true, the element stays. map takes a Function (returns an object). It converts the input into something else.",
@@ -2355,12 +2361,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-do-you-secure-rest-apis",
     "category": "Spring Boot",
     "question": "How do you secure REST APIs?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [
       "Accenture"
     ],
-    "variations": [
-      "What type of security are you using in your current project?"
+    "variations": ["What type of security are you using in your current project?",
+      "How to secure REST APIs?"
     ],
     "answerSEE": {
       "simple": "By enforcing HTTPS, implementing stateless JWT authentication, and applying role-based authorization.",
@@ -2451,11 +2457,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "given-a-list-of-integers-find-print-duplicate-values-using-java-8-streams",
     "category": "Java Coding",
     "question": "Given a list of integers, find/print duplicate values using Java 8 Streams.",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [
       "Accenture"
     ],
-    "variations": [],
+    "variations": [
+      "Find duplicate elements using Streams"
+    ],
     "answerSEE": {
       "simple": "Use a Set to track seen items, and filter the stream based on whether adding the item to the Set fails.",
       "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
@@ -2647,10 +2655,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "hashmap-vs-concurrenthashmap",
     "category": "Java",
     "question": "HashMap vs ConcurrentHashMap",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [],
-    "variations": [
-      "When would you choose ConcurrentHashMap over HashMap?"
+    "variations": ["When would you choose ConcurrentHashMap over HashMap?",
+      "HashMap vs ConcurrentHashMap"
     ],
     "answerSEE": {
       "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
@@ -2663,9 +2671,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "arraylist-vs-linkedlist",
     "category": "Java",
     "question": "ArrayList vs LinkedList",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "ArrayList vs LinkedList"
+    ],
     "answerSEE": {
       "simple": "ArrayList is backed by a dynamic array; LinkedList is backed by a doubly linked list.",
       "explain": "ArrayList — fast random access (O(1)), slow insert/delete in middle (O(n))\nLinkedList — fast insert/delete (O(1)) once position is known, slow random access (O(n))\nArrayList is used more often in practice; LinkedList mainly when frequent insert/delete needed\n\n       ArrayList → Fast random access (get()), slower insertion/deletion in the middle.\n       LinkedList → Fast insertion/deletion, slower random access.\n       ArrayList uses less memory; LinkedList uses more memory because each node stores previous and next references.\n     \n  Use ArrayList for frequent reads and LinkedList for frequent insertions/deletions.",
@@ -2705,9 +2715,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "kafka-producer-consumer-topic-partition-offset",
     "category": "Microservices",
     "question": "Kafka Producer, Consumer, Topic, Partition, Offset",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "What is a Kafka partition?"
+    ],
     "answerSEE": {
       "simple": "These are the core building blocks of how Kafka stores and delivers messages.",
       "explain": "Producer — publishes messages to a Topic\nTopic — a category of messages, split into Partitions for scalability\nConsumer — reads messages from partitions, tracked via Offset (message position)",
@@ -2819,10 +2831,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "internal-working-of-hashmap",
     "category": "Java",
     "question": "Internal working of HashMap",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [
-      "Why can HashMap become slow even with a good hash function?"
+    "variations": ["Why can HashMap become slow even with a good hash function?",
+      "How does HashMap work internally?"
     ],
     "answerSEE": {
       "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
@@ -3911,9 +3923,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "save-vs-saveandflush",
     "category": "Spring Boot",
     "question": "save() vs saveAndFlush()",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "save() vs saveAndFlush()"
+    ],
     "answerSEE": {
       "simple": "save() stages changes in persistence context, saveAndFlush() immediately writes to DB within the same transaction.",
       "explain": "save() — marks entity as persistent, actual SQL may not execute until flush happens at commit\nsaveAndFlush() — immediately executes SQL to DB, useful when subsequent logic needs DB-generated values\nflush() — forces SQL execution without committing the transaction\nUse case for saveAndFlush — save entity then call a stored procedure that needs that data in same transaction\nCode:\n// save() — SQL executes at transaction commit\nEmployee emp = new Employee(\"Alice\", \"Engineering\");\nemployeeRepository.save(emp);\n// At this point, emp.id might be null if DB assigns it\n// SQL executes when transaction flushes (usually at commit)\n\n// saveAndFlush() — SQL executes immediately\nEmployee emp = new Employee(\"Alice\", \"Engineering\");\nemployeeRepository.saveAndFlush(emp);\n// emp.id is populated NOW — DB has the row, generated ID is available\nLong empId = emp.getId(); // available immediately\n\n// Use case — save then immediately reference\nDepartment dept = new Department(\"Engineering\");\ndepartmentRepository.saveAndFlush(dept); // flush to DB now\n// Now I can reference dept.getId() in the next query\nList<Employee> emps = employeeRepository.findByDepartmentId(dept.getId());",
@@ -3939,9 +3953,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "concurrenthashmap-internal-working",
     "category": "Java",
     "question": "ConcurrentHashMap internal working",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "How does ConcurrentHashMap work?"
+    ],
     "answerSEE": {
       "simple": "ConcurrentHashMap allows multiple threads to read/write safely without locking the entire map.",
       "explain": "Uses bucket-level locking (segment locking in older versions, CAS + synchronized in Java 8+)\nOnly the specific bucket being modified is locked, not the whole map\nReads are mostly lock-free, giving high concurrency",
@@ -3967,9 +3983,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "solid-principles-with-real-time-example",
     "category": "Java",
     "question": "SOLID principles with real-time example",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "SOLID Principles"
+    ],
     "answerSEE": {
       "simple": "SOLID is a set of 5 design principles that make code more maintainable and extensible.",
       "explain": "S — Single Responsibility: one class, one job\nO — Open/Closed: open for extension, closed for modification\nL, I, D — Liskov substitution, Interface segregation, Dependency inversion (depend on abstractions)\nExample: Instead of one PaymentService handling Card, UPI, NetBanking logic, split into separate strategy classes implementing a common PaymentMethod interface.",
@@ -4067,9 +4085,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-does-transactional-work-internally",
     "category": "Spring Boot",
     "question": "How does @Transactional work internally?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "How does @Transactional work?"
+    ],
     "answerSEE": {
       "simple": "@Transactional works by wrapping the method call in a proxy that manages commit/rollback.",
       "explain": "Spring creates a proxy (AOP) around the bean at startup\nProxy starts a transaction before method execution, commits after success\nRolls back automatically on unchecked exceptions (RuntimeException)\nDoesn't work on private methods or self-invocation (calling from within same class)",
@@ -4095,9 +4115,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-to-optimize-slow-queries",
     "category": "Java",
     "question": "How to optimize slow queries?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Troubleshooting a slow query"
+    ],
     "answerSEE": {
       "simple": "Optimize slow queries by indexing, avoiding unnecessary data fetching, and analyzing the execution plan.",
       "explain": "Add proper indexes on frequently filtered/joined columns\nUse EXPLAIN ANALYZE to check query execution plan\nAvoid SELECT *, fetch only needed columns; use pagination for large data\nFix N+1 issues and use proper fetch strategies",
@@ -4503,9 +4525,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-the-difference-between-fetchtype-eager-and-fetchtype-lazy",
     "category": "Spring Boot",
     "question": "What is the difference between FetchType.Eager and FetchType.Lazy?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "LAZY vs EAGER loading"
+    ],
     "answerSEE": {
       "simple": "Eager fetch loads the related data immediately along with the main entity, which can cause unnecessary data loading. Lazy fetch loads the related data only when it is actually needed, which improves performance. So eager means load now, lazy means load later.",
       "explain": "",
@@ -5229,6 +5253,371 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "You must capture the state of the JVM while it's struggling. A Thread Dump (using `jstack`) will instantly tell me if threads are blocked on locks, waiting for a database connection, or stuck in an infinite loop. A Heap Dump (using `jmap`) lets me analyze memory leaks offline.",
       "example": "\"My absolute first move is checking Grafana to see if CPU or Memory is spiking. If CPU is fine but the app is unresponsive, I immediately run `jstack` to capture a thread dump. Usually, it instantly reveals that 200 threads are BLOCKED waiting for a response from a down downstream service, telling me exactly where to look.\"",
       "summary10s": "Check metrics, capture a Thread Dump (for blocked threads), and capture a Heap Dump."
+    }
+  }
+,
+  {
+    "id": "java-equals-vs-equals-method",
+    "category": "Java",
+    "question": "== vs equals()",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "== compares object references (memory address); equals() compares logical/content equality.",
+      "explain": "== — true only if both variables point to the exact same object\nequals() — default is same as ==, but classes like String override it to compare actual content\nCustom classes must override equals() to define what \"equal\" means for them",
+      "example": "\"== checks if two references point to the exact same object in memory. equals() is meant for logical equality — String overrides it to compare actual character content instead of memory address. For my own custom classes, I override equals() when I need two different objects to be considered equal based on their field values, like two Employee objects with the same ID.\"",
+      "summary10s": "== compares references, equals() compares content (if overridden)."
+    }
+  },
+  {
+    "id": "java-overloading-vs-overriding",
+    "category": "Java",
+    "question": "Overloading vs Overriding",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Overloading is same method name with different parameters in the same class; Overriding is redefining a parent's method in a subclass with the same signature.",
+      "explain": "Overloading — compile-time (static) polymorphism, resolved by parameter types/count\nOverriding — runtime (dynamic) polymorphism, resolved based on actual object type at runtime\nOverriding requires inheritance; overloading doesn't",
+      "example": "\"Overloading is having multiple methods with the same name but different parameters in the same class — it's resolved at compile time. Overriding is when a subclass provides its own implementation of a method already defined in its parent, with the exact same signature — this is resolved at runtime based on the actual object type, which is what enables polymorphism.\"",
+      "summary10s": "Overloading = same name, different params, compile-time. Overriding = same signature, subclass, runtime."
+    }
+  },
+  {
+    "id": "find-second-highest-salary-streams",
+    "category": "Java Coding",
+    "question": "Find second-highest salary using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Sort in descending order, skip the first, and get the next one.",
+      "explain": "Use distinct() to handle possible duplicate top salaries, then sort descending, skip one, and take the first.",
+      "example": "\"I'd extract just the salaries, apply distinct() to handle duplicate top salaries correctly, sort them in descending order, skip the first one, and take the next — that gives me the second-highest. Using distinct() is important, otherwise two employees with the same highest salary would break the logic.\"",
+      "summary10s": "distinct() + sorted(reverseOrder) + skip(1) + findFirst() = second-highest."
+    }
+  },
+  {
+    "id": "java-hashset-vs-treeset",
+    "category": "Java",
+    "question": "HashSet vs TreeSet",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "HashSet gives fast, unordered unique elements; TreeSet gives sorted unique elements.",
+      "explain": "HashSet — backed by HashMap, O(1) average lookup, no ordering guarantee\nTreeSet — backed by a Red-Black Tree, keeps elements sorted, O(log n) operations\nTreeSet requires elements to be Comparable or a Comparator provided",
+      "example": "\"HashSet gives me fast, average O(1) lookups but no guaranteed order. TreeSet keeps elements sorted automatically, backed by a Red-Black Tree, but operations are O(log n), slightly slower. I use HashSet by default for uniqueness, and switch to TreeSet only when I actually need the elements sorted, like maintaining a leaderboard.\"",
+      "summary10s": "HashSet = fast, unordered. TreeSet = sorted, O(log n)."
+    }
+  },
+  {
+    "id": "what-is-a-deadlock",
+    "category": "Java",
+    "question": "What is a deadlock?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
+      "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
+      "example": "\"A deadlock happens when two threads each hold a lock the other needs, and both wait forever, forming a cycle. I avoid this by always acquiring multiple locks in the same consistent order across the whole codebase, or by using tryLock() with a timeout so a thread can back off instead of waiting indefinitely.\"",
+      "summary10s": "Cyclic lock-wait between threads — avoid with consistent lock ordering or tryLock()."
+    }
+  },
+  {
+    "id": "runnable-vs-callable",
+    "category": "Java",
+    "question": "Runnable vs Callable",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Runnable doesn't return a result; Callable can return a result and throw checked exceptions.",
+      "explain": "Runnable — run(), no return value, no checked exceptions\nCallable — call(), returns a value via Future, can throw checked exceptions",
+      "example": "\"Runnable's run() doesn't return anything and can't throw checked exceptions. Callable's call() can return a result through a Future, and can also throw checked exceptions. I use Callable whenever I need the outcome of an async task, like fetching data in parallel.\"",
+      "summary10s": "Runnable = no result, Callable = returns result via Future."
+    }
+  },
+  {
+    "id": "what-is-executorservice",
+    "category": "Java",
+    "question": "What is ExecutorService?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ExecutorService manages a pool of threads and assigns submitted tasks to them instead of creating a new thread each time.",
+      "explain": "Maintains a thread pool + task queue, reuses threads\nDifferent types: FixedThreadPool, CachedThreadPool, ScheduledThreadPool\nAvoids the overhead of constant thread creation/destruction",
+      "example": "\"ExecutorService manages a pool of worker threads and a queue of tasks internally. When I submit a task, an available thread picks it up, or it waits in the queue if all threads are busy. This avoids the overhead of creating a new thread for every task. I usually use Executors.newFixedThreadPool() for predictable workloads.\"",
+      "summary10s": "Thread pool + task queue — reuses threads instead of creating new ones."
+    }
+  },
+  {
+    "id": "component-vs-service-vs-repository",
+    "category": "Spring Boot",
+    "question": "@Component vs @Service vs @Repository",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "All are specializations of @Component, used to indicate the layer of the class.",
+      "explain": "@Component — generic Spring-managed bean\n@Service — business logic layer\n@Repository — data access layer, also translates DB exceptions",
+      "example": "\"All three are technically @Component under the hood, so Spring detects them the same way. But we use @Service for business logic and @Repository for the data access layer — @Repository additionally translates database-specific exceptions into Spring's unified DataAccessException, which is a real functional difference, not just naming.\"",
+      "summary10s": "Same base (@Component), Repository also translates DB exceptions."
+    }
+  },
+  {
+    "id": "bean-vs-component",
+    "category": "Spring Boot",
+    "question": "@Bean vs @Component",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Component is for classes you write; @Bean is for objects you configure manually, often from external libraries.",
+      "explain": "@Component — class-level, auto-detected via component scanning\n@Bean — method-level, used inside @Configuration classes, gives more control",
+      "example": "\"@Component is a class-level annotation Spring auto-detects through component scanning. @Bean is used inside a @Configuration class on a method, giving more manual control — especially useful for registering a bean for a third-party class where I can't add annotations directly.\"",
+      "summary10s": "@Component = your class, @Bean = manual method-based registration."
+    }
+  },
+  {
+    "id": "synchronous-vs-asynchronous-communication",
+    "category": "Microservices",
+    "question": "Synchronous vs Asynchronous communication",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Synchronous waits for an immediate response; Asynchronous fires a message and continues without waiting.",
+      "explain": "Sync — REST/gRPC, needed when an immediate response/result is required\nAsync — Kafka/RabbitMQ, decoupled, better for events that don't need instant handling\nAsync improves resilience — a slow consumer doesn't block the producer",
+      "example": "\"Synchronous communication, like REST, waits for an immediate response, which is simple but tightly couples the caller to the callee's availability. Asynchronous communication, like Kafka, lets a service fire an event and move on, which decouples services and makes the system more resilient to a downstream service being slow or down. I use sync for direct queries and async for events like order status updates.\"",
+      "summary10s": "Sync = REST/gRPC (waits), Async = Kafka/RabbitMQ (fire and continue)."
+    }
+  },
+  {
+    "id": "how-do-you-handle-service-failure",
+    "category": "Microservices",
+    "question": "How do you handle service failure?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use timeouts, retries with backoff, circuit breakers, and fallback responses.",
+      "explain": "Set explicit timeouts so a slow service doesn't hang the caller\nRetry with exponential backoff for transient failures\nCircuit breaker (Resilience4j) to stop calling a consistently failing service, with a fallback",
+      "example": "\"I handle service failure with a layered approach — set explicit timeouts so a slow downstream call doesn't hang the caller, retry transient failures with exponential backoff, and use a circuit breaker like Resilience4j to stop hammering a service that's consistently failing, falling back to a default response or cached data instead.\"",
+      "summary10s": "Timeouts + retry with backoff + circuit breaker + fallback response."
+    }
+  },
+  {
+    "id": "retry-vs-circuit-breaker",
+    "category": "Microservices",
+    "question": "Retry vs Circuit Breaker",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Retry attempts the same call again after failure; Circuit Breaker stops calling a failing service entirely for a while.",
+      "explain": "Retry — good for transient, short-lived failures (network blip)\nCircuit Breaker — trips after repeated failures, blocks further calls temporarily, protects both caller and the struggling service\nOften used together: retry a few times, and if it keeps failing, the circuit breaker trips",
+      "example": "\"Retry is for transient failures — I retry the same call a few times, usually with backoff, hoping it was just a temporary blip. Circuit Breaker is different — after a certain number of consistent failures, it 'trips' and stops calling that service entirely for a cooldown period, protecting both the caller from wasting resources and the struggling service from more load. I typically combine both — retry a few times, and if it keeps failing, let the circuit breaker take over.\"",
+      "summary10s": "Retry = try again on transient failure, Circuit Breaker = stop calling after repeated failures."
+    }
+  },
+  {
+    "id": "what-is-the-saga-pattern",
+    "category": "Microservices",
+    "question": "What is the Saga Pattern?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
+      "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
+      "example": "\"Saga Pattern manages distributed transactions across microservices — since we can't have one transaction spanning multiple databases, each service does its own local transaction, and if something fails downstream, we run a compensating transaction to undo the earlier steps. I've used it to keep data consistent across order, payment, and inventory services, using the Orchestration style with a central coordinator.\"",
+      "summary10s": "Distributed transaction → local steps + rollback via compensation."
+    }
+  },
+  {
+    "id": "maintaining-consistency-between-services",
+    "category": "Microservices",
+    "question": "Maintaining consistency between services",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Since each service has its own database, use event-driven patterns instead of shared transactions.",
+      "explain": "Saga Pattern with compensating transactions\nEvent-driven updates via Kafka for eventual consistency\nIdempotent APIs + Outbox pattern to reliably publish events with DB changes",
+      "example": "\"Since microservices don't share a database, I rely on the Saga Pattern with compensating transactions and publish events through Kafka to keep other services updated, accepting eventual consistency. I make sure APIs are idempotent so retries are safe, and use the Outbox pattern to reliably publish events alongside database changes.\"",
+      "summary10s": "No shared DB → Saga + events + idempotent APIs + Outbox pattern."
+    }
+  },
+  {
+    "id": "sql-where-vs-having",
+    "category": "SQL",
+    "question": "WHERE vs HAVING",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "WHERE filters rows before grouping; HAVING filters groups after aggregation.",
+      "explain": "WHERE — applied to individual rows, can't use aggregate functions (SUM, COUNT)\nHAVING — applied to grouped results, used with GROUP BY and aggregate functions\nWHERE runs first, then GROUP BY, then HAVING",
+      "example": "\"WHERE filters individual rows before any grouping happens, and it can't reference aggregate functions like SUM or COUNT. HAVING filters after the GROUP BY has aggregated the data, so it's used specifically to filter based on aggregate results, like finding departments with an average salary above a certain threshold.\"",
+      "summary10s": "WHERE filters rows before grouping, HAVING filters groups after aggregation."
+    }
+  },
+  {
+    "id": "sql-find-second-highest-salary",
+    "category": "SQL",
+    "question": "Find the second-highest salary",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use LIMIT/OFFSET on a descending sorted distinct salary list, or a subquery with MAX() excluding the top value.",
+      "explain": "Sort distinct salaries descending, skip the first one, take the next.",
+      "example": "\"I'd select distinct salaries, sort them descending, and use LIMIT 1 OFFSET 1 to skip the highest and grab the next one — DISTINCT handles cases where multiple employees share the top salary. Alternatively, I could use a subquery that finds the max salary less than the overall max, which achieves the same result without OFFSET, useful for databases that don't support it well.\"",
+      "summary10s": "Distinct + ORDER BY DESC + LIMIT 1 OFFSET 1, or MAX() excluding the top value."
+    }
+  },
+  {
+    "id": "sql-inner-join-vs-left-join",
+    "category": "SQL",
+    "question": "INNER JOIN vs LEFT JOIN",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "INNER JOIN returns only matching rows from both tables; LEFT JOIN returns all rows from the left table, with nulls for unmatched right-side data.",
+      "explain": "INNER JOIN — only rows with a match in both tables\nLEFT JOIN — all rows from left table + matched data from right, NULL if no match\nChoose LEFT JOIN when you need to keep records even without a related match (e.g., customers with no orders)",
+      "example": "\"INNER JOIN only returns rows where there's a match in both tables. LEFT JOIN returns every row from the left table regardless of whether there's a match, filling in NULLs for the right table's columns when there isn't one. I use LEFT JOIN when I need to preserve records that might not have a related row, like listing all customers even those with zero orders.\"",
+      "summary10s": "INNER = only matches, LEFT = all from left table + matches, NULL if none."
+    }
+  },
+  {
+    "id": "sql-how-do-indexes-improve-performance",
+    "category": "SQL",
+    "question": "How do indexes improve performance?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Indexes let the database find rows quickly without scanning the entire table.",
+      "explain": "Similar to a book's index — avoids a full table scan for filtered/sorted queries\nTypically implemented as B-Trees — lookup is O(log n) instead of O(n)\nTrade-off: speeds up reads, but slows down writes (index needs updating on every insert/update)",
+      "example": "\"Indexes let the database jump directly to relevant rows instead of scanning the entire table, similar to how a book's index works. They're usually implemented as B-Trees, turning a lookup from O(n) into O(log n). The trade-off is that indexes add overhead on writes, since every insert or update also has to update the index, so I only index columns that are actually used frequently in WHERE or JOIN clauses.\"",
+      "summary10s": "Avoids full table scan, O(log n) lookup via B-Tree — trade-off: slower writes."
+    }
+  },
+  {
+    "id": "what-is-join-fetch",
+    "category": "Spring Boot",
+    "question": "What is JOIN FETCH?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JOIN FETCH tells JPQL to eagerly load an associated entity in the same query, avoiding a separate lazy-load query.",
+      "explain": "Used inside @Query with JPQL: SELECT e FROM Employee e JOIN FETCH e.department\nOverrides the default LAZY fetch type for that specific query only\nThe most common fix for the N+1 problem",
+      "example": "\"JOIN FETCH is a JPQL clause that tells Hibernate to load an associated entity eagerly within the same query, instead of triggering a separate lazy-load query later. I use it whenever I know I'll need the related data right away, like fetching employees along with their department in one go, which is my go-to fix for N+1 issues.\"",
+      "summary10s": "JPQL clause — loads association in same query, main fix for N+1."
+    }
+  },
+  {
+    "id": "what-is-a-consumer-group",
+    "category": "Microservices",
+    "question": "What is a consumer group?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A consumer group is a set of consumers that work together to consume a topic, with each partition read by only one consumer in the group.",
+      "explain": "Enables parallel consumption — each partition assigned to exactly one consumer in the group\nMultiple consumer groups can independently consume the same topic\nIf consumers < partitions, some consumers handle multiple partitions; if consumers > partitions, extras stay idle",
+      "example": "\"A consumer group lets multiple consumer instances share the work of processing a topic — Kafka ensures each partition is only read by one consumer within that group at a time, which is what enables safe parallel processing. Different consumer groups are completely independent, so I could have one group processing for real-time updates and another for analytics, both reading the same topic separately.\"",
+      "summary10s": "Group of consumers sharing a topic — each partition read by exactly one consumer per group."
+    }
+  },
+  {
+    "id": "consumer-crashes-before-committing-offset",
+    "category": "Microservices",
+    "question": "Consumer crashes before committing offset",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The message gets reprocessed by another consumer, since Kafka thinks it was never successfully consumed.",
+      "explain": "Offset commit marks a message as \"processed\" — if it crashes before committing, Kafka doesn't know it was handled\nOn rebalance, another consumer picks up from the last committed offset, reprocessing that message\nThis is why consumers should be designed to be idempotent — reprocessing is expected behavior, not an edge case",
+      "example": "\"If a consumer crashes before committing the offset, Kafka has no record that the message was successfully processed, so after a rebalance, another consumer in the group picks up from the last committed offset and reprocesses that same message. This is exactly why I always design consumers to be idempotent — reprocessing a message should never cause duplicate side effects, like double-charging a payment.\"",
+      "summary10s": "Uncommitted message gets reprocessed by another consumer — design for idempotency."
+    }
+  },
+  {
+    "id": "what-is-a-dead-letter-topic",
+    "category": "Microservices",
+    "question": "What is a Dead Letter Topic?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Dead Letter Topic (DLT) stores messages that repeatedly fail processing, so they don't block the main pipeline.",
+      "explain": "After a set number of retries, a failing message is moved to a separate DLT instead of blocking the consumer\nAllows the main consumer to keep processing subsequent messages\nFailed messages in the DLT can be inspected, fixed, and reprocessed manually later",
+      "example": "\"A Dead Letter Topic is where I route messages that fail processing repeatedly, after a set number of retries, instead of letting them block the entire consumer from moving forward. This way, the main pipeline keeps flowing, and I can inspect the failed messages in the DLT separately, fix the underlying issue, and reprocess them later without losing data.\"",
+      "summary10s": "Failed messages moved here after retries exhausted — keeps main pipeline unblocked."
+    }
+  },
+  {
+    "id": "how-to-make-kafka-consumers-idempotent",
+    "category": "Microservices",
+    "question": "How to make Kafka consumers idempotent?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Track a unique identifier per message and skip processing if it's already been handled.",
+      "explain": "Store processed message IDs (or business keys) in a DB with a unique constraint\nCheck-before-process, or use an upsert pattern instead of insert, so reprocessing doesn't create duplicates\nCombine business logic update + offset tracking atomically where possible",
+      "example": "\"I make consumers idempotent by tracking a unique identifier for each message — like a transaction ID — in the database with a unique constraint. Before processing, I check if that ID has already been handled; if it has, I just skip it safely. For updates, I also design the operation to be an upsert rather than a blind insert, so even if the same message gets reprocessed, it doesn't create duplicate records.\"",
+      "summary10s": "Unique message ID + DB constraint/check-before-process — safe reprocessing without duplicates."
+    }
+  },
+  {
+    "id": "common-http-status-codes",
+    "category": "Spring Boot",
+    "question": "Common HTTP status codes",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Status codes communicate the outcome of a request — success, client error, or server error.",
+      "explain": "200 OK, 201 Created, 204 No Content — success\n400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 409 Conflict, 422 Unprocessable Entity — client errors\n500 Internal Server Error, 503 Service Unavailable — server errors",
+      "example": "\"I use 200 for a successful GET, 201 for a successful POST that creates a resource, and 204 when there's no content to return, like after a delete. For errors, 400 is a malformed request, 401 is unauthenticated, 403 is authenticated but not authorized, 404 is resource not found, and 422 is for a well-formed request that fails business validation. 500 is reserved for genuine unexpected server failures.\"",
+      "summary10s": "2xx=success, 4xx=client error (400/401/403/404/422), 5xx=server error."
+    }
+  },
+  {
+    "id": "what-is-idempotency",
+    "category": "Spring Boot",
+    "question": "What is idempotency?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "An idempotent operation produces the same result no matter how many times it's repeated.",
+      "explain": "GET, PUT, DELETE are naturally idempotent by REST convention\nPOST is NOT idempotent by default — repeating it creates duplicate resources\nAchieved for POST using an idempotency key that the server checks before processing",
+      "example": "\"Idempotency means calling the same operation multiple times has the same effect as calling it once. GET, PUT, and DELETE are naturally idempotent by REST convention, but POST isn't — retrying a POST could create duplicate records. For critical POST operations like payments, I implement idempotency using a unique idempotency key that the server checks before processing, so a retried request doesn't cause a duplicate charge.\"",
+      "summary10s": "Same result no matter how many times repeated — POST needs an idempotency key to achieve this."
+    }
+  },
+  {
+    "id": "how-to-handle-api-versioning",
+    "category": "Spring Boot",
+    "question": "How to handle API versioning?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Version APIs either through the URL path or a custom request header.",
+      "explain": "URL versioning (/api/v1/orders) — simple, visible, gateway-friendly\nHeader versioning — cleaner URLs, but harder to test/discover\nMost teams prefer URL versioning for simplicity and discoverability",
+      "example": "\"URL versioning, like /api/v1/orders, is simple, easy for clients to understand, and works well with API Gateways for routing. Header versioning keeps URLs clean but makes the API harder to explore directly. In my experience, most teams go with URL versioning for its simplicity and gateway-friendliness.\"",
+      "summary10s": "URL versioning = simple & gateway-friendly; Header versioning = cleaner but harder to test."
     }
   }
 ];
