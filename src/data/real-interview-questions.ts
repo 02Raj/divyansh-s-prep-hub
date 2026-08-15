@@ -1807,172 +1807,194 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "key-features-of-java-17",
     "category": "Java",
     "question": "Key features of Java 17?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Key Features in Java 17"
+    ],
     "answerSEE": {
-      "simple": "Java 17 is an LTS release featuring Records, Sealed Classes, Text Blocks, and Switch Expressions.",
-      "explain": "Records provide a compact syntax for immutable data classes. Sealed Classes restrict which classes can extend or implement them. Text Blocks allow multi-line strings without ugly escapes. Switch Expressions can now return values and use arrow syntax.",
-      "example": "In our latest microservice, we upgraded to Java 17 to use Records for all our DTOs. It completely eliminated the need for Lombok's @Value and boilerplate getters. We also heavily use Pattern Matching for switch statements, which makes our factory classes much cleaner.",
-      "summary10s": "LTS release. Brought Records, Sealed Classes, Text Blocks, Pattern Matching for Switch."
+      "simple": "Java 17 is LTS with sealed classes, records, pattern matching, and text blocks.",
+      "explain": "Sealed classes — restrict which classes can extend a class\nRecords — immutable data classes with auto-generated boilerplate\nPattern matching for instanceof — no explicit cast needed\nText blocks — multiline strings with clean formatting\nEnhanced switch expressions",
+      "example": "\"Java 17 is a Long Term Support release. Key features I use are Records for clean DTO classes, Sealed classes for controlled inheritance, and pattern matching for instanceof which removes explicit casting. Text blocks clean up multiline JSON or SQL strings in code. These features reduce boilerplate significantly.\"",
+      "summary10s": "Java 17 LTS — Records, Sealed classes, Pattern matching, Text blocks, Enhanced switch."
     }
   },
   {
     "id": "what-is-var-can-it-be-used-with-generics",
     "category": "Java",
     "question": "What is var? Can it be used with generics?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "var Keyword"
+    ],
     "answerSEE": {
-      "simple": "var is used for local variable type inference. Yes, it can be used with generics but the right side must specify the type.",
-      "explain": "var allows the compiler to infer the type of a local variable from its initialization. It cannot be used for fields, method parameters, or return types. When using generics, if you use the diamond operator (<>) on the right, it infers Object. You must provide the generic type.",
-      "example": "I use `var list = new ArrayList<String>();` to save typing. If I just write `var list = new ArrayList<>();`, the compiler infers `ArrayList<Object>`, which is usually not what I want. It only works inside methods, so I can't use it for class-level variables.",
-      "summary10s": "Local variable type inference. Generics need type on the right side."
+      "simple": "var lets Java infer the type of local variable — less typing, same strong typing.",
+      "explain": "Compiler infers type at compile time — not dynamic typing\nOnly for local variables — not fields, parameters, or return types\nCannot be used as generic type parameter like List of var\nMakes code cleaner but can reduce readability if overused",
+      "example": "\"var lets Java figure out the variable type from the value. I don't need to write the type myself. It is still strongly typed, so the type cannot change. It only works for local variables, and I use it when the type is clear to keep the code short and clean.\"",
+      "summary10s": "var=compiler infers type, local variables only, cannot use as generic type."
     }
   },
   {
     "id": "what-is-an-effectively-final-variable",
     "category": "Java",
     "question": "What is an effectively final variable?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Effectively Final Variable"
+    ],
     "answerSEE": {
-      "simple": "A variable whose value is never changed after initialization, even if not explicitly marked with the 'final' keyword.",
-      "explain": "Java 8 introduced this so you can use local variables inside lambda expressions or anonymous inner classes without having to explicitly type 'final'. If you try to reassign it later, the compiler will throw an error inside the lambda.",
-      "example": "If I declare `int count = 10;` and then use `count` inside a lambda like `list.forEach(i -> System.out.println(i + count));`, it works. But if I try to do `count++` anywhere in that method, `count` loses its effectively final status and the lambda will fail to compile.",
-      "summary10s": "A local variable that is never reassigned. Required for use inside lambdas."
+      "simple": "A variable that is never reassigned after initialization — even without final keyword.",
+      "explain": "Java 8 plus allows lambdas to use local variables without final if they are never changed\nIf you try to reassign the variable, compiler shows error in lambda\nEffectively final means compiler treats it as final even without keyword\nCommon in lambda expressions and anonymous inner classes",
+      "example": "\"Effectively final means a variable that is never modified after first assignment. Java allows lambdas to capture local variables only if they are final or effectively final. If I declare a variable and never reassign it, Java treats it as final automatically. The moment I try to change it, the lambda using it gives a compile error.\"",
+      "summary10s": "Never reassigned after init = effectively final, lambdas can capture it."
     }
   },
   {
     "id": "what-are-java-records-how-do-you-fetch-the-first-record",
     "category": "Java",
     "question": "What are Java Records? How do you fetch the first record?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Record Class and Fetching First Record"
+    ],
     "answerSEE": {
-      "simple": "Records are a concise way to create immutable data carrier classes. You fetch data using auto-generated accessor methods.",
-      "explain": "Introduced in Java 14, a Record automatically generates a constructor, getters (named the same as the fields, e.g., name() instead of getName()), equals(), hashCode(), and toString(). All fields are final.",
-      "example": "Instead of writing a 50-line class for a UserDTO with getters, setters, and equals, I just write `public record UserDTO(String name, int age) {}`. To read the name, I call `user.name()` instead of `user.getName()`. It's perfect for passing immutable data between layers.",
-      "summary10s": "Immutable data carriers without boilerplate. Access fields via fieldName() method."
+      "simple": "Record is immutable data class, fetch first from list using stream findFirst.",
+      "explain": "Record auto-generated constructor, getters, equals, hashCode, toString\nCan hold a list as a component — List is part of record definition\nTo get first record from a list — list.stream().findFirst().orElse(null)\nRecords cannot extend classes but can implement interfaces",
+      "example": "\"Record class eliminates boilerplate for data carriers. If my record contains a List from a query result, I access it via the auto-generated accessor. To get the first element I use stream findFirst which returns an Optional — I chain orElseThrow or orElse for safe access. Records are perfect for query result DTOs.\"",
+      "summary10s": "Record=immutable auto-boilerplate, first element via stream().findFirst().orElse()."
     }
   },
   {
     "id": "what-is-optional-when-should-you-use-it",
     "category": "Java",
     "question": "What is Optional? When should you use it?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [
       "Accenture"
     ],
-    "variations": [
-      "What is the use of Optional?"
+    "variations": ["What is the use of Optional?",
+      "Optional Class"
     ],
     "answerSEE": {
-      "simple": "Optional is a container object used to represent the presence or absence of a value, preventing NullPointerExceptions.",
-      "explain": "It forces the caller to actively check if a value is present using methods like isPresent() or orElse(). It should primarily be used as a method return type, never as a class field or a method parameter.",
-      "example": "Instead of returning null from a repository method like findById, I return `Optional<User>`. Then the service layer has to explicitly handle the missing case, usually by calling `.orElseThrow(() -> new NotFoundException())`. This completely eliminates surprise NullPointerExceptions.",
-      "summary10s": "A container for possible null values. Forces explicit null checking. Use as return type."
+      "simple": "Optional is a container that may or may not hold a value — eliminates NullPointerException.",
+      "explain": "Wrap return value in Optional instead of returning null\nisPresent or isEmpty to check, get to retrieve value\norElse for default value, orElseThrow for exception\nmap and flatMap to transform value if present",
+      "example": "\"Optional forces the caller to handle the case where value may be absent instead of getting a surprise NullPointerException. I use it as return type from service methods when result may not exist. I chain orElseThrow to throw a meaningful exception or orElse to return a default. I avoid Optional.get without checking — defeats the purpose.\"",
+      "summary10s": "Optional=nullable wrapper, use orElse or orElseThrow, avoid get without check."
     }
   },
   {
     "id": "checked-vs-unchecked-exceptions",
     "category": "Java",
     "question": "Checked vs Unchecked Exceptions?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Checked Exception — Pros and Cons"
+    ],
     "answerSEE": {
-      "simple": "Checked exceptions are checked at compile time and must be handled. Unchecked exceptions occur at runtime.",
-      "explain": "Checked exceptions (like IOException) force you to use a try-catch block or declare 'throws'. Unchecked exceptions (like NullPointerException or anything extending RuntimeException) do not require explicit handling. Modern frameworks prefer unchecked exceptions.",
-      "example": "If I read a file, Java forces me to catch IOException—that's a checked exception. But if I access a null object, I get a RuntimeException—that's unchecked. In Spring Boot, almost all database or HTTP errors are unchecked because it keeps the code cleaner, and Spring handles them globally.",
-      "summary10s": "Checked = compiler forces you to handle it. Unchecked (RuntimeException) = happens at runtime."
+      "simple": "Checked exception must be handled or declared — compiler enforces it.",
+      "explain": "Checked — IOException, SQLException — compiler forces handle or declare with throws\nAdvantage — forces caller to handle, makes error handling explicit and visible\nDisadvantage — verbose, pollutes method signatures, leads to empty catch blocks\nUnchecked — RuntimeException — no forced handling, cleaner but easy to miss",
+      "example": "\"Checked exceptions force developers to handle error cases at compile time which improves reliability. The downside is they add throws declarations to every method in the call stack and often lead to swallowed exceptions in empty catch blocks. In modern Spring Boot I prefer unchecked exceptions and handle them globally with @ControllerAdvice.\"",
+      "summary10s": "Checked=compiler forces handling, pro=explicit, con=verbose and pollutes signatures."
     }
   },
   {
     "id": "what-is-controlleradvice",
     "category": "Spring Boot",
     "question": "What is @ControllerAdvice?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Exception Handling and Controller Advisor"
+    ],
     "answerSEE": {
-      "simple": "It is an interceptor that allows you to handle exceptions globally across all controllers in a Spring Boot application.",
-      "explain": "Instead of writing try-catch blocks in every controller, you write one class with @ControllerAdvice. Methods inside it annotated with @ExceptionHandler will catch specific exceptions from anywhere and return a standardized HTTP response.",
-      "example": "I use @RestControllerAdvice to catch things like ResourceNotFoundException. When a controller throws it, the advice intercepts it and returns a clean 404 JSON response with a timestamp and custom error message, so the frontend always gets a consistent error format.",
-      "summary10s": "Global exception handler for all controllers. Returns consistent error responses."
+      "simple": "Exception handling manages errors gracefully, ControllerAdvice centralizes it for all controllers.",
+      "explain": "@ControllerAdvice — global exception handler class\n@ExceptionHandler inside it handles specific exception types\nReturns consistent error response with proper HTTP status\nNo try-catch needed in individual controllers",
+      "example": "\"Instead of try-catch in every controller, I create one class with @ControllerAdvice. Inside it @ExceptionHandler methods each handle a specific exception type and return a structured error response with the right HTTP status code. This keeps controllers clean and ensures consistent error format across all APIs.\"",
+      "summary10s": "@ControllerAdvice + @ExceptionHandler = central error handling, consistent response format."
     }
   },
   {
     "id": "reverse-a-string-without-built-in-methods",
     "category": "Java Coding",
     "question": "Reverse a String without built-in methods.",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Reverse String Without Predefined Methods"
+    ],
     "answerSEE": {
-      "simple": "Loop backwards through the string and append each character to a new string or array.",
-      "explain": "Strings in Java are immutable, so concatenating in a loop is slow. It is best to use a char array or StringBuilder.",
-      "example": "I convert the string to a char array, then I use a for loop starting from `length - 1` down to 0, appending each character to a StringBuilder. Finally, I return the StringBuilder as a string. This runs in O(N) time.",
-      "summary10s": "Loop from string end to start. Append characters to a StringBuilder."
+      "simple": "Use a loop from end to start, build reversed string character by character.",
+      "explain": "Loop from last index to 0\nAppend each character to a new string or StringBuilder\nStringBuilder approach is more efficient — no new String object each iteration\nTime O(n), Space O(n)",
+      "example": "\"I loop from the last index of the string down to zero and append each character to a StringBuilder. Finally I return the StringBuilder as a string. This avoids using reverse method and runs in O(n) time. Using StringBuilder instead of string concatenation avoids creating unnecessary intermediate string objects.\"",
+      "summary10s": "Loop from end to start, append each char to StringBuilder, return result."
     }
   },
   {
     "id": "can-hashmap-keys-be-mutable-why",
     "category": "Java",
     "question": "Can HashMap keys be mutable? Why?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Can HashMap Keys Be Mutable?"
+    ],
     "answerSEE": {
-      "simple": "Technically yes, but it is highly dangerous. If the key's state changes, its hashcode changes, and the entry becomes lost.",
-      "explain": "When a key is inserted, HashMap calculates its hashcode to pick a bucket. If you mutate the key later such that its hashcode changes, future get() calls will look in the wrong bucket and return null.",
-      "example": "If I use a mutable object like a User as a key, and later change the User's name, the hashcode calculation changes. When I try to retrieve that user from the map, it calculates the new hashcode, looks in a different bucket, and says 'not found', even though the object is still sitting in the original bucket. Always use immutable keys like String.",
-      "summary10s": "Yes, but don't. Mutating changes the hashcode, making the entry unretrievable."
+      "simple": "Technically yes, but it breaks HashMap — never use mutable keys.",
+      "explain": "HashMap finds bucket using hashCode of key at put time\nIf key mutates after insertion, hashCode changes\nNow get with same object returns null — key is in wrong bucket\nAlways use immutable keys — String, Integer, enums, or proper value objects",
+      "example": "\"HashMap can accept mutable objects as keys but it breaks the contract. When you put a key, its hashCode determines the bucket. If you mutate the key later, hashCode changes and HashMap cannot find it anymore — get returns null even though key exists. This is why String is the most common key — it is immutable by design.\"",
+      "summary10s": "Mutable key = hashCode changes after put = get returns null = never use mutable keys."
     }
   },
   {
     "id": "can-interfaces-have-private-methods",
     "category": "Java",
     "question": "Can interfaces have private methods?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Private Methods in Interface"
+    ],
     "answerSEE": {
-      "simple": "Yes, starting from Java 9, interfaces can have private and private static methods.",
-      "explain": "They are used purely to share common code between default methods or static methods within the same interface, preventing code duplication.",
-      "example": "If I have two default methods in an interface that share 5 lines of validation logic, I can extract those 5 lines into a private method inside the interface. The implementing classes won't see it, but it keeps my interface code DRY.",
-      "summary10s": "Yes, since Java 9. Used as helper methods for default/static methods to avoid duplication."
+      "simple": "Yes, Java 9 introduced private methods in interfaces to share code between default methods.",
+      "explain": "Private method — can only be called by other methods in same interface\nPrevents code duplication between two default methods\nNot visible to implementing classes or subinterfaces\nPrivate static methods also allowed for static helper logic",
+      "example": "\"From Java 9, interfaces can have private methods. This is useful when two default methods share common logic — instead of duplicating code, extract it to a private method in the interface. Implementing classes cannot see or override private methods. It is purely an internal implementation detail of the interface.\"",
+      "summary10s": "Java 9 allows private interface methods, used to share logic between default methods."
     }
   },
   {
     "id": "what-types-of-methods-can-interfaces-contain",
     "category": "Java",
     "question": "What types of methods can interfaces contain?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Types of Methods in Interface"
+    ],
     "answerSEE": {
-      "simple": "Abstract, Default, Static, and Private methods.",
-      "explain": "Pre-Java 8: Only abstract. Java 8: Added default (with body, inheritable) and static (with body, bound to interface). Java 9: Added private (helper methods).",
-      "example": "In modern Java, an interface can have standard abstract methods that subclasses must implement. It can have default methods to provide a fallback implementation. It can have static utility methods called on the interface itself, and private methods to help the default methods.",
-      "summary10s": "Abstract (no body), Default (fallback body), Static (utility), Private (internal helper)."
+      "simple": "Five types — abstract, default, static, private, and private static.",
+      "explain": "Abstract — no body, must be implemented by class, default type\nDefault — has body, can be overridden, introduced Java 8\nStatic — has body, belongs to interface, called via interface name\nPrivate — has body, only for internal use by default methods, Java 9\nPrivate static — static version of private, for static helper logic",
+      "example": "\"Modern interfaces can have five types of methods. Abstract methods are the original contract. Default methods with body allow backward compatibility. Static methods are utility methods on the interface itself. Private and private static methods added in Java 9 for internal code reuse between default methods.\"",
+      "summary10s": "Abstract, Default, Static, Private, Private Static — five types since Java 9."
     }
   },
   {
     "id": "same-default-method-in-two-interfaces-how-to-resolve",
     "category": "Java",
     "question": "Same default method in two interfaces how to resolve?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Conflict When Two Interfaces Have Same Default Method"
+    ],
     "answerSEE": {
-      "simple": "The implementing class must override the method to resolve the conflict.",
-      "explain": "If a class implements two interfaces that have a default method with the exact same signature, the compiler throws an error (Diamond Problem). The class must override the method and explicitly choose which interface's method to call.",
-      "example": "If I implement InterfaceA and InterfaceB, and both have a default method `show()`, my class won't compile. I have to override `show()` in my class, and inside it, I can call `InterfaceA.super.show()` to explicitly pick one, or just write a completely new implementation.",
-      "summary10s": "Compiler error. Must override the method in the class and explicitly call Interface.super.method()."
+      "simple": "Compiler forces the implementing class to override the conflicting method.",
+      "explain": "If Class C implements Interface A and B, both having same default method\nCompiler gives error — ambiguous, must override\nClass must override the method and provide its own implementation\nCan call specific interface version using InterfaceName.super.methodName()",
+      "example": "\"If two interfaces have the same default method and one class implements both interfaces, Java gets confused about which method to use. So the compiler forces the class to override that method and provide its own implementation. Inside the overridden method, we can call a specific interface’s method using InterfaceName.super.method().\"",
+      "summary10s": "Compiler forces override in class, call specific version with InterfaceA.super.method()."
     }
   },
   {
@@ -1995,14 +2017,18 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-the-liskov-substitution-principle",
     "category": "System Design",
     "question": "What is the Liskov Substitution Principle?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 3,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": ["Liskov Substitution Principle",
+      "Liskov Substitution Principle (LSP)"
+    ],
     "answerSEE": {
-      "simple": "Objects of a superclass must be replaceable with objects of its subclasses without breaking the application.",
-      "explain": "A subclass should behave in a way that clients of the superclass expect. It shouldn't throw unexpected exceptions or change fundamental behavior.",
-      "example": "If I have a `Bird` class with a `fly()` method, and I create an `Ostrich` subclass, I violate Liskov if `Ostrich` throws an exception for `fly()`. A better design is to have a `FlyingBird` interface. That way, any code expecting a `FlyingBird` will work perfectly with any subclass passed to it.",
-      "summary10s": "Subclasses must behave correctly when used in place of their parent class."
+      "simple": "Subclass should be usable wherever parent is used without breaking the program.",
+      "explain": "If Bird is parent and Penguin extends Bird but cannot fly — LSP violated\nSubclass should not remove or weaken behavior of parent\nInheritance is needed even with LSP for code reuse and polymorphism\nLSP ensures the substitution is correct — not that inheritance is unnecessary",
+      "example": "\"LSP says I should be able to replace a parent class with any subclass without breaking functionality. If I have a method accepting Animal, passing any subclass should work correctly. Inheritance is still needed for code reuse and polymorphism — LSP just guides how to do it correctly. Violating LSP means the subclass is not a true is-a relationship.\"",
+      "summary10s": "Subclass replaces parent without breaking behavior. Inheritance for reuse, LSP for correctness."
     }
   },
   {
@@ -2015,26 +2041,27 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Factory Design Pattern"
     ],
     "answerSEE": {
-      "simple": "A creational pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.",
-      "explain": "Instead of calling `new Object()`, you call a factory method. This encapsulates the instantiation logic, making the system loosely coupled and easier to extend.",
-      "example": "If I need to generate different types of documents (PDF, Word), I create a `DocumentFactory`. I pass in a type string like 'PDF', and the factory contains the complex switch statement to instantiate and return the correct document object. The client code just gets the interface and doesn't care how it was built.",
-      "summary10s": "Encapsulates object creation. Centralizes the 'new' keyword logic based on input parameters."
+      "simple": "Factory creates objects without exposing creation logic — caller gets object without knowing exact class.",
+      "explain": "Define interface or abstract class for product\nFactory class has method that returns correct subclass based on input\nCaller only knows the interface, not which concrete class was created\nUse when object creation logic is complex or type depends on runtime condition",
+      "example": "\"Factory pattern hides object creation complexity. I define a NotificationService interface with implementations EmailService and SMSService. A NotificationFactory has a getService method that takes a type string and returns the correct implementation. Caller just uses the interface — adding a new notification type means adding a new class, not changing caller code.\"",
+      "summary10s": "Factory creates correct subclass based on input, caller only knows interface."
     }
   },
   {
     "id": "synchronized-vs-reentrantlock",
     "category": "Java",
     "question": "synchronized vs ReentrantLock?",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [],
     "variations": ["synchronized vs Lock",
-      "ReentrantLock and tryLock"
+      "ReentrantLock and tryLock",
+      "synchronized vs ReentrantLock"
     ],
     "answerSEE": {
-      "simple": "synchronized is a basic built-in keyword for locking. ReentrantLock is a flexible class offering advanced features like try-lock and fair locking.",
-      "explain": "synchronized locks automatically release when the block ends. ReentrantLock requires explicit `lock()` and `unlock()` (usually in a finally block), but gives you the ability to interrupt a waiting thread, try to acquire a lock without blocking, and enforce fairness (longest waiting thread gets the lock).",
-      "example": "I usually stick to `synchronized` because it's simple and less error-prone. But if I need to attempt to get a lock for only 5 seconds and then give up instead of waiting forever, I have to use `ReentrantLock.tryLock()`. I also use it when I need to lock in one method and unlock in another.",
-      "summary10s": "synchronized = simple, auto-release. ReentrantLock = advanced features like tryLock, interruptibility, and fairness."
+      "simple": "synchronized is simple and automatic, ReentrantLock gives more control and flexibility.",
+      "explain": "synchronized — auto releases on exit, no timeout, cannot interrupt waiting thread\nReentrantLock — must manually unlock in finally, supports tryLock with timeout, interruptible\nBoth provide mutual exclusion and visibility\nReentrantLock also supports fair ordering and multiple condition variables",
+      "example": "\"synchronized is simpler — lock acquired on entry, released automatically on exit. ReentrantLock requires manual unlock in finally block but gives more power — tryLock with timeout prevents indefinite blocking, lock can be interrupted, and fair mode ensures waiting threads get lock in order. I use ReentrantLock when I need timeout or interruptible locking.\"",
+      "summary10s": "synchronized=simple auto release, ReentrantLock=manual unlock but tryLock, timeout, interruptible."
     }
   },
   {
@@ -2048,42 +2075,43 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Volatile, Synchronized, and Atomic Variables"
     ],
     "answerSEE": {
-      "simple": "A keyword that ensures a variable is always read from and written to main memory, not the thread's local cache.",
-      "explain": "Threads often cache variables for performance. If one thread updates a flag, another thread might not see it immediately. Marking it `volatile` guarantees visibility across all threads. However, it does not guarantee atomicity (e.g., count++ is still not safe).",
-      "example": "If I have a `boolean isRunning = true` flag used to keep a background thread looping, and another thread sets it to false to stop it, I must mark it as `volatile`. Otherwise, the background thread might keep reading its cached `true` value forever and never stop.",
-      "summary10s": "Guarantees visibility of changes across threads by bypassing CPU caches. Does NOT guarantee atomicity."
+      "simple": "volatile ensures all threads read variable from main memory not CPU cache.",
+      "explain": "Without volatile threads cache variable — see stale values\nvolatile forces every read and write to main memory\nVisibility guarantee only — not atomicity\nUse for simple flags, not for counters — use Atomic for counters",
+      "example": "\"volatile solves the visibility problem in multithreading. Each CPU core caches variables locally and threads can see stale values without volatile. Marking a variable volatile forces all reads and writes to go to main memory. But it does not make compound operations like increment atomic. For counters I use AtomicInteger.\"",
+      "summary10s": "volatile=main memory visibility only, not atomic, use for flags not counters."
     }
   },
   {
     "id": "volatile-vs-atomic-classes",
     "category": "Java",
     "question": "volatile vs Atomic classes?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [
-      "Atomic Classes"
+    "variations": ["Atomic Classes",
+      "volatile vs Atomic Classes"
     ],
     "answerSEE": {
-      "simple": "volatile ensures visibility of a value across threads, but Atomic classes ensure both visibility AND atomicity for operations like incrementing.",
-      "explain": "An operation like `count++` is actually 3 steps (read, add, write). `volatile` doesn't stop two threads from reading the same value simultaneously and overwriting each other. `AtomicInteger` uses CAS (Compare-And-Swap) at the hardware level to do it safely without blocking.",
-      "example": "If I just need a boolean flag to start/stop a thread, `volatile` is perfect. But if I am counting total web requests concurrently, `volatile int count` will lose counts. I must use `AtomicInteger.incrementAndGet()` to ensure thread-safe counting without heavy locks.",
-      "summary10s": "volatile = visibility only (good for flags). Atomic = visibility + thread-safe operations (good for counters)."
+      "simple": "volatile gives visibility, Atomic gives visibility plus atomicity for compound operations.",
+      "explain": "volatile — read and write individually atomic, but increment is read-modify-write, not atomic\nAtomicInteger — incrementAndGet is single atomic operation using CPU compare-and-swap\nAtomic classes are faster than synchronized for single variable operations\nUse volatile for flags, Atomic for counters and state that needs atomic updates",
+      "example": "\"volatile ensures visibility but does not help with compound operations. Two threads both reading 5 and incrementing to 6 is a race condition even with volatile. AtomicInteger uses hardware compare-and-swap to make incrementAndGet a single unbreakable operation. For anything more than a simple boolean flag I use Atomic classes.\"",
+      "summary10s": "volatile=visibility only, Atomic=visibility plus atomic compound operations via CAS."
     }
   },
   {
     "id": "what-is-completablefuture",
     "category": "Java",
     "question": "What is CompletableFuture?",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [],
     "variations": ["CompletableFuture use cases",
-      "CompletableFuture"
+      "CompletableFuture",
+      "CompletableFuture Key Methods"
     ],
     "answerSEE": {
-      "simple": "It is an advanced asynchronous programming tool in Java that allows you to chain non-blocking tasks and handle errors easily.",
-      "explain": "Unlike the old Future, which forced you to block using `.get()`, CompletableFuture provides methods like `thenApply` and `thenCombine` to trigger callbacks automatically when a task finishes.",
-      "example": "I use CompletableFuture when an API needs to fetch user data and order data from two different microservices simultaneously. I fire both off asynchronously, use `thenCombine` to merge their results, and return the combined response to the frontend without blocking the main Tomcat thread.",
-      "summary10s": "Non-blocking async tool. Allows chaining tasks and combining results via callbacks."
+      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
+      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
+      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
+      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
     }
   },
   {
@@ -2106,32 +2134,34 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "stream-vs-parallel-stream",
     "category": "Java",
     "question": "Stream vs Parallel Stream?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [
-      "Why does using parallelStream() sometimes make performance worse?"
+    "variations": ["Why does using parallelStream() sometimes make performance worse?",
+      "Stream vs Parallel Stream"
     ],
     "answerSEE": {
-      "simple": "Stream processes elements sequentially on a single thread. Parallel Stream divides elements into chunks and processes them concurrently on multiple threads.",
-      "explain": "Parallel streams use the common ForkJoinPool. They are faster for massive datasets or CPU-intensive tasks, but slower for small tasks due to thread overhead. They are also dangerous if the operations are stateful.",
-      "example": "I use a standard Stream 99% of the time. If I have a massive list of 1 million records and I need to do heavy CPU math on each, I'll switch to `.parallelStream()`. But I never use parallel streams if the operation involves network calls or database queries, as it will just exhaust the thread pool.",
-      "summary10s": "Stream = single thread. Parallel = multi-thread using ForkJoinPool (use only for heavy CPU tasks)."
+      "simple": "Stream processes sequentially, Parallel Stream splits work across multiple CPU cores.",
+      "explain": "Parallel stream uses ForkJoinPool to split and process in parallel\nFaster for large datasets with CPU-intensive operations\nNot always faster — small lists, I/O tasks, or stateful operations can be slower\nOrder not guaranteed in parallel stream — use forEachOrdered if needed",
+      "example": "\"Parallel stream splits the data into chunks and processes them on multiple cores using ForkJoinPool. For large CPU-intensive operations it can be significantly faster. But I use it carefully — for small collections or I/O operations overhead outweighs benefit. In production I used parallel stream for processing large batch data transformations where order did not matter.\"",
+      "summary10s": "Parallel stream=ForkJoinPool multi-core, faster for large CPU work, not for small or I/O tasks."
     }
   },
   {
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "map() vs flatMap()"
+    "frequency": 6,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": ["map() vs flatMap()",
+      "map vs flatMap in Streams"
     ],
     "answerSEE": {
-      "simple": "map() transforms one element into one new element. flatMap() transforms one element into a stream of elements and flattens them into a single stream.",
-      "explain": "If you use map() on a list of lists, you get a Stream of Lists. If you use flatMap(), you get a Stream of the individual items from all the inner lists combined.",
-      "example": "If I have a List of Users, and I want a list of their names, I use `map(user -> user.getName())` (1-to-1). If each User has a List of PhoneNumbers, and I want a single list of all phone numbers for all users, I use `flatMap(user -> user.getPhoneNumbers().stream())` (1-to-many flattened).",
-      "summary10s": "map = 1 to 1 transformation. flatMap = 1 to Many transformation, flattened into a single stream."
+      "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
+      "explain": "map — each element becomes one new element, Stream of Stream remains nested\nflatMap — each element becomes a stream, all flattened into one single stream\nUse flatMap when each element produces a list or optional\nExample — list of orders each with list of items, flatMap gives all items in one stream",
+      "example": "\"map is one-to-one transformation. If each element maps to a List, map gives Stream of Lists which is hard to work with. flatMap flattens that — each element maps to a stream and all streams merge into one. I use flatMap when working with nested collections like getting all order items from a list of orders.\"",
+      "summary10s": "map=one-to-one, flatMap=one-to-many then flatten into single stream."
     }
   },
   {
@@ -2182,123 +2212,136 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-does-the-spring-container-work",
     "category": "Spring Boot",
     "question": "How does the Spring Container work?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Internal Working of Spring Container"
+    ],
     "answerSEE": {
-      "simple": "The Spring IoC container creates, wires, and manages the lifecycle of objects (beans) in your application.",
-      "explain": "It scans for annotations like @Component, creates instances of those classes, injects any dependencies they need, and stores them in its context for the duration of the application.",
-      "example": "When my Spring Boot app starts, the container scans my packages. It sees my @Service and my @Repository. It creates the Repository first, then creates the Service and automatically passes the Repository into its constructor. It manages everything so I never have to write `new MyService()`.",
-      "summary10s": "Inversion of Control (IoC). It scans, creates, and injects dependencies (beans) automatically."
+      "simple": "Spring scans classes, creates beans, injects dependencies, and manages their lifecycle.",
+      "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
+      "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
+      "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
     }
   },
   {
     "id": "explain-the-bean-lifecycle",
     "category": "Spring Boot",
     "question": "Explain the Bean Lifecycle.",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "What is the complete lifecycle of a Spring bean?"
+    "frequency": 4,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": ["What is the complete lifecycle of a Spring bean?",
+      "Bean Lifecycle",
+      "Spring Bean Lifecycle"
     ],
     "answerSEE": {
-      "simple": "Instantiation -> Dependency Injection -> Initialization (@PostConstruct) -> Use -> Destruction (@PreDestroy).",
-      "explain": "First, Spring creates the object. Second, it injects dependencies. Third, it calls any initialization methods (like @PostConstruct). Then the bean is ready for use. On shutdown, it calls destruction methods.",
-      "example": "After Spring injects a database config dependency into my bean, I often need to test the connection immediately. I write a method annotated with `@PostConstruct` to do this. Spring guarantees this method runs exactly once, right after injection but before the application starts serving traffic.",
-      "summary10s": "Instantiate -> Inject -> @PostConstruct (init) -> Application runs -> @PreDestroy (cleanup)."
+      "simple": "Instantiate, inject dependencies, PostConstruct, use, PreDestroy, destroy.",
+      "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
+      "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
+      "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
     }
   },
   {
     "id": "what-does-enableautoconfiguration-do",
     "category": "Spring Boot",
     "question": "What does @EnableAutoConfiguration do?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [
       "Accenture"
     ],
-    "variations": [
-      "What is the purpose of @EnableAutoConfiguration?"
+    "variations": ["What is the purpose of @EnableAutoConfiguration?",
+      "@EnableAutoConfiguration"
     ],
     "answerSEE": {
-      "simple": "It automatically configures your Spring application based on the jar dependencies present on the classpath.",
-      "explain": "It's the magic behind Spring Boot. If it sees Tomcat and Spring MVC on the classpath, it configures a web server. If it sees a database driver, it configures a DataSource.",
-      "example": "Because of @EnableAutoConfiguration (which is part of @SpringBootApplication), I don't have to write any XML or @Configuration classes to connect to a database. I just drop the PostgreSQL dependency in my pom.xml, put the URL in application.properties, and Spring auto-configures the rest.",
-      "summary10s": "Guesses and configures beans automatically based on what dependencies are in the classpath."
+      "simple": "Tells Spring Boot to automatically configure beans based on dependencies on classpath.",
+      "explain": "Spring Boot checks what jars are on classpath\nAuto-configures matching beans — DataSource if JDBC jar present, Tomcat if web jar present\nUses @Conditional annotations internally — only configures if condition met\n@SpringBootApplication includes @EnableAutoConfiguration",
+      "example": "\"@EnableAutoConfiguration is what makes Spring Boot magical. It scans the classpath and automatically creates beans for what it finds. If it sees H2 jar, it auto-configures in-memory DataSource. If it sees Spring Web, it sets up Tomcat and DispatcherServlet. All without XML config. I can override any auto-configuration by defining my own bean.\"",
+      "summary10s": "Reads classpath, auto-configures matching beans conditionally, @SpringBootApplication includes it."
     }
   },
   {
     "id": "primary-vs-qualifier",
     "category": "Spring Boot",
     "question": "@Primary vs @Qualifier?",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [],
-    "variations": [
-      "What happens when two beans of the same type are available?",
-      "How do @Primary and @Qualifier resolve bean conflicts?"
+    "variations": ["What happens when two beans of the same type are available?",
+      "How do @Primary and @Qualifier resolve bean conflicts?",
+      "@Primary vs @Qualifier"
     ],
     "answerSEE": {
-      "simple": "@Primary sets a default bean when multiple exist. @Qualifier specifies exactly which bean to inject by name.",
-      "explain": "If you have two implementations of an interface, Spring won't know which to inject and will throw an error. @Primary solves this globally by making one the default. @Qualifier solves it locally at the injection point.",
-      "example": "If I have an `EmailSender` and an `SmsSender` both implementing `NotificationSender`, Spring fails to inject. I can put `@Primary` on `EmailSender` so it's always picked by default. Or, I can use `@Qualifier(\"smsSender\")` on the constructor parameter to specifically request the SMS version.",
-      "summary10s": "@Primary = the default choice. @Qualifier = explicitly selecting a bean by its name."
+      "simple": "@Primary sets default bean, @Qualifier explicitly names which bean to inject.",
+      "explain": "When multiple beans of same type exist, Spring does not know which to inject\n@Primary on one bean — Spring uses it by default when no qualifier specified\n@Qualifier on injection point — explicitly names which bean to use\n@Qualifier overrides @Primary — more specific wins",
+      "example": "\"If I have two DataSource beans, Spring gets confused which to inject. I mark one with @Primary to be the default choice. When a specific component needs the other DataSource, I use @Qualifier with the bean name at the injection point. @Qualifier always wins over @Primary — explicit beats default.\"",
+      "summary10s": "@Primary=default when multiple beans, @Qualifier=explicit by name, Qualifier overrides Primary."
     }
   },
   {
     "id": "ioc-vs-dependency-injection",
     "category": "Spring Boot",
     "question": "IoC vs Dependency Injection?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 3,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": ["IoC vs Dependency Injection",
+      "IoC Container (Inversion of Control)"
+    ],
     "answerSEE": {
-      "simple": "IoC is the concept of handing over control to a framework. DI is the actual design pattern used to implement IoC.",
-      "explain": "Inversion of Control means the framework calls your code, not the other way around. Dependency Injection is the specific mechanism where the framework provides objects with their instance variables.",
-      "example": "IoC is the philosophy—my code doesn't manage its own lifecycle, the Spring container does. Dependency injection is the execution—Spring physically passing the Repository instance into the Service's constructor at startup.",
-      "summary10s": "IoC is the principle (framework is in control). DI is the pattern (passing dependencies via constructor)."
+      "simple": "IoC is the principle, Dependency Injection is one way to implement it.",
+      "explain": "IoC — control of object creation is inverted from developer to framework\nTraditional code — you create dependencies with new keyword\nIoC — framework creates and manages objects for you\nDependency Injection is IoC implementation — framework injects dependencies into your class",
+      "example": "\"Using the new keyword is not wrong. IoC doesn't mean we completely stop creating objects manually. I still use new for simple objects like DTOs or helper classes. However, for core application components like services, repositories, and controllers, I rely on Spring's IoC container to create and manage them. So the control of important dependencies is still inverted to Spring, which means IoC is properly followed.\"",
+      "summary10s": "IoC=principle of inverted control, DI=technique to implement IoC by injecting dependencies."
     }
   },
   {
     "id": "what-are-the-types-of-dependency-injection",
     "category": "Spring Boot",
     "question": "What are the types of Dependency Injection?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Types of Dependency Injection"
+    ],
     "answerSEE": {
-      "simple": "Constructor Injection, Setter Injection, and Field Injection.",
-      "explain": "Constructor injection requires dependencies when the object is created (best for mandatory dependencies). Setter allows injecting later (optional). Field uses @Autowired directly on the variable (bad practice, hard to test).",
-      "example": "I strictly use Constructor Injection. I declare a `final` field and use a constructor (or Lombok's @RequiredArgsConstructor). It ensures the bean can't be instantiated without its dependencies, prevents circular dependencies at startup, and makes the class easy to unit test without needing Spring.",
-      "summary10s": "Constructor (Best, enforces mandatory), Setter (Optional), Field (Bad practice, uses reflection)."
+      "simple": "Three types — Constructor, Setter, and Field injection.",
+      "explain": "Constructor — inject via constructor, mandatory deps, immutable, best for testing\nSetter — inject via setter, optional deps, can change after creation\nField — @Autowired on field directly, convenient but hard to test, avoid in production",
+      "example": "\"I always prefer constructor injection because it makes dependencies mandatory and the class is easy to unit test without Spring context. Setter injection is for optional dependencies that can be changed. Field injection looks clean but is bad practice — you cannot instantiate the class in tests without Spring. Spring team also recommends constructor injection.\"",
+      "summary10s": "Constructor=best mandatory immutable testable, Setter=optional, Field=avoid in production."
     }
   },
   {
     "id": "what-are-spring-profiles",
     "category": "Spring Boot",
     "question": "What are Spring Profiles?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [
-      "How do Spring profiles work internally?"
+    "variations": ["How do Spring profiles work internally?",
+      "Spring Profiles"
     ],
     "answerSEE": {
-      "simple": "Profiles allow you to map parts of your configuration or beans to different environments (e.g., dev, test, prod).",
-      "explain": "You can load different properties (application-dev.yml vs application-prod.yml) or conditionally load beans using @Profile depending on the active environment.",
-      "example": "In my project, we use an in-memory H2 database for the 'dev' profile so we can test locally quickly, but the 'prod' profile connects to AWS RDS. We just set the active profile to 'prod' via environment variables during deployment, and Spring switches configurations automatically.",
-      "summary10s": "Environment-specific configurations. Load different properties or beans for dev vs prod."
+      "simple": "Profiles allow different configurations for different environments like dev, test, prod.",
+      "explain": "@Profile on bean or config class — only loaded when that profile is active\napplication-dev.properties, application-prod.properties for environment specific values\nSet active profile via environment variable SPRING_PROFILES_ACTIVE\nPrevents prod config accidentally used in dev and vice versa",
+      "example": "\"I use Spring Profiles to separate environment configurations. Dev profile has H2 in-memory database and debug logging. Prod profile has real datasource and info logging. I set SPRING_PROFILES_ACTIVE as environment variable in deployment. In my project I also use profiles to switch between mock services in test and real services in production.\"",
+      "summary10s": "Profiles=env-specific config, @Profile on beans, set via SPRING_PROFILES_ACTIVE env variable."
     }
   },
   {
     "id": "pathvariable-vs-requestparam",
     "category": "Spring Boot",
     "question": "@PathVariable vs @RequestParam?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Path Variable vs Request Param"
+    ],
     "answerSEE": {
-      "simple": "@PathVariable extracts values from the URI path. @RequestParam extracts values from the query string.",
-      "explain": "Path variables are used to identify specific resources. Request params are used to filter, sort, or paginate those resources.",
-      "example": "If the URL is `/users/123?status=active`, I use `@PathVariable` to get the '123' because it identifies the specific user. I use `@RequestParam` to get 'active' because it's an optional filter on the request.",
-      "summary10s": "PathVariable = `/users/{id}` (identifies resource). RequestParam = `?status=active` (filters/options)."
+      "simple": "PathVariable is part of URL path, RequestParam is a query string parameter.",
+      "explain": "@PathVariable — extract value from URL path like /users/123, id is path variable\n@RequestParam — extract from query string like /users?status=active, status is request param\nPathVariable for resource identity, RequestParam for filtering or optional inputs\nRequestParam can have default value and be optional",
+      "example": "\"PathVariable is for identifying a specific resource — like /orders/456 where 456 is the order ID in the path. RequestParam is for filtering or optional data — like /orders?status=pending&page=1. I use PathVariable for required identifiers and RequestParam for optional filters, pagination, and search criteria.\"",
+      "summary10s": "PathVariable=resource ID in URL path, RequestParam=optional filter in query string."
     }
   },
   {
@@ -2312,24 +2355,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Lazy vs Eager"
     ],
     "answerSEE": {
-      "simple": "Eager loading fetches related data immediately. Lazy loading waits and fetches related data only when it is accessed.",
-      "explain": "In JPA/Hibernate, a `@OneToMany` relationship is Lazy by default (avoids massive queries), while `@ManyToOne` is Eager. Lazy loading improves initial query performance but can cause the N+1 select problem.",
-      "example": "If I fetch a User entity, eager loading pulls all their 1000 Orders from the DB immediately, which is slow. Lazy loading only fetches the User. The Orders are replaced with a proxy. The DB query for Orders only fires if I explicitly call `user.getOrders()`. But I have to be careful not to call it inside a loop, or I get N+1 queries.",
-      "summary10s": "Eager = fetch all related data immediately. Lazy = fetch related data on-demand via a proxy."
+      "simple": "Eager loads related data immediately, Lazy loads only when you access it.",
+      "explain": "Eager — loads everything in one query even if not needed\nLazy — loads related data on first access, default for collections\nLazy risk — LazyInitializationException if session closed before access\nFix — JOIN FETCH in query or keep method @Transactional",
+      "example": "\"Lazy loading is the default for collections in Hibernate. Related entities load only when accessed which saves unnecessary DB calls. But if I access lazy data after session closes I get LazyInitializationException. I fix this with JOIN FETCH in my JPQL to load everything in one query when I know I will need it.\"",
+      "summary10s": "Eager=load now always, Lazy=load on access, session must be open, fix with JOIN FETCH."
     }
   },
   {
     "id": "what-is-spring-security",
     "category": "Spring Boot",
     "question": "What is Spring Security?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Spring Security Fundamentals"
+    ],
     "answerSEE": {
-      "simple": "It is a framework that provides authentication, authorization, and protection against common attacks like CSRF.",
-      "explain": "It acts as a filter chain sitting in front of your controllers. It intercepts every incoming request, checks if the user is authenticated, and verifies they have the required roles to access the endpoint.",
-      "example": "I use Spring Security to protect my REST APIs. By configuring a SecurityFilterChain, I ensure that endpoints like `/api/public` are open to everyone, but `/api/admin` requires the user to pass a valid JWT token in the header and have the 'ADMIN' role.",
-      "summary10s": "A customizable filter chain for authentication and authorization in Spring apps."
+      "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
+      "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
+      "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
+      "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
     }
   },
   {
@@ -2368,32 +2413,35 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-do-you-secure-rest-apis",
     "category": "Spring Boot",
     "question": "How do you secure REST APIs?",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [
       "Accenture"
     ],
     "variations": ["What type of security are you using in your current project?",
-      "How to secure REST APIs?"
+      "How to secure REST APIs?",
+      "Spring Security Implementation in Projects"
     ],
     "answerSEE": {
-      "simple": "By enforcing HTTPS, implementing stateless JWT authentication, and applying role-based authorization.",
-      "explain": "REST should be stateless, so sessions shouldn't be used. Instead, secure the transport layer with TLS (HTTPS), use OAuth2 or JWT for authentication, validate all incoming inputs to prevent injection, and apply rate limiting.",
-      "example": "To secure my Spring Boot APIs, I disable default session creation to make it completely stateless. I add a custom JWT filter to authenticate requests. I use `@PreAuthorize(\"hasRole('ADMIN')\")` on sensitive controller methods, and ensure the API is deployed behind an API Gateway that handles HTTPS and rate limiting.",
-      "summary10s": "Use HTTPS, stateless JWTs, input validation, rate limiting, and method-level role authorization."
+      "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
+      "explain": "SecurityFilterChain bean — configure which routes are public and which need auth\nAdd custom JWT filter before UsernamePasswordAuthenticationFilter\nJWT filter validates token, sets Authentication in SecurityContext\nUserDetailsService loads user details for validation",
+      "example": "\"I configure a SecurityFilterChain bean where I define public endpoints like login and protected ones requiring authentication. I add a custom JWT filter that intercepts every request, extracts and validates the token, and sets the authentication in SecurityContext. If token is invalid the filter rejects the request before it reaches any controller.\"",
+      "summary10s": "SecurityFilterChain defines routes, JWT filter validates token, sets SecurityContext."
     }
   },
   {
     "id": "how-do-you-implement-security-across-microservices",
     "category": "Microservices",
     "question": "How do you implement security across microservices?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "Security in Distributed Microservices"
+    ],
     "answerSEE": {
-      "simple": "Use an API Gateway for external authentication and pass a JWT token to downstream services.",
-      "explain": "The API Gateway handles the initial login/authentication (often via an Identity Provider like Keycloak or OAuth2). It verifies the token and forwards the request along with the JWT to internal microservices. Internal services just validate the JWT signature to trust the request.",
-      "example": "In my architecture, the client hits the API Gateway. The Gateway validates the JWT. If valid, it forwards the request to the Order Service, passing the JWT in the header. The Order Service doesn't talk to a database to authenticate; it simply verifies the JWT's cryptographic signature using a shared public key, extracts the user roles, and authorizes the action.",
-      "summary10s": "API Gateway handles auth. Internal services trust the forwarded JWT by verifying its signature."
+      "simple": "API Gateway validates JWT centrally, services trust validated requests.",
+      "explain": "All external requests go through API Gateway\nGateway validates JWT signature before forwarding\nGateway passes user info in request header to downstream services\nService-to-service calls use internal service tokens or mutual TLS",
+      "example": "\"In microservices I validate JWT at the API Gateway so each service does not need to repeat auth logic. Gateway extracts user information from token and passes it as headers to downstream services. For internal service-to-service calls I use service-specific tokens. No microservice is exposed directly to the outside world — everything goes through the gateway.\"",
+      "summary10s": "Gateway validates JWT, passes user in headers, internal calls use service tokens."
     }
   },
   {
@@ -3246,9 +3294,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "aggregation-association-composition-code-examples",
     "category": "System Design",
     "question": "Aggregation, Association, Composition — Code Examples",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Aggregation vs Composition"
+    ],
     "answerSEE": {
       "simple": "Association is general relationship, Aggregation is weak HAS-A (independent lifecycle), Composition is strong HAS-A (dependent lifecycle).",
       "explain": "Association — two classes are related, neither owns the other, can exist independently, loosest coupling\nAggregation — HAS-A relationship, child CAN exist without parent, parent just holds a reference (whole-part, but part is independent)\nComposition — HAS-A relationship, child CANNOT exist without parent, parent fully owns and manages child's lifecycle (strongest coupling)\nCode for all three:\n// 1. ASSOCIATION — Teacher and Student are related, but independent\n// Neither owns the other. Both can exist without each other.\nclass Teacher {\n    private String name;\n    // Teacher doesn't \"contain\" Student, just relates to it\n}\n\nclass Student {\n    private String name;\n    private Teacher teacher; // association — just a reference\n    \n    public Student(String name, Teacher teacher) {\n        this.name = name;\n        this.teacher = teacher; // teacher created elsewhere, independently\n    }\n}\n// Usage: Teacher exists in DB regardless of student\nTeacher t = new Teacher(\"Mr. Smith\");\nStudent s = new Student(\"Alice\", t); // s references t, both independent\n\n\n// 2. AGGREGATION — Department HAS Employees, but Employee can exist \n// without Department (e.g., transferred to another department)\nclass Employee {\n    private String name;\n}\n\nclass Department {\n    private String deptName;\n    private List<Employee> employees; // aggregation — holds reference\n    \n    public Department(String deptName, List<Employee> employees) {\n        this.deptName = deptName;\n        this.employees = employees; // employees created OUTSIDE, passed in\n    }\n}\n// Usage: Employees created independently, THEN added to department\nEmployee e1 = new Employee(\"Bob\");\nEmployee e2 = new Employee(\"Carol\");\nList<Employee> emps = new ArrayList<>(List.of(e1, e2));\nDepartment dept = new Department(\"Engineering\", emps);\n// If dept is destroyed, e1 and e2 still exist independently!\n\n\n// 3. COMPOSITION — Car HAS-A Engine, Engine CANNOT exist without Car\n// Engine's lifecycle is entirely controlled by Car\nclass Engine {\n    private String type;\n    public Engine(String type) {\n        this.type = type;\n    }\n}\n\nclass Car {\n    private final Engine engine; // composition — created INSIDE Car\n    \n    public Car(String engineType) {\n        this.engine = new Engine(engineType); // Car creates its own Engine\n        // Engine has no meaning or existence outside this Car\n    }\n}\n// Usage: Engine is born and dies with the Car\nCar car = new Car(\"V8\");\n// car = null; → engine is also garbage collected, no other reference exists",
@@ -3302,10 +3354,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "fail-fast-vs-fail-safe-iterator",
     "category": "Java",
     "question": "Fail-Fast vs Fail-Safe Iterator",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Fail-Fast vs Fail-Safe"
+    "frequency": 3,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": ["Fail-Fast vs Fail-Safe",
+      "Fail-Fast vs Fail-Safe iterators"
     ],
     "answerSEE": {
       "simple": "Fail-fast throws exception on modification during iteration, Fail-safe iterates over a copy — no exception.",
@@ -3998,10 +4052,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "SOLID Principles"
     ],
     "answerSEE": {
-      "simple": "SOLID is a set of 5 design principles that make code more maintainable and extensible.",
-      "explain": "S — Single Responsibility: one class, one job\nO — Open/Closed: open for extension, closed for modification\nL, I, D — Liskov substitution, Interface segregation, Dependency inversion (depend on abstractions)\nExample: Instead of one PaymentService handling Card, UPI, NetBanking logic, split into separate strategy classes implementing a common PaymentMethod interface.",
-      "example": "\"SOLID is a set of five principles for writing clean, maintainable code. For example, in a payment module, instead of writing all payment logic in one class, I'd apply Single Responsibility and Open/Closed by creating separate classes for each payment type implementing a common interface — so adding a new payment method doesn't require changing existing code. This also naturally follows Dependency Inversion since the service depends on the interface, not concrete classes.\"",
-      "summary10s": "5 principles → one job per class, extend don't modify, depend on abstractions."
+      "simple": "Five design principles for clean, maintainable, and extensible object-oriented code.",
+      "explain": "S — Single Responsibility, one class one reason to change\nO — Open Closed, open for extension closed for modification\nL — Liskov Substitution, subclass should replace parent without breaking behavior\nI — Interface Segregation, small specific interfaces not one fat interface\nD — Dependency Inversion, depend on abstractions not concrete classes",
+      "example": "\"SOLID helps me write maintainable code. Single Responsibility means each class does one thing. Open Closed means I add features by extending not modifying. Liskov means subclasses should work wherever parent is expected. Interface Segregation means split fat interfaces into focused ones. Dependency Inversion means depend on interfaces not implementations — this is what enables Spring DI.\"",
+      "summary10s": "Single Responsibility, Open Closed, Liskov, Interface Segregation, Dependency Inversion."
     }
   },
   {
@@ -4094,16 +4148,16 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-does-transactional-work-internally",
     "category": "Spring Boot",
     "question": "How does @Transactional work internally?",
-    "frequency": 2,
+    "frequency": 3,
     "companies": [],
-    "variations": [
-      "How does @Transactional work?"
+    "variations": ["How does @Transactional work?",
+      "How @Transactional Works"
     ],
     "answerSEE": {
-      "simple": "@Transactional works by wrapping the method call in a proxy that manages commit/rollback.",
-      "explain": "Spring creates a proxy (AOP) around the bean at startup\nProxy starts a transaction before method execution, commits after success\nRolls back automatically on unchecked exceptions (RuntimeException)\nDoesn't work on private methods or self-invocation (calling from within same class)",
-      "example": "\"Internally, Spring uses AOP to create a proxy around the bean. When a method annotated with @Transactional is called through the proxy, it starts a transaction, executes the method, and commits if successful, or rolls back if a runtime exception occurs. One important gotcha I always mention is that it doesn't work if you call the method from within the same class, because that bypasses the proxy.\"",
-      "summary10s": "Proxy wraps method — commits on success, rolls back on runtime exception."
+      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
+      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
+      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
+      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
     }
   },
   {
@@ -4296,14 +4350,16 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "jwt-authentication-flow",
     "category": "Microservices",
     "question": "JWT Authentication Flow",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "JWT Authentication Flow"
+    ],
     "answerSEE": {
-      "simple": "Login gets signed token, client sends in header, server validates signature every request.",
-      "explain": "User sends credentials to login endpoint\nServer validates, creates JWT with user ID and roles, signs with secret key\nClient stores JWT and sends in Authorization Bearer header on every request\nJWT filter validates signature and expiry, extracts user info, sets SecurityContext\nStateless — no session stored on server",
-      "example": "\"On login I validate credentials against database. If valid I create JWT containing userId and roles as claims, sign with secret key using HMAC SHA256. Client stores token and sends as Authorization Bearer header. My JWT filter runs before every request — extracts token, validates signature, checks expiry, sets authentication in SecurityContext. No server-side session means any instance can handle any request.\"",
-      "summary10s": "Login=create signed JWT, client sends Bearer header, filter validates signature sets SecurityContext, stateless."
+      "simple": "Login generates signed token, client sends it every request, server validates signature.",
+      "explain": "User logs in with credentials, server validates, creates JWT with user details\nJWT signed with secret key — Header.Payload.Signature\nClient stores and sends in Authorization Bearer header\nServer validates signature on every request — no session needed\nStateless — scales perfectly across multiple instances",
+      "example": "\"Login generates a signed JWT, Angular stores it in localStorage and sends it via HTTP interceptor in Authorization header, server validates token using a filter—stateless so it scales horizontally.\"",
+      "summary10s": "Login creates signed JWT, client sends in header, filter validates signature, stateless scales horizontally."
     }
   },
   {
@@ -5358,12 +5414,14 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-executorservice",
     "category": "Java",
     "question": "What is ExecutorService?",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "Executor Framework",
+    "frequency": 5,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": ["Executor Framework",
       "ExecutorService and Thread Pools",
-      "Thread Pool"
+      "Thread Pool",
+      "ExecutorService and its important methods"
     ],
     "answerSEE": {
       "simple": "ExecutorService manages a pool of threads and assigns submitted tasks to them instead of creating a new thread each time.",
@@ -5446,9 +5504,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-the-saga-pattern",
     "category": "Microservices",
     "question": "What is the Saga Pattern?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Saga Design Pattern"
+    ],
     "answerSEE": {
       "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
       "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
@@ -5636,23 +5698,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "URL versioning (/api/v1/orders) — simple, visible, gateway-friendly\nHeader versioning — cleaner URLs, but harder to test/discover\nMost teams prefer URL versioning for simplicity and discoverability",
       "example": "\"URL versioning, like /api/v1/orders, is simple, easy for clients to understand, and works well with API Gateways for routing. Header versioning keeps URLs clean but makes the API harder to explore directly. In my experience, most teams go with URL versioning for its simplicity and gateway-friendliness.\"",
       "summary10s": "URL versioning = simple & gateway-friendly; Header versioning = cleaner but harder to test."
-    }
-  }
-,
-  {
-    "id": "concurrency-vs-parallelism",
-    "category": "Java",
-    "question": "Concurrency vs Parallelism",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Basics of Concurrency and Why It Matters"
-    ],
-    "answerSEE": {
-      "simple": "Concurrency is dealing with many tasks, Parallelism is doing many tasks at the same time.",
-      "explain": "Concurrency — single core switches between tasks rapidly, gives illusion of simultaneous\nParallelism — multiple cores run tasks truly at the same time\nConcurrency is about structure, Parallelism is about execution\nJava achieves both — concurrency via threads, parallelism via multi-core CPU",
-      "example": "\"Concurrency means multiple tasks are in progress but not necessarily running at the same instant — like one CPU switching between threads. Parallelism means tasks literally run at the same moment on multiple cores. In Java I write concurrent code and the JVM plus OS decide whether it runs in parallel based on available cores.\"",
-      "summary10s": "Concurrency=juggling tasks, Parallelism=doing tasks simultaneously on multiple cores."
     }
   },
   {
@@ -5855,6 +5900,168 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Extends ExecutorService — designed for divide and conquer recursive algorithms\nRecursiveTask — returns result, RecursiveAction — no result\nfork() — submit subtask to pool asynchronously\njoin() — wait for subtask to complete and get result\nWork stealing — idle threads steal tasks from busy thread's deque, maximizes CPU utilization",
       "example": "\"ForkJoinPool is designed for recursive divide-and-conquer. I extend RecursiveTask, check if work is small enough to compute directly or needs further splitting. fork() submits subtasks, join() collects results. The key innovation is work stealing — every thread has its own task deque, idle threads steal from busy ones keeping all CPU cores busy. Parallel streams use this pool internally.\"",
       "summary10s": "Extend RecursiveTask, fork() submits subtask, join() gets result, work stealing keeps all cores busy."
+    }
+  }
+,
+  {
+    "id": "concurrency-vs-parallelism",
+    "category": "Java",
+    "question": "Concurrency vs Parallelism",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Basics of Concurrency and Why It Matters"
+    ],
+    "answerSEE": {
+      "simple": "Concurrency is dealing with many tasks, Parallelism is doing many tasks at the same time.",
+      "explain": "Concurrency — single core switches between tasks rapidly, gives illusion of simultaneous\nParallelism — multiple cores run tasks truly at the same time\nConcurrency is about structure, Parallelism is about execution\nJava achieves both — concurrency via threads, parallelism via multi-core CPU",
+      "example": "\"Concurrency means multiple tasks are in progress but not necessarily running at the same instant — like one CPU switching between threads. Parallelism means tasks literally run at the same moment on multiple cores. In Java I write concurrent code and the JVM plus OS decide whether it runs in parallel based on available cores.\"",
+      "summary10s": "Concurrency=juggling tasks, Parallelism=doing tasks simultaneously on multiple cores."
+    }
+  }
+,
+  {
+    "id": "this-vs-super",
+    "category": "Java",
+    "question": "this vs super keyword",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Difference between this and super"
+    ],
+    "answerSEE": {
+      "simple": "this refers to the current class instance, super refers to the parent class instance.",
+      "explain": "this is used to access current class variables/methods and avoid shadowing (when parameter name matches field name).\nsuper is used to access parent class variables/methods, especially when they are overridden in the child class.\nboth must be the first statement if used as constructors (this() or super()).",
+      "example": "\"In a child class, if I override a method but still need the parent's logic, I call super.methodName(). I use this.fieldName to differentiate between a class field and a constructor parameter with the same name. Neither can be used in a static context.\"",
+      "summary10s": "this = current class instance. super = parent class instance. Both cannot be used in static methods."
+    }
+  },
+  {
+    "id": "why-runtime-polymorphism-in-method-overriding",
+    "category": "Java",
+    "question": "Why runtime polymorphism is used in method overriding",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Why use method overriding for runtime polymorphism?"
+    ],
+    "answerSEE": {
+      "simple": "It allows a parent reference to call the correct child method dynamically at runtime.",
+      "explain": "Instead of hardcoding behavior, you program to an interface or abstract class.\nThe JVM decides at runtime which overridden method to execute based on the actual object created, not the reference type.\nThis enables flexibility, Extensibility (Open-Closed principle), and clean code.",
+      "example": "\"If I have an Animal reference pointing to a Dog object, calling animal.makeSound() will execute the Dog's overridden method. I use this heavily in Spring when injecting different service implementations — the framework decides the correct implementation at runtime without changing the caller's code.\"",
+      "summary10s": "Method resolved at runtime based on actual object type. Enables loose coupling and extensibility."
+    }
+  },
+  {
+    "id": "sleep-vs-wait-in-multithreading",
+    "category": "Java",
+    "question": "Sleep vs Wait in multithreading",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Difference between Thread.sleep() and Object.wait()"
+    ],
+    "answerSEE": {
+      "simple": "sleep() pauses the thread and keeps the lock, wait() pauses and releases the lock.",
+      "explain": "sleep() is a static method in Thread class. It pauses execution for a specific time and does NOT release any monitor locks.\nwait() is an instance method in Object class. It must be called from a synchronized block, and it RELEASES the lock so other threads can proceed.\nwait() requires notify() or notifyAll() to wake up.",
+      "example": "\"I use wait() in Producer-Consumer scenarios where a thread needs to release the lock on a full queue so the consumer can take items. I use sleep() when I just want to pause execution for a fixed duration, like a polling interval, while holding onto my resources.\"",
+      "summary10s": "sleep = Thread method, keeps lock. wait = Object method, releases lock, needs notify()."
+    }
+  },
+  {
+    "id": "what-is-aop-how-is-it-used",
+    "category": "Spring Boot",
+    "question": "AOP and how it was implemented in the project",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Aspect Oriented Programming real-world use case"
+    ],
+    "answerSEE": {
+      "simple": "AOP separates cross-cutting concerns (like logging or security) from the main business logic.",
+      "explain": "AOP intercepts method calls using proxies.\nKey concepts: Aspect (the module), Advice (the action: Before, After, Around), Pointcut (expression defining where to apply), and JoinPoint (the actual method execution).\nKeeps business logic clean and DRY (Don't Repeat Yourself).",
+      "example": "\"In my project, I implemented AOP for central logging and performance monitoring. I created an @Around advice that intercepts all controller methods, logs the incoming request, records the start time, proceeds with the method execution, and then logs the response time and status. This completely removed logging boilerplate from the controllers.\"",
+      "summary10s": "AOP separates cross-cutting concerns. Implemented via @Around advice for central logging and metrics."
+    }
+  },
+  {
+    "id": "what-is-database-normalization",
+    "category": "SQL",
+    "question": "Normalization and its different types",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "What is normalization and forms of normalization"
+    ],
+    "answerSEE": {
+      "simple": "Normalization organizes data to reduce redundancy and improve data integrity.",
+      "explain": "1NF: Ensure atomic (indivisible) values in columns.\n2NF: Must be in 1NF, and all non-key columns depend on the entire primary key (removes partial dependency).\n3NF: Must be in 2NF, and non-key columns must not depend on other non-key columns (removes transitive dependency).\nBCNF: A stricter version of 3NF where every determinant must be a candidate key.",
+      "example": "\"I use normalization to avoid data anomalies when updating or inserting records. For example, instead of storing Department Name and Location inside the Employee table (which repeats data), I extract it into a separate Department table and link it via a foreign key, achieving 3NF.\"",
+      "summary10s": "Reduces redundancy. 1NF=atomic, 2NF=no partial dependency, 3NF=no transitive dependency."
+    }
+  },
+  {
+    "id": "view-vs-stored-procedure",
+    "category": "SQL",
+    "question": "View vs Stored Procedure",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Difference between View and SP"
+    ],
+    "answerSEE": {
+      "simple": "A View is a virtual table based on a query, a Stored Procedure is a compiled block of SQL logic.",
+      "explain": "View: Used to simplify complex queries or restrict data access. Does not accept parameters (usually). Cannot perform DML operations (INSERT/UPDATE/DELETE) on multiple tables.\nStored Procedure: Accepts input/output parameters. Can contain business logic, loops, IF-ELSE conditions, and multiple DML statements. Pre-compiled for performance.",
+      "example": "\"I use a View when I want to provide a simplified, read-only subset of joined tables to a reporting dashboard. I use a Stored Procedure for complex batch operations, like calculating end-of-month employee payrolls, because it encapsulates the logic and runs efficiently on the DB server.\"",
+      "summary10s": "View = virtual table for reading/simplifying. SP = compiled script for business logic and updates."
+    }
+  },
+  {
+    "id": "design-patterns-used-in-project",
+    "category": "System Design",
+    "question": "Design patterns used in the project",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "What design patterns have you used in real life?"
+    ],
+    "answerSEE": {
+      "simple": "Singleton for config, Factory for object creation, Strategy for algorithms, Builder for complex objects.",
+      "explain": "Singleton: Database connections or Spring Beans (default scope).\nFactory: Creating different types of notification services (Email, SMS) based on input.\nStrategy: Swapping payment methods (CreditCard, PayPal) at runtime.\nBuilder: Constructing complex DTOs with many optional fields.",
+      "example": "\"In my project, I used the Factory pattern to instantiate the correct PaymentProcessor based on the user's selected provider. I also extensively used the Builder pattern via Lombok's @Builder to cleanly construct complex API response objects without writing massive constructors.\"",
+      "summary10s": "Singleton (Spring Beans), Factory (object creation), Strategy (swappable logic), Builder (complex objects)."
+    }
+  },
+  {
+    "id": "coding-infix-to-postfix",
+    "category": "Java Coding",
+    "question": "Convert an Infix Expression to a Postfix Expression",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Infix to postfix conversion code"
+    ],
+    "answerSEE": {
+      "simple": "Use a Stack to hold operators and parentheses, outputting operands immediately based on operator precedence.",
+      "explain": "Iterate through the string:\n- If operand (A-Z, 0-9), append to result.\n- If '(', push to stack.\n- If ')', pop from stack to result until '(' is found.\n- If operator (+, -, *, /), pop from stack to result while stack top has higher or equal precedence, then push current operator.\nFinally, pop all remaining operators from stack.",
+      "example": "\"I would initialize a Stack for operators and a StringBuilder for the output. I evaluate operator precedence (e.g., * is higher than +). As I parse the expression, operands go straight to the builder. Operators push to the stack only if they have higher precedence than the top; otherwise, I pop the stack first. This guarantees O(N) time complexity.\"",
+      "summary10s": "Stack for operators, append operands immediately. Pop stack based on precedence rules. O(N) complexity."
     }
   }
 ];
