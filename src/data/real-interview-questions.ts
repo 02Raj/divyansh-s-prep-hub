@@ -143,7 +143,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "EPAM",
       "Capgemini"
     ],
-    "variations": ["Why is my @Transactional not rolling back?",
+    "variations": [
+      "Why is my @Transactional not rolling back?",
       "Why can @Transactional fail during self-invocation?"
     ],
     "answerSEE": {
@@ -202,7 +203,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Microsoft",
       "Flipkart"
     ],
-    "variations": ["Are all REST methods idempotent?",
+    "variations": [
+      "Are all REST methods idempotent?",
       "PUT vs PATCH"
     ],
     "answerSEE": {
@@ -1875,7 +1877,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Accenture"
     ],
-    "variations": ["What is the use of Optional?",
+    "variations": [
+      "What is the use of Optional?",
       "Optional Class"
     ],
     "answerSEE": {
@@ -2021,7 +2024,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Deloitte"
     ],
-    "variations": ["Liskov Substitution Principle",
+    "variations": [
+      "Liskov Substitution Principle",
       "Liskov Substitution Principle (LSP)"
     ],
     "answerSEE": {
@@ -2053,7 +2057,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "synchronized vs ReentrantLock?",
     "frequency": 4,
     "companies": [],
-    "variations": ["synchronized vs Lock",
+    "variations": [
+      "synchronized vs Lock",
       "ReentrantLock and tryLock",
       "synchronized vs ReentrantLock"
     ],
@@ -2087,7 +2092,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "volatile vs Atomic classes?",
     "frequency": 3,
     "companies": [],
-    "variations": ["Atomic Classes",
+    "variations": [
+      "Atomic Classes",
       "volatile vs Atomic Classes"
     ],
     "answerSEE": {
@@ -2103,7 +2109,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "What is CompletableFuture?",
     "frequency": 4,
     "companies": [],
-    "variations": ["CompletableFuture use cases",
+    "variations": [
+      "CompletableFuture use cases",
       "CompletableFuture",
       "CompletableFuture Key Methods"
     ],
@@ -2136,7 +2143,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "Stream vs Parallel Stream?",
     "frequency": 3,
     "companies": [],
-    "variations": ["Why does using parallelStream() sometimes make performance worse?",
+    "variations": [
+      "Why does using parallelStream() sometimes make performance worse?",
       "Stream vs Parallel Stream"
     ],
     "answerSEE": {
@@ -2154,7 +2162,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Deloitte"
     ],
-    "variations": ["map() vs flatMap()",
+    "variations": [
+      "map() vs flatMap()",
       "map vs flatMap in Streams"
     ],
     "answerSEE": {
@@ -2232,7 +2241,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Deloitte"
     ],
-    "variations": ["What is the complete lifecycle of a Spring bean?",
+    "variations": [
+      "What is the complete lifecycle of a Spring bean?",
       "Bean Lifecycle",
       "Spring Bean Lifecycle"
     ],
@@ -2251,7 +2261,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Accenture"
     ],
-    "variations": ["What is the purpose of @EnableAutoConfiguration?",
+    "variations": [
+      "What is the purpose of @EnableAutoConfiguration?",
       "@EnableAutoConfiguration"
     ],
     "answerSEE": {
@@ -2267,7 +2278,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "@Primary vs @Qualifier?",
     "frequency": 4,
     "companies": [],
-    "variations": ["What happens when two beans of the same type are available?",
+    "variations": [
+      "What happens when two beans of the same type are available?",
       "How do @Primary and @Qualifier resolve bean conflicts?",
       "@Primary vs @Qualifier"
     ],
@@ -2286,7 +2298,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Deloitte"
     ],
-    "variations": ["IoC vs Dependency Injection",
+    "variations": [
+      "IoC vs Dependency Injection",
       "IoC Container (Inversion of Control)"
     ],
     "answerSEE": {
@@ -2318,7 +2331,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "What are Spring Profiles?",
     "frequency": 3,
     "companies": [],
-    "variations": ["How do Spring profiles work internally?",
+    "variations": [
+      "How do Spring profiles work internally?",
       "Spring Profiles"
     ],
     "answerSEE": {
@@ -2417,7 +2431,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Accenture"
     ],
-    "variations": ["What type of security are you using in your current project?",
+    "variations": [
+      "What type of security are you using in your current project?",
       "How to secure REST APIs?",
       "Spring Security Implementation in Projects"
     ],
@@ -2712,7 +2727,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "HashMap vs ConcurrentHashMap",
     "frequency": 4,
     "companies": [],
-    "variations": ["When would you choose ConcurrentHashMap over HashMap?",
+    "variations": [
+      "When would you choose ConcurrentHashMap over HashMap?",
       "HashMap vs ConcurrentHashMap"
     ],
     "answerSEE": {
@@ -2888,7 +2904,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "Internal working of HashMap",
     "frequency": 3,
     "companies": [],
-    "variations": ["Why can HashMap become slow even with a good hash function?",
+    "variations": [
+      "Why can HashMap become slow even with a good hash function?",
       "How does HashMap work internally?"
     ],
     "answerSEE": {
@@ -3358,7 +3375,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Deloitte"
     ],
-    "variations": ["Fail-Fast vs Fail-Safe",
+    "variations": [
+      "Fail-Fast vs Fail-Safe",
       "Fail-Fast vs Fail-Safe iterators"
     ],
     "answerSEE": {
@@ -4150,7 +4168,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "question": "How does @Transactional work internally?",
     "frequency": 3,
     "companies": [],
-    "variations": ["How does @Transactional work?",
+    "variations": [
+      "How does @Transactional work?",
       "How @Transactional Works"
     ],
     "answerSEE": {
@@ -4953,8 +4972,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"JPA internally works using ORM, where Java classes are mapped to database tables. The EntityManager is responsible for managing the lifecycle of entities like persist, update, and delete. It maintains a persistence context to track changes, and based on that it generates SQL queries using providers like Hibernate. This abstraction helps us work with objects instead of writing SQL manually.\"",
       "summary10s": "JPA = EntityManager + ORM → converts objects into SQL and manages lifecycle automatically."
     }
-  }
-,
+  },
   {
     "id": "springapplication-run-behind-scenes",
     "category": "Spring Boot",
@@ -5178,8 +5196,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"The most common performance killer I've seen is the N+1 query problem using Spring Data JPA, where lazy loading inside a loop triggers thousands of DB queries. Another mistake is forgetting to tune HikariCP. The default pool size of 10 is great for dev, but in a high-throughput production environment, it often causes request queuing.\"",
       "summary10s": "JPA N+1 query problem, untuned HikariCP connection pools, and blocking operations."
     }
-  }
-,
+  },
   {
     "id": "multiple-threads-modify-same-arraylist",
     "category": "Java",
@@ -5319,8 +5336,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"My absolute first move is checking Grafana to see if CPU or Memory is spiking. If CPU is fine but the app is unresponsive, I immediately run `jstack` to capture a thread dump. Usually, it instantly reveals that 200 threads are BLOCKED waiting for a response from a down downstream service, telling me exactly where to look.\"",
       "summary10s": "Check metrics, capture a Thread Dump (for blocked threads), and capture a Heap Dump."
     }
-  }
-,
+  },
   {
     "id": "java-equals-vs-equals-method",
     "category": "Java",
@@ -5418,7 +5434,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "Deloitte"
     ],
-    "variations": ["Executor Framework",
+    "variations": [
+      "Executor Framework",
       "ExecutorService and Thread Pools",
       "Thread Pool",
       "ExecutorService and its important methods"
@@ -5804,9 +5821,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "blockingqueue",
     "category": "Java",
     "question": "BlockingQueue",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "What is BlockingQueue and real use case?"
+    ],
     "answerSEE": {
       "simple": "Thread-safe queue where put blocks when full and take blocks when empty.",
       "explain": "Put — adds item, blocks if queue is at capacity until space available\nTake — removes item, blocks if queue empty until item available\nNo manual wait and notify needed — built in\nTypes — ArrayBlockingQueue fixed size, LinkedBlockingQueue optionally bounded",
@@ -5832,10 +5853,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "threadlocal",
     "category": "Java",
     "question": "ThreadLocal",
-    "frequency": 2,
-    "companies": [],
+    "frequency": 3,
+    "companies": [
+      "Accenture"
+    ],
     "variations": [
-      "ThreadLocal and InheritableThreadLocal"
+      "ThreadLocal and InheritableThreadLocal",
+      "What is ThreadLocal and where is it used?"
     ],
     "answerSEE": {
       "simple": "ThreadLocal gives each thread its own independent copy of a variable.",
@@ -5901,8 +5925,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"ForkJoinPool is designed for recursive divide-and-conquer. I extend RecursiveTask, check if work is small enough to compute directly or needs further splitting. fork() submits subtasks, join() collects results. The key innovation is work stealing — every thread has its own task deque, idle threads steal from busy ones keeping all CPU cores busy. Parallel streams use this pool internally.\"",
       "summary10s": "Extend RecursiveTask, fork() submits subtask, join() gets result, work stealing keeps all cores busy."
     }
-  }
-,
+  },
   {
     "id": "concurrency-vs-parallelism",
     "category": "Java",
@@ -5918,8 +5941,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"Concurrency means multiple tasks are in progress but not necessarily running at the same instant — like one CPU switching between threads. Parallelism means tasks literally run at the same moment on multiple cores. In Java I write concurrent code and the JVM plus OS decide whether it runs in parallel based on available cores.\"",
       "summary10s": "Concurrency=juggling tasks, Parallelism=doing tasks simultaneously on multiple cores."
     }
-  }
-,
+  },
   {
     "id": "this-vs-super",
     "category": "Java",
@@ -6062,6 +6084,534 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Iterate through the string:\n- If operand (A-Z, 0-9), append to result.\n- If '(', push to stack.\n- If ')', pop from stack to result until '(' is found.\n- If operator (+, -, *, /), pop from stack to result while stack top has higher or equal precedence, then push current operator.\nFinally, pop all remaining operators from stack.",
       "example": "\"I would initialize a Stack for operators and a StringBuilder for the output. I evaluate operator precedence (e.g., * is higher than +). As I parse the expression, operands go straight to the builder. Operators push to the stack only if they have higher precedence than the top; otherwise, I pop the stack first. This guarantees O(N) time complexity.\"",
       "summary10s": "Stack for operators, append operands immediately. Pop stack based on precedence rules. O(N) complexity."
+    }
+  },
+  {
+    "id": "what-is-a-maven-build",
+    "category": "DevOps",
+    "question": "What is a Maven build?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Maven build is the process of compiling, testing, and packaging a project based on rules defined in pom.xml.",
+      "explain": "- Follows a defined lifecycle: validate → compile → test → package → verify → install → deploy\n- Dependencies and plugins are declared in pom.xml, Maven resolves and downloads them\n- Produces an artifact (jar/war) as the final output",
+      "example": "\"A Maven build is the standardized process that takes my source code through compilation, testing, and packaging based on the pom.xml configuration. Maven follows a defined lifecycle — compile, test, package, and so on — and I can hook into any phase to run custom logic, like generating code coverage reports.\"",
+      "summary10s": "\"pom.xml defines the lifecycle — compile → test → package → install.\""
+    }
+  },
+  {
+    "id": "what-does-mvn-clean-install-do",
+    "category": "Other",
+    "question": "What does `mvn clean install` do?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It deletes previous build artifacts, then compiles, tests, packages, and installs the project into the local repository.",
+      "explain": "- `clean` — deletes the `target` directory (previous build output)\n- `install` — runs through the full lifecycle up to install, including compile, test, package\n- Installs the built jar into the local `.m2` repository so other local projects can depend on it",
+      "example": "\"clean removes the target folder, wiping out any previous build artifacts, so I start fresh. install then runs through the whole lifecycle — compiling, running tests, packaging into a jar, and finally installing that jar into my local Maven repository, so other projects on my machine can use it as a dependency.\"",
+      "summary10s": "\"clean = wipe old build, install = compile+test+package+install to local repo.\""
+    }
+  },
+  {
+    "id": "how-do-you-push-code-to-produc",
+    "category": "DevOps",
+    "question": "How do you push code to production?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Through a CI/CD pipeline — code review, automated build/test, then deployment via a controlled release process.",
+      "explain": "- Merge to main/release branch after PR review and passing CI checks (build, tests, code coverage)\n- CI/CD pipeline (Jenkins/GitLab CI) builds the artifact, runs automated tests, and deploys to staging first\n- Production deployment often gated by manual approval, then rolled out (blue-green/canary), monitored post-deploy",
+      "example": "\"In my process, code goes through a pull request review, and CI runs the build, unit tests, and checks code coverage automatically. Once merged, the pipeline deploys to a staging environment first for validation, and production deployment usually needs a manual approval gate. We use a rolling or blue-green deployment strategy and monitor dashboards closely right after release.\"",
+      "summary10s": "\"PR review → CI build/test → staging → approval-gated production deploy → monitor.\""
+    }
+  },
+  {
+    "id": "code-coverage-and-line-coverag",
+    "category": "Java",
+    "question": "Code coverage and line coverage",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Code coverage measures how much of the codebase is exercised by tests; line coverage is one specific metric — the percentage of executable lines run during tests.",
+      "explain": "- Code coverage — umbrella term, includes line, branch, method coverage\n- Line coverage — percentage of individual lines executed at least once during test runs\n- Branch coverage — stricter, checks if all if/else paths were tested, not just that the line ran",
+      "example": "\"Code coverage is a general term for how much of my code gets exercised by tests. Line coverage specifically measures what percentage of executable lines actually ran during test execution. It's a useful but imperfect metric — a line can be 'covered' without every branch or edge case actually being tested, which is why branch coverage is often tracked alongside it.\"",
+      "summary10s": "\"Line coverage = % of lines executed by tests. Branch coverage is stricter (checks each path).\""
+    }
+  },
+  {
+    "id": "improving-code-coverage-when-b",
+    "category": "Java",
+    "question": "Improving code coverage when build fails",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Identify the untested classes/methods flagged by the coverage tool, then write targeted unit tests for those gaps.",
+      "explain": "- Check the coverage report (JaCoCo) to find exactly which classes/lines are below threshold\n- Prioritize testing business logic and branches (if/else, exception paths) over trivial getters/setters\n- Avoid writing tests just to inflate the number — focus on meaningful assertions, not just execution",
+      "example": "\"I'd check the JaCoCo report to see exactly which classes or methods are dragging the coverage below the required threshold, then write targeted unit tests for those specific gaps, especially uncovered branches like exception handling or conditional logic. I make sure the tests actually assert meaningful behavior rather than just executing lines to inflate the number, since that defeats the purpose of coverage as quality metric.\"",
+      "summary10s": "\"Check JaCoCo report → target uncovered branches/logic → write meaningful, not inflated, tests.\""
+    }
+  },
+  {
+    "id": "verify-a-method-is-called-twic",
+    "category": "Java",
+    "question": "Verify a method is called twice in Mockito",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use `verify(mock, times(2)).method()`.",
+      "explain": "After invoking the code under test, call Mockito's `verify()` with the `times(2)` argument matcher on the mocked object.\nverify(mockService, times(2)).processOrder(any(Order.class));\n",
+      "example": "\"I'd use Mockito's verify() with times(2) — like verify(mockService, times(2)).processOrder(order) — to assert that the method was called exactly twice during the test. If I just need 'at least once' or 'never', Mockito has atLeastOnce() and never() as well.\"",
+      "summary10s": "\"`verify(mock, times(2)).method(...)` — asserts exact invocation count.\""
+    }
+  },
+  {
+    "id": "when-to-use-powermock",
+    "category": "Java",
+    "question": "When to use PowerMock",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "PowerMock is used when you need to mock static methods, constructors, or private methods, which plain Mockito can't do.",
+      "explain": "- Mocking static/final methods and constructors (legacy code, utility classes)\n- Testing legacy code not designed with dependency injection in mind\n- Generally a last resort — modern Mockito (since 3.4+) can mock static methods directly for simpler cases",
+      "example": "\"I'd reach for PowerMock when dealing with legacy code that has static method calls, private methods, or `new` object creation baked directly into the class, which standard Mockito can't intercept. That said, I try to avoid it where possible since it usually signals tightly coupled code — newer versions of Mockito can even mock static methods now, reducing the need for PowerMock in most cases.\"",
+      "summary10s": "\"For mocking static methods/constructors/private methods — mostly for legacy, tightly-coupled code.\""
+    }
+  },
+  {
+    "id": "final-keyword-vs-final-variabl",
+    "category": "Other",
+    "question": "final keyword vs final variable",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`final` is the keyword; a final variable is one specific use of it — a variable whose reference/value can't be reassigned after initialization.",
+      "explain": "- `final` keyword can be applied to variables, methods, and classes\n- final variable — value/reference set once, cannot be reassigned (but object's internal state CAN still change if mutable)\n- final method — can't be overridden; final class — can't be extended",
+      "example": "\"final is the keyword itself, and it has three uses — on a variable, a method, or a class. A final variable specifically means once assigned, I can't reassign it to point to something else — though if it's an object reference, the object's internal state can still be mutated. final methods can't be overridden by subclasses, and final classes can't be extended at all, like String.\"",
+      "summary10s": "\"final = keyword (variable/method/class). Final variable = can't reassign after init.\""
+    }
+  },
+  {
+    "id": "garbage-collection-in-java",
+    "category": "Java",
+    "question": "Garbage Collection in Java",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "GC automatically removes objects that no longer have any live references, freeing up heap memory.",
+      "explain": "- Heap split into Young Gen (Minor GC) and Old Gen (Major GC)\n- Modern default collector: G1, divides heap into regions, collects garbage-heavy regions first\n- Developer doesn't manually free memory — GC handles it based on reachability",
+      "example": "\"Garbage Collection automatically identifies and removes objects that no longer have any live references, so I don't have to manually free memory like in C++. The heap is split into Young and Old Generation for efficient collection — short-lived objects get cleaned quickly in Minor GC, while long-lived ones move to Old Gen and get cleaned less frequently in Major GC.\"",
+      "summary10s": "\"Auto-removes unreachable objects — Young Gen (Minor GC) + Old Gen (Major GC).\""
+    }
+  },
+  {
+    "id": "debugging-and-fixing-outofmemo",
+    "category": "Other",
+    "question": "Debugging and fixing OutOfMemoryError",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Take a heap dump, analyze what's consuming memory, and fix the root cause — leak, undersized heap, or excessive allocation.",
+      "explain": "- Take a heap dump (`jmap` or auto-dump on OOM) and analyze in Eclipse MAT\n- Look at the dominator tree to find what's retaining the most memory and why\n- Fix: remove leaking references, increase heap size if genuinely needed, or reduce object churn",
+      "example": "\"I'd take a heap dump, ideally auto-generated at the moment of the OOM using -XX:+HeapDumpOnOutOfMemoryError, and analyze it in Eclipse MAT. I'd look at the dominator tree to find what's actually retaining the most memory and trace back the reference chain to find the leak — commonly a static collection or an unclosed resource. If it's genuinely a sizing issue rather than a leak, I'd adjust the heap size instead.\"",
+      "summary10s": "\"Auto heap dump on OOM → analyze in MAT (dominator tree) → fix leak or heap sizing.\""
+    }
+  },
+  {
+    "id": "atomic-variables-in-java",
+    "category": "Java",
+    "question": "Atomic variables in Java",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Atomic variables (like AtomicInteger) provide thread-safe operations on a single variable without needing explicit locking.",
+      "explain": "- Use CAS (Compare-And-Swap) internally instead of synchronized blocks\n- Common classes: `AtomicInteger`, `AtomicLong`, `AtomicBoolean`, `AtomicReference`\n- Ideal for simple counters/flags shared across threads without full lock overhead",
+      "example": "\"Atomic variables like AtomicInteger use CAS operations internally to provide thread-safe updates without needing an explicit lock. I use them for simple shared counters, like tracking a request count across threads, since they're much lighter weight than wrapping a plain int with synchronized.\"",
+      "summary10s": "\"CAS-based thread-safe variables — AtomicInteger, AtomicLong, etc. No lock needed.\""
+    }
+  },
+  {
+    "id": "what-is-the-volatile-keyword",
+    "category": "Java",
+    "question": "What is the volatile keyword?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "volatile ensures every thread sees the most recent value of a variable, bypassing CPU-level caching.",
+      "explain": "- Forces reads/writes to go directly to main memory\n- Doesn't make compound operations (like `count++`) atomic\n- Commonly used for simple flags (e.g., a shutdown signal read by multiple threads)",
+      "example": "\"volatile guarantees that when one thread updates a variable, other threads immediately see the latest value, since it bypasses CPU caching. It doesn't make an operation like count++ atomic though, since that's still a read-modify-write sequence. I typically use it for simple flags, like a boolean shutdown signal that multiple threads check.\"",
+      "summary10s": "\"Ensures visibility across threads — not atomicity. Good for simple flags.\""
+    }
+  },
+  {
+    "id": "volatile-vs-synchronized",
+    "category": "Java",
+    "question": "volatile vs synchronized",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "volatile only guarantees visibility of a single variable; synchronized guarantees both visibility and atomicity/mutual exclusion.",
+      "explain": "- volatile — lightweight, no locking, only for visibility of reads/writes\n- synchronized — heavier, provides mutual exclusion, ensures compound operations are atomic\n- Use volatile for a simple flag, synchronized for anything requiring atomic read-modify-write",
+      "example": "\"volatile is lightweight and only ensures visibility — other threads see the latest value, but it doesn't prevent two threads from acting on stale data simultaneously in a compound operation. synchronized is heavier but provides actual mutual exclusion, ensuring only one thread executes a critical section at a time, making compound operations atomic. I use volatile for simple flags and synchronized when I need real atomicity.\"",
+      "summary10s": "\"volatile = visibility only. synchronized = visibility + atomicity/mutual exclusion.\""
+    }
+  },
+  {
+    "id": "avoiding-performance-issues-fr",
+    "category": "Other",
+    "question": "Avoiding performance issues from synchronization",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Keep synchronized blocks as small as possible, and prefer concurrent collections/atomic classes over broad locking.",
+      "explain": "- Minimize the critical section — synchronize only the specific lines that need protection, not the whole method\n- Use `ConcurrentHashMap`, `CopyOnWriteArrayList`, or `Atomic` classes instead of manual synchronization where applicable\n- Consider `ReadWriteLock`/`StampedLock` for read-heavy workloads to allow concurrent reads",
+      "example": "\"I keep synchronized blocks as small as possible, wrapping only the exact lines that touch shared state rather than the whole method, to minimize contention. Where possible, I prefer thread-safe collections like ConcurrentHashMap or Atomic classes, which use finer-grained locking internally. For read-heavy workloads, I'd consider a ReadWriteLock or StampedLock to let multiple readers proceed concurrently instead of blocking each other.\"",
+      "summary10s": "\"Small critical sections + prefer concurrent collections/atomics + ReadWriteLock for read-heavy cases.\""
+    }
+  },
+  {
+    "id": "java-7-to-java-8-migration-cha",
+    "category": "Java",
+    "question": "Java 7 to Java 8 migration changes",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Migration mainly involves adopting lambda expressions, Streams, and Optional to replace verbose Java 7 patterns.",
+      "explain": "- Replaced anonymous classes with lambda expressions for functional interfaces\n- Converted manual loops/collection processing to Streams API (filter, map, collect)\n- Replaced null checks with Optional; adopted the new java.time API instead of java.util.Date/Calendar",
+      "example": "\"The main changes I made were replacing anonymous inner classes with lambda expressions wherever a functional interface was involved, and converting manual for-loops over collections into Streams pipelines using filter, map, and collect for cleaner, more declarative code. I also replaced null checks with Optional where appropriate, and moved from the old Date/Calendar API to the new java.time package for date handling.\"",
+      "summary10s": "\"Anonymous classes → lambdas, manual loops → Streams, Date/Calendar → java.time, nulls → Optional.\""
+    }
+  },
+  {
+    "id": "different-ways-to-ensure-threa",
+    "category": "Java",
+    "question": "Different ways to ensure thread safety",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use immutability, synchronization, concurrent collections, and atomic variables depending on the situation.",
+      "explain": "- Immutability — no shared mutable state, inherently thread-safe\n- synchronized/Lock — for compound operations needing atomicity\n- Concurrent collections (ConcurrentHashMap) and Atomic classes for common shared-state scenarios\n- ThreadLocal — give each thread its own separate copy instead of sharing",
+      "example": "\"My first choice is always immutability — if there's no shared mutable state, there's nothing to synchronize. Where mutable shared state is unavoidable, I use synchronized or Lock for compound operations, concurrent collections like ConcurrentHashMap for shared data structures, and Atomic classes for simple counters. ThreadLocal is another option when each thread genuinely needs its own separate copy of some state, like a per-thread date formatter.\"",
+      "summary10s": "\"Immutability > concurrent collections/atomics > synchronized/Lock > ThreadLocal (per-thread copies).\""
+    }
+  },
+  {
+    "id": "hashmap-vs-hashtable",
+    "category": "Java",
+    "question": "HashMap vs Hashtable",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "HashMap isn't thread-safe and allows null keys/values; Hashtable is thread-safe (fully synchronized) and doesn't allow nulls.",
+      "explain": "- HashMap — not synchronized, allows one null key and multiple null values\n- Hashtable — legacy class, every method synchronized (locks whole map), no nulls allowed\n- HashMap is preferred today; use ConcurrentHashMap instead of Hashtable for thread-safety",
+      "example": "\"HashMap isn't thread-safe but allows one null key and multiple null values. Hashtable is an older, legacy class where every method is synchronized, locking the entire map for any operation, and it doesn't allow null keys or values at all. In modern code, I'd never actually use Hashtable — I'd use HashMap for single-threaded contexts or ConcurrentHashMap for thread-safe scenarios instead.\"",
+      "summary10s": "\"HashMap = not thread-safe, allows null. Hashtable = fully synchronized (legacy), no nulls.\""
+    }
+  },
+  {
+    "id": "why-doesn-t-hashtable-allow-nu",
+    "category": "Java",
+    "question": "Why doesn't Hashtable allow null keys/values?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Because Hashtable can't distinguish between \"key not found\" and \"key found with a null value\" when synchronized methods return null for both cases.",
+      "explain": "- `get()` returning null is ambiguous — could mean \"key doesn't exist\" or \"key exists with null value\"\n- Hashtable's original design (pre-Java 1.2) chose to disallow nulls entirely to avoid this ambiguity\n- HashMap later allowed null but requires `containsKey()` to disambiguate when needed",
+      "example": "\"Hashtable disallows nulls because a get() call returning null would be ambiguous — you couldn't tell if the key genuinely doesn't exist, or if it exists but maps to a null value. Rather than deal with that ambiguity, the original Hashtable design just disallowed nulls entirely. HashMap, designed later, does allow one null key, but if you need to disambiguate, you'd still use containsKey() alongside get().\"",
+      "summary10s": "\"Avoids ambiguity — null from get() could mean 'no key' or 'null value'. Hashtable just disallows both.\""
+    }
+  },
+  {
+    "id": "load-factor-in-hashmap",
+    "category": "Java",
+    "question": "Load factor in HashMap",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Load factor determines how full the HashMap can get before it resizes (doubles) its capacity.",
+      "explain": "- Formula: resize triggers when `size > capacity * loadFactor`\n- Lower load factor — more space used, fewer collisions, faster lookups\n- Higher load factor — more space-efficient, but more collisions, slower lookups",
+      "example": "\"Load factor is the threshold that determines when HashMap should resize — it triggers a resize once the number of entries exceeds capacity multiplied by the load factor. A lower load factor means more memory usage but fewer collisions and faster lookups, while a higher load factor is more space-efficient but leads to more collisions.\"",
+      "summary10s": "\"Threshold for resizing — resize happens when size exceeds capacity × load factor.\""
+    }
+  },
+  {
+    "id": "what-does-default-load-factor",
+    "category": "Other",
+    "question": "What does default load factor 0.75 mean?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It means HashMap resizes once it's 75% full.",
+      "explain": "- For an initial capacity of 16, resize triggers once entries exceed 12 (16 × 0.75)\n- 0.75 is chosen by Java as a balance between space efficiency and time performance (fewer collisions)\n- Resizing doubles the capacity and rehashes all existing entries",
+      "example": "\"A default load factor of 0.75 means the HashMap resizes once it's 75% full — so for an initial capacity of 16, resizing kicks in once we have more than 12 entries. Java chose 0.75 as the sweet spot balancing memory usage against the increased collision rate that would come with a higher threshold. When it does resize, capacity doubles and all existing entries get rehashed into new buckets.\"",
+      "summary10s": "\"Resizes at 75% capacity — Java's balance between memory use and collision rate.\""
+    }
+  },
+  {
+    "id": "union-vs-union-all",
+    "category": "SQL",
+    "question": "UNION vs UNION ALL",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "UNION combines results and removes duplicates; UNION ALL combines results and keeps duplicates.",
+      "explain": "- UNION — performs a distinct operation internally, slower due to duplicate removal\n- UNION ALL — just concatenates results, faster since no dedup step\n- Both require the same number of columns with compatible types in each SELECT",
+      "example": "\"UNION combines the results of two queries and removes duplicate rows, which means it does extra work internally to dedupe. UNION ALL just concatenates the results without removing duplicates, so it's faster. I default to UNION ALL whenever I know there won't be duplicates or I don't care about them, since it avoids that unnecessary overhead.\"",
+      "summary10s": "\"UNION = combines + removes duplicates (slower). UNION ALL = combines, keeps duplicates (faster).\""
+    }
+  },
+  {
+    "id": "left-join-vs-right-join",
+    "category": "SQL",
+    "question": "LEFT JOIN vs RIGHT JOIN",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "LEFT JOIN keeps all rows from the left table; RIGHT JOIN keeps all rows from the right table, with NULLs for unmatched rows on the other side.",
+      "explain": "- LEFT JOIN — all rows from left table, matched data (or NULL) from right\n- RIGHT JOIN — all rows from right table, matched data (or NULL) from left\n- RIGHT JOIN is rarely used in practice — same result achievable by swapping table order with LEFT JOIN",
+      "example": "\"LEFT JOIN returns every row from the left table, filling in NULLs for the right table's columns if there's no match. RIGHT JOIN does the opposite — keeps all rows from the right table. In practice, I almost always use LEFT JOIN, since I can just swap the table order to achieve the same result as a RIGHT JOIN, and it's more readable and consistent for a team to stick to one convention.\"",
+      "summary10s": "\"LEFT = keep all left table rows, RIGHT = keep all right table rows. Most teams stick to LEFT JOIN only.\""
+    }
+  },
+  {
+    "id": "when-to-use-left-join",
+    "category": "SQL",
+    "question": "When to use LEFT JOIN?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use LEFT JOIN when you need to keep all records from the primary table, even if there's no matching related record.",
+      "explain": "- Example: listing all customers, including those who've placed zero orders\n- Unmatched rows show NULL for the joined table's columns\n- Useful for reporting \"what's missing\" — like finding records with no related entry",
+      "example": "\"I use LEFT JOIN whenever I need to preserve every record from my main table regardless of whether there's a related match — like listing all customers even if some haven't placed any orders yet. It's also the standard way to find 'orphan' records, by joining and then filtering for where the right table's key is NULL.\"",
+      "summary10s": "\"When you need to keep all rows from the main table, even those without a match.\""
+    }
+  },
+  {
+    "id": "find-records-in-one-table-with",
+    "category": "Other",
+    "question": "Find records in one table with no relationship to another",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "LEFT JOIN the two tables, then filter for rows where the joined table's key is NULL.",
+      "explain": "Join Customer to Orders on customer_id, and filter for orders.customer_id IS NULL to find customers with no orders.",
+      "example": "\"I'd do a LEFT JOIN from Customer to Orders, keeping all customers regardless of a match, and then filter WHERE orders.customer_id IS NULL — that isolates exactly the customers who don't have any matching order record. This is the standard pattern for finding 'orphan' or unrelated records between two tables.\"",
+      "summary10s": "\"LEFT JOIN + WHERE right_table.key IS NULL = finds unrelated records.\""
+    }
+  },
+  {
+    "id": "handling-null-values-and-condi",
+    "category": "SQL",
+    "question": "Handling NULL values and conditional mapping in SQL",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use `COALESCE`/`ISNULL` for NULL handling, and `CASE WHEN` for conditional mapping.",
+      "explain": "- `COALESCE(column, 'default')` — returns the first non-null value, good for substituting a default\n- `CASE WHEN condition THEN value ... END` — for conditional logic in SELECT\n- `IS NULL`/`IS NOT NULL` — for filtering rows based on null status in WHERE",
+      "example": "\"For NULL handling, I use COALESCE to substitute a default value when a column is null, like COALESCE(phone, 'Not Provided'). For conditional mapping, I use a CASE WHEN expression in the SELECT clause to translate values based on conditions. And when filtering, I always remember to use IS NULL or IS NOT NULL rather than = NULL, since equality comparisons with NULL don't work in SQL.\"",
+      "summary10s": "\"COALESCE for null defaults, CASE WHEN for conditional logic, IS NULL for filtering.\""
+    }
+  },
+  {
+    "id": "mapping-values-like-a-apple-b",
+    "category": "SQL",
+    "question": "Mapping values like A→Apple, B→Banana in SQL",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a `CASE WHEN` expression in the SELECT clause.",
+      "explain": "Write a CASE expression that checks the column value and returns the mapped result.",
+      "example": "\"I'd use a CASE expression right in the SELECT clause — checking the column against each expected value and returning the mapped label, with an ELSE clause to handle anything unexpected. For a large number of mappings, I might instead join against a small lookup/reference table rather than hardcoding a long CASE statement.\"",
+      "summary10s": "\"CASE WHEN 'A' THEN 'Apple' WHEN 'B' THEN 'Banana' ELSE ... END — or join a lookup table for many values.\""
+    }
+  },
+  {
+    "id": "removing-duplicates-in-sql",
+    "category": "SQL",
+    "question": "Removing duplicates in SQL",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use `SELECT DISTINCT` for query results, or `ROW_NUMBER()` with a delete for removing actual duplicate rows from a table.",
+      "explain": "- `SELECT DISTINCT` — for a query result, simplest for read-only dedup\n- For deleting actual duplicate rows: use `ROW_NUMBER() OVER (PARTITION BY duplicate_columns ORDER BY id)`, then delete where row number > 1\n- Alternative: `GROUP BY` all columns and keep `MIN(id)`, delete the rest",
+      "example": "\"For just a query result, SELECT DISTINCT is the simplest way to remove duplicates. But if I actually need to delete duplicate rows from a table, I use ROW_NUMBER() partitioned by the columns that define a duplicate, ordered by ID, and then delete every row where that row number is greater than 1 — keeping just the first occurrence of each duplicate group.\"",
+      "summary10s": "\"SELECT DISTINCT for query results; ROW_NUMBER() + delete row_num > 1 for actual table cleanup.\""
+    }
+  },
+  {
+    "id": "defining-relationships-in-hibe",
+    "category": "Spring Boot",
+    "question": "Defining relationships in Hibernate",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Relationships are defined using annotations like `@OneToMany`, `@ManyToOne`, `@OneToOne`, and `@ManyToMany` on entity fields.",
+      "explain": "- Annotate the field representing the association, specify `mappedBy` on the non-owning side\n- Use `@JoinColumn` to specify the foreign key column name\n- Choose `FetchType` (LAZY/EAGER) and `CascadeType` based on the relationship's needs",
+      "example": "\"I define relationships using annotations directly on the entity fields — @ManyToOne, @OneToMany, and so on. For a bidirectional relationship, I mark the non-owning side with mappedBy pointing to the owning side's field, and use @JoinColumn to specify the actual foreign key column. I'm also careful to set the right FetchType and CascadeType based on how that relationship should actually behave in my application.\"",
+      "summary10s": "\"Annotate fields with @OneToMany/@ManyToOne etc., use mappedBy + @JoinColumn to define the FK.\""
+    }
+  },
+  {
+    "id": "types-of-relationships-in-hibe",
+    "category": "Spring Boot",
+    "question": "Types of relationships in Hibernate",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "There are four relationship types — One-to-One, One-to-Many, Many-to-One, and Many-to-Many.",
+      "explain": "- `@OneToOne` — e.g., User and UserProfile\n- `@OneToMany`/`@ManyToOne` — e.g., Department and Employees (inverse pair)\n- `@ManyToMany` — e.g., Students and Courses, uses a join table",
+      "example": "\"There are four relationship types. OneToOne, like a User and their UserProfile. OneToMany and ManyToOne are two sides of the same relationship, like a Department having many Employees, and each Employee belonging to one Department. And ManyToMany, like Students and Courses, where I typically need a join table to represent the association, sometimes as a proper entity itself if it needs extra fields.\"",
+      "summary10s": "\"OneToOne, OneToMany/ManyToOne, ManyToMany — each mapped with corresponding annotations.\""
+    }
+  },
+  {
+    "id": "constructor-injection-vs-sette",
+    "category": "Spring Boot",
+    "question": "Constructor injection vs Setter injection",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Constructor injection provides dependencies at object creation time; Setter injection provides them after the object is created, via setter methods.",
+      "explain": "- Constructor — dependencies are mandatory, supports immutability (final fields), fails fast if missing\n- Setter — dependencies are optional, can be changed after construction, but object can exist in a partially-initialized state\n- Constructor injection is generally preferred for required dependencies",
+      "example": "\"Constructor injection provides all dependencies at the time the object is created, so they can be marked final and are guaranteed non-null — if something's missing, the app fails fast at startup. Setter injection allows dependencies to be optional and even changed later, but that means the object can exist in a partially-initialized state, which I generally try to avoid for genuinely required dependencies. I default to constructor injection unless a dependency is truly optional.\"",
+      "summary10s": "\"Constructor = mandatory, immutable, fail-fast. Setter = optional, mutable, partial-init risk.\""
+    }
+  },
+  {
+    "id": "what-happens-if-you-don-t-use",
+    "category": "Spring Boot",
+    "question": "What happens if you don't use @Autowired?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If there's only one constructor, Spring still auto-injects it since Spring 4.3+ — but for multiple constructors or field/setter injection, @Autowired becomes necessary.",
+      "explain": "- Single-constructor class — Spring implicitly uses it for injection, @Autowired is optional\n- Multiple constructors — Spring needs `@Autowired` to know which one to use for injection\n- Field/setter injection without `@Autowired` — the field simply stays null, no automatic injection happens",
+      "example": "\"If a class has only one constructor, Spring 4.3+ automatically uses it for dependency injection even without @Autowired — I don't strictly need the annotation there. But if there are multiple constructors, or I'm using field or setter injection, Spring needs @Autowired to know what to inject and where — without it, the field would just stay null.\"",
+      "summary10s": "\"Single constructor: works without @Autowired since 4.3+. Multiple constructors/field injection: @Autowired required.\""
+    }
+  },
+  {
+    "id": "constructor-injection-without",
+    "category": "Spring Boot",
+    "question": "Constructor injection without @Autowired",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If a class has exactly one constructor, Spring automatically uses it for injection without needing @Autowired.",
+      "explain": "- Spring 4.3+ implicit constructor injection rule applies only when there's a single constructor\n- No annotation needed on the constructor at all in this case\n- If there are multiple constructors, one must be explicitly marked `@Autowired`",
+      "example": "\"If my class has just one constructor, I don't need to annotate it with @Autowired at all — Spring automatically detects and uses that single constructor for injection, since 4.3. I actually prefer this cleaner style in most of my classes, and I only add @Autowired explicitly when there are multiple constructors and I need to tell Spring which one to use.\"",
+      "summary10s": "\"Single constructor → Spring auto-injects it, no @Autowired needed.\""
+    }
+  },
+  {
+    "id": "longest-substring-without-repe",
+    "category": "Java Coding",
+    "question": "Longest substring without repeating characters",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a sliding window with a HashSet (or HashMap of last-seen index) to track characters in the current window.",
+      "explain": "Expand the window by moving the right pointer; if a duplicate is found, shrink from the left until the duplicate is removed. Track the max window length seen.\npublic class LongestSubstring {\n    public static int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastIndex = new HashMap<>();\n        int maxLen = 0, left = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            if (lastIndex.containsKey(c) && lastIndex.get(c) >= left) {\n                left = lastIndex.get(c) + 1; // jump left past the duplicate\n            }\n            lastIndex.put(c, right);\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(lengthOfLongestSubstring(\"abcabcbb\")); // 3 (\"abc\")\n    }\n}\n",
+      "example": "\"I'd use the sliding window technique with a HashMap tracking each character's last seen index. As I expand the window with a right pointer, if I encounter a character already in the map within my current window, I jump the left pointer past that duplicate's previous position instead of moving it one step at a time — that makes it a single O(n) pass instead of a nested-loop O(n squared) brute force.\"",
+      "summary10s": "\"Sliding window + HashMap of last-seen index — jump left pointer past duplicates, O(n) single pass.\""
     }
   }
 ];
