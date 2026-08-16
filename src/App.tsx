@@ -14,6 +14,7 @@ import ContactPage from "./pages/ContactPage";
 import ContributePage from "./pages/ContributePage";
 import SnippetsPage from "./pages/SnippetsPage";
 import AdminContactMessagesPage from "./pages/AdminContactMessagesPage";
+import SystemDesignPage from "./pages/SystemDesignPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/contribute" element={<ContributePage />} />
             <Route path="/snippets" element={<SnippetsPage />} />
+            <Route path="/system-design" element={<SystemDesignPage />} />
             <Route path="/admin/contact-messages" element={<AdminContactMessagesPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

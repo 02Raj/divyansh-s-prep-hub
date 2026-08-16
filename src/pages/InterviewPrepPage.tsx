@@ -15,8 +15,10 @@ import {
   Circle,
   ExternalLink,
   ArrowRight,
-  BookOpen
+  BookOpen,
+  Copy
 } from 'lucide-react';
+import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { realInterviewQuestions, QuestionCategory } from '@/data/real-interview-questions';
 import { 
@@ -45,6 +47,29 @@ export default function InterviewPrepPage() {
 
   const handleViewQuestions = (set: InterviewSetDetail) => {
     navigate(`/interview-set/${set.id}`, { state: { set } });
+  };
+
+  const handleCopyQuestion = (e: React.MouseEvent, q: any) => {
+    e.stopPropagation();
+    const textToCopy = `Question: ${q.question}
+
+Simple Answer:
+${q.answerSEE.simple}
+
+Explanation:
+${q.answerSEE.explain}
+
+Say it in interview:
+"${q.answerSEE.example}"
+
+10-Second Summary:
+${q.answerSEE.summary10s}`;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      toast.success("Question & Answer copied!");
+    }).catch(() => {
+      toast.error("Failed to copy text.");
+    });
   };
 
   return (
@@ -147,6 +172,15 @@ export default function InterviewPrepPage() {
                       <div className="flex flex-col md:flex-row gap-2 md:gap-4 md:items-center w-full pr-4">
                         <span className="font-medium text-[15px] flex-1 leading-snug">{q.question}</span>
                         <div className="flex items-center gap-2 shrink-0 mt-2 md:mt-0">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-7 w-7 text-muted-foreground hover:text-foreground"
+                            onClick={(e) => handleCopyQuestion(e, q)}
+                            title="Copy Question & Answer"
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
                           <Badge variant="secondary" className="bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-300 border-none">
                             🔥 Asked {q.frequency}x
                           </Badge>
@@ -352,23 +386,29 @@ export default function InterviewPrepPage() {
 
           {/* Tab 5: System Design */}
           <TabsContent value="system-design" className="mt-6">
-            <div className="bg-background border border-border rounded-lg p-6">
-              <h2 className="text-xl font-semibold mb-2 text-foreground">
-                System Design for Interviews
-              </h2>
-              <p className="text-muted-foreground mb-6 text-sm">
-                Essential concepts for SDE / Backend / Full Stack roles
-              </p>
-              <div className="space-y-4">
-                {systemDesignTopics.map((topic, index) => (
-                  <div 
-                    key={index} 
-                    className="py-4 border-b border-border last:border-0"
-                  >
-                    <h3 className="font-medium text-foreground mb-1">{topic.title}</h3>
-                    <p className="text-sm text-muted-foreground">{topic.description}</p>
-                  </div>
-                ))}
+            <div className="bg-background border border-border rounded-lg p-6 shadow-sm">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                  <h2 className="text-xl font-semibold mb-2 text-foreground">
+                    Complete System Design Course
+                  </h2>
+                  <p className="text-muted-foreground text-sm max-w-xl leading-relaxed">
+                    A comprehensive, deeply-researched guide mapping High-Level Design (HLD) and Low-Level Design (LLD) concepts directly to real-world Angular and Spring Boot codebases.
+                  </p>
+                  <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-green-500" /> Complete HLD & LLD Path</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-green-500" /> Angular + Spring Boot Code Mappings</li>
+                    <li className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-green-500" /> Real-World Architecture Trade-offs</li>
+                  </ul>
+                </div>
+                <Button 
+                  size="lg" 
+                  className="w-full md:w-auto shrink-0"
+                  onClick={() => navigate('/system-design')}
+                >
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Launch Course
+                </Button>
               </div>
             </div>
           </TabsContent>
