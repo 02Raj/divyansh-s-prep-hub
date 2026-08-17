@@ -20,15 +20,17 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-interface-vs-abstract",
     "category": "Java",
     "question": "Difference between Interface and Abstract Class?",
-    "frequency": 5,
+    "frequency": 6,
     "companies": [
       "Deloitte",
       "Virtusa",
-      "L&T"
+      "L&T",
+      "Zensar Technologies"
     ],
     "variations": [
       "When to use Interface vs Abstract Class?",
-      "Can abstract classes have constructors?"
+      "Can abstract classes have constructors?",
+      "Difference between Abstract Class and Interface"
     ],
     "answerSEE": {
       "simple": "An interface defines a pure contract with no state. An abstract class can have state and partial implementation.",
@@ -158,14 +160,16 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "spring-kafka-exactly-once",
     "category": "Microservices",
     "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
-    "frequency": 5,
+    "frequency": 6,
     "companies": [
       "Paytm",
       "PhonePe",
-      "Razorpay"
+      "Razorpay",
+      "EPAM"
     ],
     "variations": [
-      "How to handle duplicate messages in Kafka?"
+      "How to handle duplicate messages in Kafka?",
+      "How would you prevent duplicate processing of Kafka messages?"
     ],
     "answerSEE": {
       "simple": "True exactly-once is hard. We design for \"effectively-once\" using an idempotent producer and a unique transaction ID on the consumer side.",
@@ -2158,13 +2162,15 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 6,
+    "frequency": 7,
     "companies": [
-      "Deloitte"
+      "Deloitte",
+      "EPAM"
     ],
     "variations": [
       "map() vs flatMap()",
-      "map vs flatMap in Streams"
+      "map vs flatMap in Streams",
+      "Explain map() vs flatMap() with a real-world example."
     ],
     "answerSEE": {
       "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
@@ -2177,9 +2183,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-a-functional-interface",
     "category": "Java",
     "question": "What is a Functional Interface?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [],
+    "frequency": 3,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "What is a Functional Interface? Can it have default and static methods?"
+    ],
     "answerSEE": {
       "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
       "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
@@ -2294,13 +2304,15 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "ioc-vs-dependency-injection",
     "category": "Spring Boot",
     "question": "IoC vs Dependency Injection?",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [
-      "Deloitte"
+      "Deloitte",
+      "EPAM"
     ],
     "variations": [
       "IoC vs Dependency Injection",
-      "IoC Container (Inversion of Control)"
+      "IoC Container (Inversion of Control)",
+      "How does Dependency Injection work internally in Spring?"
     ],
     "answerSEE": {
       "simple": "IoC is the principle, Dependency Injection is one way to implement it.",
@@ -2846,9 +2858,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "singleton-design-pattern",
     "category": "System Design",
     "question": "Singleton Design Pattern",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Implement a thread-safe Singleton using double-checked locking."
+    ],
     "answerSEE": {
       "simple": "Singleton ensures only one instance of a class exists throughout the application.",
       "explain": "Private constructor + static instance + static access method\nCommon uses: config managers, logging, connection pools\nNeeds thread-safety handling (double-checked locking, enum) in multi-threaded apps",
@@ -2902,8 +2918,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "internal-working-of-hashmap",
     "category": "Java",
     "question": "Internal working of HashMap",
-    "frequency": 3,
-    "companies": [],
+    "frequency": 4,
+    "companies": [
+      "Zensar Technologies"
+    ],
     "variations": [
       "Why can HashMap become slow even with a good hash function?",
       "How does HashMap work internally?"
@@ -3420,8 +3438,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "memory-leak-in-java",
     "category": "Java",
     "question": "Memory Leak in Java",
-    "frequency": 6,
-    "companies": [],
+    "frequency": 7,
+    "companies": [
+      "EPAM"
+    ],
     "variations": [
       "Why can memory keep increasing even after GC runs?",
       "How would you identify a memory leak in a Java application?",
@@ -4032,10 +4052,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "concurrenthashmap-internal-working",
     "category": "Java",
     "question": "ConcurrentHashMap internal working",
-    "frequency": 2,
-    "companies": [],
+    "frequency": 3,
+    "companies": [
+      "EPAM"
+    ],
     "variations": [
-      "How does ConcurrentHashMap work?"
+      "How does ConcurrentHashMap work?",
+      "Explain the internal working of ConcurrentHashMap."
     ],
     "answerSEE": {
       "simple": "ConcurrentHashMap allows multiple threads to read/write safely without locking the entire map.",
@@ -4152,9 +4175,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "api-gateway-and-why-it-s-required",
     "category": "Microservices",
     "question": "API Gateway and why it's required",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "API Gateway vs Load Balancer — what is the difference?"
+    ],
     "answerSEE": {
       "simple": "API Gateway is a single entry point that routes client requests to the correct microservice.",
       "explain": "Handles routing, authentication, rate limiting in one place\nClients don't need to know individual service addresses\nReduces cross-cutting logic duplication across services",
@@ -4166,11 +4193,14 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-does-transactional-work-internally",
     "category": "Spring Boot",
     "question": "How does @Transactional work internally?",
-    "frequency": 3,
-    "companies": [],
+    "frequency": 4,
+    "companies": [
+      "EPAM"
+    ],
     "variations": [
       "How does @Transactional work?",
-      "How @Transactional Works"
+      "How @Transactional Works",
+      "How does @Transactional work internally in Spring Boot?"
     ],
     "answerSEE": {
       "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
@@ -4355,9 +4385,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "circuit-breaker",
     "category": "Microservices",
     "question": "Circuit Breaker",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Explain Circuit Breaker, Retry and Timeout patterns."
+    ],
     "answerSEE": {
       "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
       "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
@@ -5355,9 +5389,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-overloading-vs-overriding",
     "category": "Java",
     "question": "Overloading vs Overriding",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [
+      "Overloading vs Overriding in Automation Frameworks"
+    ],
     "answerSEE": {
       "simple": "Overloading is same method name with different parameters in the same class; Overriding is redefining a parent's method in a subclass with the same signature.",
       "explain": "Overloading — compile-time (static) polymorphism, resolved by parameter types/count\nOverriding — runtime (dynamic) polymorphism, resolved based on actual object type at runtime\nOverriding requires inheritance; overloading doesn't",
@@ -5553,9 +5591,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "sql-find-second-highest-salary",
     "category": "SQL",
     "question": "Find the second-highest salary",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [
+      "Query to Find the 2nd Highest Salary"
+    ],
     "answerSEE": {
       "simple": "Use LIMIT/OFFSET on a descending sorted distinct salary list, or a subquery with MAX() excluding the top value.",
       "explain": "Sort distinct salaries descending, skip the first one, take the next.",
@@ -6204,11 +6246,14 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "garbage-collection-in-java",
     "category": "Java",
     "question": "Garbage Collection in Java",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [
-      "Accenture"
+      "Accenture",
+      "Zensar Technologies"
     ],
-    "variations": [],
+    "variations": [
+      "How does Garbage Collection work in Java?"
+    ],
     "answerSEE": {
       "simple": "GC automatically removes objects that no longer have any live references, freeing up heap memory.",
       "explain": "- Heap split into Young Gen (Minor GC) and Old Gen (Major GC)\n- Modern default collector: G1, divides heap into regions, collects garbage-heavy regions first\n- Developer doesn't manually free memory — GC handles it based on reachability",
@@ -6598,6 +6643,389 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Expand the window by moving the right pointer; if a duplicate is found, shrink from the left until the duplicate is removed. Track the max window length seen.\npublic class LongestSubstring {\n    public static int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastIndex = new HashMap<>();\n        int maxLen = 0, left = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            if (lastIndex.containsKey(c) && lastIndex.get(c) >= left) {\n                left = lastIndex.get(c) + 1; // jump left past the duplicate\n            }\n            lastIndex.put(c, right);\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(lengthOfLongestSubstring(\"abcabcbb\")); // 3 (\"abc\")\n    }\n}\n",
       "example": "\"I'd use the sliding window technique with a HashMap tracking each character's last seen index. As I expand the window with a right pointer, if I encounter a character already in the map within my current window, I jump the left pointer past that duplicate's previous position instead of moving it one step at a time — that makes it a single O(n) pass instead of a nested-loop O(n squared) brute force.\"",
       "summary10s": "\"Sliding window + HashMap of last-seen index — jump left pointer past duplicates, O(n) single pass.\""
+    }
+  },
+  {
+  "id": "java-oops-concepts-real-world",
+  "category": "Java",
+  "question": "Explain OOPs concepts with real-world examples",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "Object-Oriented Programming revolves around four main concepts: Encapsulation, Abstraction, Inheritance, and Polymorphism.",
+    "explain": "Encapsulation hides data (like a capsule); Abstraction hides implementation details (like a TV remote); Inheritance promotes code reuse (like parent-child traits); Polymorphism allows one interface to take multiple forms (like a person acting as a father, employee, and son).",
+    "example": "\"In a real-world scenario, I think of Abstraction like driving a car—I know how to steer and brake, but I don't need to know the engine's internal workings. Encapsulation is like a bank account where my balance is private and only modified through specific methods like deposit(). Inheritance is like an 'Employee' class inheriting common fields from a 'Person' class, and Polymorphism is an 'Animal' interface where both 'Dog' and 'Cat' implement makeNoise() differently.\"",
+    "summary10s": "Encapsulation (hide data), Abstraction (hide complexity), Inheritance (reuse code), Polymorphism (many forms)."
+  }
+},
+  {
+  "id": "java-final-finally-finalize",
+  "category": "Java",
+  "question": "Difference between final, finally, and finalize",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "final is a keyword to restrict modification; finally is a block in exception handling; finalize is a method for garbage collection cleanup.",
+    "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
+    "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
+    "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
+  }
+},
+  {
+  "id": "java-string-stringbuffer-stringbuilder",
+  "category": "Java",
+  "question": "Difference between String, StringBuffer, and StringBuilder",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "String is immutable. StringBuffer and StringBuilder are mutable, but StringBuffer is thread-safe while StringBuilder is not.",
+    "explain": "String creates a new object on every modification. StringBuffer is synchronized (slower but safe for multithreading). StringBuilder is not synchronized (faster, best for single-threaded string manipulations).",
+    "example": "\"When I need a string that won't change, I just use String. If I'm building a complex string in a loop, I use StringBuilder because it's fast and avoids creating multiple objects in memory. I only use StringBuffer if I'm doing string manipulation across multiple threads, which is quite rare nowadays.\"",
+    "summary10s": "String = immutable. StringBuilder = mutable/fast. StringBuffer = mutable/thread-safe."
+  }
+},
+  {
+  "id": "java-exception-handling-best-practices",
+  "category": "Java",
+  "question": "Exception Handling Best Practices in Java",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "Catch the most specific exception first, never swallow exceptions, and use try-with-resources for automatic cleanup.",
+    "explain": "Best practices include logging exceptions properly (not just printStackTrace), not catching Exception or Throwable directly unless at the highest level, using custom exceptions for business logic, and failing fast.",
+    "example": "\"In my projects, I always use try-with-resources so I don't have to manually close streams in a finally block. I also avoid empty catch blocks—swallowing exceptions makes debugging a nightmare. Instead, I catch specific exceptions like IOException before catching a generic Exception, and I wrap technical exceptions into meaningful custom business exceptions for the frontend.\"",
+    "summary10s": "Use try-with-resources, catch specific exceptions first, don't swallow exceptions."
+  }
+},
+  {
+  "id": "java-immutability-importance",
+  "category": "Java",
+  "question": "Why is Immutability important in Java?",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "Immutable objects are inherently thread-safe, prevent accidental state changes, and can be safely used as keys in a HashMap.",
+    "explain": "Once an immutable object is created, its state cannot change. This eliminates synchronization issues in concurrent programming, makes the code easier to reason about, and ensures the hash code remains constant (crucial for HashMaps).",
+    "example": "\"I love using immutable objects, especially for configuration classes or data transfer objects (DTOs), because they are thread-safe out of the box—multiple threads can read them without any locks. It also guarantees that if I use the object as a HashMap key, its hash code won't change over time, which prevents memory leaks or 'lost' map entries.\"",
+    "summary10s": "Thread-safe out of the box, safe as HashMap keys, no accidental mutations."
+  }
+},
+  {
+  "id": "java-synchronization-handling",
+  "category": "Java",
+  "question": "How do you handle Synchronization in Multithreading?",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "Synchronization is handled using the synchronized keyword, ReentrantLocks, or concurrent collections.",
+    "explain": "We can synchronize at the method level or block level (preferred for better performance). Alternatively, the java.util.concurrent package provides advanced tools like Locks, CountDownLatch, and thread-safe collections like ConcurrentHashMap.",
+    "example": "\"When I need to prevent race conditions, my first choice is usually synchronized blocks over synchronized methods, so I only lock the critical section of the code and maintain performance. For more complex scenarios, I use ReentrantLock which gives me more control, like trying to acquire a lock without blocking indefinitely. Also, I heavily rely on ConcurrentHashMap instead of synchronizing entire collections.\"",
+    "summary10s": "Use synchronized blocks for critical sections, ReentrantLocks for advanced control, or ConcurrentHashMap."
+  }
+},
+  {
+  "id": "sql-joins-types",
+  "category": "SQL",
+  "question": "Joins and Their Types",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "Joins combine rows from two or more tables based on a related column. Types include INNER, LEFT, RIGHT, and FULL OUTER joins.",
+    "explain": "INNER JOIN returns only matching rows. LEFT JOIN returns all from the left table and matched from the right. RIGHT JOIN returns all from the right and matched from the left. FULL OUTER JOIN returns all rows when there is a match in either table.",
+    "example": "\"In a reporting dashboard, I often use an INNER JOIN to fetch employees who have an assigned department. But if I need a list of all employees regardless of whether they're assigned to a department yet, I use a LEFT JOIN with the employee table on the left, which returns NULLs for the missing department data.\"",
+    "summary10s": "INNER (matches only), LEFT (all left + matches), RIGHT (all right + matches), FULL (everything)."
+  }
+},
+  {
+  "id": "sql-acid-properties",
+  "category": "SQL",
+  "question": "ACID Properties in Databases",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "ACID stands for Atomicity, Consistency, Isolation, and Durability, ensuring reliable transaction processing.",
+    "explain": "Atomicity (all or nothing), Consistency (valid state before and after), Isolation (concurrent transactions don't interfere), and Durability (committed data is saved permanently even if power fails).",
+    "example": "\"I think of ACID properties during a bank transfer. Atomicity ensures both the deduction and addition happen together—if one fails, both rollback. Consistency ensures account balances don't go negative if not allowed. Isolation ensures another transaction reading the balance doesn't see partial states. Durability guarantees that once the transfer says 'success', the money is safe even if the server crashes.\"",
+    "summary10s": "Atomicity (all/nothing), Consistency (valid state), Isolation (no interference), Durability (permanent)."
+  }
+},
+  {
+  "id": "coding-detect-cycle-linked-list",
+  "category": "Java Coding",
+  "question": "Detect Cycle in a Linked List",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "Use Floyd's Cycle-Finding Algorithm (Tortoise and Hare approach) with a slow and fast pointer.",
+    "explain": "Initialize two pointers, slow moving one step and fast moving two steps. If there is a cycle, the fast pointer will eventually meet the slow pointer. If the fast pointer reaches null, there's no cycle.",
+    "example": "\"To detect a cycle efficiently without extra memory, I use the slow and fast pointer technique. I move the slow pointer by one node and the fast pointer by two nodes. If they ever point to the same node, it means a cycle exists. This runs in O(N) time and uses O(1) space, making it much better than storing visited nodes in a HashSet.\"",
+    "summary10s": "Slow pointer (1 step) + Fast pointer (2 steps). If they meet, there's a cycle."
+  }
+},
+  {
+  "id": "coding-longest-palindrome-substring",
+  "category": "Java Coding",
+  "question": "Find the Longest Palindrome Substring",
+  "frequency": 1,
+  "companies": [
+    "Zensar Technologies"
+  ],
+  "variations": [],
+  "answerSEE": {
+    "simple": "Use the 'Expand Around Center' approach to find the longest palindrome efficiently.",
+    "explain": "Iterate through the string, treating each character (and the gap between characters) as the center of a potential palindrome. Expand outwards as long as characters match. Keep track of the maximum length found.",
+    "example": "\"The most practical way to solve this in an interview is the 'Expand Around Center' method. For each character in the string, I expand outwards to check for both odd-length and even-length palindromes. It has O(N^2) time complexity and O(1) space, which is easier to implement and explain than complex algorithms like Manacher's.\"",
+    "summary10s": "Iterate characters, treat each as a center, and expand outwards to check for palindromes."
+  }
+}
+,
+  {
+    "id": "java-try-with-resources-exceptions",
+    "category": "Java",
+    "question": "Explain Try-with-Resources. What happens if both try and close() throw exceptions?",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Try-with-resources automatically closes resources. If both try block and close() throw, the try block exception is thrown and the close() exception is suppressed.",
+      "explain": "Introduced in Java 7, it guarantees that resources implementing AutoCloseable are closed at the end of the statement. If an exception is thrown in the try block, and another exception is thrown while closing the resource, the first exception propagates, and the second one is added to it as a 'suppressed' exception (accessible via getSuppressed()).",
+      "example": "\"I use try-with-resources whenever I deal with files, database connections, or streams to avoid writing messy finally blocks. In a scenario where both my main read logic and the automatic close() method throw exceptions, Java is smart enough to throw the main read exception. The close() exception isn't lost though—it's attached as a suppressed exception so I can still log it.\"",
+      "summary10s": "Auto-closes AutoCloseable resources. try exception wins; close() exception is suppressed."
+    }
+  },
+  {
+    "id": "java-stream-api-internal-working",
+    "category": "Java",
+    "question": "How does Java 8 Stream API work internally?",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Streams use a pipeline of intermediate operations (lazy) and a terminal operation (eager) to process data in a single pass without storing it.",
+      "explain": "Internally, a Stream is composed of a Spliterator (source), a chain of Sink objects (operations), and a terminal operation. Intermediate operations are lazy and simply build a pipeline of operations. When the terminal operation is invoked, data is pulled through the pipeline in a single pass (fusion).",
+      "example": "\"Think of a Stream as an assembly line. When I add intermediate operations like filter() or map(), I'm just setting up the machines on the line—no data moves yet. It's only when I call a terminal operation like collect() or forEach() that the data starts flowing through all the machines in one single pass. This lazy evaluation avoids unnecessary processing.\"",
+      "summary10s": "Pipeline of lazy intermediate ops (Sinks) executed in a single pass upon a terminal op."
+    }
+  },
+  {
+    "id": "coding-flatmap-nested-list",
+    "category": "Java Coding",
+    "question": "Write a Java 8 program using flatMap() to flatten a nested list",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Use stream().flatMap(List::stream).collect(Collectors.toList()) on the nested list.",
+      "explain": "flatMap() transforms each element into a stream of its own, and then flattens all those streams into a single stream. It's perfect for converting List<List<Integer>> into List<Integer>.",
+      "example": "\"If I have a List of Lists, say List<List<Integer>> nestedList, I can flatten it into a single list by calling nestedList.stream(), then chaining .flatMap(List::stream), and finally collecting it with .collect(Collectors.toList()). It's a clean, functional one-liner that replaces nested for-loops.\"",
+      "summary10s": "nestedList.stream().flatMap(List::stream).collect(Collectors.toList());"
+    }
+  },
+  {
+    "id": "coding-unique-triplets-3sum",
+    "category": "Java Coding",
+    "question": "Find all unique triplets whose sum equals a given target",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Given an array, find all unique triplets whose sum equals a given target."
+    ],
+    "answerSEE": {
+      "simple": "Sort the array, iterate through it, and use a two-pointer approach (left and right) for the remaining elements.",
+      "explain": "First, sort the array. Then loop through each element (i). For each element, set a left pointer at i+1 and a right pointer at the end. Check the sum of these three. If it matches the target, add it to the result and skip duplicates for both i and the pointers to ensure unique triplets.",
+      "example": "\"This is the classic 3Sum problem. I'd first sort the array, which takes O(N log N). Then I iterate through the array. For each number, I use the two-pointer technique on the rest of the array. The trick to keeping the triplets unique without using a Set is to explicitly skip adjacent duplicate numbers in my loops. The overall time complexity is O(N^2).\"",
+      "summary10s": "Sort array -> Iterate i -> Two pointers (left=i+1, right=end) -> Skip duplicates. O(N^2)."
+    }
+  },
+  {
+    "id": "coding-merge-sort-implementation",
+    "category": "Java Coding",
+    "question": "Implement Merge Sort and explain its time and space complexity",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Merge Sort divides the array in half recursively until single elements remain, then merges them back in sorted order.",
+      "explain": "Time Complexity: O(N log N) in all cases (Best, Average, Worst) because it always divides the array completely and merges. Space Complexity: O(N) because it requires a temporary array during the merge phase.",
+      "example": "\"To implement Merge Sort, I write a recursive function that splits the array into two halves until the sub-arrays have a size of 1. Then, I write a merge function that takes two sorted halves and combines them using a temporary array. It guarantees O(N log N) time, making it great for large datasets, though the O(N) space overhead makes Quicksort preferred for in-place sorting.\"",
+      "summary10s": "Divide and conquer. Time: O(N log N) always. Space: O(N) for temp array."
+    }
+  },
+  {
+    "id": "coding-first-non-repeating-character-stream",
+    "category": "Java Coding",
+    "question": "Find the first non-repeating character using Java 8 Streams",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
+      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
+      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
+      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
+    }
+  },
+  {
+    "id": "coding-highest-paid-employee-per-department",
+    "category": "Java Coding",
+    "question": "Find the highest-paid employee from each department using Streams",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Use Collectors.groupingBy() on department, and Collectors.maxBy() comparing salary.",
+      "explain": "The pipeline looks like: employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.maxBy(Comparator.comparing(Employee::getSalary)))).",
+      "example": "\"This is a classic stream aggregation problem. I would stream the list of employees and use the groupingBy collector. The first argument to groupingBy is the department name, and the second argument is a downstream collector—I'd use maxBy combined with a Comparator comparing the employees' salaries. This returns a Map<String, Optional<Employee>>.\"",
+      "summary10s": "groupingBy(Employee::getDept, maxBy(Comparator.comparing(Employee::getSalary)))"
+    }
+  },
+  {
+    "id": "coding-process-large-concurrenthashmap",
+    "category": "Java Coding",
+    "question": "Process a large ConcurrentHashMap using multiple threads safely",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Use the built-in parallel operations of ConcurrentHashMap, such as forEach() or search() with a parallelism threshold.",
+      "explain": "ConcurrentHashMap in Java 8 introduced bulk concurrent operations (forEach, search, reduce) that accept a parallelismThreshold. If the map size exceeds this threshold, the operation executes in parallel using the common ForkJoinPool.",
+      "example": "\"If I need to process a huge ConcurrentHashMap, I don't manually create threads. I use its built-in bulk parallel methods. For instance, I can call map.forEach(parallelismThreshold, (key, value) -> process(key, value)). If I set the threshold to 1, it will forcefully use multiple threads from the ForkJoinPool to process the entries concurrently, fully abstracting the thread safety away.\"",
+      "summary10s": "Use map.forEach(parallelismThreshold, action) to automatically leverage the ForkJoinPool."
+    }
+  },
+  {
+    "id": "devops-migrate-on-premise-to-cloud",
+    "category": "DevOps",
+    "question": "How would you migrate a Java application from on-premise to Cloud?",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Assess the app, dockerize it, choose a migration strategy (Lift-and-Shift vs Refactor), and set up CI/CD to deploy to a managed cloud service like AWS ECS/EKS.",
+      "explain": "The process generally involves: 1. Assessment (dependencies, state, db). 2. Containerization (creating a Dockerfile). 3. Database migration (using tools like AWS DMS). 4. Re-platforming (using managed services instead of self-hosted). 5. CI/CD pipeline setup. 6. Cutover and monitoring.",
+      "example": "\"I'd start by making the application 12-factor compliant—moving configurations to environment variables and externalizing state like sessions to Redis. Then, I'd dockerize the Java app. For the actual migration, if time is short, I'd do a 'Lift and Shift' to a managed service like AWS Elastic Beanstalk or ECS. Finally, I'd migrate the on-prem database to a managed RDS instance using a database migration service to minimize downtime.\"",
+      "summary10s": "Externalize state (12-factor) -> Dockerize -> Migrate DB -> Deploy to ECS/EKS -> Setup CI/CD."
+    }
+  },
+  {
+    "id": "microservices-design-high-availability",
+    "category": "Microservices",
+    "question": "How would you design microservices for high availability?",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Run multiple instances across different availability zones, use load balancers, implement circuit breakers, and decouple services asynchronously.",
+      "explain": "High availability (HA) requires removing single points of failure. This involves redundancy (multiple instances/DB replicas), failover mechanisms, graceful degradation (circuit breakers/fallbacks), and asynchronous communication (Kafka/RabbitMQ) so a failed downstream service doesn't block upstream services.",
+      "example": "\"To ensure HA, I deploy my Spring Boot microservices as multiple replicas across at least two Availability Zones behind an API Gateway and Load Balancer. I use Resilience4j for circuit breaking so a failing service degrades gracefully instead of causing cascading failures. Finally, I heavily rely on Kafka for inter-service communication—if a service goes down, messages just queue up safely until it recovers.\"",
+      "summary10s": "Redundancy (Multi-AZ) + Load Balancing + Circuit Breakers + Asynchronous messaging (Kafka)."
+    }
+  },
+  {
+    "id": "microservices-handle-failures-between-services",
+    "category": "Microservices",
+    "question": "How would you handle failures between two microservices?",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Use Retries for temporary glitches, Circuit Breakers to prevent cascading failures, and Fallback methods for graceful degradation.",
+      "explain": "When Service A calls Service B, B might fail or timeout. A should first implement a short Retry mechanism. If B continues to fail, a Circuit Breaker opens to stop sending traffic to B, giving it time to recover. During this time, A should return a Fallback response (like cached data or a default value).",
+      "example": "\"If my Order service calls the Inventory service synchronously, I wrap that Feign client call with Resilience4j. I configure a Retry for network blips. If the Inventory service goes down completely, the Circuit Breaker trips to OPEN. Instead of throwing a 500 error to the user, my Fallback method kicks in—perhaps accepting the order into a 'pending' state queue to be processed later when Inventory is back online.\"",
+      "summary10s": "Retry (transient errors) -> Circuit Breaker (prevent overload) -> Fallback (graceful degradation)."
+    }
+  },
+  {
+    "id": "microservices-distributed-transactions",
+    "category": "Microservices",
+    "question": "How would you handle distributed transactions?",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Avoid them if possible. If required, use the Saga pattern with compensating transactions.",
+      "explain": "Traditional ACID transactions (like 2-Phase Commit) lock resources and don't scale in microservices. The Saga pattern breaks the transaction into local transactions. If one step fails, compensating transactions are triggered to undo the previous steps.",
+      "example": "\"I avoid 2-Phase Commits because they create severe bottlenecks. Instead, I use the Saga pattern, usually orchestrated. For example, in an e-commerce checkout, the Order service creates a 'PENDING' order and sends an event. The Payment service charges the card. If the Inventory service then fails to reserve items, it publishes a failure event, which triggers the Payment service to issue a refund and the Order service to mark the order as 'CANCELLED' (these are the compensating transactions).\"",
+      "summary10s": "Use the Saga Pattern. Break into local transactions and use compensating transactions on failure."
+    }
+  },
+  {
+    "id": "microservices-monitor-troubleshoot-production",
+    "category": "Microservices",
+    "question": "How would you monitor and troubleshoot a production microservices application?",
+    "frequency": 1,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+    ],
+    "answerSEE": {
+      "simple": "Use centralized logging, distributed tracing, and metrics dashboards.",
+      "explain": "Troubleshooting distributed systems requires three pillars of observability: Logs (ELK/EFK stack), Traces (Zipkin/Jaeger with Spring Cloud Sleuth/Micrometer Tracing), and Metrics (Prometheus + Grafana).",
+      "example": "\"When an issue happens in production, my first stop is Grafana to check Prometheus metrics like CPU, memory, and error rates. If I see a spike, I copy the Trace ID of a failed request from the logs. Because I use Micrometer Tracing, that Trace ID is propagated across all microservices. I paste it into Jaeger to visually see exactly which service in the chain failed or caused the latency bottleneck. Then I check the centralized ELK logs for that specific Trace ID to see the exact stack trace.\"",
+      "summary10s": "Centralized Logs (ELK), Distributed Tracing (Jaeger + Trace ID), Metrics (Prometheus + Grafana)."
     }
   }
 ];
