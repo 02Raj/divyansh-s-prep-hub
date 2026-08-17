@@ -5448,20 +5448,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "component-vs-service-vs-repository",
-    "category": "Spring Boot",
-    "question": "@Component vs @Service vs @Repository",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "All are specializations of @Component, used to indicate the layer of the class.",
-      "explain": "@Component — generic Spring-managed bean\n@Service — business logic layer\n@Repository — data access layer, also translates DB exceptions",
-      "example": "\"All three are technically @Component under the hood, so Spring detects them the same way. But we use @Service for business logic and @Repository for the data access layer — @Repository additionally translates database-specific exceptions into Spring's unified DataAccessException, which is a real functional difference, not just naming.\"",
-      "summary10s": "Same base (@Component), Repository also translates DB exceptions."
-    }
-  },
-  {
     "id": "bean-vs-component",
     "category": "Spring Boot",
     "question": "@Bean vs @Component",
