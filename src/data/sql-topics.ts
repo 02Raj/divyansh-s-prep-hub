@@ -9,131 +9,141 @@ export const sqlTopics: InterviewTopic[] = [
     name: 'Database Fundamentals',
     category: 'SQL',
     difficulty: 'easy',
-    description: 'A relational database stores data in tables (rows and columns) that are connected by relationships. PostgreSQL is a powerful, open-source object-relational database system (ORDBMS).',
+    description: 'A relational database stores data in tables (rows and columns) connected by relationships. Understanding keys and relationships is the starting point.',
     bulletPoints: [
-      'Table: A collection of related data in rows and columns',
-      'Primary Key: A column (or set of columns) that uniquely identifies each row in a table. Cannot be NULL',
-      'Foreign Key: A column that links to the Primary Key of another table, creating a relationship (e.g., user_id in an orders table)',
-      'Relationships: One-to-One, One-to-Many (most common), and Many-to-Many (requires a junction table)',
-      'NULL: Represents missing or unknown data. It is NOT zero or an empty string'
+      'Table: A collection of related data organized in rows (records) and columns (fields)',
+      'Primary Key: A column (or set of columns) that uniquely identifies each row. Cannot be NULL. One per table',
+      'Foreign Key: A column that links to the Primary Key of another table, creating a relationship (e.g., user_id in orders table)',
+      'Relationships: One-to-One, One-to-Many (most common, e.g., one user has many orders), Many-to-Many (requires a junction/join table)',
+      'NULL: Represents missing or unknown data. It is NOT zero or empty string. Use IS NULL to check, NOT = NULL'
     ],
     codeExample: `-- Creating tables with Primary and Foreign Keys
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY, -- SERIAL in Postgres automatically increments
+    id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE orders (
-    id SERIAL PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     -- Foreign Key links this order to a specific user
-    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-);`
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ON DELETE CASCADE: If a user is deleted, all their orders are also deleted
+-- ON DELETE RESTRICT: Prevents deleting a user if they have orders`
   },
-  
+
   // ==========================================
-  // SECTION 2: SQL Basics
+  // SECTION 2: SQL Basics & Filtering
   // ==========================================
   {
     id: 'sql-basics',
     name: 'SQL Basics & Filtering',
     category: 'SQL',
     difficulty: 'easy',
-    description: 'Basic SQL involves retrieving and filtering data using SELECT, FROM, and WHERE clauses. PostgreSQL provides specific operators like ILIKE for case-insensitive matching.',
+    description: 'Basic SQL involves retrieving and filtering data using SELECT, FROM, WHERE, and ORDER BY. These are the building blocks of every SQL query.',
     bulletPoints: [
       'SELECT specifies columns, FROM specifies tables, WHERE filters rows based on conditions',
       'DISTINCT removes duplicate rows from the result set',
-      'ORDER BY sorts results (ASC or DESC). LIMIT and OFFSET restrict the number of returned rows',
-      '🐘 Postgres specific: ILIKE performs case-insensitive pattern matching (standard SQL uses LIKE which is case-sensitive)',
-      'Use IS NULL or IS NOT NULL to check for nulls, NOT = NULL (which evaluates to unknown)'
+      'ORDER BY sorts results (ASC = ascending, DESC = descending). LIMIT restricts how many rows you get back',
+      'LIKE for pattern matching: % matches any characters, _ matches exactly one character',
+      'IN (value1, value2): Matches any value in the list. BETWEEN x AND y: Range check (inclusive)',
+      'Use IS NULL or IS NOT NULL to check for nulls — never use = NULL (it always returns false)'
     ],
     codeExample: `-- Retrieve unique cities
 SELECT DISTINCT city FROM users;
 
--- Filter with comparison and logical operators
-SELECT id, username, email 
-FROM users 
-WHERE status = 'ACTIVE' 
-  AND (age BETWEEN 18 AND 30)
+-- Filter with multiple conditions
+SELECT id, username, email
+FROM users
+WHERE status = 'ACTIVE'
+  AND age BETWEEN 18 AND 30
   AND email IS NOT NULL;
 
--- 🐘 Postgres ILIKE (case-insensitive matching)
-SELECT * FROM users 
-WHERE username ILIKE 'john%'; -- Matches 'John', 'john', 'JOHN'
+-- Pattern matching
+SELECT * FROM users WHERE username LIKE 'john%';  -- Starts with 'john'
+SELECT * FROM users WHERE email LIKE '%@gmail.com'; -- Gmail users
 
 -- Sorting and limiting
-SELECT * FROM orders 
-ORDER BY order_date DESC 
-LIMIT 10 OFFSET 20; -- Get rows 21-30 (useful for basic pagination)`
+SELECT * FROM orders
+ORDER BY order_date DESC
+LIMIT 10 OFFSET 20; -- Skip 20 rows, get next 10 (basic pagination)`
   },
 
   // ==========================================
-  // SECTION 3: SQL Execution Order
-  // ==========================================
-  {
-    id: 'sql-execution-order',
-    name: 'Logical SQL Execution Order',
-    category: 'SQL',
-    difficulty: 'medium',
-    description: 'Understanding the logical execution order of a SQL query is crucial for interviews. It explains why you cannot use a SELECT alias in a WHERE clause.',
-    bulletPoints: [
-      '1. FROM (and JOINs): Gathers all the data',
-      '2. WHERE: Filters individual rows',
-      '3. GROUP BY: Aggregates rows into groups',
-      '4. HAVING: Filters the grouped data',
-      '5. SELECT: Picks the columns to return (Aliases are created here)',
-      '6. DISTINCT: Removes duplicates',
-      '7. ORDER BY: Sorts the results (Can use SELECT aliases here)',
-      '8. LIMIT / OFFSET: Restricts the final output'
-    ],
-    codeExample: `-- Question: Why does this query fail?
--- SELECT department, COUNT(*) as total FROM employees WHERE total > 5 GROUP BY department;
--- Answer: Because WHERE runs BEFORE SELECT, so 'total' doesn't exist yet!
-
--- Correct way (using HAVING):
-SELECT 
-    department, 
-    COUNT(*) as total_employees -- Alias created at step 5
-FROM employees                  -- Runs 1st
-WHERE status = 'ACTIVE'         -- Runs 2nd (Filters rows)
-GROUP BY department             -- Runs 3rd (Groups rows)
-HAVING COUNT(*) > 5             -- Runs 4th (Filters groups - cannot use alias here in standard SQL)
-ORDER BY total_employees DESC;  -- Runs 7th (CAN use alias here)`
-  },
-
-  // ==========================================
-  // SECTION 4: Data Modification
+  // SECTION 3: Data Modification (INSERT, UPDATE, DELETE)
   // ==========================================
   {
     id: 'sql-data-modification',
-    name: 'INSERT, UPDATE, DELETE & RETURNING',
+    name: 'INSERT, UPDATE, DELETE — Data Modification',
     category: 'SQL',
     difficulty: 'easy',
-    description: 'Modifying data safely requires understanding transaction boundaries and proper WHERE clauses. PostgreSQL provides the RETURNING clause to get the modified data instantly.',
+    description: 'Modifying data safely requires proper WHERE clauses. Know the difference between DELETE, TRUNCATE, and DROP — this is asked in almost every interview.',
     bulletPoints: [
-      'Always use a WHERE clause with UPDATE and DELETE to avoid modifying the entire table',
-      'DELETE vs TRUNCATE: DELETE removes rows one by one (logs each row, slower, can rollback). TRUNCATE empties the table instantly (faster, resets sequences)',
-      'DELETE vs DROP: DELETE removes data, DROP removes the entire table structure from the database',
-      '🐘 Postgres specific: The RETURNING clause allows you to return the values of inserted, updated, or deleted rows without a separate SELECT query'
+      'INSERT INTO: Adds new rows. Can insert single or multiple rows at once',
+      'UPDATE: Changes existing rows. ALWAYS use WHERE — without it, you update the ENTIRE table!',
+      'DELETE: Removes specific rows. ALWAYS use WHERE — without it, you delete everything!',
+      'DELETE vs TRUNCATE: DELETE removes rows one by one (can rollback, slow). TRUNCATE empties the entire table instantly (faster, resets auto-increment)',
+      'DELETE vs DROP: DELETE removes data only. DROP removes the entire table (structure + data + indexes — gone forever)',
+      'UPSERT: Insert if new, update if exists. MySQL: INSERT ... ON DUPLICATE KEY UPDATE. Postgres: INSERT ... ON CONFLICT DO UPDATE'
     ],
-    codeExample: `-- Multi-row INSERT with RETURNING (Postgres feature)
-INSERT INTO users (username, email) 
-VALUES 
+    codeExample: `-- Insert multiple rows
+INSERT INTO users (username, email)
+VALUES
     ('alice', 'alice@example.com'),
-    ('bob', 'bob@example.com')
-RETURNING id, username; -- Returns the newly generated IDs immediately
+    ('bob', 'bob@example.com');
 
--- Safe UPDATE
-UPDATE users 
-SET status = 'INACTIVE' 
-WHERE last_login < CURRENT_DATE - INTERVAL '1 year'
-RETURNING id; -- See which users were updated
+-- Safe UPDATE (always include WHERE!)
+UPDATE users
+SET status = 'INACTIVE'
+WHERE last_login < DATE_SUB(CURRENT_DATE, INTERVAL 1 YEAR);
 
--- DELETE vs TRUNCATE
-DELETE FROM orders WHERE status = 'CANCELLED'; -- Removes specific rows
-TRUNCATE TABLE audit_logs; -- Instantly empties table, resets ID sequences, much faster for large tables`
+-- DELETE specific rows
+DELETE FROM orders WHERE status = 'CANCELLED';
+
+-- DELETE vs TRUNCATE vs DROP
+DELETE FROM orders;     -- Slow, logged, can rollback
+TRUNCATE TABLE orders;  -- Fast, resets auto-increment, can't rollback easily
+DROP TABLE orders;      -- Table gone forever (structure + data + everything)`
+  },
+
+  // ==========================================
+  // SECTION 4: SQL Execution Order
+  // ==========================================
+  {
+    id: 'sql-execution-order',
+    name: 'SQL Query Execution Order',
+    category: 'SQL',
+    difficulty: 'medium',
+    description: 'SQL doesn\'t run in the order you write it. Understanding the logical execution order explains why you can\'t use a SELECT alias in WHERE. This is a favorite interview question.',
+    bulletPoints: [
+      '1. FROM (+ JOINs): Gathers all the data from tables',
+      '2. WHERE: Filters individual rows (can\'t use aliases here — they don\'t exist yet!)',
+      '3. GROUP BY: Groups rows together for aggregation',
+      '4. HAVING: Filters groups (like WHERE but for groups)',
+      '5. SELECT: Picks columns to return (aliases are created HERE)',
+      '6. DISTINCT: Removes duplicates',
+      '7. ORDER BY: Sorts results (CAN use aliases — they exist by now)',
+      '8. LIMIT / OFFSET: Restricts final output'
+    ],
+    codeExample: `-- ❌ This FAILS! Why?
+-- SELECT department, COUNT(*) as total
+-- FROM employees
+-- WHERE total > 5  -- ERROR: 'total' doesn't exist yet (WHERE runs before SELECT)
+-- GROUP BY department;
+
+-- ✅ Correct way (use HAVING to filter groups):
+SELECT
+    department,
+    COUNT(*) as total_employees    -- Alias created at step 5
+FROM employees                     -- Runs 1st
+WHERE status = 'ACTIVE'            -- Runs 2nd (filters individual rows)
+GROUP BY department                -- Runs 3rd (groups rows)
+HAVING COUNT(*) > 5                -- Runs 4th (filters groups)
+ORDER BY total_employees DESC;     -- Runs 7th (CAN use alias here)`
   },
 
   // ==========================================
@@ -144,30 +154,38 @@ TRUNCATE TABLE audit_logs; -- Instantly empties table, resets ID sequences, much
     name: 'Aggregate Functions (GROUP BY / HAVING)',
     category: 'SQL',
     difficulty: 'medium',
-    description: 'Aggregate functions perform a calculation on a set of values and return a single value. They are typically used with GROUP BY.',
+    description: 'Aggregate functions calculate a single value from a set of rows. Used with GROUP BY to get summaries. WHERE filters rows, HAVING filters groups — know the difference!',
     bulletPoints: [
       'Common functions: COUNT(), SUM(), AVG(), MIN(), MAX()',
-      'COUNT(*) counts all rows. COUNT(column_name) counts only non-NULL values in that column',
-      'NULL behavior: Most aggregate functions (SUM, AVG, MIN, MAX) ignore NULL values',
-      'GROUP BY organizes identical data into groups. Any column in SELECT not in an aggregate function MUST be in the GROUP BY clause',
-      'HAVING filters groups AFTER aggregation, whereas WHERE filters rows BEFORE aggregation'
+      'COUNT(*) counts ALL rows. COUNT(column) counts only non-NULL values in that column',
+      'NULLs: Most aggregate functions (SUM, AVG, MIN, MAX) ignore NULL values automatically',
+      'GROUP BY groups identical data together. Any column in SELECT that\'s not in an aggregate MUST be in GROUP BY',
+      'WHERE filters BEFORE grouping (individual rows). HAVING filters AFTER grouping (group results)',
+      'You can use multiple aggregate functions in the same query'
     ],
-    codeExample: `-- Find departments with an average salary greater than 70000
-SELECT 
+    codeExample: `-- Find departments with average salary > 70000
+SELECT
     department_id,
     COUNT(*) as total_employees,
     AVG(salary) as average_salary,
     MAX(salary) as highest_salary
 FROM employees
-WHERE is_active = true              -- 1. Filter active employees only
-GROUP BY department_id              -- 2. Group them by department
-HAVING AVG(salary) > 70000;         -- 3. Filter departments based on aggregate
+WHERE is_active = true              -- 1. Filter active employees FIRST
+GROUP BY department_id              -- 2. Group by department
+HAVING AVG(salary) > 70000;         -- 3. Keep only high-paying departments
 
--- 🎯 Interview Q: How do you find duplicate emails?
-SELECT email, COUNT(*) 
-FROM users 
-GROUP BY email 
-HAVING COUNT(*) > 1;`
+-- 🎯 Interview Classic: Find duplicate emails
+SELECT email, COUNT(*)
+FROM users
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+-- 🎯 Interview Classic: Count users per city, show only cities with 5+ users
+SELECT city, COUNT(*) as user_count
+FROM users
+GROUP BY city
+HAVING COUNT(*) >= 5
+ORDER BY user_count DESC;`
   },
 
   // ==========================================
@@ -175,33 +193,39 @@ HAVING COUNT(*) > 1;`
   // ==========================================
   {
     id: 'sql-joins',
-    name: 'SQL JOINs',
+    name: 'SQL JOINs — The Complete Guide',
     category: 'SQL',
     difficulty: 'medium',
-    description: 'JOINs combine rows from two or more tables based on a related column. Understanding the difference between JOIN types is a fundamental interview requirement.',
+    description: 'JOINs combine rows from two or more tables based on a related column. Knowing the difference between JOIN types is a fundamental interview requirement.',
     bulletPoints: [
-      'INNER JOIN (Default): Returns only rows where there is a match in BOTH tables',
-      'LEFT JOIN: Returns ALL rows from the left table, and matching rows from the right. Unmatched right side becomes NULL',
-      'RIGHT JOIN: Returns ALL rows from the right table, and matching rows from the left',
-      'FULL OUTER JOIN: Returns all rows when there is a match in EITHER table',
-      '⭐ Common mistake: Putting a left table condition in the WHERE clause of a LEFT JOIN turns it into an INNER JOIN. Put it in the ON clause instead'
+      'INNER JOIN: Returns ONLY rows that have a match in BOTH tables. Most common JOIN',
+      'LEFT JOIN: Returns ALL rows from the left table + matching rows from right. Unmatched right side becomes NULL',
+      'RIGHT JOIN: Returns ALL rows from right table + matching rows from left. Rarely used — just swap table positions and use LEFT JOIN',
+      'FULL OUTER JOIN: Returns all rows from BOTH tables. NULLs where there\'s no match on either side',
+      'CROSS JOIN: Every row from table A paired with every row from table B (Cartesian product). Rarely needed',
+      '⭐ Common trap: Putting a right-table condition in WHERE of a LEFT JOIN converts it to an INNER JOIN. Put it in ON instead!'
     ],
-    codeExample: `-- INNER JOIN: Get users who have placed orders
+    codeExample: `-- INNER JOIN: Only users who have placed orders
 SELECT u.username, o.order_date
 FROM users u
 INNER JOIN orders o ON u.id = o.user_id;
 
--- LEFT JOIN: Get ALL users, and their orders if they have any
+-- LEFT JOIN: ALL users + their orders (if any)
 SELECT u.username, o.order_date
 FROM users u
 LEFT JOIN orders o ON u.id = o.user_id;
+-- Users with no orders will have NULL for order_date
 
--- 🎯 Interview Q: Find users who have NEVER placed an order
--- We use a LEFT JOIN and look for NULLs on the right side
+-- 🎯 Interview Classic: Find users who NEVER placed an order
 SELECT u.username
 FROM users u
 LEFT JOIN orders o ON u.id = o.user_id
-WHERE o.id IS NULL;`
+WHERE o.id IS NULL; -- Only rows where right side is NULL = no match
+
+-- Self JOIN: Find employees and their managers
+SELECT e.name AS employee, m.name AS manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.id;`
   },
 
   // ==========================================
@@ -212,63 +236,76 @@ WHERE o.id IS NULL;`
     name: 'Subqueries & IN vs EXISTS',
     category: 'SQL',
     difficulty: 'medium',
-    description: 'A subquery is a query nested inside another query. They can return a single value, a list of values, or a derived table.',
+    description: 'A subquery is a query inside another query. They can return a single value, a list, or a full table. Know when to use IN vs EXISTS for performance.',
     bulletPoints: [
-      'Scalar subquery: Returns exactly one row and one column (e.g., getting the MAX value)',
-      'Multi-row subquery: Returns a single column with multiple rows (used with IN or ANY)',
-      'Correlated subquery: A subquery that references columns from the outer query. It executes once for EVERY row in the outer query (can be slow)',
-      'IN vs EXISTS: IN compares against a list of values. EXISTS checks if the subquery returns ANY rows (evaluates to true/false)',
-      '⭐ Performance: EXISTS is generally faster than IN when checking against a large dataset, as it stops searching upon finding the first match'
+      'Scalar subquery: Returns ONE value (e.g., getting the MAX salary)',
+      'Multi-row subquery: Returns multiple values in one column. Used with IN, ANY, ALL',
+      'Correlated subquery: References the outer query. Runs once per row in the outer query — can be slow',
+      'IN: Compares against a list of values. EXISTS: Checks if the subquery returns ANY rows (true/false)',
+      'Performance: EXISTS is usually faster for large datasets — it stops at the first match. IN loads all values into memory first'
     ],
-    codeExample: `-- Scalar Subquery: Find employees earning more than the company average
-SELECT name, salary 
-FROM employees 
+    codeExample: `-- Scalar subquery: Employees earning above company average
+SELECT name, salary
+FROM employees
 WHERE salary > (SELECT AVG(salary) FROM employees);
 
--- IN vs EXISTS (Find customers with orders)
--- Using IN (Evaluates subquery fully, then compares)
-SELECT name FROM customers 
+-- IN: Find customers who have placed orders
+SELECT name FROM customers
 WHERE id IN (SELECT customer_id FROM orders);
 
--- Using EXISTS (Faster for large tables, short-circuits on match)
--- Notice this is a Correlated Subquery (references 'c.id')
+-- EXISTS: Same result but usually faster for large tables
 SELECT name FROM customers c
 WHERE EXISTS (
     SELECT 1 FROM orders o WHERE o.customer_id = c.id
-);`
+);
+-- EXISTS stops at first match, IN loads all IDs into memory
+
+-- 🎯 Interview: Find employees who earn the MAX salary
+SELECT name, salary FROM employees
+WHERE salary = (SELECT MAX(salary) FROM employees);`
   },
 
   // ==========================================
-  // SECTION 8: CTEs
+  // SECTION 8: CTEs (Common Table Expressions)
   // ==========================================
   {
     id: 'sql-ctes',
-    name: 'Common Table Expressions (CTEs)',
+    name: 'CTEs (WITH Clause)',
     category: 'SQL',
     difficulty: 'medium',
-    description: 'A CTE (defined using the WITH clause) provides a temporary result set that you can reference within a SELECT, INSERT, UPDATE, or DELETE statement. It vastly improves query readability.',
+    description: 'CTEs (WITH clause) create temporary named result sets within a query. They make complex queries readable and maintainable — no more deeply nested subqueries.',
     bulletPoints: [
-      'Improves readability compared to deeply nested subqueries (reads top-to-bottom instead of inside-out)',
-      'Can be referenced multiple times in the main query',
-      '🐘 Postgres specific: Prior to PG 12, CTEs were always materialized (evaluated separately). PG 12+ can inline them into the main query plan for better performance',
-      'Recursive CTEs: Used for querying hierarchical data like org charts, category trees, or graph traversal'
+      'CTE = temporary result set defined using WITH keyword. Exists only for that one query',
+      'Much more readable than nested subqueries — reads top-to-bottom instead of inside-out',
+      'Can be referenced multiple times in the main query (subqueries get duplicated)',
+      'Recursive CTEs: Used for hierarchical data — org charts, category trees, graph traversal',
+      'Think of CTE as creating a "temporary view" that lasts for just one query'
     ],
-    codeExample: `-- Using a CTE to simplify a complex query
--- 🎯 Goal: Find departments whose average salary is higher than the overall company average
-WITH 
+    codeExample: `-- CTE makes complex queries readable
+-- 🎯 Goal: Find departments whose avg salary > company average
+WITH
 company_avg AS (
     SELECT AVG(salary) as overall_avg FROM employees
 ),
 dept_avg AS (
-    SELECT department_id, AVG(salary) as dept_average 
-    FROM employees 
+    SELECT department_id, AVG(salary) as dept_average
+    FROM employees
     GROUP BY department_id
 )
 SELECT d.department_id, d.dept_average
 FROM dept_avg d
 JOIN company_avg c ON d.dept_average > c.overall_avg;
+-- Clean, readable, top-to-bottom logic!
 
--- Contrast this with the subquery approach which would be much harder to read!`
+-- Recursive CTE: Employee hierarchy (who reports to whom)
+WITH RECURSIVE org_chart AS (
+    SELECT id, name, manager_id, 1 AS level
+    FROM employees WHERE manager_id IS NULL  -- Start with CEO
+    UNION ALL
+    SELECT e.id, e.name, e.manager_id, oc.level + 1
+    FROM employees e JOIN org_chart oc ON e.manager_id = oc.id
+)
+SELECT * FROM org_chart ORDER BY level;`
   },
 
   // ==========================================
@@ -276,28 +313,26 @@ JOIN company_avg c ON d.dept_average > c.overall_avg;
   // ==========================================
   {
     id: 'sql-window-functions',
-    name: 'Window Functions (OVER, PARTITION BY)',
+    name: 'Window Functions (OVER / PARTITION BY)',
     category: 'SQL',
     difficulty: 'hard',
-    description: 'Window functions perform calculations across a set of rows related to the current row, WITHOUT collapsing them into a single row like GROUP BY does. Essential for advanced interviews.',
+    description: 'Window functions calculate across a set of rows related to the current row WITHOUT collapsing them (unlike GROUP BY). Essential for ranking and analytics questions.',
     bulletPoints: [
-      'OVER() defines the window. PARTITION BY divides rows into groups. ORDER BY sorts rows within the partition',
-      'ROW_NUMBER(): Assigns a unique sequential integer to rows (1, 2, 3...)',
-      'RANK(): Same as ROW_NUMBER but leaves gaps if there are ties (1, 2, 2, 4)',
-      'DENSE_RANK(): Like RANK, but no gaps (1, 2, 2, 3)',
-      'LAG() and LEAD(): Accesses data from the previous or next row in the window (perfect for comparing month-over-month changes)'
+      'OVER() defines the window. PARTITION BY splits rows into groups. ORDER BY sorts within each group',
+      'ROW_NUMBER(): Unique sequential number (1, 2, 3...). Always different, even for ties',
+      'RANK(): Leaves gaps for ties (1, 2, 2, 4). DENSE_RANK(): No gaps (1, 2, 2, 3)',
+      'LAG(): Value from the previous row. LEAD(): Value from the next row. Great for month-over-month comparisons',
+      'Key difference from GROUP BY: Window functions keep ALL rows in the output. GROUP BY collapses rows into one per group'
     ],
-    codeExample: `-- 🔥 High-Priority Query Pattern: Top N per group
--- 🎯 Interview Q: Find the top 3 highest paid employees in EACH department
-
+    codeExample: `-- 🎯 Interview Classic: Top 3 highest paid employees per department
 WITH RankedEmployees AS (
-    SELECT 
+    SELECT
         name,
         department_id,
         salary,
         DENSE_RANK() OVER (
             PARTITION BY department_id -- Reset rank for each department
-            ORDER BY salary DESC       -- Highest salary gets rank 1
+            ORDER BY salary DESC       -- Highest salary = rank 1
         ) as rank
     FROM employees
 )
@@ -305,285 +340,349 @@ SELECT name, department_id, salary
 FROM RankedEmployees
 WHERE rank <= 3;
 
--- 🎯 Interview Q: Compare current month revenue to previous month
-SELECT 
+-- Compare current month revenue vs previous month
+SELECT
     month,
     revenue,
-    LAG(revenue) OVER (ORDER BY month) as prev_month_revenue,
-    revenue - LAG(revenue) OVER (ORDER BY month) as difference
+    LAG(revenue) OVER (ORDER BY month) as prev_month,
+    revenue - LAG(revenue) OVER (ORDER BY month) as growth
 FROM monthly_sales;`
   },
 
   // ==========================================
-  // SECTION 10: Constraints & Database Design
+  // SECTION 10: Nth Highest Salary (The #1 Asked Question)
+  // ==========================================
+  {
+    id: 'sql-nth-highest-salary',
+    name: 'Nth Highest Salary — Multiple Approaches',
+    category: 'SQL',
+    difficulty: 'hard',
+    description: 'THE most asked SQL interview question. "Find the 2nd/3rd/Nth highest salary." Know at least 3 different approaches — interviewers keep pushing for alternatives.',
+    bulletPoints: [
+      'Approach 1: DENSE_RANK() Window Function — most elegant and handles duplicates correctly',
+      'Approach 2: LIMIT + OFFSET — simple but only works for specific N, not dynamic. 2nd highest = LIMIT 1 OFFSET 1',
+      'Approach 3: Subquery with COUNT(DISTINCT) — works everywhere, even in old SQL versions',
+      'Why DENSE_RANK over RANK? If two people have the same highest salary, RANK skips the next number. DENSE_RANK doesn\'t',
+      'Always clarify: "Should duplicate salaries count as the same rank?" This shows you think about edge cases'
+    ],
+    codeExample: `-- Approach 1: DENSE_RANK (Best — handles duplicates, works for any N)
+WITH RankedSalaries AS (
+    SELECT name, salary,
+        DENSE_RANK() OVER (ORDER BY salary DESC) as rank
+    FROM employees
+)
+SELECT name, salary FROM RankedSalaries WHERE rank = 5; -- 5th highest
+
+-- Approach 2: LIMIT + OFFSET (Simple, good for small N)
+SELECT DISTINCT salary
+FROM employees
+ORDER BY salary DESC
+LIMIT 1 OFFSET 4; -- Skip top 4, get the 5th
+
+-- Approach 3: Subquery (Works in all SQL versions)
+SELECT MAX(salary) as fifth_highest
+FROM employees
+WHERE salary < (
+    SELECT MAX(salary) FROM employees WHERE salary < (
+        SELECT MAX(salary) FROM employees WHERE salary < (
+            SELECT MAX(salary) FROM employees WHERE salary < (
+                SELECT MAX(salary) FROM employees
+            )
+        )
+    )
+);
+-- Ugly but works! Shows you know multiple approaches
+
+-- Approach 4: Correlated subquery (Dynamic N)
+SELECT name, salary FROM employees e1
+WHERE 4 = (
+    SELECT COUNT(DISTINCT salary)
+    FROM employees e2
+    WHERE e2.salary > e1.salary
+); -- Nth highest where N-1 salaries are greater`
+  },
+
+  // ==========================================
+  // SECTION 11: Normalization
+  // ==========================================
+  {
+    id: 'sql-normalization',
+    name: 'Normalization (1NF, 2NF, 3NF)',
+    category: 'SQL',
+    difficulty: 'medium',
+    description: 'Normalization organizes tables to reduce data redundancy and prevent anomalies (insert/update/delete problems). Know 1NF, 2NF, and 3NF — that\'s what interviews cover.',
+    bulletPoints: [
+      '1NF: Every cell has ONE atomic value (no lists, no arrays). Each row is unique. Example: Don\'t store "Java, Python" in one skills column',
+      '2NF: Already in 1NF + no partial dependency. Every non-key column depends on the ENTIRE primary key (not just part of a composite key)',
+      '3NF: Already in 2NF + no transitive dependency. Non-key columns depend ONLY on the primary key, not on other non-key columns',
+      'Denormalization: Intentionally adding redundancy to improve READ performance. Common in analytics, reporting, and caching tables',
+      'Simple rule: "Every non-key column must depend on the key, the whole key, and nothing but the key — so help me Codd"'
+    ],
+    codeExample: `-- ❌ NOT in 1NF (multiple values in one cell)
+-- | id | name  | skills         |
+-- | 1  | Alice | Java, Python   |  ← NOT atomic!
+
+-- ✅ 1NF: Separate skills into rows or a junction table
+-- | id | name  | skill  |
+-- | 1  | Alice | Java   |
+-- | 1  | Alice | Python |
+
+-- ❌ NOT in 2NF (partial dependency on composite key)
+-- Table: student_courses (student_id, course_id, student_name, grade)
+-- student_name depends on student_id ONLY — not the full composite key
+
+-- ✅ 2NF: Separate into two tables
+-- students (student_id, student_name)
+-- enrollments (student_id, course_id, grade)
+
+-- ❌ NOT in 3NF (transitive dependency)
+-- employees (id, name, department_id, department_name)
+-- department_name depends on department_id, NOT on employee id
+
+-- ✅ 3NF: Separate departments
+-- employees (id, name, department_id)
+-- departments (department_id, department_name)`
+  },
+
+  // ==========================================
+  // SECTION 12: Database Design & Constraints
   // ==========================================
   {
     id: 'sql-design-constraints',
-    name: 'Database Design & Constraints',
+    name: 'Constraints & Data Integrity',
     category: 'SQL',
     difficulty: 'medium',
-    description: 'Database design (normalization) minimizes redundancy and ensures data integrity through constraints. Application-level validation is not enough; the database must enforce rules.',
+    description: 'Constraints enforce rules at the database level. Never rely only on application-level validation — the database should be the final line of defense against bad data.',
     bulletPoints: [
-      'Normalization: 1NF (atomic values), 2NF (remove partial dependencies), 3NF (remove transitive dependencies - "every non-key attribute must depend on the key, the whole key, and nothing but the key")',
-      'Denormalization: Intentionally adding redundancy to improve read performance (often used in analytics/reporting)',
-      'UNIQUE ensures column values are distinct. CHECK ensures values meet a specific condition (e.g., price > 0)',
-      'Foreign Key Actions: ON DELETE CASCADE (deletes child rows if parent is deleted), ON DELETE RESTRICT (prevents deleting parent if child exists)',
-      '⭐ Interview tip: Never trust application validation alone. Always use database constraints (NOT NULL, UNIQUE, FK) as the final line of defense against bad data'
+      'PRIMARY KEY: Uniquely identifies each row. Cannot be NULL. Automatically indexed',
+      'UNIQUE: Ensures all values in a column are distinct (but allows NULL)',
+      'NOT NULL: Column cannot contain NULL values',
+      'CHECK: Ensures values meet a specific condition (e.g., price >= 0, age BETWEEN 0 AND 150)',
+      'FOREIGN KEY: Links to another table\'s primary key. Enforces referential integrity (can\'t have orphan records)',
+      'Never trust app validation alone. DB constraints are the safety net — they prevent bad data no matter how it enters the system'
     ],
-    codeExample: `-- Creating a robust table with constraints
-CREATE TABLE products (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    codeExample: `CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    sku VARCHAR(50) UNIQUE NOT NULL,
+    sku VARCHAR(50) UNIQUE NOT NULL,          -- Unique product code
     price DECIMAL(10, 2) NOT NULL,
     category_id INT NOT NULL,
-    
-    -- CHECK constraint ensures data validity
-    CONSTRAINT check_price_positive CHECK (price >= 0),
-    
-    -- Foreign Key ensuring referential integrity
-    -- RESTRICT prevents deleting a category if products still belong to it
-    CONSTRAINT fk_category 
-        FOREIGN KEY(category_id) 
-        REFERENCES categories(id) 
+
+    -- CHECK ensures data validity at DB level
+    CONSTRAINT check_price CHECK (price >= 0),
+
+    -- FOREIGN KEY with RESTRICT — can't delete a category if products use it
+    FOREIGN KEY (category_id)
+        REFERENCES categories(id)
         ON DELETE RESTRICT
-);`
+);
+
+-- Without constraints, this bad data could sneak in:
+-- INSERT INTO products (name, price) VALUES ('Widget', -50); -- ❌ Blocked by CHECK
+-- INSERT INTO products (category_id) VALUES (999);           -- ❌ Blocked by FK`
   },
 
   // ==========================================
-  // SECTION 11: Indexes
+  // SECTION 13: Indexes
   // ==========================================
   {
     id: 'sql-indexes',
-    name: 'Indexes & B-Trees',
+    name: 'Indexes — Speed Up Your Queries',
     category: 'SQL',
     difficulty: 'hard',
-    description: 'Indexes are data structures (typically B-Trees) that vastly improve read performance but slow down writes (INSERT/UPDATE/DELETE). Knowing how to use them is a Senior backend requirement.',
+    description: 'Indexes are like a book\'s index — they help the database find data fast without scanning every row. But they slow down writes. Knowing when to index is a senior-level skill.',
     bulletPoints: [
-      'B-Tree Index: The default Postgres index. Best for equality (=) and range (<, >, BETWEEN) queries',
-      'Composite Index: An index on multiple columns (e.g., INDEX(last_name, first_name)). Leftmost-prefix rule applies: it only works if you query by last_name, or last_name AND first_name. It will NOT work if you query ONLY by first_name',
-      'Partial Index (🐘 Postgres): An index with a WHERE clause (e.g., index only ACTIVE users). Saves disk space and update overhead',
-      'Over-indexing slows down inserts and updates because every index must be updated when the table data changes',
-      'Indexes on Primary Keys and UNIQUE constraints are created automatically'
+      'B-Tree Index (default): Best for equality (=) and range (<, >, BETWEEN) queries. Used by MySQL, Postgres, Oracle',
+      'Composite Index: Index on multiple columns. Follows leftmost-prefix rule — INDEX(a, b) works for WHERE a=? or WHERE a=? AND b=?, but NOT for WHERE b=? alone',
+      'Covering Index: When ALL columns needed by a query are in the index. DB doesn\'t need to read the table at all — super fast',
+      'Over-indexing hurts writes: Every INSERT/UPDATE/DELETE must update ALL indexes on that table',
+      'Primary Key and UNIQUE constraints automatically create indexes. No need to create them manually',
+      'Use EXPLAIN to check if your query is using an index (Index Scan) or scanning the full table (Full Table Scan)'
     ],
-    codeExample: `-- Standard B-Tree Index (Speeds up WHERE email = '...')
+    codeExample: `-- Basic index on a frequently queried column
 CREATE INDEX idx_users_email ON users(email);
 
--- Composite Index (Leftmost Prefix Rule)
+-- Composite index (Leftmost Prefix Rule)
 CREATE INDEX idx_users_name ON users(last_name, first_name);
--- Fast: WHERE last_name = 'Smith'
--- Fast: WHERE last_name = 'Smith' AND first_name = 'John'
--- Slow (Index not used): WHERE first_name = 'John'
+-- ✅ Fast: WHERE last_name = 'Smith'
+-- ✅ Fast: WHERE last_name = 'Smith' AND first_name = 'John'
+-- ❌ Slow: WHERE first_name = 'John'  -- Leftmost column not used!
 
--- 🐘 Postgres Partial Index (Highly optimized for specific queries)
--- 🎯 Use case: You frequently query unprocessed orders, which are only 5% of the table
-CREATE INDEX idx_unprocessed_orders 
-ON orders(created_at) 
-WHERE status = 'UNPROCESSED';`
+-- EXPLAIN shows how DB executes a query
+EXPLAIN SELECT * FROM orders WHERE customer_id = 12345;
+-- Look for: "type: ref" or "type: index" = good
+-- Avoid:   "type: ALL" = full table scan = bad for large tables
+
+-- When NOT to index:
+-- 1. Small tables (< 1000 rows) — full scan is faster than index lookup
+-- 2. Columns with low cardinality (e.g., gender with only M/F)
+-- 3. Tables that are heavily inserted/updated`
   },
 
   // ==========================================
-  // SECTION 12: Query Optimization & EXPLAIN
-  // ==========================================
-  {
-    id: 'sql-explain-optimization',
-    name: 'Query Optimization & EXPLAIN ANALYZE',
-    category: 'PostgreSQL',
-    difficulty: 'hard',
-    description: 'When a query is slow, you must use EXPLAIN to see the Query Planner\'s execution strategy. EXPLAIN shows estimates; EXPLAIN ANALYZE executes the query and shows actual timings.',
-    bulletPoints: [
-      'Sequential Scan (Seq Scan): Scans every row in the table. Bad for large tables, perfectly normal for very small tables',
-      'Index Scan: Traverses the B-tree index, then fetches the row from the table heap. Fast for selective queries',
-      'Index Only Scan: The requested columns are entirely contained in the index. Extremely fast as it skips reading the table heap',
-      '🐘 EXPLAIN ANALYZE actually RUNS the query. Do NOT use it on an UPDATE/DELETE in production without wrapping it in a transaction block with ROLLBACK!',
-      'If Postgres is doing a Seq Scan despite having an index, it means the query is fetching too many rows (low selectivity), making a sequential scan cheaper mathematically'
-    ],
-    codeExample: `-- 🎯 Scenario: "This query is slow. What do you do?"
--- 1. Prepend EXPLAIN ANALYZE to the query
-EXPLAIN ANALYZE 
-SELECT * FROM orders WHERE customer_id = 12345;
-
--- Expected Output Analysis:
--- -> Index Scan using idx_customer on orders (cost=0.42..8.44 rows=1 width=104) (actual time=0.015..0.016 rows=2 loops=1)
--- 
--- Key things to look for:
--- 1. Scan Type (Seq Scan vs Index Scan)
--- 2. "rows=" (estimated rows) vs "actual time=... rows=" (actual rows)
--- If estimate is 1000 but actual is 1, your table statistics are stale. Run ANALYZE on the table.
-
--- 🐘 Postgres Specific: Updating statistics manually
-ANALYZE orders;`
-  },
-
-  // ==========================================
-  // SECTION 13: Transactions & Isolation
+  // SECTION 14: Transactions & ACID
   // ==========================================
   {
     id: 'sql-transactions-isolation',
-    name: 'Transactions & Isolation Levels',
+    name: 'Transactions, ACID & Isolation Levels',
     category: 'SQL',
     difficulty: 'hard',
-    description: 'Transactions group operations into an atomic unit (all succeed or all fail). Isolation levels control how concurrent transactions interact with each other.',
+    description: 'Transactions group operations into an atomic unit — either ALL succeed or ALL fail. ACID properties and isolation levels are critical for data consistency in real applications.',
     bulletPoints: [
-      'ACID: Atomicity (all or nothing), Consistency (valid state), Isolation (concurrent safety), Durability (saved to disk)',
-      'Dirty Read: Reading uncommitted data from another transaction. (Postgres NEVER allows this, even if asked)',
-      'Read Committed (Postgres Default): A query only sees data committed BEFORE the query started. Prevents dirty reads',
-      'Repeatable Read: A transaction sees a snapshot of the database from when the transaction started. Prevents non-repeatable reads (data changing while you read it twice)',
-      'Serializable: Strictest level. Executes transactions concurrently but guarantees the result is the same as if run sequentially'
+      'ACID: Atomicity (all or nothing), Consistency (valid state before and after), Isolation (concurrent transactions don\'t interfere), Durability (committed data survives crashes)',
+      'Dirty Read: Reading uncommitted data from another transaction. Prevented by READ COMMITTED and above',
+      'Non-Repeatable Read: Same query returns different results within the same transaction. Prevented by REPEATABLE READ',
+      'Phantom Read: New rows appear in repeated queries. Prevented by SERIALIZABLE',
+      'Isolation Levels (least to most strict): READ UNCOMMITTED → READ COMMITTED (most common default) → REPEATABLE READ → SERIALIZABLE',
+      'Higher isolation = more safety but worse performance. Most apps use READ COMMITTED'
     ],
-    codeExample: `-- 🎯 Scenario: Bank Transfer (Requires Atomicity)
-BEGIN; -- Starts transaction
+    codeExample: `-- 🎯 Classic Interview Scenario: Bank Transfer
+BEGIN TRANSACTION;
 
-UPDATE accounts SET balance = balance - 500 WHERE id = 1;
-UPDATE accounts SET balance = balance + 500 WHERE id = 2;
+UPDATE accounts SET balance = balance - 500 WHERE id = 1; -- Debit
+UPDATE accounts SET balance = balance + 500 WHERE id = 2; -- Credit
 
--- If application logic fails here, we ROLLBACK to undo the first update
--- If successful, we COMMIT to persist both updates permanently
+-- If credit fails, debit is also rolled back → money is safe!
+COMMIT;  -- Both succeed → persist
+-- or
+ROLLBACK; -- Something failed → undo everything
+
+-- Setting Isolation Level
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+BEGIN TRANSACTION;
+SELECT balance FROM accounts WHERE id = 1; -- Returns 1000
+-- Even if another transaction updates this account right now...
+SELECT balance FROM accounts WHERE id = 1; -- Still returns 1000 (snapshot)
 COMMIT;
 
--- 🐘 Setting Isolation Level in Postgres
-BEGIN ISOLATION LEVEL REPEATABLE READ;
-SELECT balance FROM accounts WHERE id = 1;
--- Even if another transaction updates account 1 now, 
--- running the same SELECT again in this transaction will yield the same result.
-COMMIT;`
+-- 🎯 Interview Q: What isolation level would you use for financial transactions?
+-- Answer: SERIALIZABLE for critical money transfers,
+--         READ COMMITTED for most other operations (balance of safety + performance)`
   },
 
   // ==========================================
-  // SECTION 14: MVCC & VACUUM
+  // SECTION 15: Views & Stored Procedures
   // ==========================================
   {
-    id: 'postgres-mvcc-vacuum',
-    name: 'MVCC, VACUUM & ANALYZE',
-    category: 'PostgreSQL',
-    difficulty: 'hard',
-    description: 'Multi-Version Concurrency Control (MVCC) is how Postgres handles concurrency. Instead of locking a row during an UPDATE, Postgres creates a new version of the row.',
-    bulletPoints: [
-      'MVCC: Readers do not block writers, and writers do not block readers. Each transaction sees a consistent "snapshot" of the data',
-      'In Postgres, an UPDATE is effectively a DELETE of the old row + an INSERT of a new row version (tuple)',
-      'Dead Tuples: The old row versions left behind after an UPDATE/DELETE. They take up disk space (table bloat) and slow down scans',
-      'VACUUM: A maintenance process that sweeps the table and marks dead tuples as space available for future inserts',
-      'ANALYZE: Gathers statistics about data distribution in the table so the Query Planner can make good decisions (e.g., Seq Scan vs Index Scan)'
-    ],
-    codeExample: `-- You rarely run these manually as the 'autovacuum' daemon handles it,
--- but in interviews, you must know what they do!
-
--- Reclaim space from dead tuples (does NOT lock the table)
-VACUUM users;
-
--- Update planner statistics (does NOT lock the table)
-ANALYZE users;
-
--- Do both at once
-VACUUM ANALYZE users;
-
--- ⚠️ VACUUM FULL: Rewrites the entire table to reclaim disk space back to the OS.
--- WARNING: Locks the entire table exclusively. Never run during peak production!
-VACUUM FULL users;`
-  },
-
-  // ==========================================
-  // SECTION 15: JSONB
-  // ==========================================
-  {
-    id: 'postgres-jsonb',
-    name: 'JSONB Data Type',
-    category: 'PostgreSQL',
+    id: 'sql-views-stored-procedures',
+    name: 'Views, Stored Procedures & Triggers',
+    category: 'SQL',
     difficulty: 'medium',
-    description: 'PostgreSQL has best-in-class support for JSON. JSONB stores data in a decomposed binary format, making it fast to process and indexable, unlike standard text-based JSON.',
+    description: 'Views are saved queries that act like virtual tables. Stored Procedures are saved blocks of SQL logic. Both simplify complex operations and improve security.',
     bulletPoints: [
-      'JSON vs JSONB: Always use JSONB. It removes whitespace, does not preserve key order, but is vastly faster to query and supports indexing',
-      'When to use: Perfect for unstructured data, dynamic user settings, or third-party API payloads where the schema changes constantly',
-      'When NOT to use: Do not use it as a replacement for relational columns. If you frequently JOIN, aggregate, or filter by a field, make it a real column',
-      'Operators: -> returns JSON object, ->> returns text. @> checks if left JSON contains right JSON',
-      'Indexing: You can create a GIN index on a JSONB column to quickly search for keys or values within the JSON document'
+      'View: A saved SELECT query that acts as a virtual table. Data is not stored — it runs the query every time you access it',
+      'Why Views? Simplify complex queries, restrict access to specific columns (security), provide a clean API layer over messy table structures',
+      'Materialized View: Unlike regular views, this STORES the result. Much faster but data can be stale (needs manual/scheduled refresh)',
+      'Stored Procedure: A block of SQL logic saved on the server. Accepts parameters, can contain IF/ELSE, loops, transactions',
+      'Trigger: SQL code that runs automatically BEFORE or AFTER INSERT, UPDATE, or DELETE on a table. Great for audit logging'
     ],
-    codeExample: `-- Creating a table with JSONB
-CREATE TABLE user_settings (
-    user_id INT PRIMARY KEY,
-    preferences JSONB NOT NULL
-);
+    codeExample: `-- View: Simplify a complex query for reuse
+CREATE VIEW active_employees AS
+SELECT id, name, department, salary
+FROM employees
+WHERE status = 'ACTIVE' AND termination_date IS NULL;
 
-INSERT INTO user_settings VALUES 
-(1, '{"theme": "dark", "notifications": {"email": true, "sms": false}}');
+-- Use it like a regular table
+SELECT * FROM active_employees WHERE department = 'Engineering';
 
--- Querying inside JSONB (->> returns text)
-SELECT user_id 
-FROM user_settings 
-WHERE preferences->>'theme' = 'dark';
+-- Stored Procedure: Reusable block of logic
+DELIMITER //
+CREATE PROCEDURE get_top_earners(IN dept_name VARCHAR(50), IN top_n INT)
+BEGIN
+    SELECT name, salary
+    FROM employees
+    WHERE department = dept_name
+    ORDER BY salary DESC
+    LIMIT top_n;
+END //
+DELIMITER ;
 
--- Deep querying (Extracting boolean value)
-SELECT user_id 
-FROM user_settings 
-WHERE (preferences->'notifications'->>'email')::boolean = true;
+CALL get_top_earners('Engineering', 5); -- Get top 5 earners in Engineering
 
--- 🐘 Creating a GIN index on the JSONB column for fast searching
-CREATE INDEX idx_preferences ON user_settings USING GIN (preferences);`
+-- Trigger: Auto-log salary changes
+CREATE TRIGGER salary_audit
+AFTER UPDATE ON employees
+FOR EACH ROW
+    INSERT INTO salary_log (employee_id, old_salary, new_salary, changed_at)
+    VALUES (OLD.id, OLD.salary, NEW.salary, NOW());`
   },
 
   // ==========================================
-  // SECTION 16: Pagination
+  // SECTION 16: Pagination (OFFSET vs Keyset)
   // ==========================================
   {
     id: 'sql-pagination',
-    name: 'Pagination (OFFSET vs Keyset)',
+    name: 'Pagination — OFFSET vs Keyset (Cursor)',
     category: 'SQL',
     difficulty: 'medium',
-    description: 'Pagination is how you fetch large datasets in chunks (e.g., page 1, page 2). OFFSET pagination is simple but terrible for performance on large tables.',
+    description: 'Pagination fetches large datasets in chunks. OFFSET is simple but terrible for performance at scale. Keyset (cursor) pagination is the production-grade solution.',
     bulletPoints: [
-      'LIMIT / OFFSET: Skips N rows, then returns M rows. Easy to implement but scanning the skipped rows gets slower as the OFFSET grows',
-      'OFFSET 10000 LIMIT 20 requires the database to process and discard 10,000 rows before returning 20. Bad for performance!',
-      'Keyset Pagination (Cursor Pagination): Remembers the last ID/Timestamp seen on the previous page, and asks for rows GREATER than that value',
-      'Keyset pagination is extremely fast because it uses an index scan directly to the starting point, but you cannot easily jump to a specific page number (like "Page 50")',
-      'Always use Keyset/Cursor pagination for infinite scrolling feeds or huge backend batch processing'
+      'OFFSET Pagination: LIMIT 20 OFFSET 1000 → DB scans and discards 1000 rows, then returns 20. Gets slower as page number grows',
+      'Keyset (Cursor) Pagination: Remember the last item\'s ID/timestamp, query WHERE id > last_seen_id. Uses index — constant speed regardless of page',
+      'OFFSET: Easy, allows jumping to page N directly. But slow at page 500+',
+      'Keyset: Super fast at any page, but you can only go to next/previous — can\'t jump to page 50 directly',
+      'Use OFFSET for admin panels with few pages. Use Keyset for feeds, infinite scroll, and any large dataset'
     ],
-    codeExample: `-- ❌ Bad approach for large tables (OFFSET Pagination)
--- Jumping to page 500 (assuming 20 items per page)
-SELECT id, name, created_at 
-FROM products 
-ORDER BY created_at DESC 
-LIMIT 20 OFFSET 10000; -- DB scans and discards 10,000 rows!
+    codeExample: `-- ❌ OFFSET Pagination — slow for large page numbers
+SELECT id, name, created_at
+FROM products
+ORDER BY created_at DESC
+LIMIT 20 OFFSET 10000; -- DB scans 10,000 rows just to discard them!
 
--- ✅ Best approach for large tables (Keyset / Cursor Pagination)
--- Client passes the 'created_at' and 'id' of the LAST item they saw on page 499
-SELECT id, name, created_at 
-FROM products 
-WHERE created_at < '2024-03-15 10:00:00' 
-   OR (created_at = '2024-03-15 10:00:00' AND id < 5432) -- Tie-breaker
-ORDER BY created_at DESC, id DESC 
-LIMIT 20; -- Fast! Uses the index to jump instantly to the exact row.`
+-- ✅ Keyset Pagination — fast at any depth
+-- Client sends the last_id from the previous page
+SELECT id, name, created_at
+FROM products
+WHERE id < 5432              -- Start after the last item seen
+ORDER BY id DESC
+LIMIT 20;                    -- Uses index, jumps directly — instant!
+
+-- For timestamp-based cursor (handles ties with a tiebreaker):
+SELECT id, name, created_at
+FROM products
+WHERE created_at < '2024-03-15 10:00:00'
+   OR (created_at = '2024-03-15 10:00:00' AND id < 5432)
+ORDER BY created_at DESC, id DESC
+LIMIT 20;`
   },
 
   // ==========================================
-  // SECTION 17: UPSERT
+  // SECTION 17: Query Optimization
   // ==========================================
   {
-    id: 'postgres-upsert',
-    name: 'UPSERT (INSERT ... ON CONFLICT)',
-    category: 'PostgreSQL',
-    difficulty: 'medium',
-    description: 'UPSERT handles the scenario: "Insert this row, but if it already exists, update it instead." It prevents race conditions compared to doing a SELECT followed by an INSERT/UPDATE.',
+    id: 'sql-query-optimization',
+    name: 'Query Optimization & EXPLAIN',
+    category: 'SQL',
+    difficulty: 'hard',
+    description: 'When a query is slow, use EXPLAIN to see the database\'s execution plan. This shows whether it\'s using an index or doing a full table scan.',
     bulletPoints: [
-      'Postgres implementation uses INSERT ... ON CONFLICT',
-      'Requires a UNIQUE constraint or PRIMARY KEY on the conflict column(s) to detect the collision',
-      'DO NOTHING: Silently ignores the insert if a conflict occurs (great for idempotency)',
-      'DO UPDATE SET: Updates the existing row with new values. The EXCLUDED keyword represents the new row that was attempted to be inserted',
-      'Solves concurrency issues (two users inserting the same thing at the exact same millisecond)'
+      'Full Table Scan (Seq Scan): Reads every row. Bad for large tables. If you see this, you likely need an index',
+      'Index Scan: Uses the B-tree index to jump to the right rows. Fast for selective queries (returning few rows)',
+      'EXPLAIN shows the estimated plan. EXPLAIN ANALYZE actually runs the query and shows real timings',
+      'If DB does a full scan despite having an index: the query returns too many rows (low selectivity), or statistics are stale',
+      'Common optimizations: Add indexes on WHERE/JOIN columns, avoid SELECT * (fetch only needed columns), use JOINs instead of correlated subqueries, limit result sets'
     ],
-    codeExample: `-- 🎯 Scenario: Syncing users from an external system. 
--- Insert them, or update their name if they already exist based on email.
+    codeExample: `-- "This query is slow. What do you do?"
+-- Step 1: Run EXPLAIN to see execution plan
+EXPLAIN SELECT * FROM orders WHERE customer_id = 12345;
 
-INSERT INTO users (email, name, last_login)
-VALUES ('john@example.com', 'John Doe', CURRENT_TIMESTAMP)
-ON CONFLICT (email) -- Requires a UNIQUE constraint on email!
-DO UPDATE SET 
-    name = EXCLUDED.name, -- EXCLUDED refers to 'John Doe'
-    last_login = EXCLUDED.last_login;
+-- What to look for:
+-- ✅ "Index Scan" or "Index Only Scan" = Good, using index
+-- ❌ "Full Table Scan" or "Seq Scan" = Bad, reading every row
 
--- Idempotency Example (Insert if not exists, otherwise ignore)
-INSERT INTO tags (name)
-VALUES ('java')
-ON CONFLICT (name) 
-DO NOTHING;`
+-- Step 2: Add index on the filtered column
+CREATE INDEX idx_orders_customer ON orders(customer_id);
+
+-- Step 3: Run EXPLAIN again — verify it now uses the index
+
+-- Common query anti-patterns to avoid:
+-- ❌ SELECT * FROM orders;        -- Fetches ALL columns (wasteful)
+-- ✅ SELECT id, status FROM orders; -- Fetch only what you need
+
+-- ❌ WHERE YEAR(created_at) = 2024  -- Function on column kills index!
+-- ✅ WHERE created_at >= '2024-01-01' AND created_at < '2025-01-01'
+
+-- ❌ WHERE name LIKE '%john%'     -- Leading wildcard can't use index
+-- ✅ WHERE name LIKE 'john%'      -- Can use index (no leading wildcard)`
   }
 ];
