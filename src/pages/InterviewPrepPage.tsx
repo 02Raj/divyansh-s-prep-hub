@@ -54,7 +54,7 @@ export default function InterviewPrepPage() {
       q.answerSEE.simple.toLowerCase().includes(query) ||
       q.answerSEE.explain.toLowerCase().includes(query)
     );
-  });
+  }).sort((a, b) => b.frequency - a.frequency);
 
   const getCategoryCount = (cat: QuestionCategory | 'All') => {
     if (cat === 'All') return realInterviewQuestions.length;

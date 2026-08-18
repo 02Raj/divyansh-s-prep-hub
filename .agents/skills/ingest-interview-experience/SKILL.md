@@ -27,7 +27,7 @@ Process raw interview experiences pasted by the user (e.g., from LinkedIn) and i
   - Categorize it properly (`Java`, `Spring Boot`, `Microservices`, `Angular`, `JavaScript`, `SQL`, `System Design`, `Java Coding`, `JS Coding`, `DevOps`). If a question does not fit into any of these main categories (e.g. general HR, generic networking, unrelated tools), place it in the `Other` category.
   - Set `frequency` to 1.
   - Add the `Company Name` (if any).
-  - **Order Rule:** When inserting multiple new questions, always arrange them logically in sequence from **Basic to Advanced**. Do not insert advanced questions before the fundamental/basic ones within the same category.
+  - **Order Rule:** When updating or inserting questions, ensure that the overall list maintains a **Descending Order of Frequency** (the questions asked most times should appear first within their category or overall).
 
 ## 3. Strict S-E-E Answer Formatting
 For any NEW question, you MUST generate the `answerSEE` object following these strict rules. **(IMPORTANT: If the user provides questions that ALREADY have the S-E-E format written out, DO NOT rewrite them. Just ingest and use them exactly as provided).**
