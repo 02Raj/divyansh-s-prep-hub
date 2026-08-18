@@ -2407,7 +2407,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "authentication-vs-authorization",
     "category": "Spring Boot",
     "question": "Authentication vs Authorization?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
     "variations": [],
     "answerSEE": {
@@ -2439,14 +2439,15 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-do-you-secure-rest-apis",
     "category": "Spring Boot",
     "question": "How do you secure REST APIs?",
-    "frequency": 4,
+    "frequency": 5,
     "companies": [
       "Accenture"
     ],
     "variations": [
       "What type of security are you using in your current project?",
       "How to secure REST APIs?",
-      "Spring Security Implementation in Projects"
+      "Spring Security Implementation in Projects",
+      "How do you secure REST APIs in Spring Boot?"
     ],
     "answerSEE": {
       "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
@@ -3726,9 +3727,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-responseentity",
     "category": "Spring Boot",
     "question": "What is ResponseEntity?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [],
-    "variations": [],
+    "variations": [
+      "What is ResponseEntity and why do you use it?"
+    ],
     "answerSEE": {
       "simple": "ResponseEntity gives full control over the HTTP response — status code, headers, and body all in one object.",
       "explain": "Wrapper for HTTP response, generic type for the body\nResponseEntity.ok(body) — 200 with body\nResponseEntity.status(HttpStatus.CREATED).body(body) — 201 with body\nResponseEntity.noContent().build() — 204 with no body\nCan add custom headers — Location header after creating resource\n\nCode:\n@GetMapping(\"/{id}\")\npublic ResponseEntity<UserDTO> getUser(@PathVariable Long id) {\n    UserDTO user = userService.findById(id);\n    return ResponseEntity.ok(user); // 200 OK with body\n}\n\n@PostMapping\npublic ResponseEntity<UserDTO> createUser(@RequestBody @Valid CreateUserRequest req) {\n    UserDTO created = userService.create(req);\n    URI location = URI.create(\"/api/users/\" + created.getId());\n    return ResponseEntity.created(location).body(created); // 201 with Location header\n}\n\n@DeleteMapping(\"/{id}\")\npublic ResponseEntity<Void> deleteUser(@PathVariable Long id) {\n    userService.delete(id);\n    return ResponseEntity.noContent().build(); // 204 No Content\n}",
@@ -6646,166 +6649,165 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-  "id": "java-oops-concepts-real-world",
-  "category": "Java",
-  "question": "Explain OOPs concepts with real-world examples",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "Object-Oriented Programming revolves around four main concepts: Encapsulation, Abstraction, Inheritance, and Polymorphism.",
-    "explain": "Encapsulation hides data (like a capsule); Abstraction hides implementation details (like a TV remote); Inheritance promotes code reuse (like parent-child traits); Polymorphism allows one interface to take multiple forms (like a person acting as a father, employee, and son).",
-    "example": "\"In a real-world scenario, I think of Abstraction like driving a car—I know how to steer and brake, but I don't need to know the engine's internal workings. Encapsulation is like a bank account where my balance is private and only modified through specific methods like deposit(). Inheritance is like an 'Employee' class inheriting common fields from a 'Person' class, and Polymorphism is an 'Animal' interface where both 'Dog' and 'Cat' implement makeNoise() differently.\"",
-    "summary10s": "Encapsulation (hide data), Abstraction (hide complexity), Inheritance (reuse code), Polymorphism (many forms)."
-  }
-},
+    "id": "java-oops-concepts-real-world",
+    "category": "Java",
+    "question": "Explain OOPs concepts with real-world examples",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Object-Oriented Programming revolves around four main concepts: Encapsulation, Abstraction, Inheritance, and Polymorphism.",
+      "explain": "Encapsulation hides data (like a capsule); Abstraction hides implementation details (like a TV remote); Inheritance promotes code reuse (like parent-child traits); Polymorphism allows one interface to take multiple forms (like a person acting as a father, employee, and son).",
+      "example": "\"In a real-world scenario, I think of Abstraction like driving a car—I know how to steer and brake, but I don't need to know the engine's internal workings. Encapsulation is like a bank account where my balance is private and only modified through specific methods like deposit(). Inheritance is like an 'Employee' class inheriting common fields from a 'Person' class, and Polymorphism is an 'Animal' interface where both 'Dog' and 'Cat' implement makeNoise() differently.\"",
+      "summary10s": "Encapsulation (hide data), Abstraction (hide complexity), Inheritance (reuse code), Polymorphism (many forms)."
+    }
+  },
   {
-  "id": "java-final-finally-finalize",
-  "category": "Java",
-  "question": "Difference between final, finally, and finalize",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "final is a keyword to restrict modification; finally is a block in exception handling; finalize is a method for garbage collection cleanup.",
-    "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
-    "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
-    "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
-  }
-},
+    "id": "java-final-finally-finalize",
+    "category": "Java",
+    "question": "Difference between final, finally, and finalize",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "final is a keyword to restrict modification; finally is a block in exception handling; finalize is a method for garbage collection cleanup.",
+      "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
+      "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
+      "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
+    }
+  },
   {
-  "id": "java-string-stringbuffer-stringbuilder",
-  "category": "Java",
-  "question": "Difference between String, StringBuffer, and StringBuilder",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "String is immutable. StringBuffer and StringBuilder are mutable, but StringBuffer is thread-safe while StringBuilder is not.",
-    "explain": "String creates a new object on every modification. StringBuffer is synchronized (slower but safe for multithreading). StringBuilder is not synchronized (faster, best for single-threaded string manipulations).",
-    "example": "\"When I need a string that won't change, I just use String. If I'm building a complex string in a loop, I use StringBuilder because it's fast and avoids creating multiple objects in memory. I only use StringBuffer if I'm doing string manipulation across multiple threads, which is quite rare nowadays.\"",
-    "summary10s": "String = immutable. StringBuilder = mutable/fast. StringBuffer = mutable/thread-safe."
-  }
-},
+    "id": "java-string-stringbuffer-stringbuilder",
+    "category": "Java",
+    "question": "Difference between String, StringBuffer, and StringBuilder",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "String is immutable. StringBuffer and StringBuilder are mutable, but StringBuffer is thread-safe while StringBuilder is not.",
+      "explain": "String creates a new object on every modification. StringBuffer is synchronized (slower but safe for multithreading). StringBuilder is not synchronized (faster, best for single-threaded string manipulations).",
+      "example": "\"When I need a string that won't change, I just use String. If I'm building a complex string in a loop, I use StringBuilder because it's fast and avoids creating multiple objects in memory. I only use StringBuffer if I'm doing string manipulation across multiple threads, which is quite rare nowadays.\"",
+      "summary10s": "String = immutable. StringBuilder = mutable/fast. StringBuffer = mutable/thread-safe."
+    }
+  },
   {
-  "id": "java-exception-handling-best-practices",
-  "category": "Java",
-  "question": "Exception Handling Best Practices in Java",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "Catch the most specific exception first, never swallow exceptions, and use try-with-resources for automatic cleanup.",
-    "explain": "Best practices include logging exceptions properly (not just printStackTrace), not catching Exception or Throwable directly unless at the highest level, using custom exceptions for business logic, and failing fast.",
-    "example": "\"In my projects, I always use try-with-resources so I don't have to manually close streams in a finally block. I also avoid empty catch blocks—swallowing exceptions makes debugging a nightmare. Instead, I catch specific exceptions like IOException before catching a generic Exception, and I wrap technical exceptions into meaningful custom business exceptions for the frontend.\"",
-    "summary10s": "Use try-with-resources, catch specific exceptions first, don't swallow exceptions."
-  }
-},
+    "id": "java-exception-handling-best-practices",
+    "category": "Java",
+    "question": "Exception Handling Best Practices in Java",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Catch the most specific exception first, never swallow exceptions, and use try-with-resources for automatic cleanup.",
+      "explain": "Best practices include logging exceptions properly (not just printStackTrace), not catching Exception or Throwable directly unless at the highest level, using custom exceptions for business logic, and failing fast.",
+      "example": "\"In my projects, I always use try-with-resources so I don't have to manually close streams in a finally block. I also avoid empty catch blocks—swallowing exceptions makes debugging a nightmare. Instead, I catch specific exceptions like IOException before catching a generic Exception, and I wrap technical exceptions into meaningful custom business exceptions for the frontend.\"",
+      "summary10s": "Use try-with-resources, catch specific exceptions first, don't swallow exceptions."
+    }
+  },
   {
-  "id": "java-immutability-importance",
-  "category": "Java",
-  "question": "Why is Immutability important in Java?",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "Immutable objects are inherently thread-safe, prevent accidental state changes, and can be safely used as keys in a HashMap.",
-    "explain": "Once an immutable object is created, its state cannot change. This eliminates synchronization issues in concurrent programming, makes the code easier to reason about, and ensures the hash code remains constant (crucial for HashMaps).",
-    "example": "\"I love using immutable objects, especially for configuration classes or data transfer objects (DTOs), because they are thread-safe out of the box—multiple threads can read them without any locks. It also guarantees that if I use the object as a HashMap key, its hash code won't change over time, which prevents memory leaks or 'lost' map entries.\"",
-    "summary10s": "Thread-safe out of the box, safe as HashMap keys, no accidental mutations."
-  }
-},
+    "id": "java-immutability-importance",
+    "category": "Java",
+    "question": "Why is Immutability important in Java?",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Immutable objects are inherently thread-safe, prevent accidental state changes, and can be safely used as keys in a HashMap.",
+      "explain": "Once an immutable object is created, its state cannot change. This eliminates synchronization issues in concurrent programming, makes the code easier to reason about, and ensures the hash code remains constant (crucial for HashMaps).",
+      "example": "\"I love using immutable objects, especially for configuration classes or data transfer objects (DTOs), because they are thread-safe out of the box—multiple threads can read them without any locks. It also guarantees that if I use the object as a HashMap key, its hash code won't change over time, which prevents memory leaks or 'lost' map entries.\"",
+      "summary10s": "Thread-safe out of the box, safe as HashMap keys, no accidental mutations."
+    }
+  },
   {
-  "id": "java-synchronization-handling",
-  "category": "Java",
-  "question": "How do you handle Synchronization in Multithreading?",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "Synchronization is handled using the synchronized keyword, ReentrantLocks, or concurrent collections.",
-    "explain": "We can synchronize at the method level or block level (preferred for better performance). Alternatively, the java.util.concurrent package provides advanced tools like Locks, CountDownLatch, and thread-safe collections like ConcurrentHashMap.",
-    "example": "\"When I need to prevent race conditions, my first choice is usually synchronized blocks over synchronized methods, so I only lock the critical section of the code and maintain performance. For more complex scenarios, I use ReentrantLock which gives me more control, like trying to acquire a lock without blocking indefinitely. Also, I heavily rely on ConcurrentHashMap instead of synchronizing entire collections.\"",
-    "summary10s": "Use synchronized blocks for critical sections, ReentrantLocks for advanced control, or ConcurrentHashMap."
-  }
-},
+    "id": "java-synchronization-handling",
+    "category": "Java",
+    "question": "How do you handle Synchronization in Multithreading?",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Synchronization is handled using the synchronized keyword, ReentrantLocks, or concurrent collections.",
+      "explain": "We can synchronize at the method level or block level (preferred for better performance). Alternatively, the java.util.concurrent package provides advanced tools like Locks, CountDownLatch, and thread-safe collections like ConcurrentHashMap.",
+      "example": "\"When I need to prevent race conditions, my first choice is usually synchronized blocks over synchronized methods, so I only lock the critical section of the code and maintain performance. For more complex scenarios, I use ReentrantLock which gives me more control, like trying to acquire a lock without blocking indefinitely. Also, I heavily rely on ConcurrentHashMap instead of synchronizing entire collections.\"",
+      "summary10s": "Use synchronized blocks for critical sections, ReentrantLocks for advanced control, or ConcurrentHashMap."
+    }
+  },
   {
-  "id": "sql-joins-types",
-  "category": "SQL",
-  "question": "Joins and Their Types",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "Joins combine rows from two or more tables based on a related column. Types include INNER, LEFT, RIGHT, and FULL OUTER joins.",
-    "explain": "INNER JOIN returns only matching rows. LEFT JOIN returns all from the left table and matched from the right. RIGHT JOIN returns all from the right and matched from the left. FULL OUTER JOIN returns all rows when there is a match in either table.",
-    "example": "\"In a reporting dashboard, I often use an INNER JOIN to fetch employees who have an assigned department. But if I need a list of all employees regardless of whether they're assigned to a department yet, I use a LEFT JOIN with the employee table on the left, which returns NULLs for the missing department data.\"",
-    "summary10s": "INNER (matches only), LEFT (all left + matches), RIGHT (all right + matches), FULL (everything)."
-  }
-},
+    "id": "sql-joins-types",
+    "category": "SQL",
+    "question": "Joins and Their Types",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Joins combine rows from two or more tables based on a related column. Types include INNER, LEFT, RIGHT, and FULL OUTER joins.",
+      "explain": "INNER JOIN returns only matching rows. LEFT JOIN returns all from the left table and matched from the right. RIGHT JOIN returns all from the right and matched from the left. FULL OUTER JOIN returns all rows when there is a match in either table.",
+      "example": "\"In a reporting dashboard, I often use an INNER JOIN to fetch employees who have an assigned department. But if I need a list of all employees regardless of whether they're assigned to a department yet, I use a LEFT JOIN with the employee table on the left, which returns NULLs for the missing department data.\"",
+      "summary10s": "INNER (matches only), LEFT (all left + matches), RIGHT (all right + matches), FULL (everything)."
+    }
+  },
   {
-  "id": "sql-acid-properties",
-  "category": "SQL",
-  "question": "ACID Properties in Databases",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "ACID stands for Atomicity, Consistency, Isolation, and Durability, ensuring reliable transaction processing.",
-    "explain": "Atomicity (all or nothing), Consistency (valid state before and after), Isolation (concurrent transactions don't interfere), and Durability (committed data is saved permanently even if power fails).",
-    "example": "\"I think of ACID properties during a bank transfer. Atomicity ensures both the deduction and addition happen together—if one fails, both rollback. Consistency ensures account balances don't go negative if not allowed. Isolation ensures another transaction reading the balance doesn't see partial states. Durability guarantees that once the transfer says 'success', the money is safe even if the server crashes.\"",
-    "summary10s": "Atomicity (all/nothing), Consistency (valid state), Isolation (no interference), Durability (permanent)."
-  }
-},
+    "id": "sql-acid-properties",
+    "category": "SQL",
+    "question": "ACID Properties in Databases",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ACID stands for Atomicity, Consistency, Isolation, and Durability, ensuring reliable transaction processing.",
+      "explain": "Atomicity (all or nothing), Consistency (valid state before and after), Isolation (concurrent transactions don't interfere), and Durability (committed data is saved permanently even if power fails).",
+      "example": "\"I think of ACID properties during a bank transfer. Atomicity ensures both the deduction and addition happen together—if one fails, both rollback. Consistency ensures account balances don't go negative if not allowed. Isolation ensures another transaction reading the balance doesn't see partial states. Durability guarantees that once the transfer says 'success', the money is safe even if the server crashes.\"",
+      "summary10s": "Atomicity (all/nothing), Consistency (valid state), Isolation (no interference), Durability (permanent)."
+    }
+  },
   {
-  "id": "coding-detect-cycle-linked-list",
-  "category": "Java Coding",
-  "question": "Detect Cycle in a Linked List",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "Use Floyd's Cycle-Finding Algorithm (Tortoise and Hare approach) with a slow and fast pointer.",
-    "explain": "Initialize two pointers, slow moving one step and fast moving two steps. If there is a cycle, the fast pointer will eventually meet the slow pointer. If the fast pointer reaches null, there's no cycle.",
-    "example": "\"To detect a cycle efficiently without extra memory, I use the slow and fast pointer technique. I move the slow pointer by one node and the fast pointer by two nodes. If they ever point to the same node, it means a cycle exists. This runs in O(N) time and uses O(1) space, making it much better than storing visited nodes in a HashSet.\"",
-    "summary10s": "Slow pointer (1 step) + Fast pointer (2 steps). If they meet, there's a cycle."
-  }
-},
+    "id": "coding-detect-cycle-linked-list",
+    "category": "Java Coding",
+    "question": "Detect Cycle in a Linked List",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Floyd's Cycle-Finding Algorithm (Tortoise and Hare approach) with a slow and fast pointer.",
+      "explain": "Initialize two pointers, slow moving one step and fast moving two steps. If there is a cycle, the fast pointer will eventually meet the slow pointer. If the fast pointer reaches null, there's no cycle.",
+      "example": "\"To detect a cycle efficiently without extra memory, I use the slow and fast pointer technique. I move the slow pointer by one node and the fast pointer by two nodes. If they ever point to the same node, it means a cycle exists. This runs in O(N) time and uses O(1) space, making it much better than storing visited nodes in a HashSet.\"",
+      "summary10s": "Slow pointer (1 step) + Fast pointer (2 steps). If they meet, there's a cycle."
+    }
+  },
   {
-  "id": "coding-longest-palindrome-substring",
-  "category": "Java Coding",
-  "question": "Find the Longest Palindrome Substring",
-  "frequency": 1,
-  "companies": [
-    "Zensar Technologies"
-  ],
-  "variations": [],
-  "answerSEE": {
-    "simple": "Use the 'Expand Around Center' approach to find the longest palindrome efficiently.",
-    "explain": "Iterate through the string, treating each character (and the gap between characters) as the center of a potential palindrome. Expand outwards as long as characters match. Keep track of the maximum length found.",
-    "example": "\"The most practical way to solve this in an interview is the 'Expand Around Center' method. For each character in the string, I expand outwards to check for both odd-length and even-length palindromes. It has O(N^2) time complexity and O(1) space, which is easier to implement and explain than complex algorithms like Manacher's.\"",
-    "summary10s": "Iterate characters, treat each as a center, and expand outwards to check for palindromes."
-  }
-}
-,
+    "id": "coding-longest-palindrome-substring",
+    "category": "Java Coding",
+    "question": "Find the Longest Palindrome Substring",
+    "frequency": 1,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the 'Expand Around Center' approach to find the longest palindrome efficiently.",
+      "explain": "Iterate through the string, treating each character (and the gap between characters) as the center of a potential palindrome. Expand outwards as long as characters match. Keep track of the maximum length found.",
+      "example": "\"The most practical way to solve this in an interview is the 'Expand Around Center' method. For each character in the string, I expand outwards to check for both odd-length and even-length palindromes. It has O(N^2) time complexity and O(1) space, which is easier to implement and explain than complex algorithms like Manacher's.\"",
+      "summary10s": "Iterate characters, treat each as a center, and expand outwards to check for palindromes."
+    }
+  },
   {
     "id": "java-try-with-resources-exceptions",
     "category": "Java",
@@ -6814,8 +6816,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Try-with-resources automatically closes resources. If both try block and close() throw, the try block exception is thrown and the close() exception is suppressed.",
       "explain": "Introduced in Java 7, it guarantees that resources implementing AutoCloseable are closed at the end of the statement. If an exception is thrown in the try block, and another exception is thrown while closing the resource, the first exception propagates, and the second one is added to it as a 'suppressed' exception (accessible via getSuppressed()).",
@@ -6831,8 +6832,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Streams use a pipeline of intermediate operations (lazy) and a terminal operation (eager) to process data in a single pass without storing it.",
       "explain": "Internally, a Stream is composed of a Spliterator (source), a chain of Sink objects (operations), and a terminal operation. Intermediate operations are lazy and simply build a pipeline of operations. When the terminal operation is invoked, data is pulled through the pipeline in a single pass (fusion).",
@@ -6848,8 +6848,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Use stream().flatMap(List::stream).collect(Collectors.toList()) on the nested list.",
       "explain": "flatMap() transforms each element into a stream of its own, and then flattens all those streams into a single stream. It's perfect for converting List<List<Integer>> into List<Integer>.",
@@ -6883,8 +6882,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Merge Sort divides the array in half recursively until single elements remain, then merges them back in sorted order.",
       "explain": "Time Complexity: O(N log N) in all cases (Best, Average, Worst) because it always divides the array completely and merges. Space Complexity: O(N) because it requires a temporary array during the merge phase.",
@@ -6900,8 +6898,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
       "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
@@ -6917,8 +6914,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Use Collectors.groupingBy() on department, and Collectors.maxBy() comparing salary.",
       "explain": "The pipeline looks like: employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.maxBy(Comparator.comparing(Employee::getSalary)))).",
@@ -6934,8 +6930,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Use the built-in parallel operations of ConcurrentHashMap, such as forEach() or search() with a parallelism threshold.",
       "explain": "ConcurrentHashMap in Java 8 introduced bulk concurrent operations (forEach, search, reduce) that accept a parallelismThreshold. If the map size exceeds this threshold, the operation executes in parallel using the common ForkJoinPool.",
@@ -6951,8 +6946,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Assess the app, dockerize it, choose a migration strategy (Lift-and-Shift vs Refactor), and set up CI/CD to deploy to a managed cloud service like AWS ECS/EKS.",
       "explain": "The process generally involves: 1. Assessment (dependencies, state, db). 2. Containerization (creating a Dockerfile). 3. Database migration (using tools like AWS DMS). 4. Re-platforming (using managed services instead of self-hosted). 5. CI/CD pipeline setup. 6. Cutover and monitoring.",
@@ -6968,8 +6962,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Run multiple instances across different availability zones, use load balancers, implement circuit breakers, and decouple services asynchronously.",
       "explain": "High availability (HA) requires removing single points of failure. This involves redundancy (multiple instances/DB replicas), failover mechanisms, graceful degradation (circuit breakers/fallbacks), and asynchronous communication (Kafka/RabbitMQ) so a failed downstream service doesn't block upstream services.",
@@ -6985,8 +6978,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Use Retries for temporary glitches, Circuit Breakers to prevent cascading failures, and Fallback methods for graceful degradation.",
       "explain": "When Service A calls Service B, B might fail or timeout. A should first implement a short Retry mechanism. If B continues to fail, a Circuit Breaker opens to stop sending traffic to B, giving it time to recover. During this time, A should return a Fallback response (like cached data or a default value).",
@@ -7002,8 +6994,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Avoid them if possible. If required, use the Saga pattern with compensating transactions.",
       "explain": "Traditional ACID transactions (like 2-Phase Commit) lock resources and don't scale in microservices. The Saga pattern breaks the transaction into local transactions. If one step fails, compensating transactions are triggered to undo the previous steps.",
@@ -7019,13 +7010,236 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "companies": [
       "EPAM"
     ],
-    "variations": [
-    ],
+    "variations": [],
     "answerSEE": {
       "simple": "Use centralized logging, distributed tracing, and metrics dashboards.",
       "explain": "Troubleshooting distributed systems requires three pillars of observability: Logs (ELK/EFK stack), Traces (Zipkin/Jaeger with Spring Cloud Sleuth/Micrometer Tracing), and Metrics (Prometheus + Grafana).",
       "example": "\"When an issue happens in production, my first stop is Grafana to check Prometheus metrics like CPU, memory, and error rates. If I see a spike, I copy the Trace ID of a failed request from the logs. Because I use Micrometer Tracing, that Trace ID is propagated across all microservices. I paste it into Jaeger to visually see exactly which service in the chain failed or caused the latency bottleneck. Then I check the centralized ELK logs for that specific Trace ID to see the exact stack trace.\"",
       "summary10s": "Centralized Logs (ELK), Distributed Tracing (Jaeger + Trace ID), Metrics (Prometheus + Grafana)."
+    }
+  },
+  {
+    "id": "what-is-rest-what-are-the-prin",
+    "category": "System Design",
+    "question": "What is REST? What are the principles of REST?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "REST is an architectural style for designing networked applications based on resources, using standard HTTP methods.",
+      "explain": "REST stands for REpresentational State Transfer. Its main principles are:\n1. Client-Server separation\n2. Statelessness (server doesn't store client state)\n3. Cacheability\n4. Uniform Interface (using standard HTTP methods like GET/POST)\n5. Layered System\n6. Code on demand (optional)",
+      "example": "\"REST is a set of rules for building web APIs. The core idea is treating everything as a resource identified by a URI. The most important principles I keep in mind while designing APIs are statelessness—meaning every request must contain all info needed to process it—and using the uniform interface of standard HTTP methods instead of custom actions.\"",
+      "summary10s": "Resource-based architecture. Key principles: stateless, client-server, uniform interface."
+    }
+  },
+  {
+    "id": "rest-vs-soap-what-are-the-diff",
+    "category": "System Design",
+    "question": "REST vs SOAP — what are the differences?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "REST is an architectural style that uses HTTP and lightweight formats like JSON. SOAP is a strict protocol that relies exclusively on XML.",
+      "explain": "REST: Architectural style, uses JSON/XML/plain text, stateless, works over HTTP, lightweight, easier to scale.\nSOAP: Strict protocol, only uses XML, requires WSDL contract, has built-in security (WS-Security) and ACID compliance, heavier.",
+      "example": "\"REST is flexible and lightweight, usually sending JSON over HTTP, making it perfect for public APIs and modern microservices. SOAP is a rigid, heavier XML-based protocol. I've only used SOAP when integrating with legacy enterprise systems or when we needed its strict WS-Security standards, but otherwise, REST is my default choice.\"",
+      "summary10s": "REST = lightweight style, JSON. SOAP = strict protocol, XML, built-in security."
+    }
+  },
+  {
+    "id": "what-is-the-difference-between",
+    "category": "System Design",
+    "question": "What is the difference between REST API and RESTful API?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "There is no strict technical difference; 'REST' is the architectural concept, and 'RESTful' describes an API that implements REST principles.",
+      "explain": "REST (REpresentational State Transfer) is the set of constraints and principles defined by Roy Fielding.\nRESTful is an adjective describing an API or web service that adheres to those REST constraints.",
+      "example": "\"In practice, they mean the same thing. REST is the architectural style itself, and RESTful is the adjective used to describe a service that actually follows those rules. If I build an API that is stateless, uses standard HTTP methods, and has a uniform interface, I call it a RESTful API.\"",
+      "summary10s": "REST = the architecture/concept. RESTful = an API that implements REST."
+    }
+  },
+  {
+    "id": "what-are-the-http-methods-expl",
+    "category": "System Design",
+    "question": "What are the HTTP methods? Explain GET, POST, PUT, PATCH, DELETE.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "They are verbs used to perform actions on resources: GET (read), POST (create), PUT (replace), PATCH (update partially), DELETE (remove).",
+      "explain": "GET: Retrieve a resource.\nPOST: Create a new resource.\nPUT: Replace an entire resource.\nPATCH: Partially update a resource.\nDELETE: Remove a resource.",
+      "example": "\"These map to CRUD operations. I use GET to fetch data, POST to create new records, and DELETE to remove them. For updates, I use PUT if I'm replacing the entire object, or PATCH if I'm just sending a few fields to update, like changing a user's status.\"",
+      "summary10s": "GET=read, POST=create, PUT=replace full, PATCH=update partial, DELETE=remove."
+    }
+  },
+  {
+    "id": "what-is-the-difference-between-1",
+    "category": "System Design",
+    "question": "What is the difference between PUT and PATCH?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "PUT replaces the entire resource. PATCH partially updates the resource.",
+      "explain": "If an object has 5 fields and you want to update 1:\n- PUT requires you to send all 5 fields. If you miss 4, they get overwritten to null.\n- PATCH only requires sending the 1 field you want to change.",
+      "example": "\"PUT is meant to replace the whole resource. If a User has a name and email, and I only want to update the name using PUT, I still have to send the email in the payload. With PATCH, I only send the name, making the payload smaller and preventing accidental overwrites of fields I didn't mean to touch.\"",
+      "summary10s": "PUT = full replace. PATCH = partial update."
+    }
+  },
+  {
+    "id": "is-get-idempotent-what-does-id",
+    "category": "System Design",
+    "question": "Is GET idempotent? What does idempotency mean?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, GET is idempotent. Idempotency means making the same request multiple times yields the same result on the server.",
+      "explain": "An operation is idempotent if executing it once has the same effect as executing it multiple times. GET just reads data without changing the server's state, so calling it 100 times leaves the server in the exact same state as calling it once.",
+      "example": "\"Idempotency means repeating a request doesn't change the outcome on the server. GET is definitely idempotent because it only retrieves data. If I call GET /users/1 five times, the database state remains exactly the same. This makes it safe for clients to retry GET requests if a network timeout occurs.\"",
+      "summary10s": "Idempotent = repeating request gives same server state. GET is idempotent (read-only)."
+    }
+  },
+  {
+    "id": "which-http-methods-are-safe-an",
+    "category": "System Design",
+    "question": "Which HTTP methods are safe and which are idempotent?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Safe methods (GET, HEAD, OPTIONS) do not modify data. Idempotent methods (GET, PUT, DELETE) leave the server in the same state no matter how many times they run.",
+      "explain": "Safe: Don't change server state (GET, HEAD, OPTIONS). All safe methods are idempotent.\nIdempotent but not safe: Change state, but doing it multiple times has the same effect as once (PUT, DELETE).\nNeither: POST, PATCH (usually).",
+      "example": "\"Safe methods like GET don't modify the database at all. Idempotent methods like PUT or DELETE do modify the database, but retrying them is harmless—deleting a record twice just means the second time it's already gone. POST is neither safe nor idempotent, because retrying a POST usually creates a duplicate record.\"",
+      "summary10s": "Safe = read-only (GET). Idempotent = safe to retry (GET, PUT, DELETE)."
+    }
+  },
+  {
+    "id": "what-are-http-status-codes",
+    "category": "System Design",
+    "question": "What are HTTP status codes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "They are standard numbers returned by the server to indicate the result of a request: 2xx (Success), 3xx (Redirect), 4xx (Client Error), 5xx (Server Error).",
+      "explain": "1xx: Informational\n2xx: Success (200 OK, 201 Created)\n3xx: Redirection (301 Moved Permanently)\n4xx: Client Error (400 Bad Request, 401 Unauthorized, 404 Not Found)\n5xx: Server Error (500 Internal Server Error, 503 Service Unavailable)",
+      "example": "\"Status codes tell the client what happened without parsing the body. I commonly use 200 for success, 201 when a POST creates a resource, 400 when the client sends bad data, 401 for auth failures, 404 if not found, and 500 when our code throws an unhandled exception.\"",
+      "summary10s": "2xx = success. 4xx = client messed up. 5xx = server crashed."
+    }
+  },
+  {
+    "id": "how-do-you-create-a-rest-api-i",
+    "category": "Spring Boot",
+    "question": "How do you create a REST API in Spring Boot?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "By creating a class annotated with @RestController and defining methods mapped to HTTP verbs using @GetMapping, @PostMapping, etc.",
+      "explain": "You add the spring-boot-starter-web dependency. Then create a Controller class marked with @RestController (which combines @Controller and @ResponseBody). Map endpoints using @RequestMapping or specific annotations like @GetMapping. Return domain objects or DTOs, and Spring automatically serializes them to JSON.",
+      "example": "\"I start by annotating a class with @RestController. Then I write methods to handle endpoints, annotating them with @GetMapping or @PostMapping. I usually accept incoming data via @RequestBody or @PathVariable, process it using an injected service layer, and return a ResponseEntity containing my DTO, which Jackson automatically converts into JSON.\"",
+      "summary10s": "Annotate class with @RestController, map methods with @GetMapping/@PostMapping, return objects."
+    }
+  },
+  {
+    "id": "difference-between-controller",
+    "category": "Spring Boot",
+    "question": "Difference between @Controller and @RestController.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RestController is simply @Controller combined with @ResponseBody. It automatically converts returned objects into JSON/XML.",
+      "explain": "@Controller is traditionally used in Spring MVC to return HTML views (like JSP or Thymeleaf). The returned string resolves to a view name.\n@RestController skips the view resolver. It writes the returned object directly to the HTTP response body in JSON/XML format.",
+      "example": "\"If I use @Controller, Spring thinks I'm trying to render a web page template, so returning 'user' will look for a user.html file. I use @RestController for building APIs because it automatically applies @ResponseBody to all methods, telling Spring to convert my Java objects straight into JSON and send them back to the client.\"",
+      "summary10s": "@RestController = @Controller + @ResponseBody. Use for APIs to return JSON instead of HTML."
+    }
+  },
+  {
+    "id": "difference-between-requestmapp",
+    "category": "Spring Boot",
+    "question": "Difference between @RequestMapping, @GetMapping, @PostMapping, etc.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RequestMapping is the generic annotation to map a URL, while @GetMapping and @PostMapping are specialized shortcuts for specific HTTP methods.",
+      "explain": "@RequestMapping(value=\"/users\", method=RequestMethod.GET) is the long form.\n@GetMapping(\"/users\") is the exact same thing but shorter and more readable.\nIntroduced in Spring 4.3 to reduce boilerplate.",
+      "example": "\"@RequestMapping is the base annotation, but honestly, I almost never use it at the method level anymore. I use @GetMapping, @PostMapping, and @PutMapping because they are cleaner and more expressive. I do still use @RequestMapping at the class level to define the base path for all endpoints in the controller.\"",
+      "summary10s": "@GetMapping is just a clean shortcut for @RequestMapping(method = GET)."
+    }
+  },
+  {
+    "id": "how-does-requestbody-work-inte",
+    "category": "Spring Boot",
+    "question": "How does @RequestBody work internally?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RequestBody tells Spring to deserialize the incoming HTTP request body (usually JSON) into a Java object using an HttpMessageConverter.",
+      "explain": "When a request arrives, Spring's DispatcherServlet sees the @RequestBody annotation. It checks the request's Content-Type header (e.g., application/json). It then finds a matching HttpMessageConverter (like MappingJackson2HttpMessageConverter) to map the JSON payload into your Java DTO.",
+      "example": "\"When I put @RequestBody before a method parameter, Spring intercepts the incoming HTTP request, reads the JSON payload, and uses Jackson (the default HttpMessageConverter) to deserialize that JSON into my Java DTO class. It essentially maps JSON fields to Java properties automatically.\"",
+      "summary10s": "Deserializes HTTP request body JSON into a Java object using Jackson/HttpMessageConverter."
+    }
+  },
+  {
+    "id": "how-does-pathvariable-work",
+    "category": "Spring Boot",
+    "question": "How does @PathVariable work?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@PathVariable extracts values from the URI path itself, like capturing '123' from '/users/123'.",
+      "explain": "You define a template variable in the mapping, like @GetMapping(\"/users/{id}\"). Then use @PathVariable(\"id\") Long id as a method argument to bind that piece of the URL to the variable.",
+      "example": "\"I use @PathVariable when the data is part of the resource URL. For example, if I have an endpoint /users/{id}, I use @PathVariable to grab that 'id' value so I can look up that specific user in the database. It's the standard RESTful way to identify specific resources.\"",
+      "summary10s": "Extracts dynamic values directly from the URL path (e.g., /users/{id})."
+    }
+  },
+  {
+    "id": "how-does-requestparam-work",
+    "category": "Spring Boot",
+    "question": "How does @RequestParam work?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RequestParam extracts values from the query string of a URL, like capturing 'active' from '/users?status=active'.",
+      "explain": "It binds request parameters (query params or form data) to method arguments. It allows specifying whether the param is required and providing a defaultValue.",
+      "example": "\"While @PathVariable identifies a resource, I use @RequestParam for filtering, sorting, or pagination. For instance, in an endpoint like /users?page=2&size=10, I use @RequestParam to extract 'page' and 'size'. I usually set required=false or provide a defaultValue so the API doesn't break if the client omits them.\"",
+      "summary10s": "Extracts values from the URL query string (e.g., ?page=1)."
+    }
+  },
+  {
+    "id": "what-happens-internally-when-a",
+    "category": "Spring Boot",
+    "question": "What happens internally when a JWT request reaches your API?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The JWT filter intercepts it, extracts the token, verifies the signature, and sets the authenticated user in the SecurityContext.",
+      "explain": "1. Client sends request with `Authorization: Bearer <token>`.\n2. OncePerRequestFilter intercepts the request.\n3. Extracts the token.\n4. Uses the secret key to verify the signature (ensuring it wasn't tampered with) and checks expiration.\n5. Extracts username/roles from claims.\n6. Creates a UsernamePasswordAuthenticationToken and stores it in SecurityContextHolder.\n7. Request proceeds to the controller.",
+      "example": "\"When a request arrives, my custom OncePerRequestFilter catches it. It grabs the Bearer token from the header and uses my secret key to verify the signature and ensure it hasn't expired. If it's valid, I extract the user's ID and roles from the token claims, build an Authentication object, and inject it into the SecurityContextHolder. Then the controller can safely process the request.\"",
+      "summary10s": "Filter extracts token → verifies signature/expiration → sets user in SecurityContext."
+    }
+  },
+  {
+    "id": "where-should-jwt-be-stored-on",
+    "category": "System Design",
+    "question": "Where should JWT be stored on the client side?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "In an HttpOnly, Secure cookie to protect against XSS, or in memory. Avoid localStorage due to XSS vulnerability.",
+      "explain": "If stored in localStorage, any malicious JavaScript (XSS attack) can read the token and steal the session. If stored in an HttpOnly cookie, JavaScript cannot access it, preventing XSS. However, cookies require CSRF protection.",
+      "example": "\"The safest place is an HttpOnly, Secure cookie. If I store it in localStorage, it's vulnerable to Cross-Site Scripting (XSS) because any rogue script on the page can read it. An HttpOnly cookie hides the token from JavaScript entirely. If I can't use cookies, I store it in a closure in memory, but that means the user has to re-login if they refresh the page.\"",
+      "summary10s": "HttpOnly Secure cookies (prevents XSS) or in-memory. Avoid localStorage."
     }
   }
 ];
