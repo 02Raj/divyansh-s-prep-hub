@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Input } from '@/components/ui/input';
 import { 
   AlertCircle, 
   Star, 
@@ -16,7 +17,8 @@ import {
   ExternalLink,
   ArrowRight,
   BookOpen,
-  Copy
+  Copy,
+  Search
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -36,14 +38,28 @@ import { useNavigate } from 'react-router-dom';
 export default function InterviewPrepPage() {
   const [activeTab, setActiveTab] = useState('interview-questions');
   const [selectedCategory, setSelectedCategory] = useState<QuestionCategory | 'All'>('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   const categories: (QuestionCategory | 'All')[] = ['All', 'Java', 'Spring Boot', 'Microservices', 'Angular', 'JavaScript', 'SQL', 'System Design', 'Java Coding', 'JS Coding', 'DevOps', 'Other'];
 
-  const filteredQuestions = selectedCategory === 'All' 
-    ? realInterviewQuestions 
-    : realInterviewQuestions.filter(q => q.category === selectedCategory);
+  const filteredQuestions = realInterviewQuestions.filter(q => {
+    const matchesCategory = selectedCategory === 'All' || q.category === selectedCategory;
+    if (!matchesCategory) return false;
+    if (!searchQuery.trim()) return true;
+    
+    const query = searchQuery.toLowerCase();
+    return (
+      q.question.toLowerCase().includes(query) ||
+      q.answerSEE.simple.toLowerCase().includes(query) ||
+      q.answerSEE.explain.toLowerCase().includes(query)
+    );
+  });
 
+  const getCategoryCount = (cat: QuestionCategory | 'All') => {
+    if (cat === 'All') return realInterviewQuestions.length;
+    return realInterviewQuestions.filter(q => q.category === cat).length;
+  };
 
   const handleViewQuestions = (set: InterviewSetDetail) => {
     navigate(`/interview-set/${set.id}`, { state: { set } });
@@ -146,6 +162,15 @@ ${q.answerSEE.summary10s}`;
                     Authentic questions collected from real interviews, organized in S-E-E format.
                   </p>
                 </div>
+                <div className="relative w-full md:w-64 lg:w-80">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input 
+                    placeholder="Search questions..." 
+                    className="pl-9 bg-background"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
               </div>
 
               {/* Category Filters */}
@@ -158,7 +183,7 @@ ${q.answerSEE.summary10s}`;
                       className="cursor-pointer whitespace-nowrap text-xs py-1 px-3"
                       onClick={() => setSelectedCategory(cat)}
                     >
-                      {cat}
+                      {cat} <span className="ml-1 opacity-70">({getCategoryCount(cat)})</span>
                     </Badge>
                   ))}
                 </div>
