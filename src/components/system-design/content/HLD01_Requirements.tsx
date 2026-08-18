@@ -3,24 +3,23 @@ import { SDTitle, SDHeading2, SDHeading3, SDParagraph, SDList, RememberBlock, In
 export default function HLD01Requirements() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>HLD-01: Requirements Engineering</SDTitle>
+      <SDTitle>HLD-01: Requirements & Capacity</SDTitle>
       
       <SDParagraph>
-        Before you draw a single box on a whiteboard or write a single line of code, you must understand exactly what you are building. The first step of High-Level Design (HLD) is breaking down the problem statement into concrete requirements.
+        Before you draw a single box on a whiteboard or write a single line of code, you must understand exactly what you are building. The first step of High-Level Design (HLD) is breaking down the problem statement into concrete requirements and estimating the scale.
       </SDParagraph>
 
       <SDHeading2>1. Functional Requirements</SDHeading2>
       <SDParagraph>
-        These define the core features of the system. What must the system actually DO?
+        These define the core features of the system. What must the system actually DO? Keep it to 3-4 core use cases.
       </SDParagraph>
       
       <div className="bg-muted/30 p-6 rounded-lg border border-border my-4">
-        <h4 className="font-semibold mb-2">Example: E-Commerce App</h4>
+        <h4 className="font-semibold mb-2">Example: Designing Twitter (X)</h4>
         <ul className="list-disc ml-6 space-y-1 text-sm text-muted-foreground">
-          <li>Users must be able to search for products.</li>
-          <li>Users must be able to add items to a cart.</li>
-          <li>Users must be able to securely checkout and pay.</li>
-          <li>Sellers must be able to add new products.</li>
+          <li>Users must be able to post a tweet.</li>
+          <li>Users must be able to follow other users.</li>
+          <li>Users must be able to view their home feed (tweets from people they follow).</li>
         </ul>
       </div>
 
@@ -30,12 +29,11 @@ export default function HLD01Requirements() {
       </SDParagraph>
 
       <div className="bg-muted/30 p-6 rounded-lg border border-border my-4">
-        <h4 className="font-semibold mb-2">Example: E-Commerce App</h4>
+        <h4 className="font-semibold mb-2">Example: Designing Twitter (X)</h4>
         <ul className="list-disc ml-6 space-y-1 text-sm text-muted-foreground">
-          <li><strong>Performance:</strong> Product search must return results in under 200ms.</li>
-          <li><strong>Availability:</strong> The checkout system must have 99.99% uptime.</li>
-          <li><strong>Consistency:</strong> Inventory numbers must be strictly consistent (we cannot sell a product we don't have).</li>
-          <li><strong>Security:</strong> All payments must be PCI compliant.</li>
+          <li><strong>Performance:</strong> Generating the home feed must take less than 200ms.</li>
+          <li><strong>Availability:</strong> The system must be highly available (99.99% uptime). It's okay if a tweet shows up 2 seconds late, but the site shouldn't crash.</li>
+          <li><strong>Scalability:</strong> Must handle viral events (like the Super Bowl or Elections) gracefully.</li>
         </ul>
       </div>
 
@@ -43,17 +41,28 @@ export default function HLD01Requirements() {
         Functional requirements drive the API design. Non-functional requirements drive the architecture (database choices, caching, scaling).
       </RememberBlock>
 
-      <SDHeading2>3. Scale Assumptions & Constraints</SDHeading2>
+      <SDHeading2>3. Capacity Estimation (Back-of-the-Envelope Math)</SDHeading2>
       <SDParagraph>
-        You need to know the scale of the system to choose the right architecture. A system for 100 internal employees looks very different from a system for 10 million public users.
+        You need to estimate the scale of the system to choose the right architecture. This proves you can design for reality, not just theory.
       </SDParagraph>
 
-      <SDHeading3>How to estimate scale:</SDHeading3>
+      <SDHeading3>Key Metrics to Estimate:</SDHeading3>
       <SDList>
-        <li><strong>Traffic:</strong> How many Daily Active Users (DAU)? How many requests per second (RPS)?</li>
-        <li><strong>Data Volume:</strong> How much data are we generating per day? (Helps decide database storage limits).</li>
-        <li><strong>Read/Write Ratio:</strong> Is this system read-heavy (like Twitter) or write-heavy (like a logging system)? This heavily influences database and caching choices.</li>
+        <li><strong>Traffic (RPS):</strong> How many Requests Per Second? (DAU * requests per user / 86400 seconds)</li>
+        <li><strong>Storage:</strong> How much data are we saving per day? Per year? (Do we need sharding?)</li>
+        <li><strong>Bandwidth:</strong> How much network traffic? (Important for streaming or image-heavy apps).</li>
       </SDList>
+
+      <div className="bg-muted/30 p-6 rounded-lg border border-border my-4">
+        <h4 className="font-semibold mb-2">Example Math: URL Shortener</h4>
+        <ul className="list-disc ml-6 space-y-2 text-sm text-muted-foreground">
+          <li><strong>Assumptions:</strong> 100 Million links generated per month. Read/Write ratio is 10:1 (1 Billion reads per month).</li>
+          <li><strong>Write RPS:</strong> 100M / (30 days * 24h * 3600s) ≈ <strong>40 Requests/sec</strong>.</li>
+          <li><strong>Read RPS:</strong> 1B / (30 days * 24h * 3600s) ≈ <strong>400 Requests/sec</strong>.</li>
+          <li><strong>Storage:</strong> If 1 link = 500 bytes. 100M links * 500 bytes = <strong>50 GB / month</strong>. Over 5 years = 3 TB.</li>
+          <li><strong>Conclusion:</strong> 40 RPS is very low (a single Spring Boot app handles this easily). But 3 TB over 5 years means we should pick a database that scales storage well, like Cassandra or Amazon DynamoDB, rather than keeping everything in memory.</li>
+        </ul>
+      </div>
 
       <InterviewQuestion 
         question="How do you handle ambiguous requirements in a system design interview?"
@@ -71,7 +80,7 @@ export default function HLD01Requirements() {
       />
 
       <CommonMistake>
-        Jumping straight into designing the database schema or picking AWS services before clearly listing out the 3-4 core use cases (Functional Requirements). If you don't define the scope, you will try to design everything and fail to design anything well.
+        Jumping straight into designing the database schema or picking AWS services before clearly listing out the 3-4 core use cases and doing basic math. If you don't define the scope, you will try to design everything and fail to design anything well.
       </CommonMistake>
 
     </div>
