@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 const navLinks = [
-  { path: '/contribute', label: 'Contribute' },
+  // { path: '/contribute', label: 'Contribute' },
   // { path: '/snippets', label: 'Snippets' },
   { path: '/interview-prep', label: 'Interview Prep' },
   { path: '/about', label: 'About Me' }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
+import { ScrollToTop } from '@/components/ui/scroll-to-top';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export function Layout({ children, showSidebar = true }: LayoutProps) {
           {children}
         </main>
       </div>
+      <ScrollToTop />
     </div>
   );
 }
