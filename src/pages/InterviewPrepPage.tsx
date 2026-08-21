@@ -190,7 +190,7 @@ ${q.answerSEE.summary10s}`;
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
 
-              <Accordion type="multiple" className="w-full">
+              <Accordion key={`${selectedCategory}-${searchQuery}`} type="multiple" className="w-full">
                 {filteredQuestions.map((q) => (
                   <AccordionItem key={q.id} value={q.id} className="border-border">
                     <AccordionTrigger className="text-left hover:no-underline py-4">
