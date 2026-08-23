@@ -442,13 +442,14 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-default-methods",
     "category": "Java",
     "question": "Why were default methods introduced in Java 8 interfaces?",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [
       "TCS",
       "Infosys"
     ],
     "variations": [
-      "Default methods vs Abstract Class"
+      "Default methods vs Abstract Class",
+      "Why can interfaces have default and static methods?"
     ],
     "answerSEE": {
       "simple": "Default methods were introduced so you can add new behavior to an interface without breaking existing implementations.",
@@ -7714,6 +7715,248 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "If a downstream service is struggling, sending more requests will only make it worse and tie up your own resources. A circuit breaker detects the failures, \"opens\" to block further calls, and returns a fast error or fallback response until the service recovers.",
       "example": "\"I would wrap the call using a library like Resilience4j to implement a Circuit Breaker. If the error rate crosses a threshold, the circuit opens and immediately returns a cached or default fallback response instead of making the network call. I'd also add limited retries with exponential backoff for transient network blips.\"",
       "summary10s": "Circuit Breaker (fail fast) + Fallback (default response) + Retries with exponential backoff."
+    }
+  },
+  {
+    "id": "java-encapsulation-getters-setters",
+    "category": "Java",
+    "question": "If Java supports encapsulation, why do we still need getters and setters?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Getters and setters enforce encapsulation by hiding internal state and providing a controlled gateway to access or modify it.",
+      "explain": "Encapsulation is about hiding data, but you still need a way to interact with it. Getters and setters allow you to add validation, logging, or transform the data before returning it, without changing the external API of the class.",
+      "example": "\"I use getters and setters so I can control how fields are mutated. For example, in a BankAccount class, the setter for balance can ensure the amount is not negative before updating the internal variable, which wouldn't be possible if the field was public.\"",
+      "summary10s": "Fields = hidden state. Getters/setters = controlled, validated access to that state."
+    }
+  },
+  {
+    "id": "java-abstraction-vs-encapsulation",
+    "category": "Java",
+    "question": "What is the real difference between abstraction and encapsulation?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Abstraction hides complexity (what it does), while encapsulation hides internal state (how it does it).",
+      "explain": "Abstraction is achieved using abstract classes or interfaces to expose only necessary features. Encapsulation is achieved using access modifiers (like private) to restrict direct access to the object's data, bundling data and methods together safely.",
+      "example": "\"When I use a CoffeeMachine interface with a brew() method, that's abstraction—I don't need to know how it brews. But when the CoffeeMachine class keeps its waterLevel and temperature variables private and only modifiable via specific methods, that's encapsulation protecting the internal state.\"",
+      "summary10s": "Abstraction = hiding implementation details. Encapsulation = hiding and protecting data."
+    }
+  },
+  {
+    "id": "java-multiple-inheritance-interfaces",
+    "category": "Java",
+    "question": "Why does Java support multiple interfaces but not multiple class inheritance?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To prevent the Diamond Problem, where a class inherits conflicting implementations from multiple parent classes.",
+      "explain": "If a class inherits from two parent classes that have the same method, the compiler doesn't know which one to execute. Interfaces (before Java 8) only had method signatures without bodies, so there was no conflict. Even with default methods, Java forces the implementing class to resolve the conflict.",
+      "example": "\"I explain it with the Diamond Problem. If class D extends B and C, and both implement print(), calling d.print() is ambiguous. Since interfaces only define contracts (methods to implement), inheriting the same contract twice is perfectly fine because the child class provides the single implementation.\"",
+      "summary10s": "Prevents Diamond Problem. Interfaces only pass contracts, not conflicting implementations."
+    }
+  },
+  {
+    "id": "java-parent-reference-child-object",
+    "category": "Java",
+    "question": "What happens when you write: Parent p = new Child();",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "If a parent reference points to a child object, which methods and fields can you access?"
+    ],
+    "answerSEE": {
+      "simple": "This is upcasting. The reference determines what you can call at compile time, but the object type determines the method executed at runtime.",
+      "explain": "The compiler looks at the Parent class. You can only call methods declared in Parent. However, due to polymorphism, if the Child overrides a method, the Child's version is executed at runtime (Dynamic Method Dispatch). Note: Fields are NOT polymorphic; they are resolved based on the reference type.",
+      "example": "\"When I do `Animal a = new Dog();`, I can only call `a.eat()` if `eat()` is defined in Animal. If I try to call `a.bark()`, it won't compile. But if both have `eat()`, the Dog's `eat()` method is called at runtime because the actual object in memory is a Dog.\"",
+      "summary10s": "Compile time: checked by reference type. Runtime: executed by actual object type. Fields are NOT polymorphic."
+    }
+  },
+  {
+    "id": "java-runtime-vs-compiletime-polymorphism",
+    "category": "Java",
+    "question": "Why is method overriding runtime polymorphism while overloading is compile-time polymorphism?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is compile-time binding vs runtime binding?"
+    ],
+    "answerSEE": {
+      "simple": "Overloading is resolved by the compiler based on method signatures, while overriding is resolved by the JVM at runtime based on the actual object type.",
+      "explain": "In overloading (compile-time/static binding), the compiler knows exactly which method to call because the parameter lists are different. In overriding (runtime/dynamic binding), the method signatures are identical, so the JVM must wait until runtime to see what actual object is instantiated in memory to call the right method.",
+      "example": "\"If I have two `print(int)` and `print(String)` methods, the compiler knows immediately which one I mean based on the argument. That's compile-time. But if a parent and child both have a `draw()` method, and I pass the object to a function as a Parent reference, only the JVM at runtime knows if it's actually pointing to a Child object.\"",
+      "summary10s": "Overloading: different params, compiler decides. Overriding: identical signatures, JVM decides based on object in heap."
+    }
+  },
+  {
+    "id": "java-override-static-method",
+    "category": "Java",
+    "question": "Can a static method be overridden? What actually happens?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "No, static methods cannot be overridden; they are \"hidden\" instead.",
+      "explain": "Static methods are bound to the class at compile time, not to an instance at runtime. If a child class defines a static method with the same signature as the parent, it simply hides the parent's method. Polymorphism (runtime dispatch) does not apply.",
+      "example": "\"If both Parent and Child have a `static void show()`, and I do `Parent p = new Child(); p.show();`, it will call the Parent's `show()` method. Because the method is static, the compiler looks at the reference type (`Parent`), completely ignoring the actual object type (`Child`).\"",
+      "summary10s": "Static methods belong to the class, so they are resolved at compile time (Method Hiding), not runtime."
+    }
+  },
+  {
+    "id": "java-override-private-method",
+    "category": "Java",
+    "question": "Why can’t a private method be overridden?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Because private methods are not inherited by child classes, they are invisible outside their own class.",
+      "explain": "Overriding requires the child class to inherit the parent's method and replace its implementation. Since private methods are tightly encapsulated and hidden from subclasses, the subclass doesn't even know the method exists. If you write a matching method in the child, it's just a brand new method.",
+      "example": "\"I can't override a private method because overriding is an inheritance concept. The child class can't inherit private members. If I write a method with the same name in the child class, the compiler treats it as a completely separate, unrelated method, not an override.\"",
+      "summary10s": "No inheritance = no overriding. Private methods are hidden from subclasses."
+    }
+  },
+  {
+    "id": "java-override-final-method",
+    "category": "Java",
+    "question": "Why can’t a final method be overridden?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The \"final\" keyword explicitly tells the compiler that the method's implementation is complete and locked.",
+      "explain": "When you mark a method as final, you are restricting polymorphism for that specific behavior. It ensures that the core logic of the method cannot be altered or broken by subclasses, which is crucial for security and consistent behavior in framework design.",
+      "example": "\"I use final methods when designing base classes where a specific workflow must be strictly followed. For example, in a Template Method pattern, the main orchestrating method should be final so that child classes can't ruin the core execution sequence, they can only override the specific steps.\"",
+      "summary10s": "\"Final\" locks the method. It prevents subclasses from altering critical or secure behavior."
+    }
+  },
+  {
+    "id": "java-default-constructor",
+    "category": "Java",
+    "question": "If a class has a parameterized constructor, what happens to the default constructor?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The compiler no longer provides a no-argument default constructor automatically.",
+      "explain": "Java only provides a default (no-arg) constructor if you write NO constructors at all. The moment you define a parameterized constructor, the compiler assumes you want strict control over how the object is instantiated and steps back.",
+      "example": "\"If I define `public User(String name)`, and then try to do `new User();`, I'll get a compile error. Because I provided a specific way to build a User, Java stops generating the free default constructor. I'd have to explicitly write `public User() {}` if I still want to allow empty creation.\"",
+      "summary10s": "The compiler stops generating the free no-arg constructor the second you write any constructor yourself."
+    }
+  },
+  {
+    "id": "java-parent-constructor-called-first",
+    "category": "Java",
+    "question": "Why is the parent constructor called before the child constructor?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Because a child object relies on the parent's state, so the parent must be fully initialized before the child can safely build on top of it.",
+      "explain": "Constructor chaining ensures object integrity. The child class inherits fields and methods from the parent. If the child's constructor runs first and tries to use an inherited field, it would crash or behave unpredictably because the parent hasn't set it up yet. That's why Java inserts an implicit `super()` call at the top.",
+      "example": "\"Think of building a house. The parent constructor is the foundation, and the child constructor is the walls. You can't build the walls until the foundation is poured. If my `Manager` class inherits from `Employee`, the `Employee` constructor MUST run first to set up the basic ID and Name before `Manager` sets up the team size.\"",
+      "summary10s": "Foundation first. Parent state must be initialized so the child can safely use inherited fields."
+    }
+  },
+  {
+    "id": "java-abstract-class-constructors",
+    "category": "Java",
+    "question": "Can an abstract class have constructors, fields, and concrete methods? Why?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes. It needs them because it acts as a base class sharing state and common logic with its subclasses.",
+      "explain": "An abstract class can't be instantiated directly, but its subclasses are. When a subclass is instantiated, it calls `super()`. The abstract class needs a constructor to initialize its own fields. It can have concrete methods to provide default behavior that multiple subclasses can reuse.",
+      "example": "\"I frequently use abstract classes to hold shared state. If I have an abstract `Vehicle` class, it can have a `speed` field, a constructor to set the speed, and a concrete `startEngine()` method. The subclasses (`Car`, `Bike`) just inherit this common logic and state while only overriding the specific abstract methods like `drive()`.\"",
+      "summary10s": "Yes. It holds shared state (fields) and common behavior (concrete methods) for subclasses to inherit."
+    }
+  },
+  {
+    "id": "java-is-a-vs-has-a",
+    "category": "Java",
+    "question": "What is IS-A vs HAS-A? Why is composition often preferred over inheritance?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "IS-A is inheritance (Car is a Vehicle); HAS-A is composition (Car has an Engine). Composition is more flexible and loosely coupled.",
+      "explain": "Inheritance tightly couples the child to the parent, meaning any change in the parent breaks the child (fragile base class problem). Composition (HAS-A) injects dependencies, making it easier to swap out behaviors at runtime, test components in isolation, and avoid deep, rigid class hierarchies.",
+      "example": "\"I prefer composition over inheritance to avoid deep hierarchies. Instead of making a `FlyingBird` and `SwimmingBird` inherit from `Bird`, I give a generic `Bird` class a `MovementStrategy` object (HAS-A). This lets me swap behaviors dynamically and keeps my code highly modular and easy to test.\"",
+      "summary10s": "IS-A = strict inheritance. HAS-A = composition. Composition avoids fragile, deeply nested class hierarchies."
+    }
+  },
+  {
+    "id": "java-variable-hiding",
+    "category": "Java",
+    "question": "If parent and child have a variable with the same name, which one is accessed?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The variable accessed depends strictly on the reference type, not the object type, because variables are not polymorphic.",
+      "explain": "Variables in Java do not participate in overriding; they are hidden (Variable Hiding). The compiler resolves field access at compile time based on the declared type of the reference variable. There is no dynamic dispatch for fields.",
+      "example": "\"If Parent and Child both have `int x`, and I do `Parent p = new Child(); print(p.x);`, it will print the Parent's `x`. To get the Child's `x`, I would have to cast it: `((Child)p).x`. This is why we usually make fields private and use polymorphic getter methods instead.\"",
+      "summary10s": "Variables don't override, they hide. The compiler checks the reference type, ignoring the actual runtime object."
+    }
+  },
+  {
+    "id": "java-overload-return-type",
+    "category": "Java",
+    "question": "Can you overload a method by changing only its return type?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "No, the compiler will throw an error because the return type is not part of the method signature.",
+      "explain": "In Java, a method signature consists only of the method name and the parameter list. If two methods have the same name and parameters but different return types, the compiler can't determine which one you meant to call, especially if you ignore the return value.",
+      "example": "\"If I write `int calculate()` and `double calculate()`, it won't compile. If I just write `calculate();` in my code without assigning the result to a variable, the compiler has absolutely no way to know which version of the method to execute. That's why parameter lists MUST differ.\"",
+      "summary10s": "No. Method signature = name + parameters. Return type doesn't count, leading to compiler ambiguity."
+    }
+  },
+  {
+    "id": "java-polymorphism-without-inheritance",
+    "category": "Java",
+    "question": "Can you achieve polymorphism without inheritance?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, through interfaces and method overloading.",
+      "explain": "While overriding requires inheritance or interface implementation (dynamic polymorphism), you can achieve compile-time polymorphism through method overloading in a single class. You can also implement multiple unrelated interfaces to achieve polymorphic behavior without strict class inheritance.",
+      "example": "\"I achieve polymorphism all the time without class inheritance by using Interfaces. If `Car` and `Person` both implement a `Movable` interface, I can treat them polymorphically in a list of `Movable` objects. I also use method overloading, which is a form of compile-time polymorphism inside a single class.\"",
+      "summary10s": "Yes. Method overloading (compile-time) and Interfaces (runtime) provide polymorphism without class extension."
+    }
+  },
+  {
+    "id": "system-design-oop-payment-system",
+    "category": "System Design",
+    "question": "In a payment system with CardPayment, UPIPayment and CashPayment, where would you use abstraction, encapsulation and polymorphism?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Abstraction defines the Payment interface; Encapsulation hides the card details; Polymorphism processes the payment dynamically.",
+      "explain": "Abstraction: A `Payment` interface with a `process()` method hides the complex integration details. Encapsulation: The `CardPayment` class keeps the CVV and card number private, exposing only safe methods. Polymorphism: A checkout service calls `payment.process()`, and the JVM dynamically routes it to UPI, Card, or Cash based on the actual object.",
+      "example": "\"I would create a `PaymentProcessor` interface (Abstraction). The `UPIPayment` class implements it and keeps the user's PIN fully private (Encapsulation). When a user checks out, my `CheckoutService` accepts any `PaymentProcessor` and just calls `.process()`—the JVM uses Polymorphism to automatically execute the correct gateway logic without me writing if-else statements.\"",
+      "summary10s": "Abstraction = Payment interface. Encapsulation = hiding PIN/CVV. Polymorphism = calling process() dynamically."
+    }
+  },
+  {
+    "id": "system-design-avoid-inheritance",
+    "category": "System Design",
+    "question": "Where would you deliberately AVOID inheritance in a real production application, and why?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I avoid inheritance when sharing utility methods or when the relationship isn't strictly \"IS-A\", to prevent deep, fragile hierarchies.",
+      "explain": "Inheritance violates encapsulation if not designed carefully, causing the \"Fragile Base Class\" problem where a change in the parent breaks all children. I avoid it for code reuse (use composition instead) and avoid deep nesting (more than 2 levels).",
+      "example": "\"In production, I strictly avoid creating a massive `BaseController` or `BaseEntity` just to share utility methods like date formatting or validation. It tightly couples unrelated classes and makes unit testing a nightmare. Instead, I inject small, focused utility classes or services using Composition. I only use inheritance when a true, strict 'IS-A' relationship dictates it.\"",
+      "summary10s": "Avoid for simple code reuse. Deep hierarchies cause tight coupling and fragile code. Use Composition instead."
     }
   }
 ];
