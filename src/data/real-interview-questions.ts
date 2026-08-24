@@ -674,6 +674,42 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "how-does-the-spring-container-work",
+    "category": "Spring Boot",
+    "question": "How does the Spring Container work?",
+    "frequency": 4,
+    "companies": [],
+    "variations": [
+      "Internal Working of Spring Container",
+      "Spring annotations: @Component, @Bean, @Qualifier, @Value",
+      "What is the difference between @Component, @Bean, and @Configuration beyond simply “creating beans”?"
+    ],
+    "answerSEE": {
+      "simple": "Spring scans classes, creates beans, injects dependencies, and manages their lifecycle.",
+      "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
+      "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
+      "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
+    }
+  },
+  {
+    "id": "java-jvm-metrics",
+    "category": "Java",
+    "question": "Your Java API suddenly becomes slow in production. What JVM-level metrics do you check first?",
+    "frequency": 4,
+    "companies": [],
+    "variations": [
+      "An API response time was previously around 10 ms but suddenly increased to 3 seconds. How would you troubleshoot it?",
+      "What tools or metrics would you use for troubleshooting application performance?",
+      "Your Spring Boot API suddenly goes from 200 ms to 5 seconds. What would you check first?"
+    ],
+    "answerSEE": {
+      "simple": "Check GC pause times, Heap memory usage, and Thread states (Blocked/Waiting).",
+      "explain": "If the API is slow, it is usually one of three things: 1. The JVM is constantly running Full GCs (\"Stop-the-world\" pauses) because the heap is 99% full. 2. Threads are deadlocked or blocked waiting for a database connection pool. 3. CPU is spiking due to infinite loops.",
+      "example": "\"First, I look at Datadog/Prometheus for GC metrics. If time spent in GC is spiking, the app is starving for memory. Next, I pull a thread dump. If I see 200 threads in `BLOCKED` state waiting for a HikariCP database lock, I know the database is the bottleneck, not the JVM.\"",
+      "summary10s": "1. GC Pause Times (Heap exhaustion). 2. Thread Dumps (Deadlocks/DB pool exhaustion)."
+    }
+  },
+  {
     "id": "angular-standalone-components",
     "category": "Angular",
     "question": "Standalone Components",
@@ -1118,23 +1154,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "how-does-the-spring-container-work",
-    "category": "Spring Boot",
-    "question": "How does the Spring Container work?",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Internal Working of Spring Container",
-      "Spring annotations: @Component, @Bean, @Qualifier, @Value"
-    ],
-    "answerSEE": {
-      "simple": "Spring scans classes, creates beans, injects dependencies, and manages their lifecycle.",
-      "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
-      "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
-      "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
-    }
-  },
-  {
     "id": "pathvariable-vs-requestparam",
     "category": "Spring Boot",
     "question": "@PathVariable vs @RequestParam?",
@@ -1187,23 +1206,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When `public void test()` executes, a stack frame is created. The primitive `int x = 10` is stored in the Stack. `Employee e` (the reference) is also in the Stack, but the actual `new Employee()` object is created in the Heap.",
       "example": "In that method, the primitive `x` and the reference variable `e` are both stored in the thread's Stack memory inside the method's frame. The actual `Employee` object instance is allocated in the Heap. Once the method finishes execution, the stack frame is popped off, destroying `x` and `e`. Since there are no more references pointing to the `Employee` object in the Heap, it becomes eligible for Garbage Collection.",
       "summary10s": "Primitives & references on Stack. Objects on Heap. Object is GCed when method ends."
-    }
-  },
-  {
-    "id": "java-jvm-metrics",
-    "category": "Java",
-    "question": "Your Java API suddenly becomes slow in production. What JVM-level metrics do you check first?",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "An API response time was previously around 10 ms but suddenly increased to 3 seconds. How would you troubleshoot it?",
-      "What tools or metrics would you use for troubleshooting application performance?"
-    ],
-    "answerSEE": {
-      "simple": "Check GC pause times, Heap memory usage, and Thread states (Blocked/Waiting).",
-      "explain": "If the API is slow, it is usually one of three things: 1. The JVM is constantly running Full GCs (\"Stop-the-world\" pauses) because the heap is 99% full. 2. Threads are deadlocked or blocked waiting for a database connection pool. 3. CPU is spiking due to infinite loops.",
-      "example": "\"First, I look at Datadog/Prometheus for GC metrics. If time spent in GC is spiking, the app is starving for memory. Next, I pull a thread dump. If I see 200 threads in `BLOCKED` state waiting for a HikariCP database lock, I know the database is the bottleneck, not the JVM.\"",
-      "summary10s": "1. GC Pause Times (Heap exhaustion). 2. Thread Dumps (Deadlocks/DB pool exhaustion)."
     }
   },
   {
@@ -2491,6 +2493,90 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Instead of putting try-catch blocks in every controller method, you create a central class annotated with @RestControllerAdvice. Inside, you define methods annotated with @ExceptionHandler(SpecificException.class) to catch errors and return consistent JSON error formats.",
       "example": "\"If my service throws a `UserNotFoundException`, it bubbles up out of the controller. My global `@RestControllerAdvice` class intercepts it using an `@ExceptionHandler`, wraps the error message in a standard `ApiError` DTO, and returns it with a 404 HTTP status code. It keeps my controllers completely clean.\"",
       "summary10s": "@RestControllerAdvice acts as a global try-catch for the entire application."
+    }
+  },
+  {
+    "id": "coding-first-non-repeating-character-stream",
+    "category": "Java Coding",
+    "question": "Find the first non-repeating character using Java 8 Streams",
+    "frequency": 2,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Find the first non-repeating character in a string."
+    ],
+    "answerSEE": {
+      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
+      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
+      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
+      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
+    }
+  },
+  {
+    "id": "filter-vs-interceptor",
+    "category": "Spring Boot",
+    "question": "Filter vs Interceptor.",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What is HttpClient and how do you use interceptors?"
+    ],
+    "answerSEE": {
+      "simple": "Filters are part of the Java Servlet spec and run before the request reaches Spring. Interceptors are part of Spring MVC and run after the request enters Spring's context.",
+      "explain": "Filters execute outside the DispatcherServlet, making them ideal for security, logging, or modifying the raw request/response. Interceptors execute inside the DispatcherServlet, so they have access to the actual Controller and Method being called.",
+      "example": "\"Filters run at the web server level before Spring even knows about the request, so I use them for global things like CORS or Spring Security. Interceptors belong to Spring MVC, so they can see which Controller method is about to be executed. I use interceptors when I need to do something specific to my application logic, like checking a custom @Audit annotation on a controller method.\"",
+      "summary10s": "Filter = Servlet spec, runs before Spring. Interceptor = Spring MVC, runs right before Controller."
+    }
+  },
+  {
+    "id": "spring-boot-production-mistakes",
+    "category": "Spring Boot",
+    "question": "What Spring Boot mistakes commonly cause production performance issues?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Why can an N+1 query problem remain hidden even when using JPA repositories?"
+    ],
+    "answerSEE": {
+      "simple": "N+1 query problems in JPA, blocking threads in reactive setups, or relying on default connection pool sizes under heavy load.",
+      "explain": "Common issues include: 1) JPA N+1 fetching massive amounts of data lazily inside a loop. 2) Leaving the default Tomcat thread pool (200) or HikariCP connection pool (10) when traffic requires tuning. 3) Accidentally caching too much in memory without eviction policies.",
+      "example": "\"The most common performance killer I've seen is the N+1 query problem using Spring Data JPA, where lazy loading inside a loop triggers thousands of DB queries. Another mistake is forgetting to tune HikariCP. The default pool size of 10 is great for dev, but in a high-throughput production environment, it often causes request queuing.\"",
+      "summary10s": "JPA N+1 query problem, untuned HikariCP connection pools, and blocking operations."
+    }
+  },
+  {
+    "id": "what-is-the-volatile-keyword",
+    "category": "Java",
+    "question": "What is the volatile keyword?",
+    "frequency": 2,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "What happens to an in-flight request when a Spring Boot application receives a shutdown signal?"
+    ],
+    "answerSEE": {
+      "simple": "volatile ensures every thread sees the most recent value of a variable, bypassing CPU-level caching.",
+      "explain": "- Forces reads/writes to go directly to main memory\n- Doesn't make compound operations (like `count++`) atomic\n- Commonly used for simple flags (e.g., a shutdown signal read by multiple threads)",
+      "example": "\"volatile guarantees that when one thread updates a variable, other threads immediately see the latest value, since it bypasses CPU caching. It doesn't make an operation like count++ atomic though, since that's still a read-modify-write sequence. I typically use it for simple flags, like a boolean shutdown signal that multiple threads check.\"",
+      "summary10s": "\"Ensures visibility across threads — not atomicity. Good for simple flags.\""
+    }
+  },
+  {
+    "id": "java-checked-vs-unchecked-exceptions",
+    "category": "Java",
+    "question": "What is the difference between Checked and Unchecked Exceptions?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Why can @Transactional behave differently for checked and unchecked exceptions?"
+    ],
+    "answerSEE": {
+      "simple": "Checked exceptions are checked at compile-time and must be handled; unchecked exceptions happen at runtime and don't force handling.",
+      "explain": "Checked exceptions (like IOException) inherit from Exception and force you to write try-catch or throws. Unchecked exceptions (like NullPointerException) inherit from RuntimeException, usually indicating programming errors rather than expected system failures.",
+      "example": "\"If I read a file, Java forces me to handle IOException (checked) because a file might legitimately not exist. But Java doesn't force me to wrap every array access in a try-catch for ArrayIndexOutOfBounds (unchecked), because I should just write better logic to prevent that.\"",
+      "summary10s": "Checked = compiler forces try-catch (IOException). Unchecked = RuntimeException, programming errors (NPE)."
     }
   },
   {
@@ -5836,20 +5922,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-boot-production-mistakes",
-    "category": "Spring Boot",
-    "question": "What Spring Boot mistakes commonly cause production performance issues?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "N+1 query problems in JPA, blocking threads in reactive setups, or relying on default connection pool sizes under heavy load.",
-      "explain": "Common issues include: 1) JPA N+1 fetching massive amounts of data lazily inside a loop. 2) Leaving the default Tomcat thread pool (200) or HikariCP connection pool (10) when traffic requires tuning. 3) Accidentally caching too much in memory without eviction policies.",
-      "example": "\"The most common performance killer I've seen is the N+1 query problem using Spring Data JPA, where lazy loading inside a loop triggers thousands of DB queries. Another mistake is forgetting to tune HikariCP. The default pool size of 10 is great for dev, but in a high-throughput production environment, it often causes request queuing.\"",
-      "summary10s": "JPA N+1 query problem, untuned HikariCP connection pools, and blocking operations."
-    }
-  },
-  {
     "id": "multiple-threads-modify-same-arraylist",
     "category": "Java",
     "question": "What happens when multiple threads modify the same ArrayList?",
@@ -6640,22 +6712,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-the-volatile-keyword",
-    "category": "Java",
-    "question": "What is the volatile keyword?",
-    "frequency": 1,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "volatile ensures every thread sees the most recent value of a variable, bypassing CPU-level caching.",
-      "explain": "- Forces reads/writes to go directly to main memory\n- Doesn't make compound operations (like `count++`) atomic\n- Commonly used for simple flags (e.g., a shutdown signal read by multiple threads)",
-      "example": "\"volatile guarantees that when one thread updates a variable, other threads immediately see the latest value, since it bypasses CPU caching. It doesn't make an operation like count++ atomic though, since that's still a read-modify-write sequence. I typically use it for simple flags, like a boolean shutdown signal that multiple threads check.\"",
-      "summary10s": "\"Ensures visibility across threads — not atomicity. Good for simple flags.\""
-    }
-  },
-  {
     "id": "volatile-vs-synchronized",
     "category": "Java",
     "question": "volatile vs synchronized",
@@ -7170,22 +7226,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "coding-first-non-repeating-character-stream",
-    "category": "Java Coding",
-    "question": "Find the first non-repeating character using Java 8 Streams",
-    "frequency": 1,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
-      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
-      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
-      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
-    }
-  },
-  {
     "id": "coding-highest-paid-employee-per-department",
     "category": "Java Coding",
     "question": "Find the highest-paid employee from each department using Streams",
@@ -7687,20 +7727,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When the API returns 401, the frontend catches the error, transparently makes a request to the `/refresh-token` endpoint using the Refresh Token, receives a new Access Token, and retries the original failed API request.",
       "example": "\"When the Access Token expires, my Spring Boot API throws an expired token exception and returns a 401 Unauthorized. On the frontend, an Axios interceptor catches that 401, pauses the failed request, and uses the Refresh Token to silently fetch a new Access Token. It then replaces the old token and retries the original request, so the user never notices anything.\"",
       "summary10s": "API returns 401. Client intercepts it, uses refresh token to get a new access token, and retries."
-    }
-  },
-  {
-    "id": "filter-vs-interceptor",
-    "category": "Spring Boot",
-    "question": "Filter vs Interceptor.",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Filters are part of the Java Servlet spec and run before the request reaches Spring. Interceptors are part of Spring MVC and run after the request enters Spring's context.",
-      "explain": "Filters execute outside the DispatcherServlet, making them ideal for security, logging, or modifying the raw request/response. Interceptors execute inside the DispatcherServlet, so they have access to the actual Controller and Method being called.",
-      "example": "\"Filters run at the web server level before Spring even knows about the request, so I use them for global things like CORS or Spring Security. Interceptors belong to Spring MVC, so they can see which Controller method is about to be executed. I use interceptors when I need to do something specific to my application logic, like checking a custom @Audit annotation on a controller method.\"",
-      "summary10s": "Filter = Servlet spec, runs before Spring. Interceptor = Spring MVC, runs right before Controller."
     }
   },
   {
@@ -8617,20 +8643,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-checked-vs-unchecked-exceptions",
-    "category": "Java",
-    "question": "What is the difference between Checked and Unchecked Exceptions?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Checked exceptions are checked at compile-time and must be handled; unchecked exceptions happen at runtime and don't force handling.",
-      "explain": "Checked exceptions (like IOException) inherit from Exception and force you to write try-catch or throws. Unchecked exceptions (like NullPointerException) inherit from RuntimeException, usually indicating programming errors rather than expected system failures.",
-      "example": "\"If I read a file, Java forces me to handle IOException (checked) because a file might legitimately not exist. But Java doesn't force me to wrap every array access in a try-catch for ArrayIndexOutOfBounds (unchecked), because I should just write better logic to prevent that.\"",
-      "summary10s": "Checked = compiler forces try-catch (IOException). Unchecked = RuntimeException, programming errors (NPE)."
-    }
-  },
-  {
     "id": "java-throw-vs-throws",
     "category": "Java",
     "question": "What is the difference between throw and throws?",
@@ -9435,6 +9447,345 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "A `LinkedHashMap` maintains insertion order. You iterate the string and build the frequency map (O(N) time). Then, you iterate the map's entry set. The first time you see a value > 1, you skip it. The second time you see a value > 1, you return that key. For millions of characters, this is highly scalable because the Space Complexity is bounded by the alphabet size (O(1) space, max 256 or 65k entries).",
       "example": "\"I iterate the string: `map.put(c, map.getOrDefault(c, 0) + 1)`. Then I loop the map. I keep a `repeatedCount`. When `entry.getValue() > 1`, I increment `repeatedCount`. If `repeatedCount == 2`, I return `entry.getKey()`. Time is O(N). Space is O(1) because a character map never exceeds the fixed character set, even for millions of chars.\"",
       "summary10s": "LinkedHashMap keeps order. Build frequencies (O(N)). Find the 2nd char with count > 1. Space is O(1) bounded by character set."
+    }
+  },
+  {
+    "id": "js-coding-2nd-largest-no-inbuilt",
+    "category": "JS Coding",
+    "question": "Find the 2nd largest element in an array without using any javascript inbuilt method.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Iterate through the array while keeping track of the `largest` and `secondLargest` numbers.",
+      "explain": "Instead of using `.sort()`, you use a single `for` loop. Initialize both variables to `-Infinity`. If the current number is greater than `largest`, update `secondLargest` to `largest`, then update `largest`. If the number is between `secondLargest` and `largest`, just update `secondLargest`. This achieves O(N) time and O(1) space.",
+      "example": "\"I initialize `max1` and `max2` to `-Infinity`. I loop: `if (arr[i] > max1) { max2 = max1; max1 = arr[i]; } else if (arr[i] > max2 && arr[i] != max1) { max2 = arr[i]; }`. It's highly efficient and avoids sorting overhead.\"",
+      "summary10s": "Track `max1` and `max2` in a single O(N) loop. Avoid `.sort()` for better performance."
+    }
+  },
+  {
+    "id": "js-coding-rotate-array",
+    "category": "JS Coding",
+    "question": "Rotate the given array clockwise. Input [1,2,3,4,5,6] -> Output [5,6,1,2,3,4].",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Reverse the whole array, then reverse the first K elements, then reverse the remaining elements.",
+      "explain": "While you can use `.splice()` and `.unshift()`, doing it in-place using the three-reversal method is the algorithmic golden standard (O(N) time, O(1) space). First, calculate `k = k % arr.length`. Reverse the entire array. Reverse the elements from `0` to `k-1`. Finally, reverse from `k` to the end.",
+      "example": "\"To rotate clockwise by 2, I reverse everything: `[6,5,4,3,2,1]`. Then reverse the first 2: `[5,6,4,3,2,1]`. Then reverse the rest: `[5,6,1,2,3,4]`. I would write a small helper function `reverse(arr, start, end)` to do this cleanly.\"",
+      "summary10s": "Use the three-step reversal algorithm for an O(N) time, in-place O(1) space solution."
+    }
+  },
+  {
+    "id": "js-coding-string-compression",
+    "category": "JS Coding",
+    "question": "Compress consecutive repeated characters by replacing them with the character followed by its count (aabbb → a2b3).",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Iterate through the string, count identical adjacent characters, and append the character and count to a result string.",
+      "explain": "Use a `for` loop. Keep a `count` variable. Compare `str[i]` with `str[i+1]`. If they are the same, increment `count`. If they are different, append `str[i] + count` to your result string and reset `count` to 1. This runs in O(N) time.",
+      "example": "\"I loop from `i=0` to length. If `str[i] === str[i+1]`, I do `count++`. Otherwise, I do `res += str[i] + count; count = 1;`. In JS, string concatenation is fine, but in Java, you'd absolutely need a StringBuilder.\"",
+      "summary10s": "Single O(N) loop. Compare `str[i]` with `str[i+1]`. Append and reset count when they differ."
+    }
+  },
+  {
+    "id": "js-type-coercion-output",
+    "category": "JavaScript",
+    "question": "Find the output: console.log('a' + 'b' + 2); console.log('a' - 'b' + 2);",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The first outputs `\"ab2\"`. The second outputs `NaN`.",
+      "explain": "In JavaScript, the `+` operator overloaded. If any operand is a string, it performs string concatenation (`\"a\" + \"b\" = \"ab\"`, `\"ab\" + 2 = \"ab2\"`). The `-` operator, however, strictly attempts numeric subtraction. It tries to convert \"a\" to a number, fails (resulting in `NaN`), and `NaN + 2` is still `NaN`.",
+      "example": "\"This is classic JS type coercion. `+` favors strings, so it concatenates. `-` favors numbers, so it forces a numeric cast. Since 'a' isn't a number, it evaluates to `NaN` immediately.\"",
+      "summary10s": "`+` favors string concatenation. `-` favors numeric math, triggering NaN for letters."
+    }
+  },
+  {
+    "id": "js-closure-output-tricky",
+    "category": "JavaScript",
+    "question": "Find the output: function outer() { var x = 1; function inner() { console.log(x); } x = 2; return inner; } outer()();",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The output is `2`.",
+      "explain": "This tests closures and variable references. A closure does not capture the *value* of `x` at the moment the function is defined; it captures a *reference* to the memory location of `x`. Because `x` is reassigned to `2` before `inner` is returned and executed, `inner` reads the latest value: `2`.",
+      "example": "\"Even though `x` was `1` when `inner` was declared, closures capture references, not snapshots. By the time `result()` is invoked, `outer` has already updated `x` to `2`. Therefore, it logs `2`.\"",
+      "summary10s": "Closures capture variable references, not value snapshots. It logs the latest assigned value."
+    }
+  },
+  {
+    "id": "js-deep-vs-shallow-copy",
+    "category": "JavaScript",
+    "question": "What is the difference between deep copy vs shallow copy?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A shallow copy copies top-level properties but shares nested object references. A deep copy creates a completely independent clone of all nested levels.",
+      "explain": "If you use `Object.assign()` or the spread operator `...`, you get a shallow copy. If you change a nested array inside the copy, it affects the original. To get a deep copy, you historically used `JSON.parse(JSON.stringify(obj))`, but now you should use the native `structuredClone(obj)`.",
+      "example": "\"If I have `obj = { a: 1, config: { dark: true } }`. A shallow copy `...obj` copies `a` by value, but `config` is copied by reference. Changing the copy's `config.dark` modifies the original. I use `structuredClone()` to prevent this.\"",
+      "summary10s": "Shallow copy shares nested references. Deep copy duplicates everything. Use `structuredClone()`."
+    }
+  },
+  {
+    "id": "js-generator-function",
+    "category": "JavaScript",
+    "question": "What is a generator function in javascript and when to use it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Generator is a function that can pause its execution and be resumed later, created using `function*` and the `yield` keyword.",
+      "explain": "Unlike normal functions that run to completion, a generator returns an Iterator. Each time you call `.next()`, it executes until it hits a `yield`, pauses, and spits out a value. They are excellent for lazy evaluation, infinite data sequences, or managing complex asynchronous flows (like Redux Saga).",
+      "example": "\"I write `function* idMaker() { let id = 1; while(true) yield id++; }`. Calling it doesn't crash with an infinite loop. It just gives me an iterator. Every time I call `gen.next().value`, I get the next ID lazily.\"",
+      "summary10s": "`function*` + `yield`. Pauses execution. Perfect for lazy evaluation or complex async flows."
+    }
+  },
+  {
+    "id": "js-this-keyword-strict",
+    "category": "JavaScript",
+    "question": "What is the \"this\" keyword? How does it behave in strict mode and non-strict mode?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`this` refers to the object that is currently calling the function. In strict mode, a standalone function's `this` is `undefined`; in non-strict, it defaults to the global `window` object.",
+      "explain": "The value of `this` is determined at runtime by how a function is called, not where it is defined (unless it's an arrow function). If called as a method (`obj.func()`), `this` is `obj`. If called as a standalone function (`func()`), non-strict mode dangerously defaults `this` to the global object, while strict mode safely sets it to `undefined` to prevent global pollution.",
+      "example": "\"If I write a normal function and `console.log(this)`, in sloppy mode it logs the `Window`. But if I add `\"use strict\";` at the top, it logs `undefined`. That's why strict mode is essential to catch context bugs.\"",
+      "summary10s": "`this` is the calling context. Standalone functions default to `window` (sloppy) or `undefined` (strict)."
+    }
+  },
+  {
+    "id": "js-create-copy-object",
+    "category": "JavaScript",
+    "question": "What are the different ways to create and copy an object?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Create: Object literals `{}`, `Object.create()`, or the `new` keyword. Copy: Spread operator `...`, `Object.assign()`, or `structuredClone()`.",
+      "explain": "For creation, `{}` is the most common. `Object.create(proto)` is used for prototypal inheritance. For copying, `...` and `Object.assign()` provide shallow copies (nested objects share references). `JSON.parse(JSON.stringify())` or the modern `structuredClone()` provide deep copies.",
+      "example": "\"To create, I almost always use `{ name: 'John' }`. To copy it quickly, I use `const copy = { ...obj }`. But if the object has deep nesting, like an API response, I strictly use `structuredClone(obj)` to avoid reference mutation bugs.\"",
+      "summary10s": "Create: `{}`, `new Class()`, `Object.create()`. Copy: `...` (shallow), `structuredClone()` (deep)."
+    }
+  },
+  {
+    "id": "js-double-vs-triple-equals",
+    "category": "JavaScript",
+    "question": "Difference between \"==\" and \"===\"?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`==` checks for value equality with type coercion. `===` checks for both value and type equality strictly.",
+      "explain": "When using `==`, JavaScript attempts to convert the types before comparing (e.g., `1 == \"1\"` becomes `1 == 1`, returning true). When using `===`, no conversion happens, so `1 === \"1\"` is immediately false because a number is not a string. You should almost exclusively use `===`.",
+      "example": "\"If I write `0 == false`, it's true because of JS coercion rules. If I write `0 === false`, it's false because a Number is not a Boolean. Using `===` prevents massive bugs in conditional logic.\"",
+      "summary10s": "`==` allows type coercion. `===` enforces strict type checking. Always use `===`."
+    }
+  },
+  {
+    "id": "typescript-type-vs-interface",
+    "category": "Angular",
+    "question": "Difference between Type and interface in TypeScript?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Interfaces are specifically for shaping objects and support declaration merging. Types can shape objects, but also define primitives, unions, and tuples.",
+      "explain": "An `interface` is best for defining class contracts and standard object shapes. A `type` alias is more versatile—you can define `type Status = \"Pending\" | \"Done\"`. Interfaces can be re-declared to add new fields (declaration merging), while types cannot be changed once declared.",
+      "example": "\"I strictly use `interface` for my API Data Transfer Objects (DTOs). But if I need a complex union, like `type ID = string | number`, I must use `type`. For normal objects, they are almost identical in modern TypeScript.\"",
+      "summary10s": "Interfaces can be merged and are object-only. Types handle unions, primitives, and tuples."
+    }
+  },
+  {
+    "id": "angular-rxjs-subjects",
+    "category": "Angular",
+    "question": "What is the difference between Subject, BehaviorSubject, ReplaySubject?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Subject has no memory. BehaviorSubject remembers the 1 latest value. ReplaySubject remembers a specified number of past values.",
+      "explain": "A `Subject` acts as both an Observable and Observer, but late subscribers miss previous emissions. A `BehaviorSubject` requires an initial value and immediately emits its current value to any new subscriber. A `ReplaySubject` can buffer and emit the last N values to late subscribers.",
+      "example": "\"I use `BehaviorSubject` for User Authentication state because it needs an initial state (`null`) and any component that loads late needs to instantly know the current user. I use a plain `Subject` for a UI event like a 'close modal' trigger where history doesn't matter.\"",
+      "summary10s": "Subject = No memory. BehaviorSubject = 1 initial/latest value. ReplaySubject = N past values."
+    }
+  },
+  {
+    "id": "angular-observable-vs-promise",
+    "category": "Angular",
+    "question": "Why angular use Observable instead of Promise?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Observables handle multiple values over time, can be cancelled, and provide powerful operators (like map/filter). Promises handle a single value and cannot be cancelled.",
+      "explain": "A Promise resolves once (e.g., a basic fetch). An Observable is a continuous stream. In Angular, this is critical. If a user types in a search box, you need to emit multiple events, apply `debounceTime`, and cancel (`switchMap`) previous pending HTTP requests if the user keeps typing. Promises cannot do this.",
+      "example": "\"If I use a Promise for a typeahead search and the user types fast, the backend gets hit 10 times and the UI might render an out-of-order response. With an Observable, I can pipe `debounceTime(300)` and `switchMap()`, ensuring I only make 1 request and auto-cancel stale ones.\"",
+      "summary10s": "Observables emit multiple values, are cancelable (crucial for HTTP), and offer RxJS operators."
+    }
+  },
+  {
+    "id": "spring-aop-proxy-bypass",
+    "category": "Spring Boot",
+    "question": "Why does @Transactional (or @Async, @Cacheable) sometimes not work when one method calls another method in the same class?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Why does @Async sometimes execute synchronously even though the annotation is present?",
+      "Why doesn’t @Cacheable work when the cached method is called from the same class?"
+    ],
+    "answerSEE": {
+      "simple": "Because of the Spring AOP Proxy bypass.",
+      "explain": "Spring applies annotations like `@Transactional`, `@Async`, and `@Cacheable` by wrapping your class in a proxy. The proxy intercepts incoming calls from outside the class to start the transaction or async thread. However, if Method A calls Method B from *inside the same class*, it uses the `this` reference, completely bypassing the proxy. The annotations on Method B are ignored.",
+      "example": "\"If my `UserService.register()` calls `this.sendEmail()`, and `sendEmail()` is marked `@Async`, it will execute synchronously. To fix this, I either move `sendEmail()` to a different `@Service`, or self-inject the `UserService` to route the call back through the proxy.\"",
+      "summary10s": "Annotations rely on proxies. Internal `this.` calls bypass the proxy, ignoring the annotation."
+    }
+  },
+  {
+    "id": "spring-bean-direct-call",
+    "category": "Spring Boot",
+    "question": "What happens when a @Bean method is called directly from another @Bean method?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If the class is annotated with `@Configuration`, Spring intercepts the call and returns the existing singleton instead of executing the method again.",
+      "explain": "Spring uses CGLIB to proxy `@Configuration` classes. When one `@Bean` method calls another, the proxy intercepts the call. If the bean already exists in the ApplicationContext, Spring returns it. If the class is just marked `@Component` (lite mode), the method actually runs again, creating a new instance, which is usually a bug.",
+      "example": "\"Inside my `@Configuration`, if `authService()` calls `userRepository()`, Spring ensures it doesn't create a second `UserRepository`. It intercepts the call and returns the singleton. But if I forget `@Configuration`, it will instantiate the repository twice.\"",
+      "summary10s": "`@Configuration` classes are proxied. Internal method calls return the singleton instead of creating a new object."
+    }
+  },
+  {
+    "id": "spring-prototype-in-singleton",
+    "category": "Spring Boot",
+    "question": "Why can injecting a prototype bean into a singleton create unexpected behavior?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The prototype bean becomes a singleton because it is only injected once during the singleton's creation.",
+      "explain": "A singleton bean is instantiated exactly once during startup. If it requires a prototype bean, Spring injects a new instance *at that moment*. However, because the singleton is never recreated, it holds onto that exact same prototype instance forever, defeating the purpose of the prototype scope.",
+      "example": "\"If my singleton `OrderService` has a prototype `PaymentProcessor`, every order will use the exact same `PaymentProcessor` instance. To fix this, I use `@Lookup` method injection, or inject the `ApplicationContext` (or `ObjectProvider`) to request a fresh prototype on every method call.\"",
+      "summary10s": "Singletons are created once. The injected prototype is cached inside it forever. Use `@Lookup`."
+    }
+  },
+  {
+    "id": "spring-circular-dependencies",
+    "category": "Spring Boot",
+    "question": "Why can circular dependencies work in some Spring applications but fail in others?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot 2.6 disabled circular dependencies by default. It also depends on whether you use Constructor Injection or Field/Setter Injection.",
+      "explain": "If Bean A needs Bean B, and B needs A via Constructor Injection, it is mathematically impossible to instantiate either, and it fails immediately. Field/Setter injection used to work because Spring creates the empty objects first, then wires them. However, since Boot 2.6, even setter circular dependencies are banned by default to enforce better architecture.",
+      "example": "\"If I see a circular dependency error on boot, it means Service A and Service B are too tightly coupled. I fix it by moving the shared logic into a new Service C. If I absolutely must bypass it temporarily, I can use `@Lazy` on one of the dependencies.\"",
+      "summary10s": "Constructor injection circular deps always fail. Boot 2.6+ bans all circular deps. Fix by decoupling or `@Lazy`."
+    }
+  },
+  {
+    "id": "spring-transactional-readonly",
+    "category": "Spring Boot",
+    "question": "Why does @Transactional(readOnly = true) not necessarily prevent database writes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It sets the Hibernate FlushMode to MANUAL, but native SQL updates can still execute.",
+      "explain": "`readOnly = true` is a hint. It tells Hibernate not to track entity changes (dirty checking), which saves massive CPU and memory. It also sets the JDBC connection to read-only *if the driver supports it*. However, if you execute a native `@Query(\"UPDATE...\")`, the database might still execute it depending on the JDBC driver implementation.",
+      "example": "\"I always put `@Transactional(readOnly = true)` on `GET` methods. It stops Hibernate from doing dirty checking, boosting performance. But I know it won't magically stop a hardcoded JDBC `UPDATE` statement from firing unless the DB driver strictly enforces it.\"",
+      "summary10s": "It optimizes performance by disabling Hibernate dirty checking, but native queries might still write."
+    }
+  },
+  {
+    "id": "spring-transactional-catch",
+    "category": "Spring Boot",
+    "question": "What happens if an exception is caught inside a @Transactional method?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The transaction will COMMIT, not rollback.",
+      "explain": "The Spring AOP Proxy wraps the method. It only triggers a rollback if the exception *escapes* the method and is caught by the proxy. If you wrap your code in a `try-catch` block inside the method and swallow the exception, the proxy thinks the method succeeded and commits the transaction.",
+      "example": "\"If I write `try { saveUser(); } catch(Exception e) { log(e); }` inside a `@Transactional` method, and `saveUser` fails, the transaction still commits. To fix it, I must either rethrow a RuntimeException, or manually mark `TransactionAspectSupport.currentTransactionStatus().setRollbackOnly()`.\"",
+      "summary10s": "If the exception doesn't escape the method, the proxy doesn't see it, and it commits."
+    }
+  },
+  {
+    "id": "spring-no-unique-bean",
+    "category": "Spring Boot",
+    "question": "What happens if two beans implement the same interface and neither has @Primary?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring throws a `NoUniqueBeanDefinitionException` during startup.",
+      "explain": "When you `@Autowired` an interface, Spring looks for a concrete implementation in the ApplicationContext. If it finds exactly one, it injects it. If it finds two (e.g., `StripePayment` and `PaypalPayment`), it doesn't know which to pick. It crashes immediately unless you specify `@Qualifier` or `@Primary`.",
+      "example": "\"If I inject `PaymentService`, and have two implementations, Spring crashes. I fix it by adding `@Qualifier(\"stripe\")` on the injection point, or by naming the variable `stripePaymentService` (Spring uses the variable name as a fallback qualifier).\"",
+      "summary10s": "Throws `NoUniqueBeanDefinitionException`. Fix with `@Primary` or `@Qualifier`."
+    }
+  },
+  {
+    "id": "spring-multiple-datasources",
+    "category": "Spring Boot",
+    "question": "What happens when a Spring Boot application has multiple DataSource beans?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Auto-configuration backs off, and you must manually configure transaction managers and entity managers for both.",
+      "explain": "Spring Boot's auto-configuration perfectly handles a single database. If you define a second `DataSource`, Spring doesn't know which one JPA should use. You must define a `@Primary` DataSource, and explicitly configure `LocalContainerEntityManagerFactoryBean` and `PlatformTransactionManager` for both databases, wiring them to specific packages.",
+      "example": "\"When I added a read-replica database, I had to create a `PrimaryDBConfig` and a `ReplicaDBConfig`. I had to manually tell Hibernate which packages mapped to which DataSource, and mark the primary transaction manager with `@Primary` to prevent `NoUniqueBeanDefinitionException`.\"",
+      "summary10s": "Auto-configuration breaks. You must manually define EntityManagers and mark one as `@Primary`."
+    }
+  },
+  {
+    "id": "spring-inject-interface",
+    "category": "Spring Boot",
+    "question": "What is actually happening when Spring injects an interface instead of the concrete implementation?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring injects a Proxy object that wraps the concrete implementation.",
+      "explain": "Spring relies on proxies for features like Transactions, Security, and Caching. If your bean implements an interface, Spring creates a JDK Dynamic Proxy. If it doesn't, it creates a CGLIB proxy (subclass). When you inject the interface, you are receiving the proxy, not the raw object.",
+      "example": "\"When I `@Autowired` my `UserService` interface, the object I get at runtime is actually a `Proxy$12`. When I call `.save()`, the proxy intercepts it, starts a transaction, calls the real `UserServiceImpl.save()`, and then commits the transaction.\"",
+      "summary10s": "You get a JDK Dynamic Proxy. The proxy handles AOP logic (transactions/security) before calling the real object."
+    }
+  },
+  {
+    "id": "spring-depends-on",
+    "category": "Spring Boot",
+    "question": "Why can changing bean initialization order fix an issue without changing any business logic?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Because some beans rely on implicit side effects (like static caches or database setups) created by other beans.",
+      "explain": "If Bean A relies on a static variable populated by Bean B, Bean B MUST be initialized first. Since Spring initializes beans in an unpredictable order (unless explicitly wired), A might initialize before B and fail. You use `@DependsOn(\"beanB\")` on Bean A to force the correct order without directly injecting B.",
+      "example": "\"My caching service crashed randomly on startup because it tried to read a static config loaded by the Database config. Since they weren't directly autowired, Spring loaded them randomly. Adding `@DependsOn(\"dbConfig\")` to the cache service fixed it permanently.\"",
+      "summary10s": "Implicit side-effects cause startup race conditions. Fix using `@DependsOn`."
+    }
+  },
+  {
+    "id": "spring-requestbody-validation",
+    "category": "Spring Boot",
+    "question": "Why can @RequestBody validation work for one endpoint but appear to fail for another?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You likely forgot the `@Valid` or `@Validated` annotation on the parameter, or you are nesting objects without `@Valid`.",
+      "explain": "Just putting `@NotNull` inside your DTO doesn't trigger validation. You MUST put `@Valid` on the `@RequestBody` parameter in the controller. Furthermore, if your DTO contains another custom object (like `Address`), you must put `@Valid` on the `Address` field inside the DTO, otherwise nested validation is completely ignored.",
+      "example": "\"My `CreateUser` endpoint worked, but my `UpdateUser` endpoint allowed null emails. I realized I forgot to prefix `@RequestBody UserDto dto` with `@Valid`. Also, the `dto.Address` fields weren't validating because I forgot `@Valid` on the `address` field inside the DTO.\"",
+      "summary10s": "Must explicitly trigger it with `@Valid` on the controller parameter AND on any nested nested objects."
     }
   }
 ];
