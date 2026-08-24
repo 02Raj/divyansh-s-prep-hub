@@ -17,6 +17,29 @@ export interface RealInterviewQuestion {
 
 export const realInterviewQuestions: RealInterviewQuestion[] = [
   {
+    "id": "java-equals-hashcode",
+    "category": "Java",
+    "question": "Why do we need to override equals() and hashCode() together?",
+    "frequency": 11,
+    "companies": [
+      "Amazon",
+      "Walmart",
+      "Morgan Stanley"
+    ],
+    "variations": [
+      "What happens if you only override equals() in HashMap?",
+      "equals() and hashCode()",
+      "Why must \"equals()\" and \"hashCode()\" always follow a strict contract?",
+      "How can \"HashSet\" fail to detect duplicates if that contract is broken?"
+    ],
+    "answerSEE": {
+      "simple": "HashMap uses hashCode() to find the correct bucket, and equals() to find the exact object in that bucket. Both must be consistent.",
+      "explain": "In simple terms, equal objects MUST have equal hashCodes. If you only override equals(), two equal objects might get different hashCodes and land in different buckets. If you only override hashCode(), they land in the same bucket but equals() will say they are different objects.",
+      "example": "\"hashCode() decides which bucket an object goes into, and equals() confirms if it's truly the same object within that bucket. If I only override equals(), a HashSet would treat equal objects as distinct, and HashMap.get() would fail to find an existing key. That's why we always override both together.\"",
+      "summary10s": "Override only one → broken lookups or duplicates. Always override both together."
+    }
+  },
+  {
     "id": "spring-transactional-fails",
     "category": "Spring Boot",
     "question": "In what scenarios does the @Transactional annotation fail to work?",
@@ -38,24 +61,50 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-equals-hashcode",
+    "id": "map-vs-flatmap",
     "category": "Java",
-    "question": "Why do we need to override equals() and hashCode() together?",
+    "question": "map() vs flatMap()?",
     "frequency": 9,
     "companies": [
-      "Amazon",
-      "Walmart",
-      "Morgan Stanley"
+      "Deloitte",
+      "EPAM"
     ],
     "variations": [
-      "What happens if you only override equals() in HashMap?",
-      "equals() and hashCode()"
+      "map() vs flatMap()",
+      "map vs flatMap in Streams",
+      "Explain map() vs flatMap() with a real-world example.",
+      "map vs flatMap",
+      "Streams vs traditional loops — when is a traditional loop actually the better choice?"
     ],
     "answerSEE": {
-      "simple": "HashMap uses hashCode() to find the correct bucket, and equals() to find the exact object in that bucket. Both must be consistent.",
-      "explain": "In simple terms, equal objects MUST have equal hashCodes. If you only override equals(), two equal objects might get different hashCodes and land in different buckets. If you only override hashCode(), they land in the same bucket but equals() will say they are different objects.",
-      "example": "\"hashCode() decides which bucket an object goes into, and equals() confirms if it's truly the same object within that bucket. If I only override equals(), a HashSet would treat equal objects as distinct, and HashMap.get() would fail to find an existing key. That's why we always override both together.\"",
-      "summary10s": "Override only one → broken lookups or duplicates. Always override both together."
+      "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
+      "explain": "map — each element becomes one new element, Stream of Stream remains nested\nflatMap — each element becomes a stream, all flattened into one single stream\nUse flatMap when each element produces a list or optional\nExample — list of orders each with list of items, flatMap gives all items in one stream",
+      "example": "\"map is one-to-one transformation. If each element maps to a List, map gives Stream of Lists which is hard to work with. flatMap flattens that — each element maps to a stream and all streams merge into one. I use flatMap when working with nested collections like getting all order items from a list of orders.\"",
+      "summary10s": "map=one-to-one, flatMap=one-to-many then flatten into single stream."
+    }
+  },
+  {
+    "id": "memory-leak-in-java",
+    "category": "Java",
+    "question": "Memory Leak in Java",
+    "frequency": 9,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Why can memory keep increasing even after GC runs?",
+      "How would you identify a memory leak in a Java application?",
+      "Why can an object remain in memory even when you think it's no longer needed?",
+      "How would you debug a Java application that suddenly starts consuming 90% memory?",
+      "What would you check first if a Java application suddenly starts throwing OutOfMemoryError?",
+      "What would you do if you found a memory leak in a Spring Boot application?",
+      "How would you identify the root cause of the memory leak?"
+    ],
+    "answerSEE": {
+      "simple": "Objects that are no longer needed but still referenced — GC cannot collect them, heap grows over time.",
+      "explain": "Static collections growing without bound — cache without eviction policy\nThreadLocal not removed in thread pool — previous request's data held indefinitely\nEvent listeners or callbacks not unregistered — listener holds reference to object\nInner class holding implicit reference to outer class — outer class cannot be collected\nUnclosed resources — connections, streams held in open state",
+      "example": "\"Java memory leaks happen when objects are still referenced but no longer needed. Classic example is a static HashMap used as cache — if I keep adding and never remove, it grows until OOM. ThreadLocal in thread pool is dangerous — threads are reused, old ThreadLocal value from previous request accumulates. I detect leaks with heap dump analysis in Eclipse MAT — look for objects with unexpectedly high retention.\"",
+      "summary10s": "Still referenced but not needed — static cache no eviction, ThreadLocal not removed, listeners not unregistered."
     }
   },
   {
@@ -77,28 +126,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Sending the same PUT request multiple times results in the same final state. PATCH is only idempotent if you set absolute values. If a PATCH request says \"increment counter by 1\", running it twice gives a different result, breaking idempotency.",
       "example": "\"PUT is meant to replace the whole resource, so it is naturally idempotent. PATCH updates specific fields. To keep PATCH idempotent, I make sure the updates are absolute value assignments (like setting status to ACTIVE) rather than relative operations (like increment by 1).\"",
       "summary10s": "PUT = full replace (always idempotent). PATCH = partial update (idempotent only if setting absolute values)."
-    }
-  },
-  {
-    "id": "map-vs-flatmap",
-    "category": "Java",
-    "question": "map() vs flatMap()?",
-    "frequency": 8,
-    "companies": [
-      "Deloitte",
-      "EPAM"
-    ],
-    "variations": [
-      "map() vs flatMap()",
-      "map vs flatMap in Streams",
-      "Explain map() vs flatMap() with a real-world example.",
-      "map vs flatMap"
-    ],
-    "answerSEE": {
-      "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
-      "explain": "map — each element becomes one new element, Stream of Stream remains nested\nflatMap — each element becomes a stream, all flattened into one single stream\nUse flatMap when each element produces a list or optional\nExample — list of orders each with list of items, flatMap gives all items in one stream",
-      "example": "\"map is one-to-one transformation. If each element maps to a List, map gives Stream of Lists which is hard to work with. flatMap flattens that — each element maps to a stream and all streams merge into one. I use flatMap when working with nested collections like getting all order items from a list of orders.\"",
-      "summary10s": "map=one-to-one, flatMap=one-to-many then flatten into single stream."
     }
   },
   {
@@ -124,25 +151,27 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "memory-leak-in-java",
+    "id": "what-is-executorservice",
     "category": "Java",
-    "question": "Memory Leak in Java",
-    "frequency": 7,
+    "question": "What is ExecutorService?",
+    "frequency": 8,
     "companies": [
-      "EPAM"
+      "Deloitte"
     ],
     "variations": [
-      "Why can memory keep increasing even after GC runs?",
-      "How would you identify a memory leak in a Java application?",
-      "Why can an object remain in memory even when you think it's no longer needed?",
-      "How would you debug a Java application that suddenly starts consuming 90% memory?",
-      "What would you check first if a Java application suddenly starts throwing OutOfMemoryError?"
+      "Executor Framework",
+      "ExecutorService and Thread Pools",
+      "Thread Pool",
+      "ExecutorService and its important methods",
+      "What is ExecutorService?",
+      "How would you execute multiple tasks using ExecutorService?",
+      "Why should you use \"ExecutorService\" instead of creating threads manually?"
     ],
     "answerSEE": {
-      "simple": "Objects that are no longer needed but still referenced — GC cannot collect them, heap grows over time.",
-      "explain": "Static collections growing without bound — cache without eviction policy\nThreadLocal not removed in thread pool — previous request's data held indefinitely\nEvent listeners or callbacks not unregistered — listener holds reference to object\nInner class holding implicit reference to outer class — outer class cannot be collected\nUnclosed resources — connections, streams held in open state",
-      "example": "\"Java memory leaks happen when objects are still referenced but no longer needed. Classic example is a static HashMap used as cache — if I keep adding and never remove, it grows until OOM. ThreadLocal in thread pool is dangerous — threads are reused, old ThreadLocal value from previous request accumulates. I detect leaks with heap dump analysis in Eclipse MAT — look for objects with unexpectedly high retention.\"",
-      "summary10s": "Still referenced but not needed — static cache no eviction, ThreadLocal not removed, listeners not unregistered."
+      "simple": "ExecutorService manages a pool of threads and assigns submitted tasks to them instead of creating a new thread each time.",
+      "explain": "Maintains a thread pool + task queue, reuses threads\nDifferent types: FixedThreadPool, CachedThreadPool, ScheduledThreadPool\nAvoids the overhead of constant thread creation/destruction",
+      "example": "\"ExecutorService manages a pool of worker threads and a queue of tasks internally. When I submit a task, an available thread picks it up, or it waits in the queue if all threads are busy. This avoids the overhead of creating a new thread for every task. I usually use Executors.newFixedThreadPool() for predictable workloads.\"",
+      "summary10s": "Thread pool + task queue — reuses threads instead of creating new ones."
     }
   },
   {
@@ -165,29 +194,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Angular's injector creates and provides service instances automatically\nReduces tight coupling, makes components easier to test\nInjected via constructor, using providedIn: 'root' for singleton services",
       "example": "\"Dependency Injection in Angular means I don't manually create service instances inside a component — Angular's injector provides them automatically through the constructor. This makes testing much easier since I can inject mock services. I typically use providedIn: 'root' so the service becomes a singleton, shared across the whole application.\"",
       "summary10s": "Angular injects dependencies via constructor — don't create with new."
-    }
-  },
-  {
-    "id": "what-is-executorservice",
-    "category": "Java",
-    "question": "What is ExecutorService?",
-    "frequency": 7,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "Executor Framework",
-      "ExecutorService and Thread Pools",
-      "Thread Pool",
-      "ExecutorService and its important methods",
-      "What is ExecutorService?",
-      "How would you execute multiple tasks using ExecutorService?"
-    ],
-    "answerSEE": {
-      "simple": "ExecutorService manages a pool of threads and assigns submitted tasks to them instead of creating a new thread each time.",
-      "explain": "Maintains a thread pool + task queue, reuses threads\nDifferent types: FixedThreadPool, CachedThreadPool, ScheduledThreadPool\nAvoids the overhead of constant thread creation/destruction",
-      "example": "\"ExecutorService manages a pool of worker threads and a queue of tasks internally. When I submit a task, an available thread picks it up, or it waits in the queue if all threads are busy. This avoids the overhead of creating a new thread for every task. I usually use Executors.newFixedThreadPool() for predictable workloads.\"",
-      "summary10s": "Thread pool + task queue — reuses threads instead of creating new ones."
     }
   },
   {
@@ -215,6 +221,92 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "synchronized-vs-reentrantlock",
+    "category": "Java",
+    "question": "synchronized vs ReentrantLock?",
+    "frequency": 7,
+    "companies": [],
+    "variations": [
+      "synchronized vs Lock",
+      "ReentrantLock and tryLock",
+      "synchronized vs ReentrantLock",
+      "Explain reentrantlock.",
+      "What is ReentrantLock?",
+      "\"synchronized\" vs \"volatile\" — when would you use each?"
+    ],
+    "answerSEE": {
+      "simple": "synchronized is simple and automatic, ReentrantLock gives more control and flexibility.",
+      "explain": "synchronized — auto releases on exit, no timeout, cannot interrupt waiting thread\nReentrantLock — must manually unlock in finally, supports tryLock with timeout, interruptible\nBoth provide mutual exclusion and visibility\nReentrantLock also supports fair ordering and multiple condition variables",
+      "example": "\"synchronized is simpler — lock acquired on entry, released automatically on exit. ReentrantLock requires manual unlock in finally block but gives more power — tryLock with timeout prevents indefinite blocking, lock can be interrupted, and fair mode ensures waiting threads get lock in order. I use ReentrantLock when I need timeout or interruptible locking.\"",
+      "summary10s": "synchronized=simple auto release, ReentrantLock=manual unlock but tryLock, timeout, interruptible."
+    }
+  },
+  {
+    "id": "what-is-completablefuture",
+    "category": "Java",
+    "question": "What is CompletableFuture?",
+    "frequency": 7,
+    "companies": [],
+    "variations": [
+      "CompletableFuture use cases",
+      "CompletableFuture",
+      "CompletableFuture Key Methods",
+      "What is CompletableFuture, and why is it useful?",
+      "How would you run multiple asynchronous operations using CompletableFuture?",
+      "What specific problem does \"CompletableFuture\" solve in asynchronous programming?"
+    ],
+    "answerSEE": {
+      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
+      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
+      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
+      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
+    }
+  },
+  {
+    "id": "angular-onpush-change-detection",
+    "category": "Angular",
+    "question": "Default vs OnPush Change Detection",
+    "frequency": 7,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "What is Change Detection in Angular? Explain OnPush strategy.",
+      "How does ChangeDetectionStrategy.OnPush work?",
+      "Why did you choose ChangeDetectionStrategy.OnPush? What changes did you make to ensure the UI refreshed reliably without affecting performance?",
+      "If data in a dropdown changes while using OnPush, what exactly would you change in the code? Would you create a new reference or manually trigger change detection?",
+      "Why is \"String\" immutable in Java, and how does it impact memory?"
+    ],
+    "answerSEE": {
+      "simple": "Default checks the entire component tree on every event; OnPush only checks when an Input reference changes or an event fires within it.",
+      "explain": "Default — Angular checks all components on every browser event, timer, or async operation (can be expensive)\nOnPush — only re-checks when @Input() reference changes, an event originates inside the component, or an Observable (via async pipe) emits\nOnPush requires immutable data patterns (new object reference, not mutation) to trigger detection",
+      "example": "\"Default change detection checks the entire component tree on every possible event, which can get expensive in large apps. OnPush only triggers a check when the Input reference actually changes, an event happens inside that component, or an observable through the async pipe emits. To use OnPush correctly, I make sure to treat data immutably — passing a new object reference instead of mutating the existing one — otherwise Angular won't detect the change.\"",
+      "summary10s": "Default = checks everything, OnPush = checks only on Input reference change/local event."
+    }
+  },
+  {
+    "id": "what-is-a-functional-interface",
+    "category": "Java",
+    "question": "What is a Functional Interface?",
+    "frequency": 7,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "What is a Functional Interface? Can it have default and static methods?",
+      "What is a functional interface",
+      "Can it have default and static methods",
+      "Common examples (Runnable, Comparator, Callable)",
+      "\"Runnable\" vs \"Callable\" — when would you choose each?"
+    ],
+    "answerSEE": {
+      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
+      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
+      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
+      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
+    }
+  },
+  {
     "id": "spring-kafka-exactly-once",
     "category": "Microservices",
     "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
@@ -237,85 +329,23 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "synchronized-vs-reentrantlock",
+    "id": "what-is-a-deadlock",
     "category": "Java",
-    "question": "synchronized vs ReentrantLock?",
+    "question": "What is a deadlock?",
     "frequency": 6,
     "companies": [],
     "variations": [
-      "synchronized vs Lock",
-      "ReentrantLock and tryLock",
-      "synchronized vs ReentrantLock",
-      "Explain reentrantlock.",
-      "What is ReentrantLock?"
+      "Deadlock",
+      "Deadlocks, Livelocks, Starvation",
+      "What is deadlock, and how can you prevent it?",
+      "How would you find and prevent a deadlock?",
+      "How would you identify and resolve a deadlock in a running Java application?"
     ],
     "answerSEE": {
-      "simple": "synchronized is simple and automatic, ReentrantLock gives more control and flexibility.",
-      "explain": "synchronized — auto releases on exit, no timeout, cannot interrupt waiting thread\nReentrantLock — must manually unlock in finally, supports tryLock with timeout, interruptible\nBoth provide mutual exclusion and visibility\nReentrantLock also supports fair ordering and multiple condition variables",
-      "example": "\"synchronized is simpler — lock acquired on entry, released automatically on exit. ReentrantLock requires manual unlock in finally block but gives more power — tryLock with timeout prevents indefinite blocking, lock can be interrupted, and fair mode ensures waiting threads get lock in order. I use ReentrantLock when I need timeout or interruptible locking.\"",
-      "summary10s": "synchronized=simple auto release, ReentrantLock=manual unlock but tryLock, timeout, interruptible."
-    }
-  },
-  {
-    "id": "what-is-completablefuture",
-    "category": "Java",
-    "question": "What is CompletableFuture?",
-    "frequency": 6,
-    "companies": [],
-    "variations": [
-      "CompletableFuture use cases",
-      "CompletableFuture",
-      "CompletableFuture Key Methods",
-      "What is CompletableFuture, and why is it useful?",
-      "How would you run multiple asynchronous operations using CompletableFuture?"
-    ],
-    "answerSEE": {
-      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
-      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
-      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
-      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
-    }
-  },
-  {
-    "id": "angular-onpush-change-detection",
-    "category": "Angular",
-    "question": "Default vs OnPush Change Detection",
-    "frequency": 6,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "What is Change Detection in Angular? Explain OnPush strategy.",
-      "How does ChangeDetectionStrategy.OnPush work?",
-      "Why did you choose ChangeDetectionStrategy.OnPush? What changes did you make to ensure the UI refreshed reliably without affecting performance?",
-      "If data in a dropdown changes while using OnPush, what exactly would you change in the code? Would you create a new reference or manually trigger change detection?"
-    ],
-    "answerSEE": {
-      "simple": "Default checks the entire component tree on every event; OnPush only checks when an Input reference changes or an event fires within it.",
-      "explain": "Default — Angular checks all components on every browser event, timer, or async operation (can be expensive)\nOnPush — only re-checks when @Input() reference changes, an event originates inside the component, or an Observable (via async pipe) emits\nOnPush requires immutable data patterns (new object reference, not mutation) to trigger detection",
-      "example": "\"Default change detection checks the entire component tree on every possible event, which can get expensive in large apps. OnPush only triggers a check when the Input reference actually changes, an event happens inside that component, or an observable through the async pipe emits. To use OnPush correctly, I make sure to treat data immutably — passing a new object reference instead of mutating the existing one — otherwise Angular won't detect the change.\"",
-      "summary10s": "Default = checks everything, OnPush = checks only on Input reference change/local event."
-    }
-  },
-  {
-    "id": "what-is-a-functional-interface",
-    "category": "Java",
-    "question": "What is a Functional Interface?",
-    "frequency": 6,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "What is a Functional Interface? Can it have default and static methods?",
-      "What is a functional interface",
-      "Can it have default and static methods",
-      "Common examples (Runnable, Comparator, Callable)"
-    ],
-    "answerSEE": {
-      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
-      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
-      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
-      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
+      "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
+      "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
+      "example": "\"A deadlock happens when two threads each hold a lock the other needs, and both wait forever, forming a cycle. I avoid this by always acquiring multiple locks in the same consistent order across the whole codebase, or by using tryLock() with a timeout so a thread can back off instead of waiting indefinitely.\"",
+      "summary10s": "Cyclic lock-wait between threads — avoid with consistent lock ordering or tryLock()."
     }
   },
   {
@@ -340,25 +370,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-a-deadlock",
-    "category": "Java",
-    "question": "What is a deadlock?",
-    "frequency": 5,
-    "companies": [],
-    "variations": [
-      "Deadlock",
-      "Deadlocks, Livelocks, Starvation",
-      "What is deadlock, and how can you prevent it?",
-      "How would you find and prevent a deadlock?"
-    ],
-    "answerSEE": {
-      "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
-      "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
-      "example": "\"A deadlock happens when two threads each hold a lock the other needs, and both wait forever, forming a cycle. I avoid this by always acquiring multiple locks in the same consistent order across the whole codebase, or by using tryLock() with a timeout so a thread can back off instead of waiting indefinitely.\"",
-      "summary10s": "Cyclic lock-wait between threads — avoid with consistent lock ordering or tryLock()."
-    }
-  },
-  {
     "id": "volatile-vs-atomic-classes",
     "category": "Java",
     "question": "volatile vs Atomic classes?",
@@ -375,6 +386,43 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "volatile — read and write individually atomic, but increment is read-modify-write, not atomic\nAtomicInteger — incrementAndGet is single atomic operation using CPU compare-and-swap\nAtomic classes are faster than synchronized for single variable operations\nUse volatile for flags, Atomic for counters and state that needs atomic updates",
       "example": "\"volatile ensures visibility but does not help with compound operations. Two threads both reading 5 and incrementing to 6 is a race condition even with volatile. AtomicInteger uses hardware compare-and-swap to make incrementAndGet a single unbreakable operation. For anything more than a simple boolean flag I use Atomic classes.\"",
       "summary10s": "volatile=visibility only, Atomic=visibility plus atomic compound operations via CAS."
+    }
+  },
+  {
+    "id": "hashmap-vs-concurrenthashmap",
+    "category": "Java",
+    "question": "HashMap vs ConcurrentHashMap",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "When would you choose ConcurrentHashMap over HashMap?",
+      "HashMap vs ConcurrentHashMap",
+      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference in how they handle locks?"
+    ],
+    "answerSEE": {
+      "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
+      "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
+      "example": "\"HashMap isn't thread-safe — using it with multiple threads can lead to data corruption or infinite loops in older Java versions. ConcurrentHashMap solves this by locking only the specific bucket being updated instead of the whole map, so multiple threads can work on different parts simultaneously. I always use ConcurrentHashMap in multi-threaded scenarios, like a shared cache.\"",
+      "summary10s": "HashMap = not thread-safe, ConcurrentHashMap = bucket-level locking, thread-safe."
+    }
+  },
+  {
+    "id": "arraylist-vs-linkedlist",
+    "category": "Java",
+    "question": "ArrayList vs LinkedList",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "ArrayList vs LinkedList",
+      "What is LinkedList",
+      "\"ArrayList\" vs \"LinkedList\" — when is one genuinely better than the other?",
+      "What is the difference between an Array and a Linked List?"
+    ],
+    "answerSEE": {
+      "simple": "ArrayList is backed by a dynamic array; LinkedList is backed by a doubly linked list.",
+      "explain": "ArrayList — fast random access (O(1)), slow insert/delete in middle (O(n))\nLinkedList — fast insert/delete (O(1)) once position is known, slow random access (O(n))\nArrayList is used more often in practice; LinkedList mainly when frequent insert/delete needed\n\n       ArrayList → Fast random access (get()), slower insertion/deletion in the middle.\n       LinkedList → Fast insertion/deletion, slower random access.\n       ArrayList uses less memory; LinkedList uses more memory because each node stores previous and next references.\n     \n  Use ArrayList for frequent reads and LinkedList for frequent insertions/deletions.",
+      "example": "\"ArrayList is backed by a dynamic array, so accessing an element by index is very fast, but inserting or deleting in the middle requires shifting elements. LinkedList is backed by nodes with pointers, so insertion and deletion are faster once you're at the right position, but random access is slower since it has to traverse. In practice, I use ArrayList most of the time unless there's heavy insertion/deletion.\"",
+      "summary10s": "ArrayList = fast access, LinkedList = fast insert/delete, slow access."
     }
   },
   {
@@ -475,23 +523,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "hashmap-vs-concurrenthashmap",
-    "category": "Java",
-    "question": "HashMap vs ConcurrentHashMap",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "When would you choose ConcurrentHashMap over HashMap?",
-      "HashMap vs ConcurrentHashMap"
-    ],
-    "answerSEE": {
-      "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
-      "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
-      "example": "\"HashMap isn't thread-safe — using it with multiple threads can lead to data corruption or infinite loops in older Java versions. ConcurrentHashMap solves this by locking only the specific bucket being updated instead of the whole map, so multiple threads can work on different parts simultaneously. I always use ConcurrentHashMap in multi-threaded scenarios, like a shared cache.\"",
-      "summary10s": "HashMap = not thread-safe, ConcurrentHashMap = bucket-level locking, thread-safe."
-    }
-  },
-  {
     "id": "internal-working-of-hashmap",
     "category": "Java",
     "question": "Internal working of HashMap",
@@ -583,6 +614,63 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "JPA — standard specification, defines @Entity, @Id, EntityManager, JPQL — no actual code\nHibernate — implements JPA, does the actual SQL generation and execution via JDBC\nSpring Data JPA — built on JPA, provides Repository interfaces eliminating DAO boilerplate\nStack: Spring Data JPA → JPA → Hibernate → JDBC → Database",
       "example": "\"JPA is like a rulebook — it defines how Java objects should map to database tables but provides no implementation. Hibernate follows that rulebook and does the actual work — reads my annotations, generates SQL, manages caching. Spring Data JPA sits on top and removes boilerplate — I just declare an interface extending JpaRepository and get findById, findAll, save, delete for free. I code against JPA standard so theoretically I could swap Hibernate for EclipseLink without changing my application code.\"",
       "summary10s": "JPA=spec no code, Hibernate=implements JPA generates SQL, Spring Data JPA=zero-boilerplate Repository on top. Stack: SpringDataJPA→JPA→Hibernate→JDBC→DB."
+    }
+  },
+  {
+    "id": "java-interface-default-conflict",
+    "category": "Java",
+    "question": "What happens when a class implements two interfaces with conflicting default methods?",
+    "frequency": 4,
+    "companies": [],
+    "variations": [
+      "Can a class implement two interfaces that contain the same default method? How does Java resolve it?",
+      "What if two interface have same method how will you will resolve this when a class implement both.",
+      "Diamond problem caused by multiple inheritance ,how can we resolve it.",
+      "What is the difference between method overloading and method overriding?"
+    ],
+    "answerSEE": {
+      "simple": "The compiler throws an error, and you must explicitly resolve the conflict by overriding the method.",
+      "explain": "If interfaces A and B both provide a default method doWork(), Java prevents the Diamond Problem by forcing the implementing class to override doWork(). Inside the overridden method, you can provide your own logic or explicitly call one of the interface methods using A.super.doWork().",
+      "example": "\"If both Flyable and Swimmable have a default move() method, my Duck class won't compile until I override move(). Inside my move() method, I can decide to call Flyable.super.move() or write entirely new logic.\"",
+      "summary10s": "Compiler error. You must override the method and optionally call SuperInterface.super.methodName()."
+    }
+  },
+  {
+    "id": "circuit-breaker",
+    "category": "Microservices",
+    "question": "Circuit Breaker",
+    "frequency": 4,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Explain Circuit Breaker, Retry and Timeout patterns.",
+      "How do you prevent cascading failures in microservices?",
+      "How would you technically implement the Circuit Breaker pattern?"
+    ],
+    "answerSEE": {
+      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
+      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
+      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
+      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
+    }
+  },
+  {
+    "id": "spring-oauth-basics",
+    "category": "Spring Boot",
+    "question": "OAuth basics and role-based access",
+    "frequency": 4,
+    "companies": [],
+    "variations": [
+      "Have you implemented security in your Spring Boot project?",
+      "Where is the authentication token attached to the request?",
+      "How are those tokens validated?"
+    ],
+    "answerSEE": {
+      "simple": "OAuth is a protocol for authorization, allowing third-party apps to access data without exposing passwords, using access tokens.",
+      "explain": "In Spring Security, you can act as a Resource Server that accepts JWTs issued by an Authorization Server (like Keycloak). Once the token is validated, Spring extracts the \"roles\" or \"scopes\" from the token and uses `@PreAuthorize(\"hasRole('ADMIN')\")` to restrict endpoint access.",
+      "example": "\"In my project, the UI gets a JWT from Auth0. It sends the JWT in the Authorization header to my Spring Boot API. Spring Security intercepts it, validates the signature, and reads the claims. If the claims contain `role: admin`, my `@PreAuthorize` allows them into the delete endpoint.\"",
+      "summary10s": "Auth server issues tokens. Spring validates token signatures and maps token claims to Roles for endpoint security."
     }
   },
   {
@@ -942,24 +1030,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-interface-default-conflict",
-    "category": "Java",
-    "question": "What happens when a class implements two interfaces with conflicting default methods?",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Can a class implement two interfaces that contain the same default method? How does Java resolve it?",
-      "What if two interface have same method how will you will resolve this when a class implement both.",
-      "Diamond problem caused by multiple inheritance ,how can we resolve it."
-    ],
-    "answerSEE": {
-      "simple": "The compiler throws an error, and you must explicitly resolve the conflict by overriding the method.",
-      "explain": "If interfaces A and B both provide a default method doWork(), Java prevents the Diamond Problem by forcing the implementing class to override doWork(). Inside the overridden method, you can provide your own logic or explicitly call one of the interface methods using A.super.doWork().",
-      "example": "\"If both Flyable and Swimmable have a default move() method, my Duck class won't compile until I override move(). Inside my move() method, I can decide to call Flyable.super.move() or write entirely new logic.\"",
-      "summary10s": "Compiler error. You must override the method and optionally call SuperInterface.super.methodName()."
-    }
-  },
-  {
     "id": "kafka-producer-consumer-topic-partition-offset",
     "category": "Microservices",
     "question": "Kafka Producer, Consumer, Topic, Partition, Offset",
@@ -1082,23 +1152,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "arraylist-vs-linkedlist",
-    "category": "Java",
-    "question": "ArrayList vs LinkedList",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "ArrayList vs LinkedList",
-      "What is LinkedList"
-    ],
-    "answerSEE": {
-      "simple": "ArrayList is backed by a dynamic array; LinkedList is backed by a doubly linked list.",
-      "explain": "ArrayList — fast random access (O(1)), slow insert/delete in middle (O(n))\nLinkedList — fast insert/delete (O(1)) once position is known, slow random access (O(n))\nArrayList is used more often in practice; LinkedList mainly when frequent insert/delete needed\n\n       ArrayList → Fast random access (get()), slower insertion/deletion in the middle.\n       LinkedList → Fast insertion/deletion, slower random access.\n       ArrayList uses less memory; LinkedList uses more memory because each node stores previous and next references.\n     \n  Use ArrayList for frequent reads and LinkedList for frequent insertions/deletions.",
-      "example": "\"ArrayList is backed by a dynamic array, so accessing an element by index is very fast, but inserting or deleting in the middle requires shifting elements. LinkedList is backed by nodes with pointers, so insertion and deletion are faster once you're at the right position, but random access is slower since it has to traverse. In practice, I use ArrayList most of the time unless there's heavy insertion/deletion.\"",
-      "summary10s": "ArrayList = fast access, LinkedList = fast insert/delete, slow access."
-    }
-  },
-  {
     "id": "java-final-finally-finalize",
     "category": "Java",
     "question": "Difference between final, finally, and finalize",
@@ -1115,6 +1168,42 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
       "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
       "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
+    }
+  },
+  {
+    "id": "what-happens-inside-the-jvm-when-a-method-executes-with-primitives-and-objects",
+    "category": "Java",
+    "question": "What happens inside the JVM when a method executes with primitives and objects?",
+    "frequency": 3,
+    "companies": [
+      "Flipkart"
+    ],
+    "variations": [
+      "How does the JVM determine which objects are eligible for Garbage Collection?",
+      "Heap vs Stack memory — what is stored where?"
+    ],
+    "answerSEE": {
+      "simple": "Local primitives and object references go to the Stack. The actual object data goes to the Heap.",
+      "explain": "When `public void test()` executes, a stack frame is created. The primitive `int x = 10` is stored in the Stack. `Employee e` (the reference) is also in the Stack, but the actual `new Employee()` object is created in the Heap.",
+      "example": "In that method, the primitive `x` and the reference variable `e` are both stored in the thread's Stack memory inside the method's frame. The actual `Employee` object instance is allocated in the Heap. Once the method finishes execution, the stack frame is popped off, destroying `x` and `e`. Since there are no more references pointing to the `Employee` object in the Heap, it becomes eligible for Garbage Collection.",
+      "summary10s": "Primitives & references on Stack. Objects on Heap. Object is GCed when method ends."
+    }
+  },
+  {
+    "id": "java-jvm-metrics",
+    "category": "Java",
+    "question": "Your Java API suddenly becomes slow in production. What JVM-level metrics do you check first?",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "An API response time was previously around 10 ms but suddenly increased to 3 seconds. How would you troubleshoot it?",
+      "What tools or metrics would you use for troubleshooting application performance?"
+    ],
+    "answerSEE": {
+      "simple": "Check GC pause times, Heap memory usage, and Thread states (Blocked/Waiting).",
+      "explain": "If the API is slow, it is usually one of three things: 1. The JVM is constantly running Full GCs (\"Stop-the-world\" pauses) because the heap is 99% full. 2. Threads are deadlocked or blocked waiting for a database connection pool. 3. CPU is spiking due to infinite loops.",
+      "example": "\"First, I look at Datadog/Prometheus for GC metrics. If time spent in GC is spiking, the app is starving for memory. Next, I pull a thread dump. If I see 200 threads in `BLOCKED` state waiting for a HikariCP database lock, I know the database is the bottleneck, not the JVM.\"",
+      "summary10s": "1. GC Pause Times (Heap exhaustion). 2. Thread Dumps (Deadlocks/DB pool exhaustion)."
     }
   },
   {
@@ -1856,24 +1945,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "circuit-breaker",
-    "category": "Microservices",
-    "question": "Circuit Breaker",
-    "frequency": 2,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "Explain Circuit Breaker, Retry and Timeout patterns."
-    ],
-    "answerSEE": {
-      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
-      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
-      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
-      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
-    }
-  },
-  {
     "id": "jwt-authentication-flow",
     "category": "Microservices",
     "question": "JWT Authentication Flow",
@@ -2220,24 +2291,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-happens-inside-the-jvm-when-a-method-executes-with-primitives-and-objects",
-    "category": "Java",
-    "question": "What happens inside the JVM when a method executes with primitives and objects?",
-    "frequency": 2,
-    "companies": [
-      "Flipkart"
-    ],
-    "variations": [
-      "How does the JVM determine which objects are eligible for Garbage Collection?"
-    ],
-    "answerSEE": {
-      "simple": "Local primitives and object references go to the Stack. The actual object data goes to the Heap.",
-      "explain": "When `public void test()` executes, a stack frame is created. The primitive `int x = 10` is stored in the Stack. `Employee e` (the reference) is also in the Stack, but the actual `new Employee()` object is created in the Heap.",
-      "example": "In that method, the primitive `x` and the reference variable `e` are both stored in the thread's Stack memory inside the method's frame. The actual `Employee` object instance is allocated in the Heap. Once the method finishes execution, the stack frame is popped off, destroying `x` and `e`. Since there are no more references pointing to the `Employee` object in the Heap, it becomes eligible for Garbage Collection.",
-      "summary10s": "Primitives & references on Stack. Objects on Heap. Object is GCed when method ends."
-    }
-  },
-  {
     "id": "java-exception-handling-best-practices",
     "category": "Java",
     "question": "Exception Handling Best Practices in Java",
@@ -2358,6 +2411,86 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "- HashMap — not synchronized, allows one null key and multiple null values\n- Hashtable — legacy class, every method synchronized (locks whole map), no nulls allowed\n- HashMap is preferred today; use ConcurrentHashMap instead of Hashtable for thread-safety",
       "example": "\"HashMap isn't thread-safe but allows one null key and multiple null values. Hashtable is an older, legacy class where every method is synchronized, locking the entire map for any operation, and it doesn't allow null keys or values at all. In modern code, I'd never actually use Hashtable — I'd use HashMap for single-threaded contexts or ConcurrentHashMap for thread-safe scenarios instead.\"",
       "summary10s": "\"HashMap = not thread-safe, allows null. Hashtable = fully synchronized (legacy), no nulls.\""
+    }
+  },
+  {
+    "id": "virtual-threads",
+    "category": "Java",
+    "question": "Virtual Threads — Future of Java Concurrency",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How do Virtual Threads (Project Loom) change the traditional \"thread-per-request\" model?"
+    ],
+    "answerSEE": {
+      "simple": "Virtual threads are lightweight JVM-managed threads — create millions without memory issues.",
+      "explain": "Platform threads — OS threads, expensive, limited to thousands, each uses 1MB stack\nVirtual threads — JVM managed, very lightweight, millions can exist, mounted on carrier threads\nBlocking in virtual thread — JVM unmounts from carrier thread, carrier handles another virtual thread\nPerfect for IO-bound workloads — no need for async reactive code, write simple blocking code",
+      "example": "\"Traditional threads are OS threads — each needs about 1MB stack memory, limited to a few thousand before OOM. Virtual threads from Java 21 are JVM-managed — they are extremely lightweight, millions can exist. When a virtual thread blocks on IO, the JVM unmounts it from the OS thread which then runs another virtual thread. I can write simple blocking code and get throughput of reactive async code. Game changer for web APIs and microservices.\"",
+      "summary10s": "Virtual threads=JVM managed, millions lightweight, block unmounts from carrier, simple blocking code with reactive throughput."
+    }
+  },
+  {
+    "id": "what-is-kafka-rebalancing",
+    "category": "Microservices",
+    "question": "What is Kafka Rebalancing?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What happens during a \"stop-the-world\" Full GC, and why does it spike API latency?"
+    ],
+    "answerSEE": {
+      "simple": "It's the process where Kafka redistributes partitions among consumers in a group when a consumer joins or leaves.",
+      "explain": "Rebalancing ensures fair load distribution and high availability. During a rebalance, consumers usually pause processing (stop-the-world) while partitions are reassigned, though newer Kafka versions support Cooperative Rebalancing which minimizes downtime.",
+      "example": "\"Rebalancing happens whenever a consumer joins or crashes. Kafka redistributes the partitions among the available consumers in the group. The downside is that historically, rebalancing was a 'stop-the-world' event where all processing paused briefly. It's a necessary mechanism for fault tolerance, but frequent rebalancing causes lag.\"",
+      "summary10s": "Redistributing partitions when consumers join or die. Causes brief processing pauses."
+    }
+  },
+  {
+    "id": "java-hashmap-internal-working",
+    "category": "Java",
+    "question": "How HashMap works internally",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How does \"HashMap\" work internally, and what happens when two keys share the same hashcode?"
+    ],
+    "answerSEE": {
+      "simple": "It uses an array of Nodes (buckets) and a hashing algorithm to compute the index. On collision, it uses a LinkedList, which upgrades to a Red-Black tree.",
+      "explain": "When you put(K, V), it calculates `hash(K) % capacity` to find the bucket index. If the bucket is empty, it stores it. If occupied (collision), it appends to a LinkedList. In Java 8+, if the LinkedList exceeds 8 elements, it transforms into a Red-Black Tree to optimize search time from O(N) to O(log N).",
+      "example": "\"I explain it like an array of linked lists. You hash the key to find the array slot. If two keys hash to the same slot, they form a chain. To keep performance at O(1), HashMap automatically resizes (doubles capacity) when it gets 75% full (load factor), re-hashing everything.\"",
+      "summary10s": "Array of buckets. Hashing finds index. Collisions use LinkedLists (or Red-Black trees in Java 8+)."
+    }
+  },
+  {
+    "id": "dsa-reverse-array",
+    "category": "Java Coding",
+    "question": "Reverse array.",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Reverse an array \"[1, 2, 3, 4, 5]\"."
+    ],
+    "answerSEE": {
+      "simple": "Use two pointers, one at the start and one at the end, and swap them until they meet in the middle.",
+      "explain": "Initialize `left = 0` and `right = array.length - 1`. While `left < right`, swap the elements at those indices and move both pointers inward. This is an optimal in-place algorithm running in O(N) time and O(1) space.",
+      "example": "\"I initialize a start pointer at 0 and an end pointer at the last index. I swap their values, then do `start++` and `end--`. I repeat this in a while loop until start is no longer less than end. It's in-place and optimal.\"",
+      "summary10s": "Two pointers (start/end). Swap and converge to the middle. O(N) time, O(1) space."
+    }
+  },
+  {
+    "id": "spring-exception-handling-controllers",
+    "category": "Spring Boot",
+    "question": "Exception handling in controllers",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How do you implement exception handling in a Spring Boot project?"
+    ],
+    "answerSEE": {
+      "simple": "Use @RestControllerAdvice to handle exceptions globally across all controllers.",
+      "explain": "Instead of putting try-catch blocks in every controller method, you create a central class annotated with @RestControllerAdvice. Inside, you define methods annotated with @ExceptionHandler(SpecificException.class) to catch errors and return consistent JSON error formats.",
+      "example": "\"If my service throws a `UserNotFoundException`, it bubbles up out of the controller. My global `@RestControllerAdvice` class intercepts it using an `@ExceptionHandler`, wraps the error message in a standard `ApiError` DTO, and returns it with a 404 HTTP status code. It keeps my controllers completely clean.\"",
+      "summary10s": "@RestControllerAdvice acts as a global try-catch for the entire application."
     }
   },
   {
@@ -6207,20 +6340,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "virtual-threads",
-    "category": "Java",
-    "question": "Virtual Threads — Future of Java Concurrency",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Virtual threads are lightweight JVM-managed threads — create millions without memory issues.",
-      "explain": "Platform threads — OS threads, expensive, limited to thousands, each uses 1MB stack\nVirtual threads — JVM managed, very lightweight, millions can exist, mounted on carrier threads\nBlocking in virtual thread — JVM unmounts from carrier thread, carrier handles another virtual thread\nPerfect for IO-bound workloads — no need for async reactive code, write simple blocking code",
-      "example": "\"Traditional threads are OS threads — each needs about 1MB stack memory, limited to a few thousand before OOM. Virtual threads from Java 21 are JVM-managed — they are extremely lightweight, millions can exist. When a virtual thread blocks on IO, the JVM unmounts it from the OS thread which then runs another virtual thread. I can write simple blocking code and get throughput of reactive async code. Game changer for web APIs and microservices.\"",
-      "summary10s": "Virtual threads=JVM managed, millions lightweight, block unmounts from carrier, simple blocking code with reactive throughput."
-    }
-  },
-  {
     "id": "fork-join-framework",
     "category": "Java",
     "question": "Fork/Join Framework",
@@ -7641,20 +7760,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-kafka-rebalancing",
-    "category": "Microservices",
-    "question": "What is Kafka Rebalancing?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It's the process where Kafka redistributes partitions among consumers in a group when a consumer joins or leaves.",
-      "explain": "Rebalancing ensures fair load distribution and high availability. During a rebalance, consumers usually pause processing (stop-the-world) while partitions are reassigned, though newer Kafka versions support Cooperative Rebalancing which minimizes downtime.",
-      "example": "\"Rebalancing happens whenever a consumer joins or crashes. Kafka redistributes the partitions among the available consumers in the group. The downside is that historically, rebalancing was a 'stop-the-world' event where all processing paused briefly. It's a necessary mechanism for fault tolerance, but frequent rebalancing causes lag.\"",
-      "summary10s": "Redistributing partitions when consumers join or die. Causes brief processing pauses."
-    }
-  },
-  {
     "id": "how-does-github-copilot-work",
     "category": "Other",
     "question": "How does GitHub Copilot work?",
@@ -8743,20 +8848,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "dsa-reverse-array",
-    "category": "Java Coding",
-    "question": "Reverse array.",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use two pointers, one at the start and one at the end, and swap them until they meet in the middle.",
-      "explain": "Initialize `left = 0` and `right = array.length - 1`. While `left < right`, swap the elements at those indices and move both pointers inward. This is an optimal in-place algorithm running in O(N) time and O(1) space.",
-      "example": "\"I initialize a start pointer at 0 and an end pointer at the last index. I swap their values, then do `start++` and `end--`. I repeat this in a while loop until start is no longer less than end. It's in-place and optimal.\"",
-      "summary10s": "Two pointers (start/end). Swap and converge to the middle. O(N) time, O(1) space."
-    }
-  },
-  {
     "id": "dsa-min-max-array",
     "category": "JS Coding",
     "question": "Minimum and maximum in array.",
@@ -9053,48 +9144,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-oauth-basics",
-    "category": "Spring Boot",
-    "question": "OAuth basics and role-based access",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "OAuth is a protocol for authorization, allowing third-party apps to access data without exposing passwords, using access tokens.",
-      "explain": "In Spring Security, you can act as a Resource Server that accepts JWTs issued by an Authorization Server (like Keycloak). Once the token is validated, Spring extracts the \"roles\" or \"scopes\" from the token and uses `@PreAuthorize(\"hasRole('ADMIN')\")` to restrict endpoint access.",
-      "example": "\"In my project, the UI gets a JWT from Auth0. It sends the JWT in the Authorization header to my Spring Boot API. Spring Security intercepts it, validates the signature, and reads the claims. If the claims contain `role: admin`, my `@PreAuthorize` allows them into the delete endpoint.\"",
-      "summary10s": "Auth server issues tokens. Spring validates token signatures and maps token claims to Roles for endpoint security."
-    }
-  },
-  {
-    "id": "spring-exception-handling-controllers",
-    "category": "Spring Boot",
-    "question": "Exception handling in controllers",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use @RestControllerAdvice to handle exceptions globally across all controllers.",
-      "explain": "Instead of putting try-catch blocks in every controller method, you create a central class annotated with @RestControllerAdvice. Inside, you define methods annotated with @ExceptionHandler(SpecificException.class) to catch errors and return consistent JSON error formats.",
-      "example": "\"If my service throws a `UserNotFoundException`, it bubbles up out of the controller. My global `@RestControllerAdvice` class intercepts it using an `@ExceptionHandler`, wraps the error message in a standard `ApiError` DTO, and returns it with a 404 HTTP status code. It keeps my controllers completely clean.\"",
-      "summary10s": "@RestControllerAdvice acts as a global try-catch for the entire application."
-    }
-  },
-  {
-    "id": "java-hashmap-internal-working",
-    "category": "Java",
-    "question": "How HashMap works internally",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It uses an array of Nodes (buckets) and a hashing algorithm to compute the index. On collision, it uses a LinkedList, which upgrades to a Red-Black tree.",
-      "explain": "When you put(K, V), it calculates `hash(K) % capacity` to find the bucket index. If the bucket is empty, it stores it. If occupied (collision), it appends to a LinkedList. In Java 8+, if the LinkedList exceeds 8 elements, it transforms into a Red-Black Tree to optimize search time from O(N) to O(log N).",
-      "example": "\"I explain it like an array of linked lists. You hash the key to find the array slot. If two keys hash to the same slot, they form a chain. To keep performance at O(1), HashMap automatically resizes (doubles capacity) when it gets 75% full (load factor), re-hashing everything.\"",
-      "summary10s": "Array of buckets. Hashing finds index. Collisions use LinkedLists (or Red-Black trees in Java 8+)."
-    }
-  },
-  {
     "id": "java-list-set-map",
     "category": "Java",
     "question": "List vs Set vs Map (when to use which)",
@@ -9180,6 +9229,212 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "You can convert any stream using `.parallelStream()`. It chunks the data and processes it concurrently. However, it introduces multithreading overhead and uses the common JVM thread pool. It should only be used for CPU-intensive tasks on massive datasets, otherwise, it's actually slower.",
       "example": "\"I rarely use parallel streams for simple math or DB calls because the overhead of splitting and merging threads makes it slower than sequential. I only use `parallelStream()` if I have a massive list of images and need to apply a heavy CPU filter to all of them simultaneously.\"",
       "summary10s": "Sequential = single thread. Parallel = ForkJoinPool multithreading. Use parallel only for massive CPU-bound tasks."
+    }
+  },
+  {
+    "id": "java-concurrent-modification",
+    "category": "Java",
+    "question": "What exactly happens if you modify a collection while iterating over it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You get a ConcurrentModificationException.",
+      "explain": "Java collections use a fast-fail iterator. It keeps a `modCount` (modification count). If you use a for-each loop and structurally modify the list (like `list.remove()`) without using the Iterator's own remove method, the `modCount` mismatches and throws the exception immediately to prevent undefined behavior.",
+      "example": "\"If I write `for(String s : list) { if(s.equals(\"X\")) list.remove(s); }`, it crashes. Instead, I should use `Iterator.remove()` or just use Java 8's `list.removeIf(s -> s.equals(\"X\"))`.\"",
+      "summary10s": "Modifying via the collection object instead of the iterator throws ConcurrentModificationException."
+    }
+  },
+  {
+    "id": "java-lock-exception",
+    "category": "Java",
+    "question": "What happens to a lock if an exception is thrown inside a thread?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If using a `synchronized` block, the lock is automatically released. If using `ReentrantLock`, it is NOT released unless you put `unlock()` in a `finally` block.",
+      "explain": "This is a huge trap. The JVM inherently guarantees that any exit from a `synchronized` block (normal or exception) releases the intrinsic lock. But `ReentrantLock` is just a Java object. If an exception skips your `lock.unlock()` line, the lock is held forever, causing a deadlock for all other threads.",
+      "example": "\"I always wrap `ReentrantLock` logic like this: `lock.lock(); try { ... } finally { lock.unlock(); }`. If a NullPointerException occurs inside the try, the finally block guarantees the lock is released.\"",
+      "summary10s": "Synchronized releases automatically. ReentrantLock requires explicit unlock() in a finally block."
+    }
+  },
+  {
+    "id": "java-optional-antipattern",
+    "category": "Java",
+    "question": "When should you use \"Optional\", and when does it become an anti-pattern?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Optional as a return type to indicate a value might be missing. It becomes an anti-pattern when used as a class field or method parameter.",
+      "explain": "Optional was designed specifically to prevent NullPointerExceptions on return values (like `repository.findById()`). However, `Optional` itself is an object. If you use it as a class field, it breaks Serialization. If you use it as a method parameter, you force callers to wrap variables in `Optional.of()`, creating unnecessary garbage collection overhead.",
+      "example": "\"I return `Optional<User>` from my service. But I NEVER write `public void setName(Optional<String> name)`. I just pass a normal String and do a null check, avoiding the object creation overhead.\"",
+      "summary10s": "Good: Return types. Bad: Class fields (not Serializable) and Method parameters (overhead)."
+    }
+  },
+  {
+    "id": "java-record-vs-class",
+    "category": "Java",
+    "question": "When would you use a Java \"record\" instead of a standard \"class\", and what are its limitations?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use records for immutable data carriers (DTOs). The limitation is they cannot extend other classes and their fields cannot be modified.",
+      "explain": "Introduced in Java 14, `record` automatically generates constructors, getters, equals, hashCode, and toString. It eliminates boilerplate for DTOs. However, because they implicitly extend `java.lang.Record`, Java's single-inheritance rule means they cannot extend any other class. Also, all fields are `final`.",
+      "example": "\"Instead of writing a 50-line Lombok `@Data` class for an API response, I just write `public record UserDto(String name, int age) {}`. It is perfect for mapping JSON, but I can't use it as a JPA Entity because Hibernate requires a no-args constructor and mutable fields.\"",
+      "summary10s": "Records are immutable, boilerplate-free DTOs. They cannot be inherited from or mutated."
+    }
+  },
+  {
+    "id": "java-memory-leak-gc",
+    "category": "Java",
+    "question": "How can a Java application still have a memory leak despite having a Garbage Collector?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Memory leaks in Java happen when you accidentally keep strong references to objects you no longer need.",
+      "explain": "The GC only destroys objects that are unreachable (no active references). If you put objects into a static `HashMap` (like a custom cache) and never remove them, the GC assumes they are still in use because the static map holds a strong reference to them. Eventually, the heap fills up and throws OutOfMemoryError.",
+      "example": "\"I once created a static `List<User>` to track active sessions. When users logged out, I forgot to remove them from the list. Even though the sessions were dead, the static list held strong references, preventing the GC from cleaning them up. The server crashed after a few hours.\"",
+      "summary10s": "GC only cleans unreferenced objects. Caching objects in static collections without eviction causes leaks."
+    }
+  },
+  {
+    "id": "behavioral-tell-me-about-yourself",
+    "category": "Other",
+    "question": "Can you tell me about yourself?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Give a brief summary of your current role, your core tech stack, and a highlight of a recent challenging project.",
+      "explain": "Interviewers use this to gauge your communication skills and set the tone. Don't recite your resume. Focus on what you are doing right now, what you excel at (e.g., Spring Boot microservices), and what you are looking for in your next role.",
+      "example": "\"I'm a full-stack developer with 4 years of experience, primarily focused on Java, Spring Boot, and Angular. Recently, I led the migration of a monolithic payment system into microservices, which reduced our deployment time by 50%. I'm looking for a role where I can continue building scalable backends.\"",
+      "summary10s": "Keep it to 90 seconds. Present role, core skills, recent big win, and what you want next."
+    }
+  },
+  {
+    "id": "behavioral-frontend-backend-balance",
+    "category": "Other",
+    "question": "Your experience seems to be more frontend-focused. Are you comfortable working on the backend?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How much hands-on experience do you have in Java and Spring Boot?",
+      "How would you rate yourself out of 10 in Angular and Java?",
+      "Are you looking to explore backend development more?"
+    ],
+    "answerSEE": {
+      "simple": "Acknowledge your frontend strength, but immediately pivot to concrete backend projects you've delivered.",
+      "explain": "Full-stack developers often get pigeonholed. You must prove you aren't just a UI developer who occasionally writes a simple CRUD endpoint. Rate yourself honestly (e.g., Angular 8/10, Java 7/10) but emphasize your desire and capability to tackle complex backend architecture.",
+      "example": "\"While my recent title was frontend-heavy, I am completely comfortable on the backend. In my last project, I personally designed the Spring Boot REST APIs, configured Spring Security with JWTs, and wrote the Hibernate entity mappings. I rate myself an 8 in Angular and a solid 7 in Java, and I am highly motivated to take on deeper backend architectural challenges.\"",
+      "summary10s": "Own your frontend skills, but prove your backend competence with specific technical examples."
+    }
+  },
+  {
+    "id": "microservices-circuit-breaker-annotation-level",
+    "category": "Microservices",
+    "question": "At what level would you apply the Circuit Breaker annotation?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Apply it at the client level (the method making the external HTTP/Feign call).",
+      "explain": "You don't apply `@CircuitBreaker` on the controller that receives the request. You apply it on the Service or FeignClient method that *calls* the external microservice. This ensures that if the external service fails, the circuit opens exactly where the call is being made, immediately triggering the fallback method.",
+      "example": "\"I apply `@CircuitBreaker(name = \"inventoryService\", fallbackMethod = \"defaultInventory\")` directly on the `getInventory()` method inside my service class, which uses `RestTemplate` to call the Inventory Microservice.\"",
+      "summary10s": "Apply it on the method that executes the outbound external network call."
+    }
+  },
+  {
+    "id": "microservices-retry-vs-timeout",
+    "category": "Microservices",
+    "question": "How do Retry and Socket Timeout work? If both Retry and Circuit Breaker are implemented, which one executes first?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "If both Retry and Circuit Breaker are implemented, which one executes first?"
+    ],
+    "answerSEE": {
+      "simple": "Timeout aborts a hanging call. Retry attempts the call again. Retry executes BEFORE the Circuit Breaker opens.",
+      "explain": "A Socket Timeout kills the connection if the server doesn't respond in X seconds. A Retry will then try the call again. The Circuit Breaker wraps the Retry. If the call fails 3 times (due to Retry exhaustion), the Circuit Breaker records a failure. Once failures cross a threshold, the Circuit Breaker opens.",
+      "example": "\"If I have `@Retry` and `@CircuitBreaker` on a method, Resilience4j executes the Retry first. If my service is down, it retries 3 times. All 3 fail. The Circuit Breaker counts that as 1 failed execution. If the next few requests also fail, the Circuit Breaker opens, and subsequent requests bypass the Retry entirely and go straight to the fallback.\"",
+      "summary10s": "Timeout kills hanging calls. Retry tries again. Circuit Breaker wraps Retry and opens after consecutive failures."
+    }
+  },
+  {
+    "id": "microservices-database-consistency",
+    "category": "Microservices",
+    "question": "How do you maintain database consistency across different microservices?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the Saga Pattern (Choreography or Orchestration) with asynchronous events.",
+      "explain": "You cannot use traditional ACID transactions (like `@Transactional`) across multiple microservices because they have separate databases (Database-per-service). Instead, you use the Saga pattern. If Microservice A succeeds but Microservice B fails, B publishes a failure event, and A listens to it to execute a \"compensating transaction\" (a rollback).",
+      "example": "\"I maintain consistency using Choreography Saga. The Order Service creates an order and emits an `OrderCreated` event to Kafka. The Payment Service listens, charges the card, and emits `PaymentFailed`. The Order Service listens for `PaymentFailed` and marks the order as CANCELED. This ensures eventual consistency.\"",
+      "summary10s": "Use the Saga pattern with compensating transactions and an event broker (Kafka/RabbitMQ)."
+    }
+  },
+  {
+    "id": "spring-disable-autoconfig",
+    "category": "Spring Boot",
+    "question": "If you want to disable a specific Spring Boot auto-configuration, how would you do it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the `exclude` attribute on the `@SpringBootApplication` annotation.",
+      "explain": "Spring Boot automatically configures beans based on your classpath. If you don't want it to (e.g., you added a database dependency but want to manually configure the DataSource), you can exclude the specific AutoConfiguration class.",
+      "example": "\"I just go to my main class and write `@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})`. Now Spring won't try to automatically connect to a database on startup.\"",
+      "summary10s": "Use `@SpringBootApplication(exclude = {ClassName.class})`."
+    }
+  },
+  {
+    "id": "spring-multiple-exception-handlers",
+    "category": "Spring Boot",
+    "question": "What happens if there are multiple exception handler methods for the same exception? How does Spring determine which handler to invoke?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring throws an `IllegalStateException` at startup if you define the exact same exception twice in the same advice class. Otherwise, it picks the most specific subclass.",
+      "explain": "If you have `@ExceptionHandler(Exception.class)` and `@ExceptionHandler(NullPointerException.class)`, and a NPE occurs, Spring traverses the exception hierarchy and picks the most specific match (NPE). If you define two identical handlers in the same class, the app won't even start.",
+      "example": "\"Spring uses ExceptionDepthComparator. It checks the inheritance tree. NullPointerException is closer to the thrown exception than the generic Exception class, so it routes to the NPE handler. If I accidentally write `@ExceptionHandler(RuntimeException.class)` on two different methods in my ControllerAdvice, Spring crashes on boot.\"",
+      "summary10s": "Spring uses ExceptionDepthComparator to find the closest matching subclass in the exception hierarchy."
+    }
+  },
+  {
+    "id": "java-coding-reverse-array-streams",
+    "category": "Java Coding",
+    "question": "Can you solve the array reversal using Java Streams?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, by streaming IntStream indices in reverse order, but it's an anti-pattern for this problem.",
+      "explain": "Streams are designed for forward-processing pipelines. They don't have a native `.reverse()` for primitives. To reverse an array `arr`, you have to generate an `IntStream` from `arr.length - 1` down to 0, and map those indices to the array elements.",
+      "example": "\"I can do it using `IntStream.rangeClosed(1, arr.length).map(i -> arr[arr.length - i]).toArray();`. However, I would tell the interviewer that using a standard two-pointer while loop is much more readable and performant because Streams add unnecessary boxing and object creation overhead here.\"",
+      "summary10s": "Use `IntStream` to map indices backward. Note that a classic 2-pointer loop is better."
+    }
+  },
+  {
+    "id": "java-coding-second-repeated-char",
+    "category": "Java Coding",
+    "question": "Given \"String str = 'programming'\", find the second repeated character. How would it scale to millions of chars?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How would your solution work if the string contained millions of characters?",
+      "Where exactly in your program are you checking whether a character is duplicated?",
+      "What is the time and space complexity of your solution?"
+    ],
+    "answerSEE": {
+      "simple": "Use a LinkedHashMap to store characters and their frequencies, then iterate to find the second one with a count > 1.",
+      "explain": "A `LinkedHashMap` maintains insertion order. You iterate the string and build the frequency map (O(N) time). Then, you iterate the map's entry set. The first time you see a value > 1, you skip it. The second time you see a value > 1, you return that key. For millions of characters, this is highly scalable because the Space Complexity is bounded by the alphabet size (O(1) space, max 256 or 65k entries).",
+      "example": "\"I iterate the string: `map.put(c, map.getOrDefault(c, 0) + 1)`. Then I loop the map. I keep a `repeatedCount`. When `entry.getValue() > 1`, I increment `repeatedCount`. If `repeatedCount == 2`, I return `entry.getKey()`. Time is O(N). Space is O(1) because a character map never exceeds the fixed character set, even for millions of chars.\"",
+      "summary10s": "LinkedHashMap keeps order. Build frequencies (O(N)). Find the 2nd char with count > 1. Space is O(1) bounded by character set."
     }
   }
 ];
