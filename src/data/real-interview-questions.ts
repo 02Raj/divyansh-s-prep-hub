@@ -11608,5 +11608,120 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"The architecture relies on WebSockets. Client A and Client B both edit paragraph 1. The central Collaboration Server receives both events. Using OT algorithms, the server decides the authoritative sequence, transforms Client B's operation to shift right by 1 character, and pushes the final resolved state to all connected browsers so they stay in perfect sync.\"",
       "summary10s": "Real-time sync via WebSockets. Use Operational Transformation (OT) algorithms to mathematically resolve typing conflicts."
     }
+  },
+  {
+    "id": "js-hoisting",
+    "category": "JavaScript",
+    "question": "What is Hoisting?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Hoisting is JavaScript's default behavior of moving declarations to the top of the current scope before code execution.",
+      "explain": "Variables declared with `var` and `function` declarations are hoisted. However, `var` is hoisted and initialized with `undefined`, while `let` and `const` are hoisted but remain uninitialized in a 'Temporal Dead Zone' (TDZ) until their declaration line is executed.",
+      "example": "\"If I try to `console.log(myVar)` before declaring `var myVar = 5;`, JS won't throw an error; it prints `undefined`. But if I do the same with `let myVar = 5;`, it throws a ReferenceError because it's in the TDZ.\"",
+      "summary10s": "Declarations are moved to the top. `var` = undefined. `let`/`const` = ReferenceError (TDZ)."
+    }
+  },
+  {
+    "id": "js-constructor",
+    "category": "JavaScript",
+    "question": "What is a Constructor in JavaScript?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A constructor is a special function used to create and initialize objects with specific properties.",
+      "explain": "In ES6 classes, the `constructor()` method is automatically called when you instantiate the class using the `new` keyword. Before ES6, developers used standard functions invoked with `new` to act as constructors, setting properties via the `this` context.",
+      "example": "\"I create a `class User { constructor(name) { this.name = name; } }`. When I call `const user1 = new User('Alice')`, the constructor runs instantly and assigns 'Alice' to the `name` property of that new object instance.\"",
+      "summary10s": "A function called with the `new` keyword used to initialize object properties."
+    }
+  },
+  {
+    "id": "js-recursive-function",
+    "category": "JavaScript",
+    "question": "What is a Recursive Function?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A recursive function is a function that calls itself until it reaches a specific stopping condition.",
+      "explain": "Recursion must always have a 'base case' to break the loop, otherwise it will call itself infinitely and cause a Stack Overflow. It is heavily used in DSA for tree traversals, DFS, and breaking down complex math (like factorials).",
+      "example": "\"To calculate a factorial, I write `function fact(n) { if (n === 1) return 1; return n * fact(n - 1); }`. The `n === 1` is the base case that stops the function from calling itself forever.\"",
+      "summary10s": "A function calling itself. Must have a base case to prevent a Stack Overflow."
+    }
+  },
+  {
+    "id": "js-timers-timeout-interval",
+    "category": "JavaScript",
+    "question": "Difference between setTimeout and setInterval",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "setTimeout executes a function once after a delay. setInterval executes a function repeatedly at a specified interval.",
+      "explain": "Both functions are asynchronous and handled by the browser's Web APIs (or Node.js environment). `setTimeout` runs its callback exactly once. `setInterval` will run infinitely until you explicitly stop it by passing its ID to `clearInterval()`.",
+      "example": "\"I use `setTimeout(() => alert('Hello'), 2000)` to show a popup once after 2 seconds. I use `setInterval(() => clock.tick(), 1000)` to update a clock UI every single second continuously.\"",
+      "summary10s": "setTimeout = One-time execution after delay. setInterval = Recurring execution until explicitly cleared."
+    }
+  },
+  {
+    "id": "js-event-loop-theory",
+    "category": "JavaScript",
+    "question": "Explain the Node.js Event Loop. How do the Callback Queue and Microtasks work?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What are Microtasks and Macrotasks?",
+      "How does the Callback Queue work?"
+    ],
+    "answerSEE": {
+      "simple": "The Event Loop continuously checks the call stack; if it's empty, it pulls tasks from the queues. Microtasks execute before Macrotasks.",
+      "explain": "JS is single-threaded. Async operations (like I/O or timers) are pushed to the Callback Queue (Macrotasks). Promises and `process.nextTick` go to the Microtask Queue. The Event Loop prioritizes the Microtask queue, completely emptying it before pulling even a single Macrotask.",
+      "example": "\"If I have a `setTimeout` (Macrotask) and a `Promise.resolve` (Microtask) queued at the same time, the Event Loop executes the Promise first. Only after the Microtask queue is totally empty will it execute the `setTimeout` callback from the Callback Queue.\"",
+      "summary10s": "Event loop pushes async callbacks to stack. Priority: Microtasks (Promises) > Macrotasks (setTimeout)."
+    }
+  },
+  {
+    "id": "node-eventemitter",
+    "category": "JavaScript",
+    "question": "What is EventEmitter?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "EventEmitter is a core Node.js module that allows objects to publish and subscribe to custom events asynchronously.",
+      "explain": "It implements the Observer pattern. You can register listeners using `.on('eventName', callback)` and trigger those listeners by calling `.emit('eventName', data)`. It's the foundation for many built-in Node modules like HTTP servers and file streams.",
+      "example": "\"I instantiate `const myEmitter = new EventEmitter();`. I register a listener with `myEmitter.on('userSignup', (user) => sendWelcomeEmail(user))`. Later, in my signup route, I call `myEmitter.emit('userSignup', newUser)`. This beautifully decouples my code.\"",
+      "summary10s": "Node.js class for Pub/Sub. Use `.on()` to listen and `.emit()` to broadcast events."
+    }
+  },
+  {
+    "id": "js-promises",
+    "category": "JavaScript",
+    "question": "What are Promises?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Promise is an object representing the eventual completion (or failure) of an asynchronous operation.",
+      "explain": "Before Promises, JS relied on deeply nested callbacks (Callback Hell). A Promise solves this by providing a cleaner `.then()` and `.catch()` chain. It has three states: Pending (waiting), Fulfilled (success), or Rejected (error). Modern JS uses `async/await` syntax to make Promises look like synchronous code.",
+      "example": "\"When I call `fetch(url)`, it instantly returns a Pending Promise. If the network request succeeds, the Promise is Fulfilled and runs my `.then(response)` block. If the network drops, it is Rejected and runs my `.catch(err)` block.\"",
+      "summary10s": "Object representing async result. States: Pending, Fulfilled, Rejected. Replaces Callback Hell."
+    }
+  },
+  {
+    "id": "js-error-handling",
+    "category": "JavaScript",
+    "question": "How do you handle errors in synchronous and asynchronous operations?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use try/catch for synchronous code (and async/await). Use .catch() for traditional Promises.",
+      "explain": "Synchronous code throws exceptions that stop execution unless wrapped in a standard `try/catch` block. For asynchronous Promises, a thrown error is swallowed unless you chain a `.catch()` at the end. However, if you use the modern `async/await` syntax, you can seamlessly wrap asynchronous calls inside a standard `try/catch` block just like sync code.",
+      "example": "\"In older code, I wrote `fetch(url).then(res => res.json()).catch(err => console.log(err))`. Now, I write an `async` function and do: `try { const res = await fetch(url); } catch (err) { console.log(err); }`. It makes the async error handling look perfectly synchronous.\"",
+      "summary10s": "Sync: `try/catch`. Async Promises: `.catch()`. Modern Async/Await: `try/catch`."
+    }
   }
 ];
