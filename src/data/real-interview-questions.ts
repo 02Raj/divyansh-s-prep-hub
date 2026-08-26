@@ -713,7 +713,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "angular-standalone-components",
     "category": "Angular",
     "question": "Standalone Components",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [
       "Deloitte"
     ],
@@ -1209,6 +1209,76 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-spring-security",
+    "category": "Spring Boot",
+    "question": "What is Spring Security?",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "Spring Security Fundamentals"
+    ],
+    "answerSEE": {
+      "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
+      "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
+      "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
+      "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
+    }
+  },
+  {
+    "id": "comparable-vs-comparator",
+    "category": "Java",
+    "question": "Comparable vs Comparator",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Comparable defines a class's natural ordering; Comparator defines custom ordering from outside the class.",
+      "explain": "Comparable — compareTo(), inside the class, single default order\nComparator — compare(), external, multiple custom sort strategies\nComparator often used with lambdas for flexible sorting",
+      "example": "\"Comparable is implemented inside the class to define its one natural sort order, using compareTo(). Comparator is external and lets me define multiple different sorting strategies without modifying the original class, using compare(). In real projects, I mostly use Comparator with lambdas when I need to sort a list by different fields depending on the situation.\"",
+      "summary10s": "Comparable = one default order, Comparator = multiple custom orders."
+    }
+  },
+  {
+    "id": "runnable-vs-callable",
+    "category": "Java",
+    "question": "Runnable vs Callable",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "Creating Threads — Thread, Runnable, Callable"
+    ],
+    "answerSEE": {
+      "simple": "Runnable doesn't return a result; Callable can return a result and throw checked exceptions.",
+      "explain": "Runnable — run(), no return value, no checked exceptions\nCallable — call(), returns a value via Future, can throw checked exceptions",
+      "example": "\"Runnable's run() doesn't return anything and can't throw checked exceptions. Callable's call() can return a result through a Future, and can also throw checked exceptions. I use Callable whenever I need the outcome of an async task, like fetching data in parallel.\"",
+      "summary10s": "Runnable = no result, Callable = returns result via Future."
+    }
+  },
+  {
+    "id": "angular-micro-frontends",
+    "category": "Angular",
+    "question": "Micro Frontends",
+    "frequency": 3,
+    "companies": [
+      "Virtusa"
+    ],
+    "variations": [
+      "What is Micro Frontend Architecture and why use it in Angular?"
+    ],
+    "answerSEE": {
+      "simple": "Micro Frontends split a large frontend application into smaller, independently deployable pieces, each owned by a different team.",
+      "explain": "Each MFE can be built, deployed, and versioned independently\nComposed together at runtime (or build time) into one cohesive application\nCommon implementation: Webpack Module Federation",
+      "example": "\"Micro Frontends apply the microservices idea to the frontend — instead of one large monolithic Angular app, we split it into smaller, independently deployable applications, often owned by different teams, and compose them together into a single user experience. I've worked with this using Webpack Module Federation, where a shell application loads remote modules at runtime.\"",
+      "summary10s": "Split a large frontend into independently deployable pieces — composed via Module Federation."
+    }
+  },
+  {
     "id": "java-static-methods-interface",
     "category": "Java",
     "question": "What is the use of static methods in an interface?",
@@ -1653,22 +1723,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-spring-security",
-    "category": "Spring Boot",
-    "question": "What is Spring Security?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Spring Security Fundamentals"
-    ],
-    "answerSEE": {
-      "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
-      "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
-      "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
-      "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
-    }
-  },
-  {
     "id": "authentication-vs-authorization",
     "category": "Spring Boot",
     "question": "Authentication vs Authorization?",
@@ -1732,20 +1786,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
       "example": "I would initialize a `Set<Integer> seen = new HashSet<>();`. Then I'd create the stream from the list and use `list.stream().filter(n -> !seen.add(n)).forEach(System.out::println);`. It runs in O(N) time and requires O(N) space for the Set.",
       "summary10s": "Create an external Set. Use `.filter(n -> !set.add(n))` inside the stream."
-    }
-  },
-  {
-    "id": "comparable-vs-comparator",
-    "category": "Java",
-    "question": "Comparable vs Comparator",
-    "frequency": 2,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Comparable defines a class's natural ordering; Comparator defines custom ordering from outside the class.",
-      "explain": "Comparable — compareTo(), inside the class, single default order\nComparator — compare(), external, multiple custom sort strategies\nComparator often used with lambdas for flexible sorting",
-      "example": "\"Comparable is implemented inside the class to define its one natural sort order, using compareTo(). Comparator is external and lets me define multiple different sorting strategies without modifying the original class, using compare(). In real projects, I mostly use Comparator with lambdas when I need to sort a list by different fields depending on the situation.\"",
-      "summary10s": "Comparable = one default order, Comparator = multiple custom orders."
     }
   },
   {
@@ -2029,22 +2069,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "runnable-vs-callable",
-    "category": "Java",
-    "question": "Runnable vs Callable",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Creating Threads — Thread, Runnable, Callable"
-    ],
-    "answerSEE": {
-      "simple": "Runnable doesn't return a result; Callable can return a result and throw checked exceptions.",
-      "explain": "Runnable — run(), no return value, no checked exceptions\nCallable — call(), returns a value via Future, can throw checked exceptions",
-      "example": "\"Runnable's run() doesn't return anything and can't throw checked exceptions. Callable's call() can return a result through a Future, and can also throw checked exceptions. I use Callable whenever I need the outcome of an async task, like fetching data in parallel.\"",
-      "summary10s": "Runnable = no result, Callable = returns result via Future."
-    }
-  },
-  {
     "id": "what-is-the-saga-pattern",
     "category": "Microservices",
     "question": "What is the Saga Pattern?",
@@ -2158,24 +2182,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Concurrency — single core switches between tasks rapidly, gives illusion of simultaneous\nParallelism — multiple cores run tasks truly at the same time\nConcurrency is about structure, Parallelism is about execution\nJava achieves both — concurrency via threads, parallelism via multi-core CPU",
       "example": "\"Concurrency means multiple tasks are in progress but not necessarily running at the same instant — like one CPU switching between threads. Parallelism means tasks literally run at the same moment on multiple cores. In Java I write concurrent code and the JVM plus OS decide whether it runs in parallel based on available cores.\"",
       "summary10s": "Concurrency=juggling tasks, Parallelism=doing tasks simultaneously on multiple cores."
-    }
-  },
-  {
-    "id": "angular-micro-frontends",
-    "category": "Angular",
-    "question": "Micro Frontends",
-    "frequency": 2,
-    "companies": [
-      "Virtusa"
-    ],
-    "variations": [
-      "What is Micro Frontend Architecture and why use it in Angular?"
-    ],
-    "answerSEE": {
-      "simple": "Micro Frontends split a large frontend application into smaller, independently deployable pieces, each owned by a different team.",
-      "explain": "Each MFE can be built, deployed, and versioned independently\nComposed together at runtime (or build time) into one cohesive application\nCommon implementation: Webpack Module Federation",
-      "example": "\"Micro Frontends apply the microservices idea to the frontend — instead of one large monolithic Angular app, we split it into smaller, independently deployable applications, often owned by different teams, and compose them together into a single user experience. I've worked with this using Webpack Module Federation, where a shell application loads remote modules at runtime.\"",
-      "summary10s": "Split a large frontend into independently deployable pieces — composed via Module Federation."
     }
   },
   {
@@ -2580,6 +2586,70 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "rest-vs-soap-what-are-the-diff",
+    "category": "System Design",
+    "question": "REST vs SOAP — what are the differences?",
+    "frequency": 2,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "REST is an architectural style that uses HTTP and lightweight formats like JSON. SOAP is a strict protocol that relies exclusively on XML.",
+      "explain": "REST: Architectural style, uses JSON/XML/plain text, stateless, works over HTTP, lightweight, easier to scale.\nSOAP: Strict protocol, only uses XML, requires WSDL contract, has built-in security (WS-Security) and ACID compliance, heavier.",
+      "example": "\"REST is flexible and lightweight, usually sending JSON over HTTP, making it perfect for public APIs and modern microservices. SOAP is a rigid, heavier XML-based protocol. I've only used SOAP when integrating with legacy enterprise systems or when we needed its strict WS-Security standards, but otherwise, REST is my default choice.\"",
+      "summary10s": "REST = lightweight style, JSON. SOAP = strict protocol, XML, built-in security."
+    }
+  },
+  {
+    "id": "angular-subject-vs-behaviorsubject",
+    "category": "Angular",
+    "question": "Subject vs BehaviorSubject",
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Subject has no initial value and doesn't replay past values; BehaviorSubject requires an initial value and always gives the latest value to new subscribers.",
+      "explain": "Subject — new subscribers get nothing until the next emission\nBehaviorSubject — requires an initial value, new subscribers immediately get the current/last emitted value\nBehaviorSubject has .value property to synchronously get the current value",
+      "example": "\"A Subject doesn't hold any value — if I subscribe late, I miss everything emitted before I subscribed. BehaviorSubject requires an initial value and always gives new subscribers the most recently emitted value immediately upon subscription. I use BehaviorSubject a lot for things like storing the current logged-in user state, where any component that subscribes later still needs the current value right away.\"",
+      "summary10s": "Subject = no initial/replay value, BehaviorSubject = has initial value, replays latest to new subscribers."
+    }
+  },
+  {
+    "id": "angular-mfe-communication",
+    "category": "Angular",
+    "question": "How do two Micro Frontends communicate?",
+    "frequency": 2,
+    "companies": [
+      "Virtusa"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Through a shared event bus, custom browser events, shared state service, or URL/query params.",
+      "explain": "Custom Events (window.dispatchEvent/addEventListener) — simple, decoupled, works across frameworks\nShared state via a common service exposed through Module Federation, or a shared library\nQuery params/routing state for loosely coupled navigation-based communication",
+      "example": "\"The simplest way I've used is custom browser events — one MFE dispatches a custom event, and another listens for it, which keeps them loosely coupled since neither needs to know about the other's internals. I've also used a shared singleton service exposed through Module Federation when the MFEs are both Angular and need tighter, more structured communication.\"",
+      "summary10s": "Custom events (loose coupling) or shared service via Module Federation (tighter coupling)."
+    }
+  },
+  {
+    "id": "angular-custom-directives",
+    "category": "Angular",
+    "question": "Custom Directives",
+    "frequency": 2,
+    "companies": [
+      "Virtusa"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes — created for reusable DOM behavior not covered by built-in directives.",
+      "explain": "Attribute directive example: highlight-on-hover, auto-focus, restrict input to numbers only\nUses @Directive decorator with a selector, injects ElementRef/Renderer2 to manipulate the DOM\nEncapsulates reusable behavior across multiple components without duplicating code",
+      "example": "\"Yes, I've created custom attribute directives — one example was a numeric-only input directive that restricted a text field to accept only digits, which I reused across multiple forms instead of duplicating the validation logic. I used the @Directive decorator with a selector, and injected ElementRef and Renderer2 to safely manipulate the DOM element's behavior.\"",
+      "summary10s": "Custom @Directive using ElementRef/Renderer2 for reusable DOM behavior."
+    }
+  },
+  {
     "id": "angular-why-injectable",
     "category": "Angular",
     "question": "Why @Injectable()?",
@@ -2625,22 +2695,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "dependencies — libraries bundled into the production build (e.g., Angular core, RxJS)\ndevDependencies — tools used only during development (e.g., testing libraries, linters, TypeScript compiler)\nRunning npm install --production skips devDependencies",
       "example": "\"dependencies are the packages actually needed at runtime, bundled into the production build — things like Angular itself or RxJS. devDependencies are only needed during development, like testing frameworks, ESLint, or build tools — they're not shipped in the final production bundle. This distinction matters for keeping the production build lean and for CI/CD pipelines that install only what's needed.\"",
       "summary10s": "dependencies = needed at runtime, devDependencies = only for development/build."
-    }
-  },
-  {
-    "id": "angular-subject-vs-behaviorsubject",
-    "category": "Angular",
-    "question": "Subject vs BehaviorSubject",
-    "frequency": 1,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Subject has no initial value and doesn't replay past values; BehaviorSubject requires an initial value and always gives the latest value to new subscribers.",
-      "explain": "Subject — new subscribers get nothing until the next emission\nBehaviorSubject — requires an initial value, new subscribers immediately get the current/last emitted value\nBehaviorSubject has .value property to synchronously get the current value",
-      "example": "\"A Subject doesn't hold any value — if I subscribe late, I miss everything emitted before I subscribed. BehaviorSubject requires an initial value and always gives new subscribers the most recently emitted value immediately upon subscription. I use BehaviorSubject a lot for things like storing the current logged-in user state, where any component that subscribes later still needs the current value right away.\"",
-      "summary10s": "Subject = no initial/replay value, BehaviorSubject = has initial value, replays latest to new subscribers."
     }
   },
   {
@@ -2692,22 +2746,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-mfe-communication",
-    "category": "Angular",
-    "question": "How do two Micro Frontends communicate?",
-    "frequency": 1,
-    "companies": [
-      "Virtusa"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Through a shared event bus, custom browser events, shared state service, or URL/query params.",
-      "explain": "Custom Events (window.dispatchEvent/addEventListener) — simple, decoupled, works across frameworks\nShared state via a common service exposed through Module Federation, or a shared library\nQuery params/routing state for loosely coupled navigation-based communication",
-      "example": "\"The simplest way I've used is custom browser events — one MFE dispatches a custom event, and another listens for it, which keeps them loosely coupled since neither needs to know about the other's internals. I've also used a shared singleton service exposed through Module Federation when the MFEs are both Angular and need tighter, more structured communication.\"",
-      "summary10s": "Custom events (loose coupling) or shared service via Module Federation (tighter coupling)."
-    }
-  },
-  {
     "id": "angular-lifecycle-api-calls",
     "category": "Angular",
     "question": "Which lifecycle hook for API calls, and why?",
@@ -2737,22 +2775,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Constructor — called by JavaScript/TypeScript when the class is instantiated, before Angular sets Inputs\nngOnInit — called by Angular after the first change detection cycle, Inputs are guaranteed available\nBest practice: keep constructor minimal, do actual setup logic in ngOnInit",
       "example": "\"The constructor is a plain TypeScript/JavaScript concept, used purely for injecting dependencies, and it runs before Angular has set any @Input() properties. ngOnInit is an Angular-specific lifecycle hook that runs after Angular has initialized the component's inputs, so that's where I put actual initialization logic, like calling an API or setting up initial state.\"",
       "summary10s": "Constructor = DI only, ngOnInit = init logic (inputs guaranteed ready)."
-    }
-  },
-  {
-    "id": "angular-custom-directives",
-    "category": "Angular",
-    "question": "Custom Directives",
-    "frequency": 1,
-    "companies": [
-      "Virtusa"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Yes — created for reusable DOM behavior not covered by built-in directives.",
-      "explain": "Attribute directive example: highlight-on-hover, auto-focus, restrict input to numbers only\nUses @Directive decorator with a selector, injects ElementRef/Renderer2 to manipulate the DOM\nEncapsulates reusable behavior across multiple components without duplicating code",
-      "example": "\"Yes, I've created custom attribute directives — one example was a numeric-only input directive that restricted a text field to accept only digits, which I reused across multiple forms instead of duplicating the validation logic. I used the @Directive decorator with a selector, and injected ElementRef and Renderer2 to safely manipulate the DOM element's behavior.\"",
-      "summary10s": "Custom @Directive using ElementRef/Renderer2 for reusable DOM behavior."
     }
   },
   {
@@ -7352,20 +7374,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "rest-vs-soap-what-are-the-diff",
-    "category": "System Design",
-    "question": "REST vs SOAP — what are the differences?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "REST is an architectural style that uses HTTP and lightweight formats like JSON. SOAP is a strict protocol that relies exclusively on XML.",
-      "explain": "REST: Architectural style, uses JSON/XML/plain text, stateless, works over HTTP, lightweight, easier to scale.\nSOAP: Strict protocol, only uses XML, requires WSDL contract, has built-in security (WS-Security) and ACID compliance, heavier.",
-      "example": "\"REST is flexible and lightweight, usually sending JSON over HTTP, making it perfect for public APIs and modern microservices. SOAP is a rigid, heavier XML-based protocol. I've only used SOAP when integrating with legacy enterprise systems or when we needed its strict WS-Security standards, but otherwise, REST is my default choice.\"",
-      "summary10s": "REST = lightweight style, JSON. SOAP = strict protocol, XML, built-in security."
-    }
-  },
-  {
     "id": "what-is-the-difference-between",
     "category": "System Design",
     "question": "What is the difference between REST API and RESTful API?",
@@ -9786,6 +9794,1084 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Just putting `@NotNull` inside your DTO doesn't trigger validation. You MUST put `@Valid` on the `@RequestBody` parameter in the controller. Furthermore, if your DTO contains another custom object (like `Address`), you must put `@Valid` on the `Address` field inside the DTO, otherwise nested validation is completely ignored.",
       "example": "\"My `CreateUser` endpoint worked, but my `UpdateUser` endpoint allowed null emails. I realized I forgot to prefix `@RequestBody UserDto dto` with `@Valid`. Also, the `dto.Address` fields weren't validating because I forgot `@Valid` on the `address` field inside the DTO.\"",
       "summary10s": "Must explicitly trigger it with `@Valid` on the controller parameter AND on any nested nested objects."
+    }
+  },
+  {
+    "id": "java-sort-map",
+    "category": "Java",
+    "question": "How do you sort a Map?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You can sort a Map by keys using a TreeMap, or by values by converting its entrySet into a List and sorting it.",
+      "explain": "To sort by keys, simply pass the map to a new TreeMap constructor. To sort by values, you extract map.entrySet() into a List, use Collections.sort() or streams with Map.Entry.comparingByValue(), and then put the result into a LinkedHashMap to preserve the sorted order.",
+      "example": "\"If I need to sort by keys, I just use a TreeMap. If I need to sort by values, I convert the entrySet to a Stream, sort it using Map.Entry.comparingByValue(), and collect it into a LinkedHashMap so the insertion order is maintained.\"",
+      "summary10s": "Sort by keys = TreeMap. Sort by values = Stream entrySet + LinkedHashMap."
+    }
+  },
+  {
+    "id": "java-singleton-class",
+    "category": "Java Coding",
+    "question": "Write a Singleton class.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Singleton ensures only one instance exists by making the constructor private and providing a static method to get the instance.",
+      "explain": "The best thread-safe ways to create a Singleton are using an Enum (safest against serialization/reflection) or the Double-Checked Locking pattern with a volatile instance variable to ensure thread safety without synchronization overhead on every call.",
+      "example": "\"I prefer using an Enum for Singletons because Java guarantees it's instantiated only once and protects against reflection. If I must use a class, I use double-checked locking: a private constructor, a volatile static instance, and a getInstance() method that synchronizes only if the instance is null.\"",
+      "summary10s": "Private constructor + static getInstance(). Best implemented via Enum or Double-Checked Locking."
+    }
+  },
+  {
+    "id": "java-7-8-11-17-features",
+    "category": "Java",
+    "question": "Features of Java 7, 8, 11, and 17.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Java 7 brought try-with-resources. Java 8 brought Streams and Lambdas. Java 11 brought var for locals. Java 17 brought Records and Sealed classes.",
+      "explain": "Java 7: try-with-resources, diamond operator. Java 8: Lambdas, Streams, Optional, Default methods. Java 11: HTTP Client, var in lambdas, String methods. Java 17: Records (immutable data carriers), Sealed classes (restrict inheritance), Pattern Matching for switch.",
+      "example": "\"In interviews, I highlight the major shifts: Java 8 changed how we code with Streams and Lambdas. Java 11 stabilized modules and added the modern HTTP client. Java 17 brought Records, which completely replaced boilerplate POJOs and Lombok for DTOs in my recent projects.\"",
+      "summary10s": "7=try-with-resources, 8=Streams/Lambdas, 11=HTTP Client/var, 17=Records/Sealed Classes."
+    }
+  },
+  {
+    "id": "java-multi-catch",
+    "category": "Java",
+    "question": "What is a multi-catch statement?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A multi-catch block allows you to catch multiple distinct exceptions in a single catch clause using the pipe (|) operator.",
+      "explain": "Introduced in Java 7, it reduces code duplication when multiple exceptions require the exact same handling logic. The caught exception variable is implicitly final, so it cannot be reassigned within the catch block.",
+      "example": "\"Instead of writing separate catch blocks for SQLException and IOException that do the exact same logging, I write `catch (SQLException | IOException e)`. It keeps the code clean and avoids duplicate error-handling logic.\"",
+      "summary10s": "Use `catch (A | B e)` to handle multiple exceptions without duplicating code."
+    }
+  },
+  {
+    "id": "java-exception-hierarchy",
+    "category": "Java",
+    "question": "Types of exceptions and the Java exception hierarchy.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Throwable is the root. It branches into Error (JVM issues) and Exception (application issues), which further splits into Checked and Unchecked (RuntimeException).",
+      "explain": "Checked exceptions (like IOException) are verified at compile time and must be declared or handled. Unchecked exceptions (RuntimeExceptions like NullPointerException) happen at runtime and don't require explicit handling. Errors (like OutOfMemoryError) indicate severe JVM problems that shouldn't be caught.",
+      "example": "\"The hierarchy starts at Throwable. Errors are fatal JVM crashes. For Exceptions, I use Checked exceptions for recoverable scenarios, like a missing file. I use Unchecked exceptions for programming errors, like passing a null argument, where the application can't reasonably recover.\"",
+      "summary10s": "Throwable -> Error & Exception. Exception -> Checked (compile-time) & Unchecked (runtime)."
+    }
+  },
+  {
+    "id": "java-design-patterns",
+    "category": "Java",
+    "question": "Different Design Patterns in Java.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Patterns are divided into Creational (object creation), Structural (class composition), and Behavioral (object communication).",
+      "explain": "Creational: Singleton (one instance), Builder (complex object creation), Factory (loose coupling). Structural: Adapter (wrapper for compatibility), Decorator (add behavior dynamically). Behavioral: Strategy (interchangeable algorithms), Observer (pub/sub).",
+      "example": "\"In Spring Boot, patterns are everywhere. Dependency Injection uses the Factory pattern. RestTemplate uses the Builder pattern. I frequently use the Strategy pattern to switch between different payment gateways dynamically at runtime without changing the core service logic.\"",
+      "summary10s": "Creational (Singleton, Builder), Structural (Adapter, Decorator), Behavioral (Strategy, Observer)."
+    }
+  },
+  {
+    "id": "java-oop-concepts",
+    "category": "Java",
+    "question": "OOP concepts.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The four pillars are Encapsulation, Inheritance, Polymorphism, and Abstraction.",
+      "explain": "Encapsulation hides data (private fields + getters). Inheritance shares behavior (extends). Polymorphism allows one interface to have multiple implementations (overriding/overloading). Abstraction hides complex implementation details (interfaces/abstract classes).",
+      "example": "\"I use Encapsulation by keeping class fields private so they can't be corrupted from the outside. Abstraction allows me to define a 'Payment' interface, while Polymorphism lets me pass a 'CreditCardPayment' or 'PayPalPayment' object seamlessly. Inheritance is just for sharing common base logic.\"",
+      "summary10s": "Encapsulation (hide), Abstraction (simplify), Inheritance (reuse), Polymorphism (override)."
+    }
+  },
+  {
+    "id": "java-concurrenthashmap-internals",
+    "category": "Java",
+    "question": "ConcurrentHashMap internals.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It achieves thread safety without locking the entire map by locking only the specific bucket being updated.",
+      "explain": "Before Java 8, it used Segment-based locking. In Java 8+, it uses CAS (Compare-And-Swap) for empty buckets and a synchronized block on the first node (the head) of the bucket for updates. Reads are completely lock-free.",
+      "example": "\"ConcurrentHashMap scales incredibly well because it uses bucket-level locking. If Thread A writes to bucket 1 and Thread B writes to bucket 5, they execute simultaneously without blocking each other. And reads don't use locks at all, making them extremely fast.\"",
+      "summary10s": "Thread-safe via bucket-level locking (synchronized on node head) and CAS. Reads are lock-free."
+    }
+  },
+  {
+    "id": "coding-find-duplicate-strings",
+    "category": "Java Coding",
+    "question": "Find duplicate strings in a list.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a HashSet to track seen strings, or use Java Streams groupingBy to find elements with a count > 1.",
+      "explain": "The easiest O(N) way is iterating and calling set.add(item) — if it returns false, it's a duplicate. Using Streams, you can group by the string and count, then filter the map where values are greater than 1.",
+      "example": "\"I would use a Set. As I iterate through the list, I call `set.add(string)`. Since `add` returns false if the element already exists, I can instantly collect those into a duplicate list. It's clean and runs in O(N) time.\"",
+      "summary10s": "Use `set.add()` to find duplicates in O(N) time, or Streams `Collectors.groupingBy`."
+    }
+  },
+  {
+    "id": "coding-palindrome",
+    "category": "Java Coding",
+    "question": "Check whether a string is a palindrome.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use two pointers, one at the start and one at the end, and compare characters moving inwards.",
+      "explain": "While you could use StringBuilder's reverse(), the two-pointer approach is more optimal for interviews because it avoids creating a new string object and runs in O(N/2) time with O(1) space.",
+      "example": "\"I initialize a left pointer at 0 and a right pointer at length - 1. I loop while left < right, comparing the characters. If they don't match, it's not a palindrome. This is O(N) time and O(1) space without creating temporary reversed strings.\"",
+      "summary10s": "Two pointers (left and right) moving inward. O(N) time, O(1) space."
+    }
+  },
+  {
+    "id": "coding-combination-sum-2",
+    "category": "Java Coding",
+    "question": "Combination Sum II.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use backtracking to explore combinations, sorting the array first to easily skip duplicate elements.",
+      "explain": "The problem asks for unique combinations that sum to a target, using each number once. Sort the array first. During the recursive backtrack, if the current element is the same as the previous one in the loop, skip it to prevent duplicate subsets.",
+      "example": "\"I solve this with Backtracking. First, I sort the array to group duplicates. In the recursive function, I loop through the candidates. If `i > start` and `arr[i] == arr[i-1]`, I `continue` to skip duplicates. I subtract the current number from the target and recurse until target is 0.\"",
+      "summary10s": "Backtracking. Sort first. Skip duplicates using `if (i > start && arr[i] == arr[i-1]) continue;`."
+    }
+  },
+  {
+    "id": "coding-java-streams-math",
+    "category": "Java Coding",
+    "question": "Using Java Streams: remove odd numbers, multiply remaining numbers by a constant, and calculate the sum.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use filter() for evens, map() to multiply, and sum() to calculate the total.",
+      "explain": "This is a classic stream pipeline. You convert the list to a stream, use `.filter(n -> n % 2 == 0)` to keep only even numbers, `.map(n -> n * constant)` to transform them, and then use `.mapToInt(Integer::intValue).sum()` to get the final result.",
+      "example": "\"I would chain the stream operations: `list.stream().filter(n -> n % 2 == 0).map(n -> n * 5).mapToInt(Integer::intValue).sum();`. It perfectly demonstrates filtering, transforming, and reducing in a single readable line.\"",
+      "summary10s": "`.filter(n -> n % 2 == 0).map(n -> n * k).mapToInt(i -> i).sum();`"
+    }
+  },
+  {
+    "id": "coding-missing-integer",
+    "category": "Java Coding",
+    "question": "Find the missing integer in a consecutive array.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Calculate the expected sum using n*(n+1)/2 and subtract the actual sum of the array.",
+      "explain": "Instead of sorting or using a HashSet, you can find the missing number in O(N) time and O(1) space using math. The formula for the sum of the first N natural numbers is N * (N + 1) / 2. Subtracting the sum of the array elements from this expected sum gives the missing number.",
+      "example": "\"If the array has elements from 1 to N, I calculate the expected sum using `N * (N + 1) / 2`. Then I iterate through the array to find the actual sum. The difference between the expected sum and the actual sum is exactly the missing integer. It's O(N) time and O(1) space.\"",
+      "summary10s": "Missing number = (Expected Sum via N*(N+1)/2) - (Actual Array Sum)."
+    }
+  },
+  {
+    "id": "coding-move-zeroes",
+    "category": "Java Coding",
+    "question": "Move all zeroes to the end of an array.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a two-pointer approach: one pointer iterates through the array, the other keeps track of the next non-zero position.",
+      "explain": "Maintain an insert index starting at 0. As you iterate through the array, whenever you find a non-zero element, swap it with the element at the insert index, and increment the insert index.",
+      "example": "\"I use a single pointer called `insertPos` starting at 0. I loop through the array, and every time I see a non-zero number, I put it at `arr[insertPos]` and increment `insertPos`. After the loop, I just fill the rest of the array from `insertPos` to the end with zeroes.\"",
+      "summary10s": "Track non-zero insert position. Move all non-zeroes to front, fill remainder with zeroes."
+    }
+  },
+  {
+    "id": "coding-valid-anagram",
+    "category": "Java Coding",
+    "question": "Check whether two strings are anagrams.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Count the frequency of each character. The counts must exactly match for both strings.",
+      "explain": "While sorting the strings and comparing them works (O(N log N)), the optimal way is an O(N) frequency array. Increment counts for characters in the first string, and decrement for the second. If the array is all zeroes at the end, they are anagrams.",
+      "example": "\"First, I check if the lengths are equal. Then, I create an integer array of size 26. I loop through the strings, incrementing the count for the character in string A and decrementing for string B. Finally, I check the array—if any value is not zero, they aren't anagrams.\"",
+      "summary10s": "Use a character frequency array (size 26). Increment for string1, decrement for string2. Must be all zeros."
+    }
+  },
+  {
+    "id": "coding-longest-common-prefix",
+    "category": "Java Coding",
+    "question": "Find the longest common prefix.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Assume the first string is the prefix, then iteratively shorten it until it matches the beginning of every other string.",
+      "explain": "Take the first string as the initial prefix. Iterate through the rest of the array. Use `indexOf()` to check if the current string starts with the prefix. If not, chop off the last character of the prefix and try again.",
+      "example": "\"I set the prefix to the first string in the array. For each subsequent string, I use a while loop: `while(str.indexOf(prefix) != 0)`. Inside the loop, I shorten the prefix by one character. If the prefix becomes empty, there's no common prefix.\"",
+      "summary10s": "Start with first string as prefix. Loop others and shorten prefix using `indexOf() != 0`."
+    }
+  },
+  {
+    "id": "coding-longest-increasing-subsequence",
+    "category": "Java Coding",
+    "question": "Longest Increasing Subsequence.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Dynamic Programming to track the longest sequence ending at each element, or binary search with a patience sorting approach for O(N log N).",
+      "explain": "The DP approach uses an array where dp[i] is the LIS ending at index i. For each element, look back at smaller elements and update dp[i] = max(dp[i], dp[j] + 1).",
+      "example": "\"The O(N^2) DP solution is easiest to explain: maintain a DP array initialized to 1. For each number, compare it with all previous numbers. If it's larger, update its DP value to be `max(current DP, previous DP + 1)`. The result is the maximum value in the DP array.\"",
+      "summary10s": "DP array initialized to 1. dp[i] = max(dp[i], dp[j] + 1) for all j < i where arr[j] < arr[i]."
+    }
+  },
+  {
+    "id": "coding-best-time-to-buy-stock",
+    "category": "Java Coding",
+    "question": "Best Time to Buy and Sell Stock.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Keep track of the lowest price seen so far and continuously calculate the maximum profit if you sold today.",
+      "explain": "Iterate through the prices once. Maintain a variable for `minPrice` (initialized to max integer) and `maxProfit` (initialized to 0). On each day, update `minPrice`, then update `maxProfit` by comparing it to `currentPrice - minPrice`.",
+      "example": "\"I solve this in a single pass O(N). I keep track of the minimum price I've seen so far. For every day, I calculate the profit if I sold at the current price (`price - minPrice`). I keep updating the maximum profit variable. It only requires O(1) space.\"",
+      "summary10s": "Single pass. Track `minPrice` seen so far. Update `maxProfit` as `Math.max(profit, price - minPrice)`."
+    }
+  },
+  {
+    "id": "coding-dijkstras-algorithm",
+    "category": "Java Coding",
+    "question": "Dijkstra’s Algorithm.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It finds the shortest path from a source node to all other nodes in a weighted graph using a Priority Queue.",
+      "explain": "It uses a Priority Queue (Min-Heap) to always explore the closest unvisited node first. You maintain a distances array initialized to infinity. When you pop a node, you relax its neighbors: if `current_dist + edge_weight < known_dist`, you update it and push to the queue.",
+      "example": "\"I implement Dijkstra's using a PriorityQueue of nodes sorted by distance. I start by pushing the source node with distance 0. While the queue isn't empty, I pop the closest node and check its neighbors. If I find a shorter path to a neighbor, I update its distance and push it into the queue.\"",
+      "summary10s": "Use PriorityQueue (Min-Heap) to always visit the closest node. Update neighbor distances (relaxation)."
+    }
+  },
+  {
+    "id": "coding-coin-change",
+    "category": "Java Coding",
+    "question": "Coin Change Problem — minimum coins.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Dynamic Programming to build up the minimum coins needed for every amount from 0 to the target.",
+      "explain": "Create a DP array of size `amount + 1`, initialized to infinity. `dp[0] = 0`. For each coin, iterate through all amounts from the coin's value up to the target, updating `dp[i] = Math.min(dp[i], dp[i - coin] + 1)`.",
+      "example": "\"This is classic DP. I create an array `dp` where `dp[i]` is the min coins for amount `i`. I fill it with infinity, except `dp[0] = 0`. Then for each amount from 1 to target, I try every coin. If `coin <= amount`, `dp[amount] = min(dp[amount], dp[amount - coin] + 1)`.\"",
+      "summary10s": "DP array for amounts. `dp[i] = Math.min(dp[i], dp[i - coin] + 1)`. O(Amount * Coins) time."
+    }
+  },
+  {
+    "id": "coding-reverse-add-palindrome",
+    "category": "Java Coding",
+    "question": "Reverse-Add Palindrome problem.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Take a number, reverse its digits, and add it to the original. Repeat until the result is a palindrome.",
+      "explain": "This is a simulation problem. You write a helper function to reverse a number, and another to check if a number is a palindrome. You loop `num = num + reverse(num)` until `isPalindrome(num)` returns true.",
+      "example": "\"I approach this by writing a simple loop. Inside the loop, I calculate the reverse of the current number and add it. Then I check if the sum is a palindrome. If it is, I return the sum. I also add a safety counter to prevent infinite loops for Lychrel numbers.\"",
+      "summary10s": "Loop: `num += reverse(num)` until `num == reverse(num)`. Add safety counter to avoid infinite loops."
+    }
+  },
+  {
+    "id": "sql-find-tables-columns",
+    "category": "SQL",
+    "question": "How do you find the number of tables and their columns in a database?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You query the standard INFORMATION_SCHEMA database, specifically the TABLES and COLUMNS views.",
+      "explain": "Almost all relational databases (PostgreSQL, MySQL, SQL Server) support INFORMATION_SCHEMA. You can `SELECT table_name FROM information_schema.tables` to get tables, and query `information_schema.columns` to get column details.",
+      "example": "\"If I need metadata about the database, I rely on INFORMATION_SCHEMA. To get all columns for a specific table, I write `SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'my_table'`. It's standard across most SQL engines.\"",
+      "summary10s": "Query `INFORMATION_SCHEMA.TABLES` and `INFORMATION_SCHEMA.COLUMNS`."
+    }
+  },
+  {
+    "id": "sql-identify-duplicate-rows",
+    "category": "SQL",
+    "question": "How do you identify duplicate rows in SQL?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the GROUP BY clause on the columns that should be unique, and use HAVING COUNT(*) > 1.",
+      "explain": "Grouping by the columns lets SQL count how many times each combination appears. Filtering with HAVING ensures only the rows appearing more than once are returned.",
+      "example": "\"To find duplicate email addresses in a Users table, I use: `SELECT email, COUNT(*) FROM users GROUP BY email HAVING COUNT(*) > 1`. If I need to delete them, I use a CTE with ROW_NUMBER() over a partition and delete where row_number > 1.\"",
+      "summary10s": "Use `GROUP BY column_name HAVING COUNT(*) > 1`. Or use `ROW_NUMBER() OVER(PARTITION BY...)`."
+    }
+  },
+  {
+    "id": "sysdesign-schema-ride-sharing",
+    "category": "System Design",
+    "question": "How would you design a schema for a ride-sharing application?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "Design the database for a ride-sharing application."
+    ],
+    "answerSEE": {
+      "simple": "You need core tables for Riders, Drivers, Rides (the main transactional table), and Location updates.",
+      "explain": "The Rides table connects everything, with foreign keys to Rider and Driver, timestamps, start/end coordinates, status, and price. Location data is high-throughput and usually stored separately in a NoSQL DB or a time-series database, while transactional data uses PostgreSQL.",
+      "example": "\"For Uber, the heart is the 'Rides' table tracking rider_id, driver_id, status, and fare. For real-time driver locations, I wouldn't use the relational DB because of massive write throughput; I'd use Redis with geospatial indexes or a NoSQL datastore like Cassandra.\"",
+      "summary10s": "Relational DB for Riders, Drivers, Rides. NoSQL/Redis for high-throughput real-time GPS locations."
+    }
+  },
+  {
+    "id": "spring-why-use-spring",
+    "category": "Spring Boot",
+    "question": "Why do we use Spring?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring handles infrastructure plumbing (like dependency injection, transactions, and security) so developers can focus purely on business logic.",
+      "explain": "Without Spring, Java enterprise apps required massive amounts of boilerplate code (EJBs, manual DB connections). Spring introduced Inversion of Control (IoC) and Aspect-Oriented Programming (AOP), making applications loosely coupled, highly testable, and modular.",
+      "example": "\"I use Spring because it abstracts away the complex infrastructure. Instead of writing 20 lines of JDBC code to open connections, handle errors, and commit transactions, I just write my business logic and slap a `@Transactional` annotation on the method. Spring handles the rest via proxies.\"",
+      "summary10s": "Inversion of Control (DI), AOP for transactions/security, and massive boilerplate reduction."
+    }
+  },
+  {
+    "id": "spring-vs-spring-boot",
+    "category": "Spring Boot",
+    "question": "Spring vs Spring Boot.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring is the core framework that requires manual configuration. Spring Boot is built on top of Spring and provides auto-configuration and embedded servers.",
+      "explain": "Spring requires complex XML or Java configuration and deploying WAR files to a Tomcat server. Spring Boot uses 'opinionated defaults'—if it sees a web dependency, it automatically configures a web app and embeds Tomcat, allowing you to run it as a simple JAR.",
+      "example": "\"Spring Boot takes the headache out of Spring setup. With plain Spring, I had to configure DispatcherServlets and Hibernate dialects manually. With Spring Boot, I just add the 'spring-boot-starter-web' dependency and an embedded Tomcat server is auto-configured and ready to run immediately.\"",
+      "summary10s": "Spring = manual config. Spring Boot = Auto-configuration, Starter POMs, Embedded Servers."
+    }
+  },
+  {
+    "id": "spring-restful-api",
+    "category": "Spring Boot",
+    "question": "What is a RESTful API?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It's an architectural style for APIs that uses standard HTTP methods, URIs to represent resources, and transfers data (usually in JSON) without keeping server state.",
+      "explain": "REST stands for Representational State Transfer. Key constraints include being stateless (each request contains all needed info), using standard HTTP methods (GET, POST, PUT, DELETE), and using noun-based URLs representing entities.",
+      "example": "\"A RESTful API maps CRUD operations to HTTP methods. For example, to manage users, I design the API around the resource URL `/users`. A GET request fetches them, a POST creates one, and a DELETE to `/users/123` removes the specific user. Importantly, no client session state is stored on the server.\"",
+      "summary10s": "Stateless, uses standard HTTP methods (GET, POST), noun-based resource URIs, usually returns JSON."
+    }
+  },
+  {
+    "id": "other-http-vs-https",
+    "category": "Other",
+    "question": "HTTP vs HTTPS.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "HTTPS is the secure version of HTTP. It uses SSL/TLS to encrypt the data transferred between the client and server.",
+      "explain": "HTTP sends data in plain text, making it vulnerable to packet sniffing and man-in-the-middle attacks. HTTPS encrypts the payload so even if intercepted, the data is unreadable. It operates on port 443 instead of port 80.",
+      "example": "\"In any production app, HTTPS is mandatory. It uses a TLS handshake to establish a secure, encrypted connection. If a user logs into my application over standard HTTP, their password would be visible to anyone monitoring the network. HTTPS ensures it's encrypted.\"",
+      "summary10s": "HTTPS adds SSL/TLS encryption. Port 443 vs 80. Prevents Man-in-the-Middle attacks."
+    }
+  },
+  {
+    "id": "sysdesign-explain-architecture",
+    "category": "System Design",
+    "question": "Explain the architecture of one of your recent projects.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You should clearly describe the frontend, API gateway, backend microservices, database layer, and any async messaging.",
+      "explain": "Interviewers want to see you own the architecture. Start from the client, trace a request through the load balancer/API Gateway, explain the core microservices, how they scale, the database choices (SQL vs NoSQL), and how asynchronous tasks use Kafka or RabbitMQ.",
+      "example": "\"In my recent project, the React frontend hits our AWS API Gateway. It routes to our Spring Boot microservices running on Kubernetes. We use PostgreSQL for transactional data. For heavy jobs like generating reports, we drop a message onto a Kafka topic, which an asynchronous worker consumes to avoid blocking the user.\"",
+      "summary10s": "Trace the flow: Client -> Load Balancer -> API Gateway -> Microservices -> DB / Event Broker (Kafka)."
+    }
+  },
+  {
+    "id": "sysdesign-fraud-detection",
+    "category": "System Design",
+    "question": "Design a fraud detection system for transactions.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It requires real-time stream processing to evaluate rules and machine learning models against incoming transactions with ultra-low latency.",
+      "explain": "Transactions flow into an event broker like Kafka. A stream processing engine (like Apache Flink or Spark Streaming) consumes them, enriches the data (fetching user history from a fast cache like Redis), and scores the transaction using rules and ML. If fraud is detected, it triggers an alert.",
+      "example": "\"For a fraud detection system, latency is critical. I'd ingest all transactions into Kafka. A Flink streaming job reads the stream, pulls recent user activity from a Redis cache, and passes it to an ML model. If the risk score is high, it immediately halts the transaction and flags it for review.\"",
+      "summary10s": "High-throughput Stream Processing (Kafka + Flink), fast reads via Redis cache, ML Model scoring."
+    }
+  },
+  {
+    "id": "sysdesign-data-warehouse",
+    "category": "System Design",
+    "question": "Design a data warehouse for an online retailer.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It involves extracting data from operational databases, transforming it, and loading it into a columnar analytics database.",
+      "explain": "You need an ETL (Extract, Transform, Load) pipeline. Data from the main PostgreSQL/MySQL DBs and logs are ingested (batch via Airflow or streaming via Kafka). The data is stored in a Data Warehouse like Snowflake or AWS Redshift using a Star Schema (Fact and Dimension tables) optimized for read-heavy analytics.",
+      "example": "\"I would use a batch ETL pipeline managed by Airflow. Every night, it extracts transaction data from our microservices' databases, transforms it into a Star Schema, and loads it into Snowflake. This separates heavy analytical queries from our live production databases so performance isn't impacted.\"",
+      "summary10s": "ETL pipeline (Airflow). Load into Columnar DB (Snowflake/Redshift). Star Schema (Facts/Dimensions)."
+    }
+  },
+  {
+    "id": "sysdesign-news-aggregator",
+    "category": "System Design",
+    "question": "Design a news aggregator.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It requires scheduled workers to scrape RSS feeds, a database to store articles, and a read-heavy API serving content to users.",
+      "explain": "Background workers (cron jobs or message queues) periodically fetch and parse XML/JSON from news sources. Articles are deduplicated and stored in a NoSQL database (like MongoDB) or Elasticsearch for fast text searching. A caching layer (Redis) is critical because the same breaking news is read by millions.",
+      "example": "\"I'd design background crawler services that poll RSS feeds every 10 minutes. They parse the articles and push them to a Kafka queue. An ingest service deduplicates them and stores them in Elasticsearch for fast search. Since reads are 100x writes, I would heavily cache the top news feeds in Redis.\"",
+      "summary10s": "Background RSS Crawlers -> Kafka -> Deduplication -> Elasticsearch (Search) & Redis (Heavy Read Cache)."
+    }
+  },
+  {
+    "id": "devops-server-crash-reason",
+    "category": "DevOps",
+    "question": "How do you find the reason behind a server crash?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I check application logs, system logs, and monitoring dashboards for memory spikes or CPU exhaustion leading up to the crash.",
+      "explain": "Start with centralized logging (Splunk/ELK) to find exceptions right before the crash. Check OS logs (`/var/log/messages` or `dmesg`) to see if the Linux OOM (Out of Memory) Killer terminated the process. Look at APM tools (Datadog/NewRelic) to spot sudden resource spikes.",
+      "example": "\"When a server crashes, I first look at the application logs in Kibana for unhandled exceptions just before the timestamp. If the logs just stop abruptly, I SSH into the box and run `dmesg` to check if the OS OOM-killer killed my Java process due to memory exhaustion. Finally, I review Datadog to analyze the CPU/Memory trend.\"",
+      "summary10s": "App logs (Kibana) -> OS logs (`dmesg` for OOM-killer) -> Monitoring APM (Datadog for trends)."
+    }
+  },
+  {
+    "id": "devops-check-memory-usage",
+    "category": "DevOps",
+    "question": "How do you check server memory usage?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You can use Linux commands like top, htop, or free -m, and for Java apps, jstat or visual monitoring tools.",
+      "explain": "On the OS level, `free -m` shows available RAM, while `top` or `htop` shows which processes are consuming it. For Java applications, OS memory isn't the whole story, so you use `jcmd` or APM tools (Prometheus/Grafana) to see JVM Heap memory usage.",
+      "example": "\"If I'm in the terminal, I use `free -h` to see overall OS memory, and `top -o %MEM` to find the exact process hogging it. But for a Java Spring Boot app, I rely on my Grafana dashboards tracking JMX metrics, so I can see exactly how much heap and non-heap memory the JVM is using.\"",
+      "summary10s": "OS level: `free -m`, `top`, `htop`. JVM level: Grafana (JMX metrics), `jstat`."
+    }
+  },
+  {
+    "id": "devops-debug-high-cpu",
+    "category": "DevOps",
+    "question": "How do you debug high CPU or memory issues in a JVM application?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "For memory, I analyze a Heap Dump. For CPU, I capture a Thread Dump and map the high-CPU OS threads back to Java threads.",
+      "explain": "High Memory: Generate a heap dump (`jmap`) and open it in Eclipse MAT to find memory leaks and GC overhead. High CPU: Find the specific OS thread using `top -H -p <pid>`, convert its ID to hex, and search for it in a Java Thread Dump (`jstack`) to see exactly which line of code is looping.",
+      "example": "\"For high CPU, I use `top -H` to find the rogue OS thread ID. I convert it to hex, then generate a thread dump using `jstack`. Finding that hex ID in the thread dump points me to the exact line of Java code causing the spike—usually an infinite loop or heavy regex.\"",
+      "summary10s": "High Memory = Heap Dump analysis (Eclipse MAT). High CPU = OS Thread ID to Hex -> Thread Dump (jstack)."
+    }
+  },
+  {
+    "id": "devops-analyze-dumps",
+    "category": "DevOps",
+    "question": "How do you capture and analyze heap dumps and thread dumps?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Capture thread dumps with jstack and heap dumps with jmap. Analyze them using tools like Eclipse MAT or fastThread.",
+      "explain": "Thread dumps (`jstack <pid>`) are plain text and show what every thread is currently doing, useful for deadlocks. Heap dumps (`jmap -dump:format=b,file=heap.hprof <pid>`) are binary snapshots of all objects in memory. You load the .hprof file into Eclipse MAT to find the 'Dominator Tree' to spot memory leaks.",
+      "example": "\"To troubleshoot a deadlock, I run `jstack` and paste the output into a tool like fastThread.io to visualize blocked threads. If the app is throwing OutOfMemoryErrors, I use `jmap` to create a heap dump, then open it in Eclipse MAT. MAT's 'Leak Suspects' report instantly tells me which objects are retaining the most memory.\"",
+      "summary10s": "Thread dump = `jstack` (for deadlocks/CPU). Heap dump = `jmap` -> analyze in Eclipse MAT (for memory leaks)."
+    }
+  },
+  {
+    "id": "angular-component-communication",
+    "category": "Angular",
+    "question": "Angular Component Communication → Parent-Child Relationship and Communication Between Unrelated Components",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Parent-child uses @Input and @Output. Unrelated components use a shared Service with a Subject or RxJS BehaviorSubject.",
+      "explain": "For parent-to-child, you pass data via @Input() properties. For child-to-parent, you emit events using @Output() and EventEmitter. When components have no direct relationship, the best approach is a stateful service using a BehaviorSubject so any component can subscribe to or update the shared state.",
+      "example": "\"If I have a Sidebar and a Header that aren't related, I create a `UiStateService`. The Sidebar updates a `BehaviorSubject` when it collapses, and the Header subscribes to that subject to adjust its layout dynamically without tight coupling.\"",
+      "summary10s": "Parent-Child = @Input/@Output. Unrelated = Shared Service with BehaviorSubject."
+    }
+  },
+  {
+    "id": "angular-http-interceptors",
+    "category": "Angular",
+    "question": "HTTP Interceptors → Token Handling | Custom Headers | Error Handling",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Interceptors intercept incoming or outgoing HTTP requests to attach tokens, add headers, or globally handle errors.",
+      "explain": "By implementing `HttpInterceptor`, you can clone the outgoing `HttpRequest` and attach a Bearer token to the headers before passing it to `next.handle()`. You can also pipe the response to catch errors (like a 401 Unauthorized) globally and trigger a logout or token refresh.",
+      "example": "\"In my app, I have an `AuthInterceptor`. It intercepts every outgoing request, clones it, and attaches the JWT from local storage. Then I pipe the response, and if I catch a 401 error, I automatically redirect the user to the login page without having to handle it in every component.\"",
+      "summary10s": "Intercept requests to attach Auth tokens. Intercept responses to handle global errors like 401."
+    }
+  },
+  {
+    "id": "angular-reusable-components",
+    "category": "Angular",
+    "question": "Reusable Components → @Input | @Output | How to Pass HTML to a Reusable Component",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use @Input for data, @Output for events, and <ng-content> to pass custom HTML into the component.",
+      "explain": "A highly reusable component is 'dumb'—it only relies on its @Inputs and emits @Outputs, avoiding injected services. To make it structurally flexible, you use Content Projection via `<ng-content>`, allowing the parent to pass arbitrary HTML into predefined slots.",
+      "example": "\"When I build a reusable Card component, I accept the title via `@Input`. But for the card body, which might be complex, I use `<ng-content select='[card-body]'>`. This lets the parent component inject any custom HTML or other components directly into the card.\"",
+      "summary10s": "Dumb components: data in via @Input, events out via @Output. Pass HTML via Content Projection (<ng-content>)."
+    }
+  },
+  {
+    "id": "angular-viewchild-templates",
+    "category": "Angular",
+    "question": "ViewChild | ng-template | ng-container",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ViewChild queries DOM/components. ng-template is an unrendered blueprint. ng-container is a logical grouping that doesn't render an extra DOM element.",
+      "explain": "`@ViewChild` allows the TS class to access elements or child components in the template. `<ng-template>` defines template content that is only rendered when explicitly instantiated (like in an `*ngIf`). `<ng-container>` is used to group elements or apply structural directives without adding a `<div>` or `<span>` to the final DOM.",
+      "example": "\"I use `<ng-container>` when I need to apply an `*ngIf` and an `*ngFor` simultaneously, because you can't put two structural directives on one element. I use `<ng-template>` for defining dynamic dialog content, which I grab in my class using `@ViewChild` to open it programmatically.\"",
+      "summary10s": "ViewChild = access DOM/child. ng-template = lazy blueprint. ng-container = invisible wrapper for directives."
+    }
+  },
+  {
+    "id": "angular-lifecycle-events",
+    "category": "Angular",
+    "question": "Lifecycle Events → ngOnInit | ngAfterViewInit | ngOnDestroy | ngOnChanges",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ngOnChanges for Input updates, ngOnInit for initialization, ngAfterViewInit for DOM access, ngOnDestroy for cleanup.",
+      "explain": "`ngOnChanges` fires whenever an `@Input` reference changes. `ngOnInit` fires once after initial inputs are set (ideal for API calls). `ngAfterViewInit` fires when the component's template and child views are fully initialized. `ngOnDestroy` fires before the component is destroyed (essential for unsubscribing).",
+      "example": "\"In a reusable chart component, I use `ngOnChanges` to redraw the chart when new data is passed in. I use `ngOnInit` for the initial setup. If I need to manipulate the canvas element directly, I have to wait for `ngAfterViewInit`. Finally, I unsubscribe from any RxJS streams in `ngOnDestroy`.\"",
+      "summary10s": "Changes (Inputs updated) -> Init (API calls) -> AfterViewInit (DOM ready) -> Destroy (Cleanup)."
+    }
+  },
+  {
+    "id": "angular-pure-vs-impure-pipes",
+    "category": "Angular",
+    "question": "Pure vs Impure Pipes → Custom Pipes",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pure pipes only recalculate when their input reference changes. Impure pipes recalculate on every change detection cycle.",
+      "explain": "Angular heavily optimizes pure pipes, making them very fast. If you pass an array to a pure pipe and only mutate the array (without changing its reference), the pipe won't run. An impure pipe (like the `async` pipe) runs constantly, which can cause severe performance issues if the transformation is heavy.",
+      "example": "\"I always write custom pipes as pure pipes by default for performance. For example, a `dateFormat` pipe only needs to run when the date string changes. If I had to write a filter pipe for an array that mutates, I'd have to make it impure, but it's usually better to just filter the data in the component class instead.\"",
+      "summary10s": "Pure = runs only on reference change (fast). Impure = runs on every change detection (slow)."
+    }
+  },
+  {
+    "id": "angular-routing-query-params",
+    "category": "Angular",
+    "question": "Routing → Navigate with Query Parameters | Read Query Parameter Data",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Router.navigate with the queryParams object to set them, and ActivatedRoute.queryParams to read them.",
+      "explain": "To navigate, inject the `Router` and pass `{ queryParams: { sort: 'asc' } }`. To read them, inject `ActivatedRoute` and subscribe to the `queryParams` observable, allowing the component to react dynamically if the URL changes without reloading the page.",
+      "example": "\"If a user selects a filter, I call `this.router.navigate([], { queryParams: { filter: 'active' } })`. In my `ngOnInit`, I subscribe to `this.activatedRoute.queryParams.subscribe(params => this.loadData(params['filter']))`. This ensures that even if they refresh the page, the filters remain active.\"",
+      "summary10s": "Write: `router.navigate([], { queryParams: { key: 'val' } })`. Read: `activatedRoute.queryParams.subscribe(...)`."
+    }
+  },
+  {
+    "id": "angular-avoid-memory-leaks",
+    "category": "Angular",
+    "question": "How to Avoid Memory Leaks → Unsubscribe | Subscription List | take | takeUntil | DestroyRef | AsyncPipe",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Always unsubscribe from Observables when a component is destroyed, ideally using the async pipe or takeUntil/DestroyRef.",
+      "explain": "Failing to unsubscribe leaves subscriptions running in the background, consuming memory. The best approach is the `| async` pipe in the HTML template, as it unsubscribes automatically. In TS, use `takeUntil(this.destroy$)` or the modern Angular v16 `takeUntilDestroyed(this.destroyRef)`.",
+      "example": "\"My primary rule is to never subscribe in the TS file if I can just use the `async` pipe in the template. If I must subscribe in code, I use the v16 `takeUntilDestroyed()` operator. Before v16, I used a `Subject` called `destroy$` that I triggered in `ngOnDestroy` and paired with `takeUntil(this.destroy$)`.\"",
+      "summary10s": "Use `async` pipe in HTML, or `takeUntilDestroyed()` / `ngOnDestroy` in TS to cancel subscriptions."
+    }
+  },
+  {
+    "id": "angular-ngrx-overview",
+    "category": "Angular",
+    "question": "NgRx → Basic Overview | Actions | Reducers | Effects | Selectors | Dispatching Actions",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "NgRx is a Redux-inspired state management library for Angular, providing a single source of truth.",
+      "explain": "You *Dispatch Actions* to describe events. *Reducers* take the action and current state to synchronously return a new state. *Effects* listen for actions to perform async side effects (like API calls) and dispatch new actions on success/failure. *Selectors* query and derive specific pieces of state for components.",
+      "example": "\"When a user clicks load, I dispatch a `loadUsers` action. The Reducer sets a loading flag. An Effect intercepts the action, makes an HTTP call, and dispatches `loadUsersSuccess` with the data. The Reducer updates the state with the users, and my component automatically gets the data via a Selector.\"",
+      "summary10s": "Action (Event) -> Effect (Async API) -> Action (Success) -> Reducer (Update State) -> Selector (Read State)."
+    }
+  },
+  {
+    "id": "angular-signals",
+    "category": "Angular",
+    "question": "Signals → What are Signals? | Types of Signals | What does effect() do?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Signals are a reactive wrapper around values that instantly notify Angular when they change, enabling fine-grained change detection.",
+      "explain": "There are writable signals (`signal()`) that you can update, and computed signals (`computed()`) that derive values declaratively. `effect()` is a function that automatically runs a side effect whenever any Signal read inside it changes.",
+      "example": "\"Instead of using BehaviorSubjects, I use `count = signal(0)`. When I update it using `this.count.set(1)`, Angular knows exactly where `count` is used in the template and updates only that specific DOM element. I use `effect()` to log to the console automatically every time `count` changes.\"",
+      "summary10s": "Reactive state wrapper. Types: Writable (signal), Derived (computed), Side-effect (effect). Enables granular UI updates."
+    }
+  },
+  {
+    "id": "angular-change-detection-zonejs",
+    "category": "Angular",
+    "question": "Change Detection → How Change Detection Works | Role of Zone.js",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Zone.js monkey-patches browser APIs to notify Angular when asynchronous events finish, triggering change detection.",
+      "explain": "Angular doesn't constantly poll for changes. Zone.js intercepts things like click events, setTimeout, or HTTP requests. When they finish, Zone.js tells Angular, which then walks down the component tree checking bindings for changes. Signals are the future path to go 'Zoneless'.",
+      "example": "\"If I click a button, Zone.js catches the click event, runs my component method, and then tells Angular to run Change Detection. Angular checks if any template variables changed. If I use a 3rd party library outside Angular, I might have to manually call `NgZone.run()` to force Angular to notice the updates.\"",
+      "summary10s": "Zone.js intercepts async browser events (clicks, timers, HTTP) to trigger Angular's change detection cycle."
+    }
+  },
+  {
+    "id": "angular-auth-authorization",
+    "category": "Angular",
+    "question": "Authentication and Authorization → Guards | Role-Based Directives",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Authentication verifies identity, while authorization verifies access rights, implemented in Angular using Route Guards and custom directives.",
+      "explain": "You protect routes from unauthorized access using functional `CanActivate` guards. For fine-grained UI control (like hiding an 'Edit' button), you create a structural directive (e.g., `*hasRole='ADMIN'`) that conditionally creates or destroys the DOM element based on the user's token claims.",
+      "example": "\"For routing, I write a `CanActivate` guard that checks my AuthService; if the user isn't an admin, it redirects them to a 403 page. But to clean up the UI, I built a `*appHasRole=\"['ADMIN']\"` directive. If the user isn't an admin, the directive removes the element from the DOM entirely, not just hiding it with CSS.\"",
+      "summary10s": "Route Guards protect URLs. Custom structural directives (*hasRole) protect UI elements based on token claims."
+    }
+  },
+  {
+    "id": "angular-dynamic-forms",
+    "category": "Angular",
+    "question": "Dynamic Forms → Stepper Forms | FormArray",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Dynamic forms use Reactive Forms and FormArray to dynamically add or remove form controls at runtime.",
+      "explain": "When the number of fields isn't known upfront (like adding multiple phone numbers), you use a `FormArray`. Stepper forms break large forms into steps, often maintaining one massive `FormGroup` at a parent level or sharing the state via a service.",
+      "example": "\"If a user needs to add multiple 'experience' entries in a resume builder, I create a `FormArray`. Every time they click 'Add', I push a new `FormGroup` into that array. For multi-step wizard forms, I keep a central `FormGroup` in the parent and pass the relevant nested groups down to each step component.\"",
+      "summary10s": "FormArray allows pushing/removing FormGroups dynamically at runtime. Great for repeating fields."
+    }
+  },
+  {
+    "id": "angular-role-based-application",
+    "category": "Angular",
+    "question": "Role-Based Application → Dynamic Menu Based on Role | Role-Based Guard | Role-Based Directive",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A holistic role-based app filters navigation menus, guards routes, and hides UI elements using a central Auth Service.",
+      "explain": "The application needs defense in depth. 1: The dynamic menu iterates over a config and only renders links the user has roles for. 2: Route guards (`CanActivate`) prevent deep-linking to restricted pages. 3: A structural directive (`*hasRole`) removes specific buttons on shared pages.",
+      "example": "\"When the user logs in, I decode their JWT to get their roles. My side-nav component filters the menu array based on those roles. Even if they type the URL manually, my Route Guard intercepts and blocks them. And for shared pages, my `*hasRole` directive ensures they don't even see the 'Delete' button.\"",
+      "summary10s": "Filter navigation menus, protect routes with Guards, and hide buttons with structural directives based on JWT roles."
+    }
+  },
+  {
+    "id": "angular-performance-optimization",
+    "category": "Angular",
+    "question": "Performance Optimization → trackBy | OnPush | Pipes | Using Helper Functions and Services Appropriately | Keeping Components Lightweight",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Optimize by reducing Change Detection cycles using OnPush, avoiding method calls in templates, and using trackBy in loops.",
+      "explain": "Angular's default change detection checks everything. Use `ChangeDetectionStrategy.OnPush` to only check when Inputs change. Never call functions in HTML templates (like `{{ calculateTotal() }}`) because they run on every cycle; use Pure Pipes or pre-calculate properties instead. Always use `trackBy` in `*ngFor` to prevent destroying and recreating DOM nodes.",
+      "example": "\"I saw an app lagging because a function was called inside an `*ngFor` string interpolation. It was running hundreds of times per second. I extracted that logic into a Pure Pipe, changed the component to `OnPush`, and added `trackBy` to the loop. The lag disappeared completely.\"",
+      "summary10s": "Use OnPush. Use trackBy in ngFor. NEVER call functions in templates—use Pure Pipes or pre-calculated fields."
+    }
+  },
+  {
+    "id": "angular-securing-application",
+    "category": "Angular",
+    "question": "Securing an Angular Application → Guards | CSRF Protection | Avoid Exposing Secrets | Token Security | Encryption for Storage | HttpOnlyCookie",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Secure the app by using Route Guards, storing tokens in HttpOnly cookies to prevent XSS, and utilizing Angular's built-in CSRF protection.",
+      "explain": "Never store sensitive API keys in Angular environments (they are public). Storing JWTs in LocalStorage exposes them to XSS; the best practice is having the backend set an `HttpOnly` cookie. Angular has built-in XSS sanitization and an `HttpClientXsrfModule` to automatically handle anti-CSRF tokens.",
+      "example": "\"Security starts with realizing the frontend is inherently insecure. I never put secrets in `environment.ts`. To protect user sessions, I coordinate with the backend to use `HttpOnly` cookies instead of localStorage, completely mitigating XSS token theft. I also rely on Angular's automatic DOM sanitization to prevent injection attacks.\"",
+      "summary10s": "Frontend is public. Don't store secrets. Use HttpOnly cookies instead of LocalStorage to prevent XSS."
+    }
+  },
+  {
+    "id": "angular-libraries",
+    "category": "Angular",
+    "question": "Angular Libraries → Angular Elements | How to Create Your Own Library | How to Deploy an Angular Library to npm",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You can create shared code as an Angular Library workspace and publish it to npm, or compile components as Web Components using Angular Elements.",
+      "explain": "Using `ng generate library`, you create a secondary project in your workspace. You expose public API surfaces via `public-api.ts`. After building, you can `npm publish` the `dist` folder. Angular Elements allows packaging Angular components as standard custom HTML elements usable in React or plain HTML.",
+      "example": "\"In a large enterprise, we had a central UI design system. I created an Angular Workspace, generated a library for our custom buttons and charts, and published it to our private npm registry. We also used Angular Elements to wrap our chat widget so the marketing team could embed it on a non-Angular Wordpress site.\"",
+      "summary10s": "Libraries share Angular code across projects (published to npm). Elements compile components to agnostic Web Components."
+    }
+  },
+  {
+    "id": "angular-web-workers",
+    "category": "Angular",
+    "question": "Web Workers → Performing Heavy Operations on a Separate Thread",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Web Workers run heavy computational tasks on a background thread so they don't freeze the main UI thread.",
+      "explain": "JavaScript is single-threaded. If you process a massive array or do heavy cryptography, the browser UI will freeze. Angular CLI allows generating Web Workers (`ng generate web-worker`) which run in isolation and communicate with the main thread via message passing.",
+      "example": "\"I had to parse a massive 50MB CSV file on the client side. Initially, it froze the UI for 5 seconds. I generated an Angular Web Worker, passed the file data to it via `worker.postMessage()`, did the heavy parsing in the background, and returned the JSON result. The UI stayed completely responsive the whole time.\"",
+      "summary10s": "Offloads heavy JS computation (like parsing huge files) to a background thread to prevent UI freezing."
+    }
+  },
+  {
+    "id": "angular-testing",
+    "category": "Angular",
+    "question": "Testing → Jasmine | Karma | Jest | Vitest | Cypress",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Jasmine/Karma is the legacy default for unit testing. Jest/Vitest are modern, faster alternatives. Cypress is used for End-to-End (E2E) UI testing.",
+      "explain": "Unit tests use `TestBed` to configure a testing module, mocking dependencies to test components in isolation. Modern teams are migrating from Karma (browser-based) to Jest or Vitest (Node-based) for much faster test execution. Cypress actually spins up a real browser and clicks around the app like a real user.",
+      "example": "\"For unit testing, my team replaced the default Karma runner with Jest because it's significantly faster and runs headless natively. I use `TestBed` to mock my services and verify component logic. For E2E testing, we use Cypress to script user journeys, like logging in and clicking the checkout button.\"",
+      "summary10s": "Jest/Vitest for fast, headless unit tests (mocking with TestBed). Cypress for real browser End-to-End testing."
+    }
+  },
+  {
+    "id": "angular-third-party-integration",
+    "category": "Angular",
+    "question": "Third-Party Library Integration Experience → PrimeNG | Angular Material | AG Grid | Syncfusion | Chart.js",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Integrating UI libraries saves development time but requires understanding Angular's module system, styling, and change detection.",
+      "explain": "Libraries like Angular Material or PrimeNG provide pre-built, accessible components. Heavy data grids like AG Grid are essential for enterprise apps. When integrating non-Angular JS libraries (like vanilla Chart.js), you must wrap them in a component, manage their lifecycle (initialize in `ngAfterViewInit`), and destroy them to prevent leaks.",
+      "example": "\"I use Angular Material for standard form controls and dialogs because it's highly accessible. For enterprise data tables with millions of rows, I integrate AG Grid. When I had to use a pure JS library like Chart.js, I grabbed the canvas via `@ViewChild` in `ngAfterViewInit`, initialized the chart, and made sure to call `chart.destroy()` in `ngOnDestroy`.\"",
+      "summary10s": "Material/PrimeNG for UI components. Wrap non-Angular JS libraries in components and manage their init/destroy lifecycles."
+    }
+  },
+  {
+    "id": "angular-deployment-cicd",
+    "category": "Angular",
+    "question": "Deployment & CI/CD → How Deployment Happens | Basic Knowledge of Azure/AWS | CI/CD Pipeline | YAML",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Angular compiles to static HTML/JS/CSS, which is deployed to a static host (S3, Azure Blob) via an automated CI/CD pipeline using YAML.",
+      "explain": "The CI/CD pipeline (e.g., GitHub Actions, Azure DevOps) triggers on code push. The YAML script runs `npm install`, runs tests, and executes `npm run build --prod`. The resulting `dist` folder contains pure static files, which are then copied to AWS S3, Azure Blob Storage, or NGINX, fronted by a CDN.",
+      "example": "\"In our GitHub Actions YAML file, when we merge to main, the pipeline installs dependencies, runs Jest tests, and builds the Angular app using AOT compilation. It then syncs the `dist` folder to an AWS S3 bucket and invalidates the CloudFront CDN cache. The server doesn't need Node.js because Angular builds output purely static assets.\"",
+      "summary10s": "Pipeline runs tests -> `ng build` -> outputs static HTML/JS/CSS -> deploys to AWS S3/Azure Blob -> served via CDN."
+    }
+  },
+  {
+    "id": "singleton-reflection-break",
+    "category": "Java Coding",
+    "question": "Can reflection break a Singleton? How would you prevent it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Can a private Singleton constructor still be invoked using reflection?"
+    ],
+    "answerSEE": {
+      "simple": "Yes, using Constructor.setAccessible(true), reflection can bypass the private constructor to create a second instance.",
+      "explain": "To prevent this in a standard class, you must check inside the private constructor if the static instance variable is already initialized, and if so, throw a RuntimeException. Alternatively, using an Enum Singleton completely prevents reflection instantiation at the JVM level.",
+      "example": "\"An attacker can get the private constructor via reflection, make it accessible, and call newInstance(). To stop this, I add logic to my private constructor: `if (instance != null) throw new IllegalStateException(\\\"Already initialized\\\");`. But in practice, I just use an Enum Singleton since the JVM inherently blocks reflection on Enums.\"",
+      "summary10s": "Reflection can bypass private constructors. Prevent by throwing exception if instance exists, or just use an Enum."
+    }
+  },
+  {
+    "id": "singleton-serialization-break",
+    "category": "Java Coding",
+    "question": "Can serialization and deserialization create a second Singleton instance?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, when you deserialize an object, the JVM creates a brand new instance, ignoring the private constructor.",
+      "explain": "If your Singleton implements Serializable, saving and reloading it results in a duplicate instance. To fix this, you must implement the `readResolve()` method to return the existing static instance, which tells the JVM to discard the newly deserialized object.",
+      "example": "\"If I serialize my Singleton to a file and read it back, I get a second instance. I prevent this by adding `protected Object readResolve() { return instance; }` to the class. The JVM calls this immediately after deserialization, guaranteeing only the original instance is used.\"",
+      "summary10s": "Deserialization ignores constructors. Override `readResolve()` to return the existing instance."
+    }
+  },
+  {
+    "id": "singleton-cloning-break",
+    "category": "Java Coding",
+    "question": "Can cloning break a Singleton?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, if the Singleton class implements Cloneable, calling the clone() method creates a copy.",
+      "explain": "The `clone()` method creates a shallow copy of the object without calling the constructor. To protect the Singleton, you should explicitly override the `clone()` method and throw a `CloneNotSupportedException`, or simply return the existing instance.",
+      "example": "\"If a junior developer makes the Singleton implement Cloneable, anyone can duplicate it. I prevent this by overriding `clone()`: `@Override protected Object clone() throws CloneNotSupportedException { throw new CloneNotSupportedException(); }`.\"",
+      "summary10s": "If Cloneable is implemented, `clone()` duplicates it. Override `clone()` and throw CloneNotSupportedException."
+    }
+  },
+  {
+    "id": "singleton-volatile-double-checked",
+    "category": "Java Coding",
+    "question": "Why is volatile required in double-checked locking?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What can go wrong if volatile is removed from a double-checked Singleton?",
+      "How does the Java Memory Model affect double-checked locking?"
+    ],
+    "answerSEE": {
+      "simple": "It prevents instruction reordering, ensuring that the object is fully initialized before the reference is made visible to other threads.",
+      "explain": "Without volatile, the JVM is allowed to allocate memory and assign the reference to the `instance` variable *before* the constructor finishes executing. Another thread might see a non-null reference and try to use a partially constructed object, leading to random crashes.",
+      "example": "\"Before Java 5, double-checked locking was fundamentally broken because the compiler could reorder the object creation instructions. By marking the instance `volatile`, I enforce a 'happens-before' guarantee, meaning the constructor strictly finishes before the memory reference is published.\"",
+      "summary10s": "Volatile prevents instruction reordering so threads never see a partially constructed object."
+    }
+  },
+  {
+    "id": "singleton-synchronized-slow",
+    "category": "Java Coding",
+    "question": "Why is synchronizing the entire getInstance() method potentially slower?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It forces every single thread to wait in line to get the instance, even after the instance has already been created.",
+      "explain": "Synchronization is only necessary during the first initialization. If you put `synchronized` on the method signature, it causes massive thread contention on every subsequent read, creating a bottleneck in highly concurrent applications.",
+      "example": "\"If I synchronize the whole method, a web server handling 1000 requests per second will force all 1000 threads to queue up just to read a static variable. By using double-checked locking instead, synchronization only happens once when the instance is null, making subsequent reads lock-free and fast.\"",
+      "summary10s": "Locks the method on every read. Causes huge thread contention. Use double-checked locking instead."
+    }
+  },
+  {
+    "id": "singleton-holder-pattern",
+    "category": "Java Coding",
+    "question": "Why is the Initialization-on-Demand Holder pattern thread-safe?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It relies on the JVM's class loader mechanism, which guarantees that a class is initialized thread-safely exactly once.",
+      "explain": "You create a private static inner class (the Holder) that contains the Singleton instance. The inner class isn't loaded until `getInstance()` is called for the first time. The JVM handles the synchronization during class loading, completely eliminating the need for `synchronized` or `volatile` keywords.",
+      "example": "\"I love the Holder pattern because it's completely lock-free. I put the static instance inside a static inner class. Since the JVM guarantees that class initialization is strictly thread-safe, I get lazy initialization and thread safety for free without writing any complex locking logic.\"",
+      "summary10s": "Relies on the JVM's thread-safe class loading. Lazy initialization without the overhead of locks."
+    }
+  },
+  {
+    "id": "singleton-enum-safest",
+    "category": "Java Coding",
+    "question": "Why is an enum Singleton considered one of the safest implementations?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is the difference between a static Singleton, Holder Singleton, and enum Singleton?",
+      "How would you design a Singleton that must survive reflection, serialization, and cloning attacks?"
+    ],
+    "answerSEE": {
+      "simple": "The JVM inherently guarantees that an enum is instantiated exactly once, automatically blocking reflection and serialization attacks.",
+      "explain": "Enum singletons don't need private constructors, `readResolve()`, or `volatile`. The Java specification strictly forbids creating enums via reflection (`Constructor.newInstance` throws an error). Serialization of enums is also strictly controlled by the JVM to return the exact same instance.",
+      "example": "\"If the interviewer asks for a bulletproof Singleton, I write a one-liner: `public enum Singleton { INSTANCE; }`. It is perfectly thread-safe, completely immune to serialization duplication, and if someone tries to hack it with reflection, the JVM blocks them automatically.\"",
+      "summary10s": "Enum handles thread-safety, serialization, and reflection-prevention at the JVM level automatically."
+    }
+  },
+  {
+    "id": "singleton-classloaders",
+    "category": "Java Coding",
+    "question": "Can different ClassLoaders create multiple instances of the same Singleton?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, because the JVM uniquely identifies a class by its fully qualified name AND the ClassLoader that loaded it.",
+      "explain": "If two different ClassLoaders (which is common in Java EE web/app servers like Tomcat or WebSphere) load the same Singleton class, they will each initialize their own static variables, resulting in multiple instances within the same JVM.",
+      "example": "\"This is a notorious bug in older monolithic app servers. If my Singleton is bundled in a shared library and loaded by two different web application ClassLoaders, I end up with two separate Singleton instances. To avoid this, the Singleton class must be placed in a common parent ClassLoader.\"",
+      "summary10s": "Yes. A class is identified by (ClassName + ClassLoader). Different loaders = different static instances."
+    }
+  },
+  {
+    "id": "singleton-multiple-jvms",
+    "category": "Java Coding",
+    "question": "Can a Singleton guarantee only one instance across multiple JVMs?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "No. A Singleton only guarantees one instance per JVM ClassLoader.",
+      "explain": "In a modern microservices architecture running on Kubernetes, if you scale your application to 5 pods, you have 5 distinct JVMs running, which means you have 5 instances of your Singleton. To share state across JVMs, you need a distributed cache like Redis.",
+      "example": "\"A local Singleton won't work for rate-limiting in a cloud environment. If I have 3 instances of my service running, they each have their own Singleton in memory. To ensure true 'singleton' behavior across a cluster, I would use a distributed lock or Redis instead of a Java Singleton.\"",
+      "summary10s": "No. One JVM = One Singleton. Distributed systems require distributed locks/cache (like Redis)."
+    }
+  },
+  {
+    "id": "singleton-thread-safe-state",
+    "category": "Java Coding",
+    "question": "Is a Singleton automatically thread-safe just because only one instance exists?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How can mutable state inside a Singleton create concurrency problems?"
+    ],
+    "answerSEE": {
+      "simple": "No. The creation of the instance might be thread-safe, but the methods and fields inside the Singleton are not.",
+      "explain": "If your Singleton has mutable state (like a standard `HashMap` or an integer counter), multiple threads calling the Singleton's methods simultaneously can cause race conditions and data corruption unless you explicitly synchronize those methods or use concurrent collections.",
+      "example": "\"This is a common trap. I might use a perfect Enum Singleton, but if I put a standard `int count` inside it, two threads incrementing it simultaneously will cause a race condition. I must use an `AtomicInteger` or a `ConcurrentHashMap` to make the state inside the Singleton thread-safe.\"",
+      "summary10s": "Creation is safe, but internal state is not. Mutable variables inside must use synchronization or Atomic classes."
+    }
+  },
+  {
+    "id": "singleton-unit-testing",
+    "category": "Java Coding",
+    "question": "Why can Singleton make unit testing difficult?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Singletons introduce global state that persists across different tests, causing test pollution.",
+      "explain": "Because the instance is static, if Test A modifies the Singleton's state, Test B inherits that modified state and might fail unpredictably. Furthermore, hardcoded `Singleton.getInstance()` calls cannot be easily mocked with tools like Mockito, coupling classes tightly together.",
+      "example": "\"Singletons are an anti-pattern for testing. If my service calls `DatabaseConfig.getInstance()`, I can't easily swap it out for a mock database config during tests. That's why I prefer letting Spring (IoC container) manage singletons, so I can simply inject a mock via the constructor in my test file.\"",
+      "summary10s": "Causes test pollution via shared global state, and tightly couples code, making mocking difficult."
+    }
+  },
+  {
+    "id": "singleton-redeployment",
+    "category": "Java Coding",
+    "question": "What happens to a Singleton when an application is redeployed?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The old ClassLoader is discarded and the Singleton is garbage collected. A new instance is created upon the next access.",
+      "explain": "During a hot redeployment (like in Tomcat), the old web application context is destroyed along with its ClassLoader. Since static variables are tied to the ClassLoader, the old Singleton dies. The new deployment loads the class fresh, creating a completely new Singleton.",
+      "example": "\"If I redeploy my application, any in-memory state held by my Singleton is permanently lost because the JVM throws away the old ClassLoader. This is another reason why Singletons shouldn't hold critical, persistent business state without backing it up to a database.\"",
+      "summary10s": "The ClassLoader is destroyed. The Singleton is garbage collected and a new one is created on next access."
+    }
+  },
+  {
+    "id": "singleton-initialization-exception",
+    "category": "Java Coding",
+    "question": "What happens if Singleton initialization throws an exception?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If an eager or Holder Singleton throws an exception during static initialization, the class becomes permanently unusable.",
+      "explain": "When static blocks or static variables throw a `RuntimeException`, the JVM throws an `ExceptionInInitializerError`. Any subsequent attempt to use the class in that JVM lifecycle will result in a `NoClassDefFoundError`, completely bricking the Singleton.",
+      "example": "\"If my eager Singleton tries to read a missing config file and throws a RuntimeException, the class fails to initialize. The JVM marks the class as erroneous. If I try to call `getInstance()` again later, the JVM won't even retry the initialization; it just immediately throws a NoClassDefFoundError.\"",
+      "summary10s": "Static init failures throw ExceptionInInitializerError. The class is permanently broken (NoClassDefFoundError)."
+    }
+  },
+  {
+    "id": "singleton-db-connection-pool",
+    "category": "Java Coding",
+    "question": "Would you use Singleton for a database connection pool in a microservices application? Why or why not?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Conceptually yes, but I wouldn't write my own GoF Singleton. I would let a framework like Spring manage the pool as a Singleton bean.",
+      "explain": "A connection pool like HikariCP should absolutely have only one instance per JVM to efficiently manage connections. However, hardcoding the classic Singleton pattern makes it impossible to mock during testing or swap configurations for different environments.",
+      "example": "\"A connection pool must be a singleton so it can cap the max database connections. But I never write a private constructor for it. I instantiate HikariDataSource as a Spring `@Bean`. Spring's IoC container guarantees it acts as a singleton, while keeping my code loosely coupled and highly testable.\"",
+      "summary10s": "Conceptually yes, to manage resources. But implement it via Dependency Injection (Spring @Bean), not hardcoded GoF pattern."
     }
   }
 ];
