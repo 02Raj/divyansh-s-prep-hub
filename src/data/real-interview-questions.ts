@@ -108,6 +108,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-executorservice",
+    "category": "Java",
+    "question": "What is ExecutorService?",
+    "frequency": 9,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Executor Framework",
+      "ExecutorService and Thread Pools",
+      "Thread Pool",
+      "ExecutorService and its important methods",
+      "What is ExecutorService?",
+      "How would you execute multiple tasks using ExecutorService?",
+      "Why should you use \"ExecutorService\" instead of creating threads manually?"
+    ],
+    "answerSEE": {
+      "simple": "ExecutorService manages a pool of threads and assigns submitted tasks to them instead of creating a new thread each time.",
+      "explain": "Maintains a thread pool + task queue, reuses threads\nDifferent types: FixedThreadPool, CachedThreadPool, ScheduledThreadPool\nAvoids the overhead of constant thread creation/destruction",
+      "example": "\"ExecutorService manages a pool of worker threads and a queue of tasks internally. When I submit a task, an available thread picks it up, or it waits in the queue if all threads are busy. This avoids the overhead of creating a new thread for every task. I usually use Executors.newFixedThreadPool() for predictable workloads.\"",
+      "summary10s": "Thread pool + task queue — reuses threads instead of creating new ones."
+    }
+  },
+  {
     "id": "system-design-put-vs-patch",
     "category": "System Design",
     "question": "Difference between PUT and PATCH? How to make PATCH idempotent?",
@@ -151,27 +175,24 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-executorservice",
+    "id": "what-is-completablefuture",
     "category": "Java",
-    "question": "What is ExecutorService?",
+    "question": "What is CompletableFuture?",
     "frequency": 8,
-    "companies": [
-      "Deloitte"
-    ],
+    "companies": [],
     "variations": [
-      "Executor Framework",
-      "ExecutorService and Thread Pools",
-      "Thread Pool",
-      "ExecutorService and its important methods",
-      "What is ExecutorService?",
-      "How would you execute multiple tasks using ExecutorService?",
-      "Why should you use \"ExecutorService\" instead of creating threads manually?"
+      "CompletableFuture use cases",
+      "CompletableFuture",
+      "CompletableFuture Key Methods",
+      "What is CompletableFuture, and why is it useful?",
+      "How would you run multiple asynchronous operations using CompletableFuture?",
+      "What specific problem does \"CompletableFuture\" solve in asynchronous programming?"
     ],
     "answerSEE": {
-      "simple": "ExecutorService manages a pool of threads and assigns submitted tasks to them instead of creating a new thread each time.",
-      "explain": "Maintains a thread pool + task queue, reuses threads\nDifferent types: FixedThreadPool, CachedThreadPool, ScheduledThreadPool\nAvoids the overhead of constant thread creation/destruction",
-      "example": "\"ExecutorService manages a pool of worker threads and a queue of tasks internally. When I submit a task, an available thread picks it up, or it waits in the queue if all threads are busy. This avoids the overhead of creating a new thread for every task. I usually use Executors.newFixedThreadPool() for predictable workloads.\"",
-      "summary10s": "Thread pool + task queue — reuses threads instead of creating new ones."
+      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
+      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
+      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
+      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
     }
   },
   {
@@ -242,27 +263,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-completablefuture",
-    "category": "Java",
-    "question": "What is CompletableFuture?",
-    "frequency": 7,
-    "companies": [],
-    "variations": [
-      "CompletableFuture use cases",
-      "CompletableFuture",
-      "CompletableFuture Key Methods",
-      "What is CompletableFuture, and why is it useful?",
-      "How would you run multiple asynchronous operations using CompletableFuture?",
-      "What specific problem does \"CompletableFuture\" solve in asynchronous programming?"
-    ],
-    "answerSEE": {
-      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
-      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
-      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
-      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
-    }
-  },
-  {
     "id": "angular-onpush-change-detection",
     "category": "Angular",
     "question": "Default vs OnPush Change Detection",
@@ -307,6 +307,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-a-deadlock",
+    "category": "Java",
+    "question": "What is a deadlock?",
+    "frequency": 7,
+    "companies": [],
+    "variations": [
+      "Deadlock",
+      "Deadlocks, Livelocks, Starvation",
+      "What is deadlock, and how can you prevent it?",
+      "How would you find and prevent a deadlock?",
+      "How would you identify and resolve a deadlock in a running Java application?"
+    ],
+    "answerSEE": {
+      "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
+      "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
+      "example": "\"A deadlock happens when two threads each hold a lock the other needs, and both wait forever, forming a cycle. I avoid this by always acquiring multiple locks in the same consistent order across the whole codebase, or by using tryLock() with a timeout so a thread can back off instead of waiting indefinitely.\"",
+      "summary10s": "Cyclic lock-wait between threads — avoid with consistent lock ordering or tryLock()."
+    }
+  },
+  {
     "id": "spring-kafka-exactly-once",
     "category": "Microservices",
     "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
@@ -329,23 +349,23 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-a-deadlock",
-    "category": "Java",
-    "question": "What is a deadlock?",
+    "id": "circuit-breaker",
+    "category": "Microservices",
+    "question": "Circuit Breaker",
     "frequency": 6,
-    "companies": [],
+    "companies": [
+      "EPAM"
+    ],
     "variations": [
-      "Deadlock",
-      "Deadlocks, Livelocks, Starvation",
-      "What is deadlock, and how can you prevent it?",
-      "How would you find and prevent a deadlock?",
-      "How would you identify and resolve a deadlock in a running Java application?"
+      "Explain Circuit Breaker, Retry and Timeout patterns.",
+      "How do you prevent cascading failures in microservices?",
+      "How would you technically implement the Circuit Breaker pattern?"
     ],
     "answerSEE": {
-      "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
-      "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
-      "example": "\"A deadlock happens when two threads each hold a lock the other needs, and both wait forever, forming a cycle. I avoid this by always acquiring multiple locks in the same consistent order across the whole codebase, or by using tryLock() with a timeout so a thread can back off instead of waiting indefinitely.\"",
-      "summary10s": "Cyclic lock-wait between threads — avoid with consistent lock ordering or tryLock()."
+      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
+      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
+      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
+      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
     }
   },
   {
@@ -423,26 +443,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "ArrayList — fast random access (O(1)), slow insert/delete in middle (O(n))\nLinkedList — fast insert/delete (O(1)) once position is known, slow random access (O(n))\nArrayList is used more often in practice; LinkedList mainly when frequent insert/delete needed\n\n       ArrayList → Fast random access (get()), slower insertion/deletion in the middle.\n       LinkedList → Fast insertion/deletion, slower random access.\n       ArrayList uses less memory; LinkedList uses more memory because each node stores previous and next references.\n     \n  Use ArrayList for frequent reads and LinkedList for frequent insertions/deletions.",
       "example": "\"ArrayList is backed by a dynamic array, so accessing an element by index is very fast, but inserting or deleting in the middle requires shifting elements. LinkedList is backed by nodes with pointers, so insertion and deletion are faster once you're at the right position, but random access is slower since it has to traverse. In practice, I use ArrayList most of the time unless there's heavy insertion/deletion.\"",
       "summary10s": "ArrayList = fast access, LinkedList = fast insert/delete, slow access."
-    }
-  },
-  {
-    "id": "circuit-breaker",
-    "category": "Microservices",
-    "question": "Circuit Breaker",
-    "frequency": 5,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "Explain Circuit Breaker, Retry and Timeout patterns.",
-      "How do you prevent cascading failures in microservices?",
-      "How would you technically implement the Circuit Breaker pattern?"
-    ],
-    "answerSEE": {
-      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
-      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
-      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
-      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
     }
   },
   {
@@ -765,6 +765,25 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "threadlocal",
+    "category": "Java",
+    "question": "ThreadLocal",
+    "frequency": 4,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "ThreadLocal and InheritableThreadLocal",
+      "What is ThreadLocal and where is it used?"
+    ],
+    "answerSEE": {
+      "simple": "ThreadLocal gives each thread its own independent copy of a variable.",
+      "explain": "No sharing between threads — each thread has private copy\nUsed for storing user context, transaction context, request ID per thread\nSpring uses ThreadLocal internally for SecurityContext and transaction management\nMust call remove() after use to prevent memory leaks in thread pools",
+      "example": "\"ThreadLocal is useful when I need per-thread state like storing the current logged-in user or request correlation ID without passing it everywhere. Each thread gets its own copy so there is no sharing or synchronization needed. I always call remove in a finally block because thread pools reuse threads — stale data from previous request would otherwise bleed into next request.\"",
+      "summary10s": "Each thread owns its copy, no sharing, always remove after use in thread pools."
+    }
+  },
+  {
     "id": "angular-route-guards",
     "category": "Angular",
     "question": "Route Guards",
@@ -993,25 +1012,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Uses bucket-level locking (segment locking in older versions, CAS + synchronized in Java 8+)\nOnly the specific bucket being modified is locked, not the whole map\nReads are mostly lock-free, giving high concurrency",
       "example": "\"ConcurrentHashMap achieves thread-safety without locking the whole map. In Java 8 onwards, it uses CAS operations and synchronizes only on the specific bucket being updated, not the entire structure. This makes reads mostly lock-free and gives much better performance than a synchronized HashMap in multi-threaded scenarios.\"",
       "summary10s": "Locks only the bucket, not the whole map — high concurrency."
-    }
-  },
-  {
-    "id": "threadlocal",
-    "category": "Java",
-    "question": "ThreadLocal",
-    "frequency": 3,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [
-      "ThreadLocal and InheritableThreadLocal",
-      "What is ThreadLocal and where is it used?"
-    ],
-    "answerSEE": {
-      "simple": "ThreadLocal gives each thread its own independent copy of a variable.",
-      "explain": "No sharing between threads — each thread has private copy\nUsed for storing user context, transaction context, request ID per thread\nSpring uses ThreadLocal internally for SecurityContext and transaction management\nMust call remove() after use to prevent memory leaks in thread pools",
-      "example": "\"ThreadLocal is useful when I need per-thread state like storing the current logged-in user or request correlation ID without passing it everywhere. Each thread gets its own copy so there is no sharing or synchronization needed. I always call remove in a finally block because thread pools reuse threads — stale data from previous request would otherwise bleed into next request.\"",
-      "summary10s": "Each thread owns its copy, no sharing, always remove after use in thread pools."
     }
   },
   {
@@ -1546,6 +1546,50 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Background workers (cron jobs or message queues) periodically fetch and parse XML/JSON from news sources. Articles are deduplicated and stored in a NoSQL database (like MongoDB) or Elasticsearch for fast text searching. A caching layer (Redis) is critical because the same breaking news is read by millions.",
       "example": "\"I'd design background crawler services that poll RSS feeds every 10 minutes. They parse the articles and push them to a Kafka queue. An ingest service deduplicates them and stores them in Elasticsearch for fast search. Since reads are 100x writes, I would heavily cache the top news feeds in Redis.\"",
       "summary10s": "Background RSS Crawlers -> Kafka -> Deduplication -> Elasticsearch (Search) & Redis (Heavy Read Cache)."
+    }
+  },
+  {
+    "id": "retry-vs-circuit-breaker",
+    "category": "Microservices",
+    "question": "Retry vs Circuit Breaker",
+    "frequency": 3,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Retry attempts the same call again after failure; Circuit Breaker stops calling a failing service entirely for a while.",
+      "explain": "Retry — good for transient, short-lived failures (network blip)\nCircuit Breaker — trips after repeated failures, blocks further calls temporarily, protects both caller and the struggling service\nOften used together: retry a few times, and if it keeps failing, the circuit breaker trips",
+      "example": "\"Retry is for transient failures — I retry the same call a few times, usually with backoff, hoping it was just a temporary blip. Circuit Breaker is different — after a certain number of consistent failures, it 'trips' and stops calling that service entirely for a cooldown period, protecting both the caller from wasting resources and the struggling service from more load. I typically combine both — retry a few times, and if it keeps failing, let the circuit breaker take over.\"",
+      "summary10s": "Retry = try again on transient failure, Circuit Breaker = stop calling after repeated failures."
+    }
+  },
+  {
+    "id": "microservices-circuit-breaker-annotation-level",
+    "category": "Microservices",
+    "question": "At what level would you apply the Circuit Breaker annotation?",
+    "frequency": 3,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Apply it at the client level (the method making the external HTTP/Feign call).",
+      "explain": "You don't apply `@CircuitBreaker` on the controller that receives the request. You apply it on the Service or FeignClient method that *calls* the external microservice. This ensures that if the external service fails, the circuit opens exactly where the call is being made, immediately triggering the fallback method.",
+      "example": "\"I apply `@CircuitBreaker(name = \"inventoryService\", fallbackMethod = \"defaultInventory\")` directly on the `getInventory()` method inside my service class, which uses `RestTemplate` to call the Inventory Microservice.\"",
+      "summary10s": "Apply it on the method that executes the outbound external network call."
+    }
+  },
+  {
+    "id": "microservices-retry-vs-timeout",
+    "category": "Microservices",
+    "question": "How do Retry and Socket Timeout work? If both Retry and Circuit Breaker are implemented, which one executes first?",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "If both Retry and Circuit Breaker are implemented, which one executes first?"
+    ],
+    "answerSEE": {
+      "simple": "Timeout aborts a hanging call. Retry attempts the call again. Retry executes BEFORE the Circuit Breaker opens.",
+      "explain": "A Socket Timeout kills the connection if the server doesn't respond in X seconds. A Retry will then try the call again. The Circuit Breaker wraps the Retry. If the call fails 3 times (due to Retry exhaustion), the Circuit Breaker records a failure. Once failures cross a threshold, the Circuit Breaker opens.",
+      "example": "\"If I have `@Retry` and `@CircuitBreaker` on a method, Resilience4j executes the Retry first. If my service is down, it retries 3 times. All 3 fail. The Circuit Breaker counts that as 1 failed execution. If the next few requests also fail, the Circuit Breaker opens, and subsequent requests bypass the Retry entirely and go straight to the fallback.\"",
+      "summary10s": "Timeout kills hanging calls. Retry tries again. Circuit Breaker wraps Retry and opens after consecutive failures."
     }
   },
   {
@@ -3110,20 +3154,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "retry-vs-circuit-breaker",
-    "category": "Microservices",
-    "question": "Retry vs Circuit Breaker",
-    "frequency": 2,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Retry attempts the same call again after failure; Circuit Breaker stops calling a failing service entirely for a while.",
-      "explain": "Retry — good for transient, short-lived failures (network blip)\nCircuit Breaker — trips after repeated failures, blocks further calls temporarily, protects both caller and the struggling service\nOften used together: retry a few times, and if it keeps failing, the circuit breaker trips",
-      "example": "\"Retry is for transient failures — I retry the same call a few times, usually with backoff, hoping it was just a temporary blip. Circuit Breaker is different — after a certain number of consistent failures, it 'trips' and stops calling that service entirely for a cooldown period, protecting both the caller from wasting resources and the struggling service from more load. I typically combine both — retry a few times, and if it keeps failing, let the circuit breaker take over.\"",
-      "summary10s": "Retry = try again on transient failure, Circuit Breaker = stop calling after repeated failures."
-    }
-  },
-  {
     "id": "java-throw-vs-throws",
     "category": "Java",
     "question": "What is the difference between throw and throws?",
@@ -3135,36 +3165,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "\"throw\" is followed by an instance (e.g., `throw new Exception()`). \"throws\" is followed by a class name in the method signature (e.g., `void run() throws Exception`), warning the caller that they need to handle it.",
       "example": "\"If the user input is invalid, I use `throw new IllegalArgumentException()`. Because it's a RuntimeException, I don't strictly need `throws`, but if it was checked, my method signature would have to be `public void process() throws IOException`.\"",
       "summary10s": "throw = action (throw new Exception). throws = warning in method signature."
-    }
-  },
-  {
-    "id": "microservices-circuit-breaker-annotation-level",
-    "category": "Microservices",
-    "question": "At what level would you apply the Circuit Breaker annotation?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Apply it at the client level (the method making the external HTTP/Feign call).",
-      "explain": "You don't apply `@CircuitBreaker` on the controller that receives the request. You apply it on the Service or FeignClient method that *calls* the external microservice. This ensures that if the external service fails, the circuit opens exactly where the call is being made, immediately triggering the fallback method.",
-      "example": "\"I apply `@CircuitBreaker(name = \"inventoryService\", fallbackMethod = \"defaultInventory\")` directly on the `getInventory()` method inside my service class, which uses `RestTemplate` to call the Inventory Microservice.\"",
-      "summary10s": "Apply it on the method that executes the outbound external network call."
-    }
-  },
-  {
-    "id": "microservices-retry-vs-timeout",
-    "category": "Microservices",
-    "question": "How do Retry and Socket Timeout work? If both Retry and Circuit Breaker are implemented, which one executes first?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "If both Retry and Circuit Breaker are implemented, which one executes first?"
-    ],
-    "answerSEE": {
-      "simple": "Timeout aborts a hanging call. Retry attempts the call again. Retry executes BEFORE the Circuit Breaker opens.",
-      "explain": "A Socket Timeout kills the connection if the server doesn't respond in X seconds. A Retry will then try the call again. The Circuit Breaker wraps the Retry. If the call fails 3 times (due to Retry exhaustion), the Circuit Breaker records a failure. Once failures cross a threshold, the Circuit Breaker opens.",
-      "example": "\"If I have `@Retry` and `@CircuitBreaker` on a method, Resilience4j executes the Retry first. If my service is down, it retries 3 times. All 3 fail. The Circuit Breaker counts that as 1 failed execution. If the next few requests also fail, the Circuit Breaker opens, and subsequent requests bypass the Retry entirely and go straight to the fallback.\"",
-      "summary10s": "Timeout kills hanging calls. Retry tries again. Circuit Breaker wraps Retry and opens after consecutive failures."
     }
   },
   {
@@ -3197,6 +3197,48 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "1NF: Ensure atomic (indivisible) values in columns.\n2NF: Must be in 1NF, and all non-key columns depend on the entire primary key (removes partial dependency).\n3NF: Must be in 2NF, and non-key columns must not depend on other non-key columns (removes transitive dependency).\nBCNF: A stricter version of 3NF where every determinant must be a candidate key.",
       "example": "\"I use normalization to avoid data anomalies when updating or inserting records. For example, instead of storing Department Name and Location inside the Employee table (which repeats data), I extract it into a separate Department table and link it via a foreign key, achieving 3NF.\"",
       "summary10s": "Reduces redundancy. 1NF=atomic, 2NF=no partial dependency, 3NF=no transitive dependency."
+    }
+  },
+  {
+    "id": "completablefuture-vs-executorservice",
+    "category": "Java",
+    "question": "CompletableFuture vs ExecutorService",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ExecutorService manages thread pool and task execution, CompletableFuture composes async tasks with callbacks.",
+      "explain": "ExecutorService — submit tasks, get Future back, get() blocks thread until result ready\nCompletableFuture — non-blocking callbacks, chain transformations, combine results, handle errors\nCompletableFuture uses ExecutorService internally — ForkJoinPool by default\nCompletableFuture for complex async pipelines, ExecutorService for simple parallel task submission",
+      "example": "\"ExecutorService is for managing thread pools and submitting tasks. The old Future from submit requires blocking get() call to get result. CompletableFuture is the modern approach — I chain thenApply, thenCompose, handle errors with exceptionally, combine multiple futures with allOf. No blocking needed — callbacks run when result is ready. For parallel API calls CompletableFuture with allOf is much cleaner than managing multiple Futures manually.\"",
+      "summary10s": "ExecutorService=thread pool blocking get(), CompletableFuture=non-blocking callbacks composable pipeline."
+    }
+  },
+  {
+    "id": "thread-pool-sizing-in-production",
+    "category": "System Design",
+    "question": "Thread Pool Sizing in Production",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "CPU-bound tasks — number of cores, IO-bound tasks — higher thread count based on wait time ratio.",
+      "explain": "CPU-bound — threads compete for CPU, optimal is CPU cores or cores plus one\nIO-bound — threads spend time waiting, can have many more threads than cores\nFormula for IO-bound — threads = cores × (1 + wait time / CPU time)\nToo few threads — CPU idle while threads wait. Too many — context switching overhead\nMonitor thread dump and CPU utilization to tune",
+      "example": "\"Thread pool sizing depends on task type. For CPU-intensive like cryptography or complex computation — thread count equals number of CPU cores. Adding more just causes context switching. For IO-bound like DB queries or HTTP calls — threads spend most time waiting, so more threads can run. Rule of thumb for IO-bound — cores multiplied by 1 plus wait-to-CPU ratio. I also monitor with thread dumps and adjust based on actual CPU utilization and response times.\"",
+      "summary10s": "CPU-bound=core count, IO-bound=cores×(1+wait/CPU ratio), monitor and tune based on actual metrics."
+    }
+  },
+  {
+    "id": "java-coding-completablefuture-exceptions",
+    "category": "Java",
+    "question": "How would you handle exceptions in CompletableFuture?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use exceptionally(), handle(), or whenComplete() methods chained to the future.",
+      "explain": "Because CompletableFuture runs asynchronously, standard try-catch blocks won't catch its exceptions. You chain `.exceptionally(ex -> fallbackValue)` to recover from errors and return a default value, or `.handle((result, ex) -> ...)` to process both successes and failures.",
+      "example": "\"If I'm making an async HTTP call to fetch a user, I chain `.exceptionally(ex -> new User(\"Default\"))`. If the network call fails, the pipeline automatically intercepts the exception, logs it, and returns the default user so my application doesn't crash.\"",
+      "summary10s": "Chain .exceptionally() for recovery/fallback, or .handle() for dealing with result/exception simultaneously."
     }
   },
   {
@@ -5010,20 +5052,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "completablefuture-vs-executorservice",
-    "category": "Java",
-    "question": "CompletableFuture vs ExecutorService",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "ExecutorService manages thread pool and task execution, CompletableFuture composes async tasks with callbacks.",
-      "explain": "ExecutorService — submit tasks, get Future back, get() blocks thread until result ready\nCompletableFuture — non-blocking callbacks, chain transformations, combine results, handle errors\nCompletableFuture uses ExecutorService internally — ForkJoinPool by default\nCompletableFuture for complex async pipelines, ExecutorService for simple parallel task submission",
-      "example": "\"ExecutorService is for managing thread pools and submitting tasks. The old Future from submit requires blocking get() call to get result. CompletableFuture is the modern approach — I chain thenApply, thenCompose, handle errors with exceptionally, combine multiple futures with allOf. No blocking needed — callbacks run when result is ready. For parallel API calls CompletableFuture with allOf is much cleaner than managing multiple Futures manually.\"",
-      "summary10s": "ExecutorService=thread pool blocking get(), CompletableFuture=non-blocking callbacks composable pipeline."
-    }
-  },
-  {
     "id": "volatile-practical-usage",
     "category": "Java",
     "question": "volatile Practical Usage",
@@ -5035,20 +5063,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Without volatile — each CPU core caches the variable, other threads see stale value\nWith volatile — every read goes to main memory, every write goes to main memory\nCommon use — boolean running flag to stop a thread gracefully\nDoes not make compound operations atomic — increment is not atomic with volatile\nUse AtomicBoolean or AtomicInteger for atomic compound operations",
       "example": "\"Practical use of volatile is a shutdown flag. If main thread sets running equals false to stop a worker thread, without volatile the worker thread reads from its CPU cache and never sees the change — infinite loop. With volatile, worker thread reads from main memory on every iteration and sees the updated value. I never use volatile for counters — increment is read-modify-write, three operations not one.\"",
       "summary10s": "volatile=visibility from main memory, use for flags not counters, compound operations still not atomic."
-    }
-  },
-  {
-    "id": "thread-pool-sizing-in-production",
-    "category": "System Design",
-    "question": "Thread Pool Sizing in Production",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "CPU-bound tasks — number of cores, IO-bound tasks — higher thread count based on wait time ratio.",
-      "explain": "CPU-bound — threads compete for CPU, optimal is CPU cores or cores plus one\nIO-bound — threads spend time waiting, can have many more threads than cores\nFormula for IO-bound — threads = cores × (1 + wait time / CPU time)\nToo few threads — CPU idle while threads wait. Too many — context switching overhead\nMonitor thread dump and CPU utilization to tune",
-      "example": "\"Thread pool sizing depends on task type. For CPU-intensive like cryptography or complex computation — thread count equals number of CPU cores. Adding more just causes context switching. For IO-bound like DB queries or HTTP calls — threads spend most time waiting, so more threads can run. Rule of thumb for IO-bound — cores multiplied by 1 plus wait-to-CPU ratio. I also monitor with thread dumps and adjust based on actual CPU utilization and response times.\"",
-      "summary10s": "CPU-bound=core count, IO-bound=cores×(1+wait/CPU ratio), monitor and tune based on actual metrics."
     }
   },
   {
@@ -9200,20 +9214,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-coding-completablefuture-exceptions",
-    "category": "Java",
-    "question": "How would you handle exceptions in CompletableFuture?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use exceptionally(), handle(), or whenComplete() methods chained to the future.",
-      "explain": "Because CompletableFuture runs asynchronously, standard try-catch blocks won't catch its exceptions. You chain `.exceptionally(ex -> fallbackValue)` to recover from errors and return a default value, or `.handle((result, ex) -> ...)` to process both successes and failures.",
-      "example": "\"If I'm making an async HTTP call to fetch a user, I chain `.exceptionally(ex -> new User(\"Default\"))`. If the network call fails, the pipeline automatically intercepts the exception, logs it, and returns the default user so my application doesn't crash.\"",
-      "summary10s": "Chain .exceptionally() for recovery/fallback, or .handle() for dealing with result/exception simultaneously."
-    }
-  },
-  {
     "id": "behavioral-angular-version-responsibility",
     "category": "Other",
     "question": "Which Angular version have you used most recently? What did you personally build with it, and which parts were your responsibility versus the team's?",
@@ -11223,6 +11223,390 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "In the JS Event loop, Promises resolve before `setTimeout` callbacks. When dealing with loops, `var` is function-scoped. If you run a `setTimeout` inside a `var` loop, the loop finishes before the timeout fires, meaning all timeouts print the final variable value. `let` is block-scoped, creating a fresh binding for every iteration.",
       "example": "\"If I run a loop `for (var i=0; i<3; i++) setTimeout(()=>print(i))` it prints '3, 3, 3' because the timeouts run after the loop finishes and all refer to the same global `var`. If I change it to `let i=0`, it prints '0, 1, 2' because `let` creates a new block scope for every single iteration.\"",
       "summary10s": "Event loop order: Sync -> Microtasks (Promises) -> Macrotasks (setTimeout). `var` leaks scope in loops; `let` is block-scoped."
+    }
+  },
+  {
+    "id": "dsa-subarrays-sum-k",
+    "category": "Java Coding",
+    "question": "Find all subarrays with sum = K",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a HashMap to store the cumulative sum and its frequency to achieve O(N) time complexity.",
+      "explain": "Instead of checking every subarray (O(N^2)), keep a running sum. At each element, calculate `sum - K`. If this value exists in the HashMap, it means there is a valid subarray ending at the current index. Add its frequency to the total count.",
+      "example": "\"I initialize a HashMap `map.put(0, 1)` and a `count = 0`. As I iterate, I add to `currSum`. If `map.containsKey(currSum - K)`, I add `map.get(currSum - K)` to my count. Then I update the map with the new `currSum`.\"",
+      "summary10s": "Running Sum + HashMap approach. Store frequencies of prefix sums to find `sum - K` in O(N)."
+    }
+  },
+  {
+    "id": "dsa-lru-cache",
+    "category": "Java Coding",
+    "question": "Implement an LRU cache without using LinkedHashMap",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a standard HashMap combined with a custom Doubly Linked List.",
+      "explain": "The HashMap provides O(1) lookups for the keys. The Doubly Linked List maintains the order of usage. When an item is accessed or added, you move it to the head of the list. If the cache is full, you remove the node at the tail of the list and delete it from the HashMap.",
+      "example": "\"I create a `Node` class with `prev` and `next` pointers. My LRU class has a `Map<Integer, Node>`, a `head`, and a `tail`. When `get()` is called, I find the Node in the map and call my helper method `moveToHead(node)`. This guarantees O(1) performance for all operations.\"",
+      "summary10s": "HashMap + Doubly Linked List. Map gives O(1) access, DLL manages eviction order."
+    }
+  },
+  {
+    "id": "dsa-cycle-undirected-graph",
+    "category": "Java Coding",
+    "question": "Detect a cycle in an undirected graph",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use BFS or DFS, keeping track of visited nodes and the 'parent' node you came from.",
+      "explain": "During traversal, if you encounter a node that is already marked as 'visited', AND that node is NOT the direct parent of the current node, then a cycle exists.",
+      "example": "\"In DFS, my signature is `dfs(node, parent)`. I mark `node` as visited. I loop through its neighbors. If a neighbor is visited and `neighbor != parent`, I return true (cycle detected). If the graph is disconnected, I make sure to loop through all nodes in the outer function.\"",
+      "summary10s": "DFS/BFS with a `parent` pointer. If you hit a visited node that isn't the parent, it's a cycle."
+    }
+  },
+  {
+    "id": "dsa-kth-smallest-bst",
+    "category": "Java Coding",
+    "question": "Implement kth smallest element in a BST",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Perform an in-order traversal (Left, Root, Right) and stop when you reach the Kth node.",
+      "explain": "A core property of a Binary Search Tree is that an in-order traversal visits the nodes in perfectly sorted ascending order. By keeping a counter, you just return the value when the counter hits K.",
+      "example": "\"I write a recursive `inOrder(node)` function. Inside, I recurse left. Then I decrement my global `k`. If `k == 0`, I record the current node's value and return early. Then I recurse right. This avoids traversing the whole tree once I find the target.\"",
+      "summary10s": "In-order traversal visits BST in sorted order. Decrement a counter and stop at K."
+    }
+  },
+  {
+    "id": "dsa-min-window-substring",
+    "category": "Java Coding",
+    "question": "Given a string, return minimum window substring containing all characters of another string",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the Sliding Window technique with two pointers (left and right) and a character frequency map.",
+      "explain": "Expand the `right` pointer to include characters until you have a valid window (matches all characters in the target string). Once valid, shrink the `left` pointer to find the minimum length. Keep track of the shortest valid window seen so far.",
+      "example": "\"I use an integer array `int[] map = new int[128]` to store target character counts. I move `right`, decrementing the count. If a required character is found, I increment a `matchCount`. When `matchCount == target.length()`, I move `left` to shrink the window as much as possible before expanding again.\"",
+      "summary10s": "Sliding Window. Expand `right` until valid, shrink `left` to minimize. Track min length."
+    }
+  },
+  {
+    "id": "java-hashset-variants",
+    "category": "Java",
+    "question": "Difference between HashSet, LinkedHashSet, TreeSet",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "HashSet is unordered and fast. LinkedHashSet maintains insertion order. TreeSet maintains sorted order.",
+      "explain": "HashSet is backed by a HashMap (O(1) operations). LinkedHashSet uses a HashMap + Doubly Linked List to preserve the order elements were added. TreeSet is backed by a TreeMap (Red-Black tree), meaning operations are O(log N) but elements are always naturally sorted.",
+      "example": "\"If I just need to remove duplicates quickly, I use HashSet. If I'm building a cache and need to know the order of arrival, I use LinkedHashSet. If I need to constantly fetch the 'smallest' or 'largest' element, I use TreeSet.\"",
+      "summary10s": "HashSet (O(1), random order), LinkedHashSet (O(1), insertion order), TreeSet (O(logN), sorted order)."
+    }
+  },
+  {
+    "id": "java-copyonwritearraylist",
+    "category": "Java",
+    "question": "Explain CopyOnWriteArrayList → when to use, when not to use",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It's a thread-safe list where all mutative operations (add, set) create a brand new copy of the underlying array.",
+      "explain": "Because it copies the entire array on every modification, writes are extremely expensive. However, reads (get, iterator) don't require any locks and are blazingly fast. This prevents `ConcurrentModificationException` during iteration.",
+      "example": "\"I use it for an application's event listener list, because adding/removing listeners is rare, but traversing the list to fire events happens thousands of times a second. I would NEVER use it for a real-time order book where elements are constantly being added, because the memory copying would crash the JVM.\"",
+      "summary10s": "Thread-safe. Copies the array on every write. Perfect for 'read-heavy, write-rarely' scenarios."
+    }
+  },
+  {
+    "id": "java-reference-types",
+    "category": "Java",
+    "question": "What is the difference between WeakReference, SoftReference, PhantomReference?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Soft is kept until memory is full. Weak is collected immediately on next GC. Phantom is collected but you get notified when it happens.",
+      "explain": "A standard Strong reference prevents Garbage Collection. A `SoftReference` tells the JVM 'keep this unless you absolutely need memory' (great for caches). A `WeakReference` tells the JVM 'collect this on the very next GC cycle' (used in WeakHashMap to prevent memory leaks). A `PhantomReference` is used with a ReferenceQueue to schedule post-mortem cleanup tasks instead of using `finalize()`.",
+      "example": "\"For an in-memory image cache, I use `SoftReference`; the images stay in memory until the JVM runs out of RAM, preventing OutOfMemoryErrors. For mapping metadata to a thread, I use `WeakReference` so when the thread dies, the metadata is instantly collected.\"",
+      "summary10s": "Soft = GC only if out of memory (Caches). Weak = GC immediately (WeakHashMap). Phantom = GC cleanup tracking."
+    }
+  },
+  {
+    "id": "spring-boot-autoconfig-datasource",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot autoconfiguration pick the right DataSource bean?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It uses @Conditional annotations in the DataSourceAutoConfiguration class to check the classpath and properties.",
+      "explain": "Spring scans the classpath. If it finds HikariCP classes, it instantiates a HikariDataSource. It uses `@ConditionalOnClass` to verify the driver exists, and `@ConditionalOnMissingBean` to ensure you haven't already defined a custom DataSource yourself. It then binds properties prefixed with `spring.datasource`.",
+      "example": "\"Because HikariCP is the default in Spring Boot 2+, if I just add the PostgreSQL driver dependency and set `spring.datasource.url`, Spring's autoconfiguration intercepts this. It sees Hikari is on the classpath, sees I didn't write my own `@Bean`, and wires up a production-ready Hikari pool automatically.\"",
+      "summary10s": "Uses `@ConditionalOnClass` (checks classpath for Hikari) and `@ConditionalOnMissingBean` (ensures you didn't define one)."
+    }
+  },
+  {
+    "id": "spring-boot-starter-parent",
+    "category": "Spring Boot",
+    "question": "Explain Spring Boot starter parent and dependency management.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It provides default Maven/Gradle configurations and manages compatible versions for hundreds of dependencies automatically.",
+      "explain": "By inheriting from `spring-boot-starter-parent`, you don't have to specify `<version>` tags for common libraries (like Jackson, Hibernate, or JUnit). The parent POM defines a carefully tested 'BOM' (Bill of Materials) that guarantees all libraries work together without version conflicts.",
+      "example": "\"When I add `spring-boot-starter-web` to my pom.xml, I don't provide a version. The `starter-parent` automatically resolves the exact version of Tomcat, Spring MVC, and Jackson that are proven to be compatible with my specific Spring Boot version, completely eliminating dependency hell.\"",
+      "summary10s": "Parent POM dictates tested version numbers (BOM). Prevents version conflicts and dependency hell."
+    }
+  },
+  {
+    "id": "spring-lazy-init-exception",
+    "category": "Spring Boot",
+    "question": "How do you debug lazy initialization exceptions in JPA/Hibernate?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It happens when you access a lazily-loaded child entity after the database transaction has closed. Fix it using JOIN FETCH.",
+      "explain": "By default, `@OneToMany` is LAZY. If you fetch an Order in a `@Transactional` Service, but call `order.getItems()` later in the Controller (where there is no transaction), Hibernate throws `LazyInitializationException` because it can't run a new query. The best fix is writing a JPQL query with `JOIN FETCH` to load everything in one go.",
+      "example": "\"I NEVER fix this by using `FetchType.EAGER`, as that ruins performance globally. Instead, if my specific API needs the items, I write a custom repository method: `@Query(\\\"SELECT o FROM Order o JOIN FETCH o.items WHERE o.id = :id\\\")`. This fetches the parent and children in a single SQL hit.\"",
+      "summary10s": "Occurs when accessing LAZY collections outside a transaction. Fix with `JOIN FETCH` in your JPQL query."
+    }
+  },
+  {
+    "id": "spring-transactional-isolation",
+    "category": "Spring Boot",
+    "question": "Explain how @Transactional isolation levels work in banking systems.",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Isolation levels control how concurrent transactions see each other's changes. Banking requires high isolation to prevent dirty or phantom reads.",
+      "explain": "The default is `READ_COMMITTED` (safe from dirty reads). In banking, if you are calculating an account's total balance while another transaction is inserting a new deposit, you need `REPEATABLE_READ` or `SERIALIZABLE` to lock the rows/tables and guarantee mathematically accurate consistency.",
+      "example": "\"For a standard money transfer, I use `@Transactional(isolation = Isolation.REPEATABLE_READ)`. This guarantees that if I read the balance twice in my method, it will be exactly the same, even if another thread just committed an update to that account in the background.\"",
+      "summary10s": "Prevents concurrency bugs (dirty reads). Banking uses `REPEATABLE_READ` or `SERIALIZABLE` for strict data integrity."
+    }
+  },
+  {
+    "id": "microservices-distributed-transactions",
+    "category": "Microservices",
+    "question": "How do you handle distributed transactions (saga pattern, 2PC)?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the Saga Pattern to orchestrate local transactions using events, rather than the slow Two-Phase Commit (2PC).",
+      "explain": "2PC locks databases across the network, killing microservice performance and availability. The Saga pattern splits the transaction into individual local transactions. If a step fails, you publish a 'compensation event' that triggers previous services to undo their work (e.g., refunding the money).",
+      "example": "\"In my e-commerce app, Order creates an order (Pending) and tells Payment to charge the card. If Payment succeeds, it tells Inventory to reserve stock. If Inventory is empty, it fails and publishes an `InventoryFailed` event. Payment listens, refunds the card, and Order changes status to Cancelled. No global locks needed.\"",
+      "summary10s": "Avoid 2PC (too slow). Use Saga: sequential local transactions with 'compensating actions' (undo logic) if a step fails."
+    }
+  },
+  {
+    "id": "spring-security-rbac",
+    "category": "Spring Boot",
+    "question": "How to implement role-based access control (RBAC) in Spring Security?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Enable Global Method Security and use @PreAuthorize annotations on your controller methods.",
+      "explain": "You configure a `SecurityFilterChain` to parse roles from the incoming JWT (or session). Then, you annotate your endpoints with `@PreAuthorize(\"hasRole('ADMIN')\")`. Spring automatically intercepts the request, checks the `SecurityContext`, and throws a 403 Forbidden if the roles don't match.",
+      "example": "\"I add `@EnableMethodSecurity` to my config. In my JWT filter, I extract roles from the token claims and map them to `SimpleGrantedAuthority`. In my Controller, I secure the delete endpoint with `@PreAuthorize(\\\"hasRole('ADMIN')\\\")`. It's declarative, clean, and highly secure.\"",
+      "summary10s": "Parse roles into the `SecurityContext`. Secure endpoints using `@PreAuthorize(\"hasRole('ROLE_NAME')\")`."
+    }
+  },
+  {
+    "id": "microservices-rate-limiting",
+    "category": "Microservices",
+    "question": "How do you configure rate limiting at API Gateway level in Spring Cloud?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Spring Cloud Gateway with a Redis-backed RequestRateLimiter filter.",
+      "explain": "You define a `KeyResolver` bean (usually resolving the user's IP or API key). In your `application.yml`, you attach the `RequestRateLimiter` filter to your route, specifying the `replenishRate` (tokens per second) and `burstCapacity`. It uses a Token Bucket algorithm backed by Redis to sync limits across multiple gateway instances.",
+      "example": "\"In my `application.yml` for the Gateway, I configure the rate limiter to allow 10 requests per second. I write a Java `@Bean` that returns the client's IP address. If an attacker spams the login endpoint, Redis tracks the IP, exhausts their bucket, and the Gateway instantly returns HTTP 429 Too Many Requests.\"",
+      "summary10s": "Use Spring Cloud Gateway + Redis Token Bucket. Define a `KeyResolver` (by IP/User) and set limits in YML."
+    }
+  },
+  {
+    "id": "spring-data-jpa-n-plus-one",
+    "category": "Spring Boot",
+    "question": "How to detect and fix N+1 query problem in Spring Data JPA?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Detect it by enabling SQL logging. Fix it by using @EntityGraph or a custom JPQL query with JOIN FETCH.",
+      "explain": "The N+1 problem occurs when you fetch 1 list of parent entities, and Hibernate executes N additional queries to fetch their lazy children. This destroys performance. Setting `spring.jpa.show-sql=true` makes it obvious. Fix it by fetching everything in a single SQL query.",
+      "example": "\"I saw 50 SQL queries firing for a simple `findAll()` on Orders. To fix it without writing SQL, I added `@EntityGraph(attributePaths = {\"items\"})` above my `findAll()` method in the JpaRepository. This tells Hibernate to do a single LEFT OUTER JOIN, instantly reducing 50 queries down to 1.\"",
+      "summary10s": "Problem: 1 query for parents, N queries for children. Fix: Use `JOIN FETCH` or `@EntityGraph`."
+    }
+  },
+  {
+    "id": "spring-hikaricp-config",
+    "category": "Spring Boot",
+    "question": "How do you configure connection pool (HikariCP) for high-throughput services?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Tune maximum-pool-size, connection-timeout, and minimum-idle in application.properties based on DB server capacity.",
+      "explain": "For high throughput, a pool that is too small causes threads to bottleneck waiting for connections. A pool that is too large overwhelms the database CPU with context switching. The sweet spot is usually `connections = ((core_count * 2) + effective_spindle_count)`.",
+      "example": "\"In a heavy microservice, I set `spring.datasource.hikari.maximum-pool-size=20`. I set `connection-timeout=3000` (3 seconds) so if the DB hangs, my app fails fast instead of freezing threads forever. I also configure Prometheus metrics to monitor the active connections in Grafana.\"",
+      "summary10s": "Tune `maximum-pool-size` (not too high to avoid DB thrashing) and `connection-timeout` (fail fast)."
+    }
+  },
+  {
+    "id": "spring-graceful-shutdown",
+    "category": "Spring Boot",
+    "question": "How do you handle graceful shutdown in Spring Boot microservices (k8s readiness/liveness probes)?",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Enable graceful shutdown in properties so Tomcat finishes processing active requests before dying, and map Actuator health endpoints to K8s probes.",
+      "explain": "By setting `server.shutdown=graceful`, Spring Boot stops accepting *new* requests but waits a defined timeout period for *active* requests to finish. You expose `/actuator/health/readiness` to Kubernetes so K8s instantly removes the pod from the load balancer before sending the SIGTERM kill signal.",
+      "example": "\"In `application.yml`, I set `server.shutdown=graceful` and `spring.lifecycle.timeout-per-shutdown-phase=30s`. In my Kubernetes deployment, I configure the `readinessProbe` to hit the Actuator endpoint. When rolling out an update, K8s marks the pod unready, traffic shifts away, and active threads finish cleanly without throwing 502 Bad Gateway errors to users.\"",
+      "summary10s": "Set `server.shutdown=graceful`. K8s uses Actuator readiness probes to stop routing traffic before killing the pod."
+    }
+  },
+  {
+    "id": "system-design-stock-aggregator",
+    "category": "System Design",
+    "question": "Design a real-time stock price aggregator (millions of updates/sec)",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Ingest data via Kafka, process it using Apache Flink for real-time windowing, and serve it via WebSockets.",
+      "explain": "Millions of updates per second requires a high-throughput event stream. Producers (exchanges) push prices to Kafka partitioned by Stock Ticker. Apache Flink consumes this, aggregating the high/low/average prices in tumbling 1-second windows. The results are pushed to Redis Pub/Sub, which broadcast to Edge servers holding WebSocket connections to the end clients.",
+      "example": "\"Since reads heavily outnumber writes for clients, I decouple ingestion from serving. Kafka handles the massive write spike. Flink does the math instantly. I store the latest aggregates in Redis for quick dashboard reloads, and use Server-Sent Events (SSE) or WebSockets to push the live ticks to the traders' browsers.\"",
+      "summary10s": "Kafka (Ingestion) -> Apache Flink (Aggregation) -> Redis (State) -> WebSockets (Live updates)."
+    }
+  },
+  {
+    "id": "system-design-distributed-cache",
+    "category": "System Design",
+    "question": "Design a distributed cache service (like Redis)",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Consistent Hashing to distribute data across nodes, and implement an LRU eviction policy.",
+      "explain": "A distributed cache is essentially a gigantic HashMap spread across multiple servers. To know which server holds a key, use Consistent Hashing so that adding/removing nodes only requires moving a small fraction of data. Store data in RAM for sub-millisecond latency. Replicate data to a slave node for high availability.",
+      "example": "\"If I'm building a Redis clone, the core is a ConcurrentHashMap per node. I use a Gossip protocol for nodes to discover each other. When a `SET key value` request hits a node, it uses Consistent Hashing to forward it to the correct owner. For memory management, I use a Doubly Linked List to implement an exact LRU eviction policy when RAM fills up.\"",
+      "summary10s": "In-memory HashMaps, distributed via Consistent Hashing, highly available via Master-Slave replication, managed by LRU."
+    }
+  },
+  {
+    "id": "system-design-chat-messaging",
+    "category": "System Design",
+    "question": "Design a chat messaging system (1:1 + group + offline delivery)",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use WebSockets for real-time connection, a Chat Server cluster to route messages, and Cassandra to store the chat history.",
+      "explain": "Clients maintain a persistent WebSocket connection to a random Gateway server. The system keeps a 'Session Map' in Redis (`UserID -> Gateway IP`). When User A sends a message to User B, the server checks Redis. If B is connected, it routes the message directly. If B is offline, it saves it to Cassandra and triggers an APNS Push Notification.",
+      "example": "\"For group chats, instead of mapping 1-to-1, a message to a GroupID hits a Kafka topic. A fan-out worker consumes the topic, fetches the 500 members from the DB, and pushes 500 individual messages to the Gateway servers. I use Cassandra because chat history is heavily time-series based (always fetching the last 50 messages).\"",
+      "summary10s": "WebSockets for live chat. Redis tracks active connections. Kafka for group fan-out. Cassandra for permanent history."
+    }
+  },
+  {
+    "id": "system-design-url-shortener",
+    "category": "System Design",
+    "question": "Design a URL shortener (bit.ly scale)",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Generate unique 7-character base62 strings using a distributed unique ID generator (like Snowflake) and store them in a NoSQL database.",
+      "explain": "The core challenge is generating short, unique aliases fast without collisions. Use a database sequence or Twitter Snowflake to generate a unique base-10 integer. Convert that integer to Base62 (a-z, A-Z, 0-9). Store the mapping in a fast key-value store. Put a massive CDN/Redis cache in front, because reads will be 100x higher than writes.",
+      "example": "\"When a user submits a URL, my API asks ZooKeeper/Snowflake for a unique integer (e.g., 100). I encode 100 to Base62, getting a short string like 'bX'. I insert `{shortUrl: 'bX', longUrl: 'www.google.com'}` into MongoDB. When someone clicks 'bit.ly/bX', the Edge server checks Redis, gets a cache hit, and returns a 301 HTTP Redirect instantly.\"",
+      "summary10s": "Unique ID Generator -> Convert Base10 to Base62 -> Store in DB. Heavy caching with Redis for fast 301 Redirects."
+    }
+  },
+  {
+    "id": "system-design-notification",
+    "category": "System Design",
+    "question": "Design a notification system (multi-channel: email, SMS, push)",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use an asynchronous event-driven architecture with Kafka to decouple microservices from third-party notification APIs.",
+      "explain": "Core microservices simply drop a 'SendNotification' event onto a Kafka topic and move on. Notification Workers consume these events, check user preferences (e.g., 'Do Not Disturb' or 'Email Only'), format the template, and call external providers like Twilio (SMS) or SendGrid (Email).",
+      "example": "\"If the Billing Service needs to send a receipt, it publishes an event to Kafka. The Notification Service consumes it. It queries Redis for the user's preferences. It sees they want Push and Email. It formats the payloads, drops them into two separate Kafka queues (PushTopic, EmailTopic) which have dedicated workers managing rate-limits and retries against external APIs.\"",
+      "summary10s": "Services publish to Kafka. Workers consume, check user preferences, rate-limit, and dispatch to Twilio/SendGrid."
+    }
+  },
+  {
+    "id": "system-design-document-collab",
+    "category": "System Design",
+    "question": "Design a document collaboration tool (Google Docs style concurrency)",
+    "frequency": 1,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Operational Transformation (OT) or CRDTs to resolve conflicting edits in real-time over WebSockets.",
+      "explain": "When multiple people type simultaneously, absolute index tracking fails. OT (Operational Transformation) intercepts keystrokes, calculates the intent (e.g., 'insert letter X at position 5'), mathematically transforms operations based on what other users typed in the last millisecond, and broadcasts the corrected operation to all clients.",
+      "example": "\"The architecture relies on WebSockets. Client A and Client B both edit paragraph 1. The central Collaboration Server receives both events. Using OT algorithms, the server decides the authoritative sequence, transforms Client B's operation to shift right by 1 character, and pushes the final resolved state to all connected browsers so they stay in perfect sync.\"",
+      "summary10s": "Real-time sync via WebSockets. Use Operational Transformation (OT) algorithms to mathematically resolve typing conflicts."
     }
   }
 ];
