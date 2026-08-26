@@ -20,7 +20,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-equals-hashcode",
     "category": "Java",
     "question": "Why do we need to override equals() and hashCode() together?",
-    "frequency": 11,
+    "frequency": 12,
     "companies": [
       "Amazon",
       "Walmart",
@@ -37,6 +37,29 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "In simple terms, equal objects MUST have equal hashCodes. If you only override equals(), two equal objects might get different hashCodes and land in different buckets. If you only override hashCode(), they land in the same bucket but equals() will say they are different objects.",
       "example": "\"hashCode() decides which bucket an object goes into, and equals() confirms if it's truly the same object within that bucket. If I only override equals(), a HashSet would treat equal objects as distinct, and HashMap.get() would fail to find an existing key. That's why we always override both together.\"",
       "summary10s": "Override only one → broken lookups or duplicates. Always override both together."
+    }
+  },
+  {
+    "id": "map-vs-flatmap",
+    "category": "Java",
+    "question": "map() vs flatMap()?",
+    "frequency": 11,
+    "companies": [
+      "Deloitte",
+      "EPAM"
+    ],
+    "variations": [
+      "map() vs flatMap()",
+      "map vs flatMap in Streams",
+      "Explain map() vs flatMap() with a real-world example.",
+      "map vs flatMap",
+      "Streams vs traditional loops — when is a traditional loop actually the better choice?"
+    ],
+    "answerSEE": {
+      "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
+      "explain": "map — each element becomes one new element, Stream of Stream remains nested\nflatMap — each element becomes a stream, all flattened into one single stream\nUse flatMap when each element produces a list or optional\nExample — list of orders each with list of items, flatMap gives all items in one stream",
+      "example": "\"map is one-to-one transformation. If each element maps to a List, map gives Stream of Lists which is hard to work with. flatMap flattens that — each element maps to a stream and all streams merge into one. I use flatMap when working with nested collections like getting all order items from a list of orders.\"",
+      "summary10s": "map=one-to-one, flatMap=one-to-many then flatten into single stream."
     }
   },
   {
@@ -58,29 +81,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "If you call a @Transactional method from another method inside the exact same class, it bypasses the Spring proxy completely. Also, by default, Spring only rolls back for RuntimeExceptions (unchecked), not for Checked exceptions.",
       "example": "\"The most common reason is self-invocation. If I call a @Transactional method from within the same class, no transaction is created. It also won't work if the method isn't public. Finally, checked exceptions silently commit unless I explicitly add rollbackFor = Exception.class.\"",
       "summary10s": "Self-invocation bypasses the proxy. Checked exceptions don't auto-rollback by default."
-    }
-  },
-  {
-    "id": "map-vs-flatmap",
-    "category": "Java",
-    "question": "map() vs flatMap()?",
-    "frequency": 9,
-    "companies": [
-      "Deloitte",
-      "EPAM"
-    ],
-    "variations": [
-      "map() vs flatMap()",
-      "map vs flatMap in Streams",
-      "Explain map() vs flatMap() with a real-world example.",
-      "map vs flatMap",
-      "Streams vs traditional loops — when is a traditional loop actually the better choice?"
-    ],
-    "answerSEE": {
-      "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
-      "explain": "map — each element becomes one new element, Stream of Stream remains nested\nflatMap — each element becomes a stream, all flattened into one single stream\nUse flatMap when each element produces a list or optional\nExample — list of orders each with list of items, flatMap gives all items in one stream",
-      "example": "\"map is one-to-one transformation. If each element maps to a List, map gives Stream of Lists which is hard to work with. flatMap flattens that — each element maps to a stream and all streams merge into one. I use flatMap when working with nested collections like getting all order items from a list of orders.\"",
-      "summary10s": "map=one-to-one, flatMap=one-to-many then flatten into single stream."
     }
   },
   {
@@ -426,6 +426,63 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "circuit-breaker",
+    "category": "Microservices",
+    "question": "Circuit Breaker",
+    "frequency": 5,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Explain Circuit Breaker, Retry and Timeout patterns.",
+      "How do you prevent cascading failures in microservices?",
+      "How would you technically implement the Circuit Breaker pattern?"
+    ],
+    "answerSEE": {
+      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
+      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
+      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
+      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
+    }
+  },
+  {
+    "id": "java-final-finally-finalize",
+    "category": "Java",
+    "question": "Difference between final, finally, and finalize",
+    "frequency": 5,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [
+      "What is the difference between final, finally, and finalize?",
+      "Try-with-resources"
+    ],
+    "answerSEE": {
+      "simple": "final is a keyword to restrict modification; finally is a block in exception handling; finalize is a method for garbage collection cleanup.",
+      "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
+      "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
+      "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
+    }
+  },
+  {
+    "id": "what-is-spring-security",
+    "category": "Spring Boot",
+    "question": "What is Spring Security?",
+    "frequency": 5,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "Spring Security Fundamentals"
+    ],
+    "answerSEE": {
+      "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
+      "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
+      "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
+      "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
+    }
+  },
+  {
     "id": "java-hashmap-mutability",
     "category": "Java",
     "question": "What happens if you modify a key after inserting it into a HashMap?",
@@ -633,26 +690,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "If interfaces A and B both provide a default method doWork(), Java prevents the Diamond Problem by forcing the implementing class to override doWork(). Inside the overridden method, you can provide your own logic or explicitly call one of the interface methods using A.super.doWork().",
       "example": "\"If both Flyable and Swimmable have a default move() method, my Duck class won't compile until I override move(). Inside my move() method, I can decide to call Flyable.super.move() or write entirely new logic.\"",
       "summary10s": "Compiler error. You must override the method and optionally call SuperInterface.super.methodName()."
-    }
-  },
-  {
-    "id": "circuit-breaker",
-    "category": "Microservices",
-    "question": "Circuit Breaker",
-    "frequency": 4,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "Explain Circuit Breaker, Retry and Timeout patterns.",
-      "How do you prevent cascading failures in microservices?",
-      "How would you technically implement the Circuit Breaker pattern?"
-    ],
-    "answerSEE": {
-      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
-      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
-      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
-      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
     }
   },
   {
@@ -1171,25 +1208,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-final-finally-finalize",
-    "category": "Java",
-    "question": "Difference between final, finally, and finalize",
-    "frequency": 3,
-    "companies": [
-      "Zensar Technologies"
-    ],
-    "variations": [
-      "What is the difference between final, finally, and finalize?",
-      "Try-with-resources"
-    ],
-    "answerSEE": {
-      "simple": "final is a keyword to restrict modification; finally is a block in exception handling; finalize is a method for garbage collection cleanup.",
-      "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
-      "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
-      "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
-    }
-  },
-  {
     "id": "what-happens-inside-the-jvm-when-a-method-executes-with-primitives-and-objects",
     "category": "Java",
     "question": "What happens inside the JVM when a method executes with primitives and objects?",
@@ -1206,24 +1224,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When `public void test()` executes, a stack frame is created. The primitive `int x = 10` is stored in the Stack. `Employee e` (the reference) is also in the Stack, but the actual `new Employee()` object is created in the Heap.",
       "example": "In that method, the primitive `x` and the reference variable `e` are both stored in the thread's Stack memory inside the method's frame. The actual `Employee` object instance is allocated in the Heap. Once the method finishes execution, the stack frame is popped off, destroying `x` and `e`. Since there are no more references pointing to the `Employee` object in the Heap, it becomes eligible for Garbage Collection.",
       "summary10s": "Primitives & references on Stack. Objects on Heap. Object is GCed when method ends."
-    }
-  },
-  {
-    "id": "what-is-spring-security",
-    "category": "Spring Boot",
-    "question": "What is Spring Security?",
-    "frequency": 3,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [
-      "Spring Security Fundamentals"
-    ],
-    "answerSEE": {
-      "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
-      "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
-      "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
-      "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
     }
   },
   {
@@ -1276,6 +1276,276 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Each MFE can be built, deployed, and versioned independently\nComposed together at runtime (or build time) into one cohesive application\nCommon implementation: Webpack Module Federation",
       "example": "\"Micro Frontends apply the microservices idea to the frontend — instead of one large monolithic Angular app, we split it into smaller, independently deployable applications, often owned by different teams, and compose them together into a single user experience. I've worked with this using Webpack Module Federation, where a shell application loads remote modules at runtime.\"",
       "summary10s": "Split a large frontend into independently deployable pieces — composed via Module Federation."
+    }
+  },
+  {
+    "id": "why-override-equals-and-hashcode",
+    "category": "Java",
+    "question": "Why Override equals() and hashCode()?",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "Why Override equals() and hashCode() Together?"
+    ],
+    "answerSEE": {
+      "simple": "Without overriding, two objects with same data are treated as different objects — breaks collections.",
+      "explain": "Default equals() uses == — compares memory address not content\nDefault hashCode() returns memory-based number — two equal objects get different hash\nHashMap and HashSet use both to store and find objects\nIf equals() says two objects are equal, hashCode() must return same value — this is the contract",
+      "example": "\"Default equals checks reference — two User objects with same id are not equal by default. If I put one in a HashMap and search with another User having same id, it will not find it. Overriding equals to compare id field fixes the logic. But HashMap first uses hashCode to find the bucket — if hashCode is different, it does not even call equals. That is why both must be overridden together.\"",
+      "summary10s": "Default equals=reference, override for content equality, hashCode must match for equal objects or collections break."
+    }
+  },
+  {
+    "id": "authentication-vs-authorization",
+    "category": "Spring Boot",
+    "question": "Authentication vs Authorization?",
+    "frequency": 3,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Authentication is verifying WHO you are (login). Authorization is verifying WHAT you are allowed to do (roles/permissions).",
+      "explain": "Authentication comes first—checking credentials against a database to prove identity. Authorization happens next—checking if that authenticated identity has the rights to view a specific page or execute an action.",
+      "example": "When a user enters their username and password, that's Authentication. If they pass, they get a JWT token. When they try to access the `/delete-user` endpoint and the system checks if they have the 'ADMIN' role, that's Authorization.",
+      "summary10s": "Authentication = Who are you? (Credentials). Authorization = What can you do? (Roles)."
+    }
+  },
+  {
+    "id": "java-singleton-class",
+    "category": "Java Coding",
+    "question": "Write a Singleton class.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Singleton ensures only one instance exists by making the constructor private and providing a static method to get the instance.",
+      "explain": "The best thread-safe ways to create a Singleton are using an Enum (safest against serialization/reflection) or the Double-Checked Locking pattern with a volatile instance variable to ensure thread safety without synchronization overhead on every call.",
+      "example": "\"I prefer using an Enum for Singletons because Java guarantees it's instantiated only once and protects against reflection. If I must use a class, I use double-checked locking: a private constructor, a volatile static instance, and a getInstance() method that synchronizes only if the instance is null.\"",
+      "summary10s": "Private constructor + static getInstance(). Best implemented via Enum or Double-Checked Locking."
+    }
+  },
+  {
+    "id": "java-multi-catch",
+    "category": "Java",
+    "question": "What is a multi-catch statement?",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A multi-catch block allows you to catch multiple distinct exceptions in a single catch clause using the pipe (|) operator.",
+      "explain": "Introduced in Java 7, it reduces code duplication when multiple exceptions require the exact same handling logic. The caught exception variable is implicitly final, so it cannot be reassigned within the catch block.",
+      "example": "\"Instead of writing separate catch blocks for SQLException and IOException that do the exact same logging, I write `catch (SQLException | IOException e)`. It keeps the code clean and avoids duplicate error-handling logic.\"",
+      "summary10s": "Use `catch (A | B e)` to handle multiple exceptions without duplicating code."
+    }
+  },
+  {
+    "id": "java-design-patterns",
+    "category": "Java",
+    "question": "Different Design Patterns in Java.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Patterns are divided into Creational (object creation), Structural (class composition), and Behavioral (object communication).",
+      "explain": "Creational: Singleton (one instance), Builder (complex object creation), Factory (loose coupling). Structural: Adapter (wrapper for compatibility), Decorator (add behavior dynamically). Behavioral: Strategy (interchangeable algorithms), Observer (pub/sub).",
+      "example": "\"In Spring Boot, patterns are everywhere. Dependency Injection uses the Factory pattern. RestTemplate uses the Builder pattern. I frequently use the Strategy pattern to switch between different payment gateways dynamically at runtime without changing the core service logic.\"",
+      "summary10s": "Creational (Singleton, Builder), Structural (Adapter, Decorator), Behavioral (Strategy, Observer)."
+    }
+  },
+  {
+    "id": "java-concurrenthashmap-internals",
+    "category": "Java",
+    "question": "ConcurrentHashMap internals.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It achieves thread safety without locking the entire map by locking only the specific bucket being updated.",
+      "explain": "Before Java 8, it used Segment-based locking. In Java 8+, it uses CAS (Compare-And-Swap) for empty buckets and a synchronized block on the first node (the head) of the bucket for updates. Reads are completely lock-free.",
+      "example": "\"ConcurrentHashMap scales incredibly well because it uses bucket-level locking. If Thread A writes to bucket 1 and Thread B writes to bucket 5, they execute simultaneously without blocking each other. And reads don't use locks at all, making them extremely fast.\"",
+      "summary10s": "Thread-safe via bucket-level locking (synchronized on node head) and CAS. Reads are lock-free."
+    }
+  },
+  {
+    "id": "coding-find-duplicate-strings",
+    "category": "Java Coding",
+    "question": "Find duplicate strings in a list.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a HashSet to track seen strings, or use Java Streams groupingBy to find elements with a count > 1.",
+      "explain": "The easiest O(N) way is iterating and calling set.add(item) — if it returns false, it's a duplicate. Using Streams, you can group by the string and count, then filter the map where values are greater than 1.",
+      "example": "\"I would use a Set. As I iterate through the list, I call `set.add(string)`. Since `add` returns false if the element already exists, I can instantly collect those into a duplicate list. It's clean and runs in O(N) time.\"",
+      "summary10s": "Use `set.add()` to find duplicates in O(N) time, or Streams `Collectors.groupingBy`."
+    }
+  },
+  {
+    "id": "coding-combination-sum-2",
+    "category": "Java Coding",
+    "question": "Combination Sum II.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use backtracking to explore combinations, sorting the array first to easily skip duplicate elements.",
+      "explain": "The problem asks for unique combinations that sum to a target, using each number once. Sort the array first. During the recursive backtrack, if the current element is the same as the previous one in the loop, skip it to prevent duplicate subsets.",
+      "example": "\"I solve this with Backtracking. First, I sort the array to group duplicates. In the recursive function, I loop through the candidates. If `i > start` and `arr[i] == arr[i-1]`, I `continue` to skip duplicates. I subtract the current number from the target and recurse until target is 0.\"",
+      "summary10s": "Backtracking. Sort first. Skip duplicates using `if (i > start && arr[i] == arr[i-1]) continue;`."
+    }
+  },
+  {
+    "id": "coding-move-zeroes",
+    "category": "Java Coding",
+    "question": "Move all zeroes to the end of an array.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a two-pointer approach: one pointer iterates through the array, the other keeps track of the next non-zero position.",
+      "explain": "Maintain an insert index starting at 0. As you iterate through the array, whenever you find a non-zero element, swap it with the element at the insert index, and increment the insert index.",
+      "example": "\"I use a single pointer called `insertPos` starting at 0. I loop through the array, and every time I see a non-zero number, I put it at `arr[insertPos]` and increment `insertPos`. After the loop, I just fill the rest of the array from `insertPos` to the end with zeroes.\"",
+      "summary10s": "Track non-zero insert position. Move all non-zeroes to front, fill remainder with zeroes."
+    }
+  },
+  {
+    "id": "coding-longest-increasing-subsequence",
+    "category": "Java Coding",
+    "question": "Longest Increasing Subsequence.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Dynamic Programming to track the longest sequence ending at each element, or binary search with a patience sorting approach for O(N log N).",
+      "explain": "The DP approach uses an array where dp[i] is the LIS ending at index i. For each element, look back at smaller elements and update dp[i] = max(dp[i], dp[j] + 1).",
+      "example": "\"The O(N^2) DP solution is easiest to explain: maintain a DP array initialized to 1. For each number, compare it with all previous numbers. If it's larger, update its DP value to be `max(current DP, previous DP + 1)`. The result is the maximum value in the DP array.\"",
+      "summary10s": "DP array initialized to 1. dp[i] = max(dp[i], dp[j] + 1) for all j < i where arr[j] < arr[i]."
+    }
+  },
+  {
+    "id": "coding-dijkstras-algorithm",
+    "category": "Java Coding",
+    "question": "Dijkstra’s Algorithm.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It finds the shortest path from a source node to all other nodes in a weighted graph using a Priority Queue.",
+      "explain": "It uses a Priority Queue (Min-Heap) to always explore the closest unvisited node first. You maintain a distances array initialized to infinity. When you pop a node, you relax its neighbors: if `current_dist + edge_weight < known_dist`, you update it and push to the queue.",
+      "example": "\"I implement Dijkstra's using a PriorityQueue of nodes sorted by distance. I start by pushing the source node with distance 0. While the queue isn't empty, I pop the closest node and check its neighbors. If I find a shorter path to a neighbor, I update its distance and push it into the queue.\"",
+      "summary10s": "Use PriorityQueue (Min-Heap) to always visit the closest node. Update neighbor distances (relaxation)."
+    }
+  },
+  {
+    "id": "coding-coin-change",
+    "category": "Java Coding",
+    "question": "Coin Change Problem — minimum coins.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Dynamic Programming to build up the minimum coins needed for every amount from 0 to the target.",
+      "explain": "Create a DP array of size `amount + 1`, initialized to infinity. `dp[0] = 0`. For each coin, iterate through all amounts from the coin's value up to the target, updating `dp[i] = Math.min(dp[i], dp[i - coin] + 1)`.",
+      "example": "\"This is classic DP. I create an array `dp` where `dp[i]` is the min coins for amount `i`. I fill it with infinity, except `dp[0] = 0`. Then for each amount from 1 to target, I try every coin. If `coin <= amount`, `dp[amount] = min(dp[amount], dp[amount - coin] + 1)`.\"",
+      "summary10s": "DP array for amounts. `dp[i] = Math.min(dp[i], dp[i - coin] + 1)`. O(Amount * Coins) time."
+    }
+  },
+  {
+    "id": "coding-reverse-add-palindrome",
+    "category": "Java Coding",
+    "question": "Reverse-Add Palindrome problem.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Take a number, reverse its digits, and add it to the original. Repeat until the result is a palindrome.",
+      "explain": "This is a simulation problem. You write a helper function to reverse a number, and another to check if a number is a palindrome. You loop `num = num + reverse(num)` until `isPalindrome(num)` returns true.",
+      "example": "\"I approach this by writing a simple loop. Inside the loop, I calculate the reverse of the current number and add it. Then I check if the sum is a palindrome. If it is, I return the sum. I also add a safety counter to prevent infinite loops for Lychrel numbers.\"",
+      "summary10s": "Loop: `num += reverse(num)` until `num == reverse(num)`. Add safety counter to avoid infinite loops."
+    }
+  },
+  {
+    "id": "spring-why-use-spring",
+    "category": "Spring Boot",
+    "question": "Why do we use Spring?",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring handles infrastructure plumbing (like dependency injection, transactions, and security) so developers can focus purely on business logic.",
+      "explain": "Without Spring, Java enterprise apps required massive amounts of boilerplate code (EJBs, manual DB connections). Spring introduced Inversion of Control (IoC) and Aspect-Oriented Programming (AOP), making applications loosely coupled, highly testable, and modular.",
+      "example": "\"I use Spring because it abstracts away the complex infrastructure. Instead of writing 20 lines of JDBC code to open connections, handle errors, and commit transactions, I just write my business logic and slap a `@Transactional` annotation on the method. Spring handles the rest via proxies.\"",
+      "summary10s": "Inversion of Control (DI), AOP for transactions/security, and massive boilerplate reduction."
+    }
+  },
+  {
+    "id": "spring-restful-api",
+    "category": "Spring Boot",
+    "question": "What is a RESTful API?",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It's an architectural style for APIs that uses standard HTTP methods, URIs to represent resources, and transfers data (usually in JSON) without keeping server state.",
+      "explain": "REST stands for Representational State Transfer. Key constraints include being stateless (each request contains all needed info), using standard HTTP methods (GET, POST, PUT, DELETE), and using noun-based URLs representing entities.",
+      "example": "\"A RESTful API maps CRUD operations to HTTP methods. For example, to manage users, I design the API around the resource URL `/users`. A GET request fetches them, a POST creates one, and a DELETE to `/users/123` removes the specific user. Importantly, no client session state is stored on the server.\"",
+      "summary10s": "Stateless, uses standard HTTP methods (GET, POST), noun-based resource URIs, usually returns JSON."
+    }
+  },
+  {
+    "id": "sysdesign-data-warehouse",
+    "category": "System Design",
+    "question": "Design a data warehouse for an online retailer.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It involves extracting data from operational databases, transforming it, and loading it into a columnar analytics database.",
+      "explain": "You need an ETL (Extract, Transform, Load) pipeline. Data from the main PostgreSQL/MySQL DBs and logs are ingested (batch via Airflow or streaming via Kafka). The data is stored in a Data Warehouse like Snowflake or AWS Redshift using a Star Schema (Fact and Dimension tables) optimized for read-heavy analytics.",
+      "example": "\"I would use a batch ETL pipeline managed by Airflow. Every night, it extracts transaction data from our microservices' databases, transforms it into a Star Schema, and loads it into Snowflake. This separates heavy analytical queries from our live production databases so performance isn't impacted.\"",
+      "summary10s": "ETL pipeline (Airflow). Load into Columnar DB (Snowflake/Redshift). Star Schema (Facts/Dimensions)."
+    }
+  },
+  {
+    "id": "sysdesign-news-aggregator",
+    "category": "System Design",
+    "question": "Design a news aggregator.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It requires scheduled workers to scrape RSS feeds, a database to store articles, and a read-heavy API serving content to users.",
+      "explain": "Background workers (cron jobs or message queues) periodically fetch and parse XML/JSON from news sources. Articles are deduplicated and stored in a NoSQL database (like MongoDB) or Elasticsearch for fast text searching. A caching layer (Redis) is critical because the same breaking news is read by millions.",
+      "example": "\"I'd design background crawler services that poll RSS feeds every 10 minutes. They parse the articles and push them to a Kafka queue. An ingest service deduplicates them and stores them in Elasticsearch for fast search. Since reads are 100x writes, I would heavily cache the top news feeds in Redis.\"",
+      "summary10s": "Background RSS Crawlers -> Kafka -> Deduplication -> Elasticsearch (Search) & Redis (Heavy Read Cache)."
     }
   },
   {
@@ -1723,20 +1993,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "authentication-vs-authorization",
-    "category": "Spring Boot",
-    "question": "Authentication vs Authorization?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Authentication is verifying WHO you are (login). Authorization is verifying WHAT you are allowed to do (roles/permissions).",
-      "explain": "Authentication comes first—checking credentials against a database to prove identity. Authorization happens next—checking if that authenticated identity has the rights to view a specific page or execute an action.",
-      "example": "When a user enters their username and password, that's Authentication. If they pass, they get a JWT token. When they try to access the `/delete-user` endpoint and the system checks if they have the 'ADMIN' role, that's Authorization.",
-      "summary10s": "Authentication = Who are you? (Credentials). Authorization = What can you do? (Roles)."
-    }
-  },
-  {
     "id": "how-does-jwt-authentication-work",
     "category": "Spring Boot",
     "question": "How does JWT authentication work?",
@@ -1968,22 +2224,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Add proper indexes on frequently filtered/joined columns\nUse EXPLAIN ANALYZE to check query execution plan\nAvoid SELECT *, fetch only needed columns; use pagination for large data\nFix N+1 issues and use proper fetch strategies",
       "example": "\"To optimize slow queries, I first check the execution plan using EXPLAIN ANALYZE to see if indexes are being used properly. Then I add indexes on columns used in WHERE or JOIN clauses. I also avoid fetching unnecessary columns, use pagination for large result sets, and make sure I'm not hitting N+1 issues from lazy loading.\"",
       "summary10s": "Index + EXPLAIN ANALYZE + avoid SELECT * + pagination."
-    }
-  },
-  {
-    "id": "why-override-equals-and-hashcode",
-    "category": "Java",
-    "question": "Why Override equals() and hashCode()?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Why Override equals() and hashCode() Together?"
-    ],
-    "answerSEE": {
-      "simple": "Without overriding, two objects with same data are treated as different objects — breaks collections.",
-      "explain": "Default equals() uses == — compares memory address not content\nDefault hashCode() returns memory-based number — two equal objects get different hash\nHashMap and HashSet use both to store and find objects\nIf equals() says two objects are equal, hashCode() must return same value — this is the contract",
-      "example": "\"Default equals checks reference — two User objects with same id are not equal by default. If I put one in a HashMap and search with another User having same id, it will not find it. Overriding equals to compare id field fixes the logic. But HashMap first uses hashCode to find the bucket — if hashCode is different, it does not even call equals. That is why both must be overridden together.\"",
-      "summary10s": "Default equals=reference, override for content equality, hashCode must match for equal objects or collections break."
     }
   },
   {
@@ -2647,6 +2887,316 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Attribute directive example: highlight-on-hover, auto-focus, restrict input to numbers only\nUses @Directive decorator with a selector, injects ElementRef/Renderer2 to manipulate the DOM\nEncapsulates reusable behavior across multiple components without duplicating code",
       "example": "\"Yes, I've created custom attribute directives — one example was a numeric-only input directive that restricted a text field to accept only digits, which I reused across multiple forms instead of duplicating the validation logic. I used the @Directive decorator with a selector, and injected ElementRef and Renderer2 to safely manipulate the DOM element's behavior.\"",
       "summary10s": "Custom @Directive using ElementRef/Renderer2 for reusable DOM behavior."
+    }
+  },
+  {
+    "id": "singleton-reflection-break",
+    "category": "Java Coding",
+    "question": "Can reflection break a Singleton? How would you prevent it?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Can a private Singleton constructor still be invoked using reflection?"
+    ],
+    "answerSEE": {
+      "simple": "Yes, using Constructor.setAccessible(true), reflection can bypass the private constructor to create a second instance.",
+      "explain": "To prevent this in a standard class, you must check inside the private constructor if the static instance variable is already initialized, and if so, throw a RuntimeException. Alternatively, using an Enum Singleton completely prevents reflection instantiation at the JVM level.",
+      "example": "\"An attacker can get the private constructor via reflection, make it accessible, and call newInstance(). To stop this, I add logic to my private constructor: `if (instance != null) throw new IllegalStateException(\\\"Already initialized\\\");`. But in practice, I just use an Enum Singleton since the JVM inherently blocks reflection on Enums.\"",
+      "summary10s": "Reflection can bypass private constructors. Prevent by throwing exception if instance exists, or just use an Enum."
+    }
+  },
+  {
+    "id": "singleton-serialization-break",
+    "category": "Java Coding",
+    "question": "Can serialization and deserialization create a second Singleton instance?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, when you deserialize an object, the JVM creates a brand new instance, ignoring the private constructor.",
+      "explain": "If your Singleton implements Serializable, saving and reloading it results in a duplicate instance. To fix this, you must implement the `readResolve()` method to return the existing static instance, which tells the JVM to discard the newly deserialized object.",
+      "example": "\"If I serialize my Singleton to a file and read it back, I get a second instance. I prevent this by adding `protected Object readResolve() { return instance; }` to the class. The JVM calls this immediately after deserialization, guaranteeing only the original instance is used.\"",
+      "summary10s": "Deserialization ignores constructors. Override `readResolve()` to return the existing instance."
+    }
+  },
+  {
+    "id": "singleton-cloning-break",
+    "category": "Java Coding",
+    "question": "Can cloning break a Singleton?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, if the Singleton class implements Cloneable, calling the clone() method creates a copy.",
+      "explain": "The `clone()` method creates a shallow copy of the object without calling the constructor. To protect the Singleton, you should explicitly override the `clone()` method and throw a `CloneNotSupportedException`, or simply return the existing instance.",
+      "example": "\"If a junior developer makes the Singleton implement Cloneable, anyone can duplicate it. I prevent this by overriding `clone()`: `@Override protected Object clone() throws CloneNotSupportedException { throw new CloneNotSupportedException(); }`.\"",
+      "summary10s": "If Cloneable is implemented, `clone()` duplicates it. Override `clone()` and throw CloneNotSupportedException."
+    }
+  },
+  {
+    "id": "singleton-volatile-double-checked",
+    "category": "Java Coding",
+    "question": "Why is volatile required in double-checked locking?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What can go wrong if volatile is removed from a double-checked Singleton?",
+      "How does the Java Memory Model affect double-checked locking?"
+    ],
+    "answerSEE": {
+      "simple": "It prevents instruction reordering, ensuring that the object is fully initialized before the reference is made visible to other threads.",
+      "explain": "Without volatile, the JVM is allowed to allocate memory and assign the reference to the `instance` variable *before* the constructor finishes executing. Another thread might see a non-null reference and try to use a partially constructed object, leading to random crashes.",
+      "example": "\"Before Java 5, double-checked locking was fundamentally broken because the compiler could reorder the object creation instructions. By marking the instance `volatile`, I enforce a 'happens-before' guarantee, meaning the constructor strictly finishes before the memory reference is published.\"",
+      "summary10s": "Volatile prevents instruction reordering so threads never see a partially constructed object."
+    }
+  },
+  {
+    "id": "singleton-synchronized-slow",
+    "category": "Java Coding",
+    "question": "Why is synchronizing the entire getInstance() method potentially slower?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It forces every single thread to wait in line to get the instance, even after the instance has already been created.",
+      "explain": "Synchronization is only necessary during the first initialization. If you put `synchronized` on the method signature, it causes massive thread contention on every subsequent read, creating a bottleneck in highly concurrent applications.",
+      "example": "\"If I synchronize the whole method, a web server handling 1000 requests per second will force all 1000 threads to queue up just to read a static variable. By using double-checked locking instead, synchronization only happens once when the instance is null, making subsequent reads lock-free and fast.\"",
+      "summary10s": "Locks the method on every read. Causes huge thread contention. Use double-checked locking instead."
+    }
+  },
+  {
+    "id": "singleton-holder-pattern",
+    "category": "Java Coding",
+    "question": "Why is the Initialization-on-Demand Holder pattern thread-safe?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It relies on the JVM's class loader mechanism, which guarantees that a class is initialized thread-safely exactly once.",
+      "explain": "You create a private static inner class (the Holder) that contains the Singleton instance. The inner class isn't loaded until `getInstance()` is called for the first time. The JVM handles the synchronization during class loading, completely eliminating the need for `synchronized` or `volatile` keywords.",
+      "example": "\"I love the Holder pattern because it's completely lock-free. I put the static instance inside a static inner class. Since the JVM guarantees that class initialization is strictly thread-safe, I get lazy initialization and thread safety for free without writing any complex locking logic.\"",
+      "summary10s": "Relies on the JVM's thread-safe class loading. Lazy initialization without the overhead of locks."
+    }
+  },
+  {
+    "id": "singleton-enum-safest",
+    "category": "Java Coding",
+    "question": "Why is an enum Singleton considered one of the safest implementations?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What is the difference between a static Singleton, Holder Singleton, and enum Singleton?",
+      "How would you design a Singleton that must survive reflection, serialization, and cloning attacks?"
+    ],
+    "answerSEE": {
+      "simple": "The JVM inherently guarantees that an enum is instantiated exactly once, automatically blocking reflection and serialization attacks.",
+      "explain": "Enum singletons don't need private constructors, `readResolve()`, or `volatile`. The Java specification strictly forbids creating enums via reflection (`Constructor.newInstance` throws an error). Serialization of enums is also strictly controlled by the JVM to return the exact same instance.",
+      "example": "\"If the interviewer asks for a bulletproof Singleton, I write a one-liner: `public enum Singleton { INSTANCE; }`. It is perfectly thread-safe, completely immune to serialization duplication, and if someone tries to hack it with reflection, the JVM blocks them automatically.\"",
+      "summary10s": "Enum handles thread-safety, serialization, and reflection-prevention at the JVM level automatically."
+    }
+  },
+  {
+    "id": "singleton-classloaders",
+    "category": "Java Coding",
+    "question": "Can different ClassLoaders create multiple instances of the same Singleton?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, because the JVM uniquely identifies a class by its fully qualified name AND the ClassLoader that loaded it.",
+      "explain": "If two different ClassLoaders (which is common in Java EE web/app servers like Tomcat or WebSphere) load the same Singleton class, they will each initialize their own static variables, resulting in multiple instances within the same JVM.",
+      "example": "\"This is a notorious bug in older monolithic app servers. If my Singleton is bundled in a shared library and loaded by two different web application ClassLoaders, I end up with two separate Singleton instances. To avoid this, the Singleton class must be placed in a common parent ClassLoader.\"",
+      "summary10s": "Yes. A class is identified by (ClassName + ClassLoader). Different loaders = different static instances."
+    }
+  },
+  {
+    "id": "singleton-multiple-jvms",
+    "category": "Java Coding",
+    "question": "Can a Singleton guarantee only one instance across multiple JVMs?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "No. A Singleton only guarantees one instance per JVM ClassLoader.",
+      "explain": "In a modern microservices architecture running on Kubernetes, if you scale your application to 5 pods, you have 5 distinct JVMs running, which means you have 5 instances of your Singleton. To share state across JVMs, you need a distributed cache like Redis.",
+      "example": "\"A local Singleton won't work for rate-limiting in a cloud environment. If I have 3 instances of my service running, they each have their own Singleton in memory. To ensure true 'singleton' behavior across a cluster, I would use a distributed lock or Redis instead of a Java Singleton.\"",
+      "summary10s": "No. One JVM = One Singleton. Distributed systems require distributed locks/cache (like Redis)."
+    }
+  },
+  {
+    "id": "singleton-thread-safe-state",
+    "category": "Java Coding",
+    "question": "Is a Singleton automatically thread-safe just because only one instance exists?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How can mutable state inside a Singleton create concurrency problems?"
+    ],
+    "answerSEE": {
+      "simple": "No. The creation of the instance might be thread-safe, but the methods and fields inside the Singleton are not.",
+      "explain": "If your Singleton has mutable state (like a standard `HashMap` or an integer counter), multiple threads calling the Singleton's methods simultaneously can cause race conditions and data corruption unless you explicitly synchronize those methods or use concurrent collections.",
+      "example": "\"This is a common trap. I might use a perfect Enum Singleton, but if I put a standard `int count` inside it, two threads incrementing it simultaneously will cause a race condition. I must use an `AtomicInteger` or a `ConcurrentHashMap` to make the state inside the Singleton thread-safe.\"",
+      "summary10s": "Creation is safe, but internal state is not. Mutable variables inside must use synchronization or Atomic classes."
+    }
+  },
+  {
+    "id": "singleton-unit-testing",
+    "category": "Java Coding",
+    "question": "Why can Singleton make unit testing difficult?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Singletons introduce global state that persists across different tests, causing test pollution.",
+      "explain": "Because the instance is static, if Test A modifies the Singleton's state, Test B inherits that modified state and might fail unpredictably. Furthermore, hardcoded `Singleton.getInstance()` calls cannot be easily mocked with tools like Mockito, coupling classes tightly together.",
+      "example": "\"Singletons are an anti-pattern for testing. If my service calls `DatabaseConfig.getInstance()`, I can't easily swap it out for a mock database config during tests. That's why I prefer letting Spring (IoC container) manage singletons, so I can simply inject a mock via the constructor in my test file.\"",
+      "summary10s": "Causes test pollution via shared global state, and tightly couples code, making mocking difficult."
+    }
+  },
+  {
+    "id": "singleton-redeployment",
+    "category": "Java Coding",
+    "question": "What happens to a Singleton when an application is redeployed?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The old ClassLoader is discarded and the Singleton is garbage collected. A new instance is created upon the next access.",
+      "explain": "During a hot redeployment (like in Tomcat), the old web application context is destroyed along with its ClassLoader. Since static variables are tied to the ClassLoader, the old Singleton dies. The new deployment loads the class fresh, creating a completely new Singleton.",
+      "example": "\"If I redeploy my application, any in-memory state held by my Singleton is permanently lost because the JVM throws away the old ClassLoader. This is another reason why Singletons shouldn't hold critical, persistent business state without backing it up to a database.\"",
+      "summary10s": "The ClassLoader is destroyed. The Singleton is garbage collected and a new one is created on next access."
+    }
+  },
+  {
+    "id": "singleton-initialization-exception",
+    "category": "Java Coding",
+    "question": "What happens if Singleton initialization throws an exception?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If an eager or Holder Singleton throws an exception during static initialization, the class becomes permanently unusable.",
+      "explain": "When static blocks or static variables throw a `RuntimeException`, the JVM throws an `ExceptionInInitializerError`. Any subsequent attempt to use the class in that JVM lifecycle will result in a `NoClassDefFoundError`, completely bricking the Singleton.",
+      "example": "\"If my eager Singleton tries to read a missing config file and throws a RuntimeException, the class fails to initialize. The JVM marks the class as erroneous. If I try to call `getInstance()` again later, the JVM won't even retry the initialization; it just immediately throws a NoClassDefFoundError.\"",
+      "summary10s": "Static init failures throw ExceptionInInitializerError. The class is permanently broken (NoClassDefFoundError)."
+    }
+  },
+  {
+    "id": "singleton-db-connection-pool",
+    "category": "Java Coding",
+    "question": "Would you use Singleton for a database connection pool in a microservices application? Why or why not?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Conceptually yes, but I wouldn't write my own GoF Singleton. I would let a framework like Spring manage the pool as a Singleton bean.",
+      "explain": "A connection pool like HikariCP should absolutely have only one instance per JVM to efficiently manage connections. However, hardcoding the classic Singleton pattern makes it impossible to mock during testing or swap configurations for different environments.",
+      "example": "\"A connection pool must be a singleton so it can cap the max database connections. But I never write a private constructor for it. I instantiate HikariDataSource as a Spring `@Bean`. Spring's IoC container guarantees it acts as a singleton, while keeping my code loosely coupled and highly testable.\"",
+      "summary10s": "Conceptually yes, to manage resources. But implement it via Dependency Injection (Spring @Bean), not hardcoded GoF pattern."
+    }
+  },
+  {
+    "id": "what-is-autowired",
+    "category": "Spring Boot",
+    "question": "What is @Autowired?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Autowired tells Spring to automatically inject the matching bean into this field, constructor, or setter.",
+      "explain": "Spring scans IoC container for a bean matching the type\nInjects it without you calling new or writing any wiring code\nCan be used on constructor, setter, or field\nIf multiple beans of same type exist, use @Qualifier to specify which one\nConstructor injection without @Autowired works in Spring 4.3 plus with single constructor",
+      "example": "\"@Autowired delegates object creation to Spring. Instead of writing new UserService() I just declare UserService userService and annotate with @Autowired. Spring finds the bean of that type in its container and injects it. If two beans of same type exist Spring gets confused — I use @Qualifier with the bean name to tell Spring exactly which one to inject.\"",
+      "summary10s": "@Autowired=Spring finds and injects matching bean automatically, @Qualifier for disambiguation."
+    }
+  },
+  {
+    "id": "retry-vs-circuit-breaker",
+    "category": "Microservices",
+    "question": "Retry vs Circuit Breaker",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Retry attempts the same call again after failure; Circuit Breaker stops calling a failing service entirely for a while.",
+      "explain": "Retry — good for transient, short-lived failures (network blip)\nCircuit Breaker — trips after repeated failures, blocks further calls temporarily, protects both caller and the struggling service\nOften used together: retry a few times, and if it keeps failing, the circuit breaker trips",
+      "example": "\"Retry is for transient failures — I retry the same call a few times, usually with backoff, hoping it was just a temporary blip. Circuit Breaker is different — after a certain number of consistent failures, it 'trips' and stops calling that service entirely for a cooldown period, protecting both the caller from wasting resources and the struggling service from more load. I typically combine both — retry a few times, and if it keeps failing, let the circuit breaker take over.\"",
+      "summary10s": "Retry = try again on transient failure, Circuit Breaker = stop calling after repeated failures."
+    }
+  },
+  {
+    "id": "java-throw-vs-throws",
+    "category": "Java",
+    "question": "What is the difference between throw and throws?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "throw is used to actually throw an exception object, while throws is used in a method signature to declare what it might throw.",
+      "explain": "\"throw\" is followed by an instance (e.g., `throw new Exception()`). \"throws\" is followed by a class name in the method signature (e.g., `void run() throws Exception`), warning the caller that they need to handle it.",
+      "example": "\"If the user input is invalid, I use `throw new IllegalArgumentException()`. Because it's a RuntimeException, I don't strictly need `throws`, but if it was checked, my method signature would have to be `public void process() throws IOException`.\"",
+      "summary10s": "throw = action (throw new Exception). throws = warning in method signature."
+    }
+  },
+  {
+    "id": "microservices-circuit-breaker-annotation-level",
+    "category": "Microservices",
+    "question": "At what level would you apply the Circuit Breaker annotation?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Apply it at the client level (the method making the external HTTP/Feign call).",
+      "explain": "You don't apply `@CircuitBreaker` on the controller that receives the request. You apply it on the Service or FeignClient method that *calls* the external microservice. This ensures that if the external service fails, the circuit opens exactly where the call is being made, immediately triggering the fallback method.",
+      "example": "\"I apply `@CircuitBreaker(name = \"inventoryService\", fallbackMethod = \"defaultInventory\")` directly on the `getInventory()` method inside my service class, which uses `RestTemplate` to call the Inventory Microservice.\"",
+      "summary10s": "Apply it on the method that executes the outbound external network call."
+    }
+  },
+  {
+    "id": "microservices-retry-vs-timeout",
+    "category": "Microservices",
+    "question": "How do Retry and Socket Timeout work? If both Retry and Circuit Breaker are implemented, which one executes first?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "If both Retry and Circuit Breaker are implemented, which one executes first?"
+    ],
+    "answerSEE": {
+      "simple": "Timeout aborts a hanging call. Retry attempts the call again. Retry executes BEFORE the Circuit Breaker opens.",
+      "explain": "A Socket Timeout kills the connection if the server doesn't respond in X seconds. A Retry will then try the call again. The Circuit Breaker wraps the Retry. If the call fails 3 times (due to Retry exhaustion), the Circuit Breaker records a failure. Once failures cross a threshold, the Circuit Breaker opens.",
+      "example": "\"If I have `@Retry` and `@CircuitBreaker` on a method, Resilience4j executes the Retry first. If my service is down, it retries 3 times. All 3 fail. The Circuit Breaker counts that as 1 failed execution. If the next few requests also fail, the Circuit Breaker opens, and subsequent requests bypass the Retry entirely and go straight to the fallback.\"",
+      "summary10s": "Timeout kills hanging calls. Retry tries again. Circuit Breaker wraps Retry and opens after consecutive failures."
+    }
+  },
+  {
+    "id": "encryption-vs-hashing",
+    "category": "Spring Boot",
+    "question": "Encryption vs Hashing",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Encryption is reversible with a key (two-way), Hashing is irreversible (one-way) — use encryption for data you need back, hashing for passwords you only need to verify.",
+      "explain": "Encryption — encrypt(data, key)=ciphertext, decrypt(ciphertext, key)=original data. Reversible\nHashing — hash(data)=digest, no way to get original data back. One-way\nHashing has no key — same input always produces same output (deterministic)\nEncryption has key — same input with different keys produces different output\nUse encryption for — credit card numbers, sensitive data you need to retrieve\nUse hashing for — passwords, you verify by re-hashing never by decrypting",
+      "example": "\"Encryption and decryption are inverse operations — what encryption locks, decryption unlocks using a key. Hashing has no reverse — given a hash you cannot get the original data. For passwords I want hashing because I never need to retrieve the original password, I only need to verify that what a user types matches what was stored. For data I need to retrieve later — like storing an encrypted credit card number — I use encryption. Encrypting passwords is wrong because if someone gets the encryption key they can decrypt all passwords.\"",
+      "summary10s": "Encryption=reversible with key (two-way), Hashing=irreversible one-way. Encrypt data you need back, hash passwords you only need to verify."
+    }
+  },
+  {
+    "id": "what-is-database-normalization",
+    "category": "SQL",
+    "question": "Normalization and its different types",
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "What is normalization and forms of normalization"
+    ],
+    "answerSEE": {
+      "simple": "Normalization organizes data to reduce redundancy and improve data integrity.",
+      "explain": "1NF: Ensure atomic (indivisible) values in columns.\n2NF: Must be in 1NF, and all non-key columns depend on the entire primary key (removes partial dependency).\n3NF: Must be in 2NF, and non-key columns must not depend on other non-key columns (removes transitive dependency).\nBCNF: A stricter version of 3NF where every determinant must be a candidate key.",
+      "example": "\"I use normalization to avoid data anomalies when updating or inserting records. For example, instead of storing Department Name and Location inside the Employee table (which repeats data), I extract it into a separate Department table and link it via a foreign key, achieving 3NF.\"",
+      "summary10s": "Reduces redundancy. 1NF=atomic, 2NF=no partial dependency, 3NF=no transitive dependency."
     }
   },
   {
@@ -4236,20 +4786,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "encryption-vs-hashing",
-    "category": "Spring Boot",
-    "question": "Encryption vs Hashing",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Encryption is reversible with a key (two-way), Hashing is irreversible (one-way) — use encryption for data you need back, hashing for passwords you only need to verify.",
-      "explain": "Encryption — encrypt(data, key)=ciphertext, decrypt(ciphertext, key)=original data. Reversible\nHashing — hash(data)=digest, no way to get original data back. One-way\nHashing has no key — same input always produces same output (deterministic)\nEncryption has key — same input with different keys produces different output\nUse encryption for — credit card numbers, sensitive data you need to retrieve\nUse hashing for — passwords, you verify by re-hashing never by decrypting",
-      "example": "\"Encryption and decryption are inverse operations — what encryption locks, decryption unlocks using a key. Hashing has no reverse — given a hash you cannot get the original data. For passwords I want hashing because I never need to retrieve the original password, I only need to verify that what a user types matches what was stored. For data I need to retrieve later — like storing an encrypted credit card number — I use encryption. Encrypting passwords is wrong because if someone gets the encryption key they can decrypt all passwords.\"",
-      "summary10s": "Encryption=reversible with key (two-way), Hashing=irreversible one-way. Encrypt data you need back, hash passwords you only need to verify."
-    }
-  },
-  {
     "id": "what-is-rsa-and-where-is-it-used",
     "category": "Spring Boot",
     "question": "What is RSA and Where is it Used",
@@ -5073,20 +5609,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Optimistic locking — @Version field, checks version before update, throws exception on conflict\nPessimistic locking — locks the row in DB (SELECT FOR UPDATE) until transaction completes\nOptimistic is preferred for high-read, low-conflict scenarios; pessimistic for high-conflict critical data",
       "example": "\"For concurrent updates, I mostly use optimistic locking with a @Version field on the entity — Hibernate checks the version before committing, and throws an OptimisticLockException if someone else updated it first. For more critical operations like inventory or balance updates, where conflicts are more likely, I'd use pessimistic locking to lock the row until the transaction finishes.\"",
       "summary10s": "Optimistic = @Version check, Pessimistic = row lock (SELECT FOR UPDATE)."
-    }
-  },
-  {
-    "id": "what-is-autowired",
-    "category": "Spring Boot",
-    "question": "What is @Autowired?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "@Autowired tells Spring to automatically inject the matching bean into this field, constructor, or setter.",
-      "explain": "Spring scans IoC container for a bean matching the type\nInjects it without you calling new or writing any wiring code\nCan be used on constructor, setter, or field\nIf multiple beans of same type exist, use @Qualifier to specify which one\nConstructor injection without @Autowired works in Spring 4.3 plus with single constructor",
-      "example": "\"@Autowired delegates object creation to Spring. Instead of writing new UserService() I just declare UserService userService and annotate with @Autowired. Spring finds the bean of that type in its container and injects it. If two beans of same type exist Spring gets confused — I use @Qualifier with the bean name to tell Spring exactly which one to inject.\"",
-      "summary10s": "@Autowired=Spring finds and injects matching bean automatically, @Qualifier for disambiguation."
     }
   },
   {
@@ -6168,20 +6690,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "retry-vs-circuit-breaker",
-    "category": "Microservices",
-    "question": "Retry vs Circuit Breaker",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Retry attempts the same call again after failure; Circuit Breaker stops calling a failing service entirely for a while.",
-      "explain": "Retry — good for transient, short-lived failures (network blip)\nCircuit Breaker — trips after repeated failures, blocks further calls temporarily, protects both caller and the struggling service\nOften used together: retry a few times, and if it keeps failing, the circuit breaker trips",
-      "example": "\"Retry is for transient failures — I retry the same call a few times, usually with backoff, hoping it was just a temporary blip. Circuit Breaker is different — after a certain number of consistent failures, it 'trips' and stops calling that service entirely for a cooldown period, protecting both the caller from wasting resources and the struggling service from more load. I typically combine both — retry a few times, and if it keeps failing, let the circuit breaker take over.\"",
-      "summary10s": "Retry = try again on transient failure, Circuit Breaker = stop calling after repeated failures."
-    }
-  },
-  {
     "id": "maintaining-consistency-between-services",
     "category": "Microservices",
     "question": "Maintaining consistency between services",
@@ -6517,24 +7025,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "AOP intercepts method calls using proxies.\nKey concepts: Aspect (the module), Advice (the action: Before, After, Around), Pointcut (expression defining where to apply), and JoinPoint (the actual method execution).\nKeeps business logic clean and DRY (Don't Repeat Yourself).",
       "example": "\"In my project, I implemented AOP for central logging and performance monitoring. I created an @Around advice that intercepts all controller methods, logs the incoming request, records the start time, proceeds with the method execution, and then logs the response time and status. This completely removed logging boilerplate from the controllers.\"",
       "summary10s": "AOP separates cross-cutting concerns. Implemented via @Around advice for central logging and metrics."
-    }
-  },
-  {
-    "id": "what-is-database-normalization",
-    "category": "SQL",
-    "question": "Normalization and its different types",
-    "frequency": 1,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "What is normalization and forms of normalization"
-    ],
-    "answerSEE": {
-      "simple": "Normalization organizes data to reduce redundancy and improve data integrity.",
-      "explain": "1NF: Ensure atomic (indivisible) values in columns.\n2NF: Must be in 1NF, and all non-key columns depend on the entire primary key (removes partial dependency).\n3NF: Must be in 2NF, and non-key columns must not depend on other non-key columns (removes transitive dependency).\nBCNF: A stricter version of 3NF where every determinant must be a candidate key.",
-      "example": "\"I use normalization to avoid data anomalies when updating or inserting records. For example, instead of storing Department Name and Location inside the Employee table (which repeats data), I extract it into a separate Department table and link it via a foreign key, achieving 3NF.\"",
-      "summary10s": "Reduces redundancy. 1NF=atomic, 2NF=no partial dependency, 3NF=no transitive dependency."
     }
   },
   {
@@ -8651,20 +9141,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-throw-vs-throws",
-    "category": "Java",
-    "question": "What is the difference between throw and throws?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "throw is used to actually throw an exception object, while throws is used in a method signature to declare what it might throw.",
-      "explain": "\"throw\" is followed by an instance (e.g., `throw new Exception()`). \"throws\" is followed by a class name in the method signature (e.g., `void run() throws Exception`), warning the caller that they need to handle it.",
-      "example": "\"If the user input is invalid, I use `throw new IllegalArgumentException()`. Because it's a RuntimeException, I don't strictly need `throws`, but if it was checked, my method signature would have to be `public void process() throws IOException`.\"",
-      "summary10s": "throw = action (throw new Exception). throws = warning in method signature."
-    }
-  },
-  {
     "id": "java-try-without-catch",
     "category": "Java",
     "question": "Can we have try without catch?",
@@ -9354,36 +9830,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "microservices-circuit-breaker-annotation-level",
-    "category": "Microservices",
-    "question": "At what level would you apply the Circuit Breaker annotation?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Apply it at the client level (the method making the external HTTP/Feign call).",
-      "explain": "You don't apply `@CircuitBreaker` on the controller that receives the request. You apply it on the Service or FeignClient method that *calls* the external microservice. This ensures that if the external service fails, the circuit opens exactly where the call is being made, immediately triggering the fallback method.",
-      "example": "\"I apply `@CircuitBreaker(name = \"inventoryService\", fallbackMethod = \"defaultInventory\")` directly on the `getInventory()` method inside my service class, which uses `RestTemplate` to call the Inventory Microservice.\"",
-      "summary10s": "Apply it on the method that executes the outbound external network call."
-    }
-  },
-  {
-    "id": "microservices-retry-vs-timeout",
-    "category": "Microservices",
-    "question": "How do Retry and Socket Timeout work? If both Retry and Circuit Breaker are implemented, which one executes first?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "If both Retry and Circuit Breaker are implemented, which one executes first?"
-    ],
-    "answerSEE": {
-      "simple": "Timeout aborts a hanging call. Retry attempts the call again. Retry executes BEFORE the Circuit Breaker opens.",
-      "explain": "A Socket Timeout kills the connection if the server doesn't respond in X seconds. A Retry will then try the call again. The Circuit Breaker wraps the Retry. If the call fails 3 times (due to Retry exhaustion), the Circuit Breaker records a failure. Once failures cross a threshold, the Circuit Breaker opens.",
-      "example": "\"If I have `@Retry` and `@CircuitBreaker` on a method, Resilience4j executes the Retry first. If my service is down, it retries 3 times. All 3 fail. The Circuit Breaker counts that as 1 failed execution. If the next few requests also fail, the Circuit Breaker opens, and subsequent requests bypass the Retry entirely and go straight to the fallback.\"",
-      "summary10s": "Timeout kills hanging calls. Retry tries again. Circuit Breaker wraps Retry and opens after consecutive failures."
-    }
-  },
-  {
     "id": "microservices-database-consistency",
     "category": "Microservices",
     "question": "How do you maintain database consistency across different microservices?",
@@ -9813,22 +10259,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-singleton-class",
-    "category": "Java Coding",
-    "question": "Write a Singleton class.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "A Singleton ensures only one instance exists by making the constructor private and providing a static method to get the instance.",
-      "explain": "The best thread-safe ways to create a Singleton are using an Enum (safest against serialization/reflection) or the Double-Checked Locking pattern with a volatile instance variable to ensure thread safety without synchronization overhead on every call.",
-      "example": "\"I prefer using an Enum for Singletons because Java guarantees it's instantiated only once and protects against reflection. If I must use a class, I use double-checked locking: a private constructor, a volatile static instance, and a getInstance() method that synchronizes only if the instance is null.\"",
-      "summary10s": "Private constructor + static getInstance(). Best implemented via Enum or Double-Checked Locking."
-    }
-  },
-  {
     "id": "java-7-8-11-17-features",
     "category": "Java",
     "question": "Features of Java 7, 8, 11, and 17.",
@@ -9842,22 +10272,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Java 7: try-with-resources, diamond operator. Java 8: Lambdas, Streams, Optional, Default methods. Java 11: HTTP Client, var in lambdas, String methods. Java 17: Records (immutable data carriers), Sealed classes (restrict inheritance), Pattern Matching for switch.",
       "example": "\"In interviews, I highlight the major shifts: Java 8 changed how we code with Streams and Lambdas. Java 11 stabilized modules and added the modern HTTP client. Java 17 brought Records, which completely replaced boilerplate POJOs and Lombok for DTOs in my recent projects.\"",
       "summary10s": "7=try-with-resources, 8=Streams/Lambdas, 11=HTTP Client/var, 17=Records/Sealed Classes."
-    }
-  },
-  {
-    "id": "java-multi-catch",
-    "category": "Java",
-    "question": "What is a multi-catch statement?",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "A multi-catch block allows you to catch multiple distinct exceptions in a single catch clause using the pipe (|) operator.",
-      "explain": "Introduced in Java 7, it reduces code duplication when multiple exceptions require the exact same handling logic. The caught exception variable is implicitly final, so it cannot be reassigned within the catch block.",
-      "example": "\"Instead of writing separate catch blocks for SQLException and IOException that do the exact same logging, I write `catch (SQLException | IOException e)`. It keeps the code clean and avoids duplicate error-handling logic.\"",
-      "summary10s": "Use `catch (A | B e)` to handle multiple exceptions without duplicating code."
     }
   },
   {
@@ -9877,22 +10291,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-design-patterns",
-    "category": "Java",
-    "question": "Different Design Patterns in Java.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Patterns are divided into Creational (object creation), Structural (class composition), and Behavioral (object communication).",
-      "explain": "Creational: Singleton (one instance), Builder (complex object creation), Factory (loose coupling). Structural: Adapter (wrapper for compatibility), Decorator (add behavior dynamically). Behavioral: Strategy (interchangeable algorithms), Observer (pub/sub).",
-      "example": "\"In Spring Boot, patterns are everywhere. Dependency Injection uses the Factory pattern. RestTemplate uses the Builder pattern. I frequently use the Strategy pattern to switch between different payment gateways dynamically at runtime without changing the core service logic.\"",
-      "summary10s": "Creational (Singleton, Builder), Structural (Adapter, Decorator), Behavioral (Strategy, Observer)."
-    }
-  },
-  {
     "id": "java-oop-concepts",
     "category": "Java",
     "question": "OOP concepts.",
@@ -9909,38 +10307,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-concurrenthashmap-internals",
-    "category": "Java",
-    "question": "ConcurrentHashMap internals.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It achieves thread safety without locking the entire map by locking only the specific bucket being updated.",
-      "explain": "Before Java 8, it used Segment-based locking. In Java 8+, it uses CAS (Compare-And-Swap) for empty buckets and a synchronized block on the first node (the head) of the bucket for updates. Reads are completely lock-free.",
-      "example": "\"ConcurrentHashMap scales incredibly well because it uses bucket-level locking. If Thread A writes to bucket 1 and Thread B writes to bucket 5, they execute simultaneously without blocking each other. And reads don't use locks at all, making them extremely fast.\"",
-      "summary10s": "Thread-safe via bucket-level locking (synchronized on node head) and CAS. Reads are lock-free."
-    }
-  },
-  {
-    "id": "coding-find-duplicate-strings",
-    "category": "Java Coding",
-    "question": "Find duplicate strings in a list.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use a HashSet to track seen strings, or use Java Streams groupingBy to find elements with a count > 1.",
-      "explain": "The easiest O(N) way is iterating and calling set.add(item) — if it returns false, it's a duplicate. Using Streams, you can group by the string and count, then filter the map where values are greater than 1.",
-      "example": "\"I would use a Set. As I iterate through the list, I call `set.add(string)`. Since `add` returns false if the element already exists, I can instantly collect those into a duplicate list. It's clean and runs in O(N) time.\"",
-      "summary10s": "Use `set.add()` to find duplicates in O(N) time, or Streams `Collectors.groupingBy`."
-    }
-  },
-  {
     "id": "coding-palindrome",
     "category": "Java Coding",
     "question": "Check whether a string is a palindrome.",
@@ -9954,22 +10320,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "While you could use StringBuilder's reverse(), the two-pointer approach is more optimal for interviews because it avoids creating a new string object and runs in O(N/2) time with O(1) space.",
       "example": "\"I initialize a left pointer at 0 and a right pointer at length - 1. I loop while left < right, comparing the characters. If they don't match, it's not a palindrome. This is O(N) time and O(1) space without creating temporary reversed strings.\"",
       "summary10s": "Two pointers (left and right) moving inward. O(N) time, O(1) space."
-    }
-  },
-  {
-    "id": "coding-combination-sum-2",
-    "category": "Java Coding",
-    "question": "Combination Sum II.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use backtracking to explore combinations, sorting the array first to easily skip duplicate elements.",
-      "explain": "The problem asks for unique combinations that sum to a target, using each number once. Sort the array first. During the recursive backtrack, if the current element is the same as the previous one in the loop, skip it to prevent duplicate subsets.",
-      "example": "\"I solve this with Backtracking. First, I sort the array to group duplicates. In the recursive function, I loop through the candidates. If `i > start` and `arr[i] == arr[i-1]`, I `continue` to skip duplicates. I subtract the current number from the target and recurse until target is 0.\"",
-      "summary10s": "Backtracking. Sort first. Skip duplicates using `if (i > start && arr[i] == arr[i-1]) continue;`."
     }
   },
   {
@@ -10005,22 +10355,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "coding-move-zeroes",
-    "category": "Java Coding",
-    "question": "Move all zeroes to the end of an array.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use a two-pointer approach: one pointer iterates through the array, the other keeps track of the next non-zero position.",
-      "explain": "Maintain an insert index starting at 0. As you iterate through the array, whenever you find a non-zero element, swap it with the element at the insert index, and increment the insert index.",
-      "example": "\"I use a single pointer called `insertPos` starting at 0. I loop through the array, and every time I see a non-zero number, I put it at `arr[insertPos]` and increment `insertPos`. After the loop, I just fill the rest of the array from `insertPos` to the end with zeroes.\"",
-      "summary10s": "Track non-zero insert position. Move all non-zeroes to front, fill remainder with zeroes."
-    }
-  },
-  {
     "id": "coding-valid-anagram",
     "category": "Java Coding",
     "question": "Check whether two strings are anagrams.",
@@ -10053,22 +10387,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "coding-longest-increasing-subsequence",
-    "category": "Java Coding",
-    "question": "Longest Increasing Subsequence.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use Dynamic Programming to track the longest sequence ending at each element, or binary search with a patience sorting approach for O(N log N).",
-      "explain": "The DP approach uses an array where dp[i] is the LIS ending at index i. For each element, look back at smaller elements and update dp[i] = max(dp[i], dp[j] + 1).",
-      "example": "\"The O(N^2) DP solution is easiest to explain: maintain a DP array initialized to 1. For each number, compare it with all previous numbers. If it's larger, update its DP value to be `max(current DP, previous DP + 1)`. The result is the maximum value in the DP array.\"",
-      "summary10s": "DP array initialized to 1. dp[i] = max(dp[i], dp[j] + 1) for all j < i where arr[j] < arr[i]."
-    }
-  },
-  {
     "id": "coding-best-time-to-buy-stock",
     "category": "Java Coding",
     "question": "Best Time to Buy and Sell Stock.",
@@ -10082,54 +10400,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Iterate through the prices once. Maintain a variable for `minPrice` (initialized to max integer) and `maxProfit` (initialized to 0). On each day, update `minPrice`, then update `maxProfit` by comparing it to `currentPrice - minPrice`.",
       "example": "\"I solve this in a single pass O(N). I keep track of the minimum price I've seen so far. For every day, I calculate the profit if I sold at the current price (`price - minPrice`). I keep updating the maximum profit variable. It only requires O(1) space.\"",
       "summary10s": "Single pass. Track `minPrice` seen so far. Update `maxProfit` as `Math.max(profit, price - minPrice)`."
-    }
-  },
-  {
-    "id": "coding-dijkstras-algorithm",
-    "category": "Java Coding",
-    "question": "Dijkstra’s Algorithm.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It finds the shortest path from a source node to all other nodes in a weighted graph using a Priority Queue.",
-      "explain": "It uses a Priority Queue (Min-Heap) to always explore the closest unvisited node first. You maintain a distances array initialized to infinity. When you pop a node, you relax its neighbors: if `current_dist + edge_weight < known_dist`, you update it and push to the queue.",
-      "example": "\"I implement Dijkstra's using a PriorityQueue of nodes sorted by distance. I start by pushing the source node with distance 0. While the queue isn't empty, I pop the closest node and check its neighbors. If I find a shorter path to a neighbor, I update its distance and push it into the queue.\"",
-      "summary10s": "Use PriorityQueue (Min-Heap) to always visit the closest node. Update neighbor distances (relaxation)."
-    }
-  },
-  {
-    "id": "coding-coin-change",
-    "category": "Java Coding",
-    "question": "Coin Change Problem — minimum coins.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use Dynamic Programming to build up the minimum coins needed for every amount from 0 to the target.",
-      "explain": "Create a DP array of size `amount + 1`, initialized to infinity. `dp[0] = 0`. For each coin, iterate through all amounts from the coin's value up to the target, updating `dp[i] = Math.min(dp[i], dp[i - coin] + 1)`.",
-      "example": "\"This is classic DP. I create an array `dp` where `dp[i]` is the min coins for amount `i`. I fill it with infinity, except `dp[0] = 0`. Then for each amount from 1 to target, I try every coin. If `coin <= amount`, `dp[amount] = min(dp[amount], dp[amount - coin] + 1)`.\"",
-      "summary10s": "DP array for amounts. `dp[i] = Math.min(dp[i], dp[i - coin] + 1)`. O(Amount * Coins) time."
-    }
-  },
-  {
-    "id": "coding-reverse-add-palindrome",
-    "category": "Java Coding",
-    "question": "Reverse-Add Palindrome problem.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Take a number, reverse its digits, and add it to the original. Repeat until the result is a palindrome.",
-      "explain": "This is a simulation problem. You write a helper function to reverse a number, and another to check if a number is a palindrome. You loop `num = num + reverse(num)` until `isPalindrome(num)` returns true.",
-      "example": "\"I approach this by writing a simple loop. Inside the loop, I calculate the reverse of the current number and add it. Then I check if the sum is a palindrome. If it is, I return the sum. I also add a safety counter to prevent infinite loops for Lychrel numbers.\"",
-      "summary10s": "Loop: `num += reverse(num)` until `num == reverse(num)`. Add safety counter to avoid infinite loops."
     }
   },
   {
@@ -10183,22 +10453,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-why-use-spring",
-    "category": "Spring Boot",
-    "question": "Why do we use Spring?",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Spring handles infrastructure plumbing (like dependency injection, transactions, and security) so developers can focus purely on business logic.",
-      "explain": "Without Spring, Java enterprise apps required massive amounts of boilerplate code (EJBs, manual DB connections). Spring introduced Inversion of Control (IoC) and Aspect-Oriented Programming (AOP), making applications loosely coupled, highly testable, and modular.",
-      "example": "\"I use Spring because it abstracts away the complex infrastructure. Instead of writing 20 lines of JDBC code to open connections, handle errors, and commit transactions, I just write my business logic and slap a `@Transactional` annotation on the method. Spring handles the rest via proxies.\"",
-      "summary10s": "Inversion of Control (DI), AOP for transactions/security, and massive boilerplate reduction."
-    }
-  },
-  {
     "id": "spring-vs-spring-boot",
     "category": "Spring Boot",
     "question": "Spring vs Spring Boot.",
@@ -10212,22 +10466,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Spring requires complex XML or Java configuration and deploying WAR files to a Tomcat server. Spring Boot uses 'opinionated defaults'—if it sees a web dependency, it automatically configures a web app and embeds Tomcat, allowing you to run it as a simple JAR.",
       "example": "\"Spring Boot takes the headache out of Spring setup. With plain Spring, I had to configure DispatcherServlets and Hibernate dialects manually. With Spring Boot, I just add the 'spring-boot-starter-web' dependency and an embedded Tomcat server is auto-configured and ready to run immediately.\"",
       "summary10s": "Spring = manual config. Spring Boot = Auto-configuration, Starter POMs, Embedded Servers."
-    }
-  },
-  {
-    "id": "spring-restful-api",
-    "category": "Spring Boot",
-    "question": "What is a RESTful API?",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It's an architectural style for APIs that uses standard HTTP methods, URIs to represent resources, and transfers data (usually in JSON) without keeping server state.",
-      "explain": "REST stands for Representational State Transfer. Key constraints include being stateless (each request contains all needed info), using standard HTTP methods (GET, POST, PUT, DELETE), and using noun-based URLs representing entities.",
-      "example": "\"A RESTful API maps CRUD operations to HTTP methods. For example, to manage users, I design the API around the resource URL `/users`. A GET request fetches them, a POST creates one, and a DELETE to `/users/123` removes the specific user. Importantly, no client session state is stored on the server.\"",
-      "summary10s": "Stateless, uses standard HTTP methods (GET, POST), noun-based resource URIs, usually returns JSON."
     }
   },
   {
@@ -10276,38 +10514,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Transactions flow into an event broker like Kafka. A stream processing engine (like Apache Flink or Spark Streaming) consumes them, enriches the data (fetching user history from a fast cache like Redis), and scores the transaction using rules and ML. If fraud is detected, it triggers an alert.",
       "example": "\"For a fraud detection system, latency is critical. I'd ingest all transactions into Kafka. A Flink streaming job reads the stream, pulls recent user activity from a Redis cache, and passes it to an ML model. If the risk score is high, it immediately halts the transaction and flags it for review.\"",
       "summary10s": "High-throughput Stream Processing (Kafka + Flink), fast reads via Redis cache, ML Model scoring."
-    }
-  },
-  {
-    "id": "sysdesign-data-warehouse",
-    "category": "System Design",
-    "question": "Design a data warehouse for an online retailer.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It involves extracting data from operational databases, transforming it, and loading it into a columnar analytics database.",
-      "explain": "You need an ETL (Extract, Transform, Load) pipeline. Data from the main PostgreSQL/MySQL DBs and logs are ingested (batch via Airflow or streaming via Kafka). The data is stored in a Data Warehouse like Snowflake or AWS Redshift using a Star Schema (Fact and Dimension tables) optimized for read-heavy analytics.",
-      "example": "\"I would use a batch ETL pipeline managed by Airflow. Every night, it extracts transaction data from our microservices' databases, transforms it into a Star Schema, and loads it into Snowflake. This separates heavy analytical queries from our live production databases so performance isn't impacted.\"",
-      "summary10s": "ETL pipeline (Airflow). Load into Columnar DB (Snowflake/Redshift). Star Schema (Facts/Dimensions)."
-    }
-  },
-  {
-    "id": "sysdesign-news-aggregator",
-    "category": "System Design",
-    "question": "Design a news aggregator.",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It requires scheduled workers to scrape RSS feeds, a database to store articles, and a read-heavy API serving content to users.",
-      "explain": "Background workers (cron jobs or message queues) periodically fetch and parse XML/JSON from news sources. Articles are deduplicated and stored in a NoSQL database (like MongoDB) or Elasticsearch for fast text searching. A caching layer (Redis) is critical because the same breaking news is read by millions.",
-      "example": "\"I'd design background crawler services that poll RSS feeds every 10 minutes. They parse the articles and push them to a Kafka queue. An ingest service deduplicates them and stores them in Elasticsearch for fast search. Since reads are 100x writes, I would heavily cache the top news feeds in Redis.\"",
-      "summary10s": "Background RSS Crawlers -> Kafka -> Deduplication -> Elasticsearch (Search) & Redis (Heavy Read Cache)."
     }
   },
   {
@@ -10669,209 +10875,354 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "singleton-reflection-break",
-    "category": "Java Coding",
-    "question": "Can reflection break a Singleton? How would you prevent it?",
+    "id": "java17-sealed-classes",
+    "category": "Java",
+    "question": "What are sealed classes and how do they restrict inheritance?",
     "frequency": 1,
     "companies": [],
     "variations": [
-      "Can a private Singleton constructor still be invoked using reflection?"
+      "What are the new features in Java 17?",
+      "What are sealed classes?",
+      "How does a sealed class restrict inheritance?"
     ],
     "answerSEE": {
-      "simple": "Yes, using Constructor.setAccessible(true), reflection can bypass the private constructor to create a second instance.",
-      "explain": "To prevent this in a standard class, you must check inside the private constructor if the static instance variable is already initialized, and if so, throw a RuntimeException. Alternatively, using an Enum Singleton completely prevents reflection instantiation at the JVM level.",
-      "example": "\"An attacker can get the private constructor via reflection, make it accessible, and call newInstance(). To stop this, I add logic to my private constructor: `if (instance != null) throw new IllegalStateException(\\\"Already initialized\\\");`. But in practice, I just use an Enum Singleton since the JVM inherently blocks reflection on Enums.\"",
-      "summary10s": "Reflection can bypass private constructors. Prevent by throwing exception if instance exists, or just use an Enum."
+      "simple": "Sealed classes restrict which other classes may extend or implement them, giving you strict control over the class hierarchy.",
+      "explain": "Introduced in Java 17, you use the `sealed` modifier and the `permits` clause. Only the classes listed in the `permits` clause are allowed to extend the sealed class. The permitted subclasses must then declare themselves as `final`, `sealed`, or `non-sealed`.",
+      "example": "\"If I'm building a Payment system, I can write `public sealed class Payment permits CreditCard, PayPal {}`. Now, I guarantee that no one else can create a random new Payment subclass. This makes pattern matching with switch statements exhaustive and safe.\"",
+      "summary10s": "Use `sealed class X permits Y, Z`. It strictly controls which subclasses are allowed."
     }
   },
   {
-    "id": "singleton-serialization-break",
-    "category": "Java Coding",
-    "question": "Can serialization and deserialization create a second Singleton instance?",
+    "id": "java-try-finally-return",
+    "category": "Java",
+    "question": "What happens if there is a return statement inside try? Does finally execute?",
     "frequency": 1,
     "companies": [],
     "variations": [],
     "answerSEE": {
-      "simple": "Yes, when you deserialize an object, the JVM creates a brand new instance, ignoring the private constructor.",
-      "explain": "If your Singleton implements Serializable, saving and reloading it results in a duplicate instance. To fix this, you must implement the `readResolve()` method to return the existing static instance, which tells the JVM to discard the newly deserialized object.",
-      "example": "\"If I serialize my Singleton to a file and read it back, I get a second instance. I prevent this by adding `protected Object readResolve() { return instance; }` to the class. The JVM calls this immediately after deserialization, guaranteeing only the original instance is used.\"",
-      "summary10s": "Deserialization ignores constructors. Override `readResolve()` to return the existing instance."
+      "simple": "Yes, the finally block will always execute, even if there is a return statement in the try block.",
+      "explain": "The JVM guarantees that `finally` runs before the method actually returns. The only scenarios where `finally` won't execute are if you call `System.exit()`, if the JVM crashes, or if the thread is forcefully killed.",
+      "example": "\"If I have `try { return true; } finally { System.out.println(\\\"finally\\\"); }`, it evaluates the return value, pauses the return to execute the finally block, prints the message, and then completes the return. If the finally block also has a return statement, it overrides the try block's return, which is a bad practice.\"",
+      "summary10s": "Yes. `finally` always runs right before the actual return completes, unless `System.exit()` is called."
     }
   },
   {
-    "id": "singleton-cloning-break",
+    "id": "java8-sort-array-to-string",
     "category": "Java Coding",
-    "question": "Can cloning break a Singleton?",
+    "question": "Write a Java 8 program to sort an integer array and convert it into a String using Stream API.",
     "frequency": 1,
     "companies": [],
     "variations": [],
     "answerSEE": {
-      "simple": "Yes, if the Singleton class implements Cloneable, calling the clone() method creates a copy.",
-      "explain": "The `clone()` method creates a shallow copy of the object without calling the constructor. To protect the Singleton, you should explicitly override the `clone()` method and throw a `CloneNotSupportedException`, or simply return the existing instance.",
-      "example": "\"If a junior developer makes the Singleton implement Cloneable, anyone can duplicate it. I prevent this by overriding `clone()`: `@Override protected Object clone() throws CloneNotSupportedException { throw new CloneNotSupportedException(); }`.\"",
-      "summary10s": "If Cloneable is implemented, `clone()` duplicates it. Override `clone()` and throw CloneNotSupportedException."
+      "simple": "Use Arrays.stream(), call sorted(), map the integers to Strings, and collect them using Collectors.joining().",
+      "explain": "You convert the primitive array into a Stream using `Arrays.stream(arr)`. Sort it using `.sorted()`. Then you must convert the primitives to Strings using `.mapToObj(String::valueOf)` because `joining()` requires Strings. Finally, collect it.",
+      "example": "\"The one-liner is: `String result = Arrays.stream(arr).sorted().mapToObj(String::valueOf).collect(Collectors.joining(\\\", \\\"));`. This sorts the array and gives you a clean comma-separated string without writing any loops.\"",
+      "summary10s": "`Arrays.stream(arr).sorted().mapToObj(String::valueOf).collect(Collectors.joining(\\\",\\\"));`"
     }
   },
   {
-    "id": "singleton-volatile-double-checked",
-    "category": "Java Coding",
-    "question": "Why is volatile required in double-checked locking?",
+    "id": "spring-component-vs-service-vs-bean",
+    "category": "Spring Boot",
+    "question": "What is the difference between @Service, @Component, and @Bean?",
     "frequency": 1,
     "companies": [],
     "variations": [
-      "What can go wrong if volatile is removed from a double-checked Singleton?",
-      "How does the Java Memory Model affect double-checked locking?"
+      "What Spring Boot annotations have you used in your real-time project?"
     ],
     "answerSEE": {
-      "simple": "It prevents instruction reordering, ensuring that the object is fully initialized before the reference is made visible to other threads.",
-      "explain": "Without volatile, the JVM is allowed to allocate memory and assign the reference to the `instance` variable *before* the constructor finishes executing. Another thread might see a non-null reference and try to use a partially constructed object, leading to random crashes.",
-      "example": "\"Before Java 5, double-checked locking was fundamentally broken because the compiler could reorder the object creation instructions. By marking the instance `volatile`, I enforce a 'happens-before' guarantee, meaning the constructor strictly finishes before the memory reference is published.\"",
-      "summary10s": "Volatile prevents instruction reordering so threads never see a partially constructed object."
+      "simple": "@Component is a generic stereotype. @Service is a specialized @Component for business logic. @Bean is used on methods to inject third-party classes.",
+      "explain": "`@Component` marks a class to be picked up by component scanning. `@Service` is technically identical to `@Component` but adds semantic meaning to show it holds business logic. `@Bean` is completely different: it is applied to a *method* (usually inside a `@Configuration` class) to explicitly tell Spring to register the returned object as a bean, which is required when you don't own the class's source code.",
+      "example": "\"I use `@Service` on my own business classes so Spring auto-detects them. But if I need to inject a `RestTemplate` or a `HikariDataSource`—which are external classes I can't modify—I write a method returning that object, annotate it with `@Bean`, and Spring manages it.\"",
+      "summary10s": "@Component/@Service are on classes you own (auto-scanned). @Bean is on methods returning 3rd-party classes."
     }
   },
   {
-    "id": "singleton-synchronized-slow",
-    "category": "Java Coding",
-    "question": "Why is synchronizing the entire getInstance() method potentially slower?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It forces every single thread to wait in line to get the instance, even after the instance has already been created.",
-      "explain": "Synchronization is only necessary during the first initialization. If you put `synchronized` on the method signature, it causes massive thread contention on every subsequent read, creating a bottleneck in highly concurrent applications.",
-      "example": "\"If I synchronize the whole method, a web server handling 1000 requests per second will force all 1000 threads to queue up just to read a static variable. By using double-checked locking instead, synchronization only happens once when the instance is null, making subsequent reads lock-free and fast.\"",
-      "summary10s": "Locks the method on every read. Causes huge thread contention. Use double-checked locking instead."
-    }
-  },
-  {
-    "id": "singleton-holder-pattern",
-    "category": "Java Coding",
-    "question": "Why is the Initialization-on-Demand Holder pattern thread-safe?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It relies on the JVM's class loader mechanism, which guarantees that a class is initialized thread-safely exactly once.",
-      "explain": "You create a private static inner class (the Holder) that contains the Singleton instance. The inner class isn't loaded until `getInstance()` is called for the first time. The JVM handles the synchronization during class loading, completely eliminating the need for `synchronized` or `volatile` keywords.",
-      "example": "\"I love the Holder pattern because it's completely lock-free. I put the static instance inside a static inner class. Since the JVM guarantees that class initialization is strictly thread-safe, I get lazy initialization and thread safety for free without writing any complex locking logic.\"",
-      "summary10s": "Relies on the JVM's thread-safe class loading. Lazy initialization without the overhead of locks."
-    }
-  },
-  {
-    "id": "singleton-enum-safest",
-    "category": "Java Coding",
-    "question": "Why is an enum Singleton considered one of the safest implementations?",
+    "id": "spring-properties-vs-yml",
+    "category": "Spring Boot",
+    "question": "Which has higher precedence: application.yml or application.properties?",
     "frequency": 1,
     "companies": [],
     "variations": [
-      "What is the difference between a static Singleton, Holder Singleton, and enum Singleton?",
-      "How would you design a Singleton that must survive reflection, serialization, and cloning attacks?"
+      "How do you fetch values from application.properties?",
+      "Can you use application.properties and application.yml together?"
     ],
     "answerSEE": {
-      "simple": "The JVM inherently guarantees that an enum is instantiated exactly once, automatically blocking reflection and serialization attacks.",
-      "explain": "Enum singletons don't need private constructors, `readResolve()`, or `volatile`. The Java specification strictly forbids creating enums via reflection (`Constructor.newInstance` throws an error). Serialization of enums is also strictly controlled by the JVM to return the exact same instance.",
-      "example": "\"If the interviewer asks for a bulletproof Singleton, I write a one-liner: `public enum Singleton { INSTANCE; }`. It is perfectly thread-safe, completely immune to serialization duplication, and if someone tries to hack it with reflection, the JVM blocks them automatically.\"",
-      "summary10s": "Enum handles thread-safety, serialization, and reflection-prevention at the JVM level automatically."
+      "simple": "You can use both together, but application.properties has higher precedence and will override application.yml if there are conflicts.",
+      "explain": "Spring Boot loads properties first from `.yml`, then from `.properties`. Because properties are loaded later in the sequence, they overwrite identical keys. You fetch these values in code using the `@Value(\"${property.key}\")` annotation or `@ConfigurationProperties`.",
+      "example": "\"I can definitely use them together, though it's confusing and generally discouraged. If `server.port` is 8080 in the yml and 8081 in properties, the app will run on 8081. To actually read these values in my Java code, I use `@Value(\"${server.port}\")`.\"",
+      "summary10s": "Both work together. `.properties` overrides `.yml`. Fetch using `@Value(\"${key}\")`."
     }
   },
   {
-    "id": "singleton-classloaders",
-    "category": "Java Coding",
-    "question": "Can different ClassLoaders create multiple instances of the same Singleton?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Yes, because the JVM uniquely identifies a class by its fully qualified name AND the ClassLoader that loaded it.",
-      "explain": "If two different ClassLoaders (which is common in Java EE web/app servers like Tomcat or WebSphere) load the same Singleton class, they will each initialize their own static variables, resulting in multiple instances within the same JVM.",
-      "example": "\"This is a notorious bug in older monolithic app servers. If my Singleton is bundled in a shared library and loaded by two different web application ClassLoaders, I end up with two separate Singleton instances. To avoid this, the Singleton class must be placed in a common parent ClassLoader.\"",
-      "summary10s": "Yes. A class is identified by (ClassName + ClassLoader). Different loaders = different static instances."
-    }
-  },
-  {
-    "id": "singleton-multiple-jvms",
-    "category": "Java Coding",
-    "question": "Can a Singleton guarantee only one instance across multiple JVMs?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "No. A Singleton only guarantees one instance per JVM ClassLoader.",
-      "explain": "In a modern microservices architecture running on Kubernetes, if you scale your application to 5 pods, you have 5 distinct JVMs running, which means you have 5 instances of your Singleton. To share state across JVMs, you need a distributed cache like Redis.",
-      "example": "\"A local Singleton won't work for rate-limiting in a cloud environment. If I have 3 instances of my service running, they each have their own Singleton in memory. To ensure true 'singleton' behavior across a cluster, I would use a distributed lock or Redis instead of a Java Singleton.\"",
-      "summary10s": "No. One JVM = One Singleton. Distributed systems require distributed locks/cache (like Redis)."
-    }
-  },
-  {
-    "id": "singleton-thread-safe-state",
-    "category": "Java Coding",
-    "question": "Is a Singleton automatically thread-safe just because only one instance exists?",
+    "id": "spring-requestbody-responseentity",
+    "category": "Spring Boot",
+    "question": "What is the difference between @ResponseBody and ResponseEntity?",
     "frequency": 1,
     "companies": [],
     "variations": [
-      "How can mutable state inside a Singleton create concurrency problems?"
+      "When sending a POST request with a payload, which annotation do you use?",
+      "What is @RequestBody?"
     ],
     "answerSEE": {
-      "simple": "No. The creation of the instance might be thread-safe, but the methods and fields inside the Singleton are not.",
-      "explain": "If your Singleton has mutable state (like a standard `HashMap` or an integer counter), multiple threads calling the Singleton's methods simultaneously can cause race conditions and data corruption unless you explicitly synchronize those methods or use concurrent collections.",
-      "example": "\"This is a common trap. I might use a perfect Enum Singleton, but if I put a standard `int count` inside it, two threads incrementing it simultaneously will cause a race condition. I must use an `AtomicInteger` or a `ConcurrentHashMap` to make the state inside the Singleton thread-safe.\"",
-      "summary10s": "Creation is safe, but internal state is not. Mutable variables inside must use synchronization or Atomic classes."
+      "simple": "@ResponseBody just serializes the return object to JSON. ResponseEntity gives you full control over the JSON body, HTTP status code, and headers.",
+      "explain": "When accepting a POST payload, you use `@RequestBody` to map the incoming JSON to a Java object. When returning data, `@ResponseBody` (implied by `@RestController`) simply returns the object with a hardcoded 200 OK. `ResponseEntity` lets you programmatically return a 201 Created or a 404 Not Found along with custom headers.",
+      "example": "\"I use `@RequestBody` in my POST method signature to receive the JSON payload. For the return type, I always use `ResponseEntity`. If creation succeeds, I return `ResponseEntity.status(HttpStatus.CREATED).body(newObj)`. If validation fails, I can return a 400 status instead. You can't do that dynamically with just `@ResponseBody`.\"",
+      "summary10s": "@RequestBody reads JSON. ResponseEntity writes JSON + custom Status Codes + Headers."
     }
   },
   {
-    "id": "singleton-unit-testing",
-    "category": "Java Coding",
-    "question": "Why can Singleton make unit testing difficult?",
+    "id": "http-status-codes",
+    "category": "Other",
+    "question": "What HTTP status code would you return for a successful registration? What is the difference between 400 and 404?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What does 404 mean?"
+    ],
+    "answerSEE": {
+      "simple": "Return 201 Created for a successful registration. 400 means the client sent bad data, 404 means the requested resource doesn't exist.",
+      "explain": "A POST request that creates a new resource (like registering a user) should return `201 Created`, often with a Location header pointing to the new user. `400 Bad Request` indicates syntax errors or validation failures in the payload. `404 Not Found` means the URL is wrong or the ID requested doesn't exist in the database.",
+      "example": "\"If a user registers successfully, I return 201. If they leave the email field blank, my validation fails and I return 400 Bad Request. If they try to GET a user profile with an ID that doesn't exist, I return 404 Not Found.\"",
+      "summary10s": "201 = Resource created. 400 = Validation failed/Bad payload. 404 = URL or Resource ID not found."
+    }
+  },
+  {
+    "id": "spring-upload-multipartfile",
+    "category": "Spring Boot",
+    "question": "How do you upload a file in Spring Boot using MultipartFile?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How do you upload a file in Spring Boot?",
+      "What is MultipartFile?"
+    ],
+    "answerSEE": {
+      "simple": "You accept a parameter of type MultipartFile in your controller method and use @RequestParam to map it.",
+      "explain": "MultipartFile is a Spring interface representing an uploaded file received in a multipart request. It provides methods like `getBytes()`, `getOriginalFilename()`, and `transferTo()` to easily read or save the file to disk or cloud storage.",
+      "example": "\"In my controller, I write a POST method with `@RequestParam(\"file\") MultipartFile file`. Inside the method, I can check `file.isEmpty()`. If it's valid, I can call `file.transferTo(new File(path))` to save it locally, or read its bytes to upload it directly to an AWS S3 bucket.\"",
+      "summary10s": "Use `@RequestParam(\"file\") MultipartFile file`. Use `file.transferTo()` or `file.getBytes()` to process it."
+    }
+  },
+  {
+    "id": "spring-requestparam-vs-pathvariable",
+    "category": "Spring Boot",
+    "question": "What is the difference between @RequestParam and @PathVariable?",
     "frequency": 1,
     "companies": [],
     "variations": [],
     "answerSEE": {
-      "simple": "Singletons introduce global state that persists across different tests, causing test pollution.",
-      "explain": "Because the instance is static, if Test A modifies the Singleton's state, Test B inherits that modified state and might fail unpredictably. Furthermore, hardcoded `Singleton.getInstance()` calls cannot be easily mocked with tools like Mockito, coupling classes tightly together.",
-      "example": "\"Singletons are an anti-pattern for testing. If my service calls `DatabaseConfig.getInstance()`, I can't easily swap it out for a mock database config during tests. That's why I prefer letting Spring (IoC container) manage singletons, so I can simply inject a mock via the constructor in my test file.\"",
-      "summary10s": "Causes test pollution via shared global state, and tightly couples code, making mocking difficult."
+      "simple": "@PathVariable extracts values from the URI path itself, while @RequestParam extracts values from the query string.",
+      "explain": "Use `@PathVariable` for mandatory identifiers that identify a specific resource (e.g., `/users/123`). Use `@RequestParam` for optional filters, sorting, or pagination parameters (e.g., `/users?role=admin&page=2`).",
+      "example": "\"If I want to get a specific user, my URL is `/users/{id}` and I use `@PathVariable(\"id\")`. If I want to search for users by name, my URL is `/users?name=john`, and I use `@RequestParam(\"name\")`.\"",
+      "summary10s": "@PathVariable = `/users/123` (identifies resource). @RequestParam = `/users?sort=asc` (filters/options)."
     }
   },
   {
-    "id": "singleton-redeployment",
-    "category": "Java Coding",
-    "question": "What happens to a Singleton when an application is redeployed?",
+    "id": "microservices-interservice-communication",
+    "category": "Microservices",
+    "question": "How would Order Service synchronously call Payment Service? How would you structure that communication?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Do you have experience with inter-service communication?",
+      "What is the difference between synchronous and asynchronous communication?"
+    ],
+    "answerSEE": {
+      "simple": "Synchronous communication uses HTTP (via RestTemplate or OpenFeign), forcing the caller to wait. Asynchronous uses a message broker (like Kafka) so the caller doesn't wait.",
+      "explain": "If Order Service needs immediate payment validation, it makes a synchronous REST call. The modern way to structure this is using Spring Cloud OpenFeign. You define an interface annotated with `@FeignClient`, and Spring generates the HTTP implementation, making the remote call look like a local method call.",
+      "example": "\"Synchronous is like a phone call; asynchronous is like an email. For an Order calling Payment synchronously, I wouldn't use RestTemplate. I'd create a Feign Client interface. It's much cleaner, supports Eureka service discovery out of the box, and integrates perfectly with Resilience4j for circuit breakers.\"",
+      "summary10s": "Sync = HTTP (Wait). Async = Kafka (Fire & Forget). Structure sync calls using OpenFeign interfaces."
+    }
+  },
+  {
+    "id": "microservices-resiliency-timeouts",
+    "category": "Microservices",
+    "question": "What happens if a downstream service is unavailable or timing out? How would you handle it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How would you handle timeouts?",
+      "If there are many sequential service calls and you're getting timeout errors, how would you solve it?",
+      "How would you identify which downstream call is causing the delay?",
+      "Would you use parallel calls, caching, asynchronous communication, circuit breakers, etc.?"
+    ],
+    "answerSEE": {
+      "simple": "You must implement timeouts, use Distributed Tracing to find the bottleneck, and apply Circuit Breakers to fail fast and prevent cascading failures.",
+      "explain": "To identify delays, inject trace IDs using Zipkin/Sleuth (or Micrometer Tracing). If calls are sequential and unrelated, switch to parallel calls using `CompletableFuture`. To protect your service from hanging when a downstream service dies, wrap the call in a Resilience4j Circuit Breaker and define a fallback method.",
+      "example": "\"If I have 3 sequential downstream calls causing timeouts, I first check Zipkin to see exactly which span is taking the longest. If they don't depend on each other, I fire them in parallel using `CompletableFuture.allOf()`. To prevent my service from crashing when the payment API goes down, I use a Circuit Breaker that instantly returns a cached fallback response instead of waiting for a timeout.\"",
+      "summary10s": "Identify delays via Distributed Tracing (Zipkin). Fix sequential timeouts via `CompletableFuture`. Prevent crashes via Circuit Breaker."
+    }
+  },
+  {
+    "id": "spring-data-jpa-basics",
+    "category": "Spring Boot",
+    "question": "How do you fetch data using Spring Data JPA? What classes/packages are involved?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Do you have knowledge of Spring Data JPA?",
+      "How do you fetch data from a database table?",
+      "What dependencies do you need for Spring Data JPA?",
+      "How do you create an Entity?",
+      "How do you create a Repository?",
+      "What methods does JpaRepository provide?",
+      "How do you create a custom repository query?",
+      "What is a derived query method such as findByEmail()?"
+    ],
+    "answerSEE": {
+      "simple": "You define an @Entity class, create an interface extending JpaRepository, and use its built-in or derived query methods without writing SQL.",
+      "explain": "You need the `spring-boot-starter-data-jpa` dependency. You create a POJO annotated with `@Entity` and `@Id`. Then you create an interface extending `JpaRepository<Entity, Id>`. This instantly provides methods like `findAll()`, `findById()`, and `save()`. You can also write derived queries like `findByEmail(String email)` and Spring automatically generates the SQL.",
+      "example": "\"I start by mapping my `User` class with `@Entity`. Then I create `UserRepository extends JpaRepository<User, Long>`. If I need to find a user by their status, I just declare `List<User> findByStatus(String status)` in the interface. Spring Data JPA writes the implementation for me. If the logic is too complex, I use the `@Query` annotation to write custom JPQL.\"",
+      "summary10s": "@Entity maps table. JpaRepository provides CRUD. Derived methods (`findByName`) auto-generate SQL."
+    }
+  },
+  {
+    "id": "troubleshoot-production-env-differences",
+    "category": "DevOps",
+    "question": "Suppose an issue occurs in production, but works in lower environments. How would you troubleshoot it if you cannot reproduce it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What would you check if you cannot reproduce the production issue?"
+    ],
+    "answerSEE": {
+      "simple": "I would look for environmental differences: configuration mismatches, database volume differences, network/firewall rules, or concurrency issues under heavy load.",
+      "explain": "When code works in Staging but fails in Prod, the code isn't the problem—the environment or data is. I check the Prod environment variables and config files. I check if Prod has 100x more data causing a missing index to trigger a DB timeout. I check Splunk/Kibana for the exact error stack trace, and APM tools to see if the issue only happens under high concurrency.",
+      "example": "\"If I can't reproduce it locally, I rely entirely on observability. I pull up the exact error logs in Kibana using the trace ID. If it's a timeout, it's usually because Prod has millions of rows while Staging has 100, meaning a query is doing a full table scan. If it's an authorization error, it's usually a misconfigured environment variable or firewall rule blocking a downstream service specifically in the Prod VPC.\"",
+      "summary10s": "Check config differences, DB data volume (missing indexes), firewall rules, and analyze logs/APM for concurrency bugs."
+    }
+  },
+  {
+    "id": "encryption-types-symmetric-asymmetric",
+    "category": "Other",
+    "question": "Symmetric vs Asymmetric Encryption",
     "frequency": 1,
     "companies": [],
     "variations": [],
     "answerSEE": {
-      "simple": "The old ClassLoader is discarded and the Singleton is garbage collected. A new instance is created upon the next access.",
-      "explain": "During a hot redeployment (like in Tomcat), the old web application context is destroyed along with its ClassLoader. Since static variables are tied to the ClassLoader, the old Singleton dies. The new deployment loads the class fresh, creating a completely new Singleton.",
-      "example": "\"If I redeploy my application, any in-memory state held by my Singleton is permanently lost because the JVM throws away the old ClassLoader. This is another reason why Singletons shouldn't hold critical, persistent business state without backing it up to a database.\"",
-      "summary10s": "The ClassLoader is destroyed. The Singleton is garbage collected and a new one is created on next access."
+      "simple": "Symmetric uses the same key to encrypt and decrypt. Asymmetric uses a public key to encrypt and a private key to decrypt.",
+      "explain": "Symmetric encryption (like AES) is very fast and used for encrypting bulk data, but securely sharing the secret key is difficult. Asymmetric encryption (like RSA) solves the key distribution problem using a key pair, but it is computationally much slower.",
+      "example": "\"In HTTPS (TLS), both are used together. The browser and server first use Asymmetric encryption to securely agree on a shared secret key over the public internet. Then, they switch to Symmetric encryption using that shared key for the rest of the fast, high-volume data transfer.\"",
+      "summary10s": "Symmetric = 1 Shared Key (Fast). Asymmetric = Public/Private Key Pair (Slow but solves key sharing)."
     }
   },
   {
-    "id": "singleton-initialization-exception",
-    "category": "Java Coding",
-    "question": "What happens if Singleton initialization throws an exception?",
+    "id": "hashing-and-salting",
+    "category": "Other",
+    "question": "What is Salting and why is it important? Name some common hashing algorithms.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Name some common hashing algorithms."
+    ],
+    "answerSEE": {
+      "simple": "Salting adds random data to a password before hashing it to prevent pre-computed dictionary attacks.",
+      "explain": "A hash function (like SHA-256 or bcrypt) converts data into a fixed-length string. If two users have the same password, their hashes will be identical. By generating a random 'salt' and prepending it to the password before hashing, identical passwords result in completely different hashes, neutralizing Rainbow Table attacks.",
+      "example": "\"If I store passwords using just SHA-256, an attacker with a leaked database can instantly crack common passwords like '123456' because the hash is well-known. Instead, I use `bcrypt`, which automatically generates a random 16-byte salt for every user and incorporates it into the final hash.\"",
+      "summary10s": "Salt = Random string added before hashing. Prevents Rainbow Table attacks. Best algorithms: bcrypt, Argon2."
+    }
+  },
+  {
+    "id": "sql-normalization-forms",
+    "category": "SQL",
+    "question": "Explain 1NF, 2NF and 3NF.",
     "frequency": 1,
     "companies": [],
     "variations": [],
     "answerSEE": {
-      "simple": "If an eager or Holder Singleton throws an exception during static initialization, the class becomes permanently unusable.",
-      "explain": "When static blocks or static variables throw a `RuntimeException`, the JVM throws an `ExceptionInInitializerError`. Any subsequent attempt to use the class in that JVM lifecycle will result in a `NoClassDefFoundError`, completely bricking the Singleton.",
-      "example": "\"If my eager Singleton tries to read a missing config file and throws a RuntimeException, the class fails to initialize. The JVM marks the class as erroneous. If I try to call `getInstance()` again later, the JVM won't even retry the initialization; it just immediately throws a NoClassDefFoundError.\"",
-      "summary10s": "Static init failures throw ExceptionInInitializerError. The class is permanently broken (NoClassDefFoundError)."
+      "simple": "1NF eliminates repeating groups. 2NF removes partial dependencies. 3NF removes transitive dependencies.",
+      "explain": "1NF ensures every column is atomic (single value, no arrays). 2NF requires 1NF, plus all non-key columns must depend on the *entire* primary key (fixes issues in composite keys). 3NF requires 2NF, plus no non-key column can depend on another non-key column (e.g., storing 'City' and 'State' when 'ZipCode' implies both).",
+      "example": "\"If an Order table stores multiple items in a comma-separated string, it violates 1NF. I fix it by creating an OrderItems table. If that new table stores the 'ItemPrice', it violates 3NF because price depends on 'ItemID', not the 'OrderID'. I fix it by moving price to a pure Items table.\"",
+      "summary10s": "1NF: Atomic values. 2NF: Depends on whole PK. 3NF: Depends ONLY on PK, not other non-key columns."
     }
   },
   {
-    "id": "singleton-db-connection-pool",
-    "category": "Java Coding",
-    "question": "Would you use Singleton for a database connection pool in a microservices application? Why or why not?",
+    "id": "sql-optimization",
+    "category": "SQL",
+    "question": "How would you optimize an SQL query?",
     "frequency": 1,
     "companies": [],
     "variations": [],
     "answerSEE": {
-      "simple": "Conceptually yes, but I wouldn't write my own GoF Singleton. I would let a framework like Spring manage the pool as a Singleton bean.",
-      "explain": "A connection pool like HikariCP should absolutely have only one instance per JVM to efficiently manage connections. However, hardcoding the classic Singleton pattern makes it impossible to mock during testing or swap configurations for different environments.",
-      "example": "\"A connection pool must be a singleton so it can cap the max database connections. But I never write a private constructor for it. I instantiate HikariDataSource as a Spring `@Bean`. Spring's IoC container guarantees it acts as a singleton, while keeping my code loosely coupled and highly testable.\"",
-      "summary10s": "Conceptually yes, to manage resources. But implement it via Dependency Injection (Spring @Bean), not hardcoded GoF pattern."
+      "simple": "Use indexes, avoid SELECT *, filter early using WHERE instead of HAVING, and analyze the query execution plan.",
+      "explain": "Query optimization starts with reading the `EXPLAIN` plan to find full table scans. You should add indexes to columns used frequently in `WHERE`, `JOIN`, or `ORDER BY` clauses. Replace correlated subqueries with JOINs, and never use `SELECT *` because it forces the DB to read unnecessary data from the disk.",
+      "example": "\"I had a query taking 5 seconds. I ran `EXPLAIN ANALYZE` and saw a Sequential Scan on a massive Users table. I added a B-Tree index on the `email` column, replaced the `SELECT *` with just the `id` and `name`, and the execution time dropped to 50 milliseconds.\"",
+      "summary10s": "Run EXPLAIN. Add Indexes. Avoid SELECT *. Replace correlated subqueries with JOINs."
+    }
+  },
+  {
+    "id": "sql-transaction-management",
+    "category": "SQL",
+    "question": "What is Transaction Management?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Transaction management ensures a group of SQL operations either succeed completely or fail completely, following ACID properties.",
+      "explain": "A transaction groups multiple DML operations (INSERT/UPDATE/DELETE) into a single atomic unit. If any step fails, you issue a `ROLLBACK` to revert all changes, preventing partial data corruption. If all succeed, you issue a `COMMIT` to save them permanently.",
+      "example": "\"In a banking app transferring money, I must deduct $100 from Account A and add $100 to Account B. If the app crashes after step 1, the money is lost forever. By wrapping both in a database Transaction, if step 2 fails, the database automatically rolls back step 1.\"",
+      "summary10s": "Groups operations so they all succeed (COMMIT) or all fail (ROLLBACK). Maintains data integrity (ACID)."
+    }
+  },
+  {
+    "id": "sql-subquery-vs-join",
+    "category": "SQL",
+    "question": "Subquery vs JOIN",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "JOINs combine tables horizontally and are generally faster. Subqueries are nested queries that are easier to read but can be slower.",
+      "explain": "A JOIN calculates a Cartesian product and filters it, which modern SQL optimizers process extremely efficiently using Hash or Merge joins. A Subquery (especially a correlated one) executes the inner query row-by-row for the outer query, leading to massive performance degradation (O(N^2)).",
+      "example": "\"If I want to find employees in the 'IT' department, a subquery looks like: `SELECT * FROM emp WHERE dept_id IN (SELECT id FROM dept WHERE name='IT')`. This is readable. But writing it as an `INNER JOIN` is significantly faster on large datasets because the database engine optimizes the execution path better.\"",
+      "summary10s": "JOINs are highly optimized for performance. Subqueries are readable but often result in slow row-by-row execution."
+    }
+  },
+  {
+    "id": "microservices-architecture",
+    "category": "Microservices",
+    "question": "Monolithic vs Microservices Architecture. How do you manage microservices?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How do you manage microservices?"
+    ],
+    "answerSEE": {
+      "simple": "A Monolith is a single deployable unit. Microservices split the app by business domain into independent, loosely coupled services managed via orchestrators.",
+      "explain": "Monoliths are easy to test and deploy but hard to scale. Microservices allow independent scaling and polyglot programming but introduce distributed system complexity. You manage them using API Gateways for routing, Eureka/Consul for service discovery, Zipkin for distributed tracing, and Kubernetes for container orchestration.",
+      "example": "\"Our monolith took 20 minutes to compile, and if the reporting module crashed, the entire app went down. We split the reporting into a Microservice. Now, we can scale just the reporting service to 10 instances during end-of-month traffic, and if it crashes, the core application stays alive.\"",
+      "summary10s": "Monolith = 1 big app. Microservices = many small apps. Managed via API Gateways, Service Discovery, and K8s."
+    }
+  },
+  {
+    "id": "docker-kubernetes-tools",
+    "category": "DevOps",
+    "question": "What technologies/tools have you used around Docker and Kubernetes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I use Docker to containerize applications and Kubernetes to orchestrate, scale, and manage those containers in production.",
+      "explain": "Docker packages the app, JRE, and OS dependencies into a lightweight image ensuring 'it works on my machine' translates to production. Kubernetes (K8s) takes those containers and manages their lifecycle—automatically restarting them if they crash (Self-healing), scaling them based on CPU load (HPA), and load-balancing traffic.",
+      "example": "\"I write a `Dockerfile` to package my Spring Boot app. My CI/CD pipeline pushes that image to a container registry like Docker Hub or AWS ECR. Then, I write Kubernetes YAML manifests (Deployments, Services, Ingress) and apply them to the cluster so K8s handles the networking and high availability.\"",
+      "summary10s": "Docker builds the container image. Kubernetes orchestrates, load-balances, and auto-scales those containers."
+    }
+  },
+  {
+    "id": "js-event-loop-closures",
+    "category": "JS Coding",
+    "question": "Predict the output of JavaScript Event Loop code and 'for' loops involving 'var' and 'let'.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Predict the output of JavaScript/Node.js Event Loop code.",
+      "Predict the output of \"for\" loops involving \"var\" and \"let\"."
+    ],
+    "answerSEE": {
+      "simple": "Synchronous code runs first, followed by Microtasks (Promises), then Macrotasks (setTimeout). Using 'var' in a loop creates a global scope closure issue.",
+      "explain": "In the JS Event loop, Promises resolve before `setTimeout` callbacks. When dealing with loops, `var` is function-scoped. If you run a `setTimeout` inside a `var` loop, the loop finishes before the timeout fires, meaning all timeouts print the final variable value. `let` is block-scoped, creating a fresh binding for every iteration.",
+      "example": "\"If I run a loop `for (var i=0; i<3; i++) setTimeout(()=>print(i))` it prints '3, 3, 3' because the timeouts run after the loop finishes and all refer to the same global `var`. If I change it to `let i=0`, it prints '0, 1, 2' because `let` creates a new block scope for every single iteration.\"",
+      "summary10s": "Event loop order: Sync -> Microtasks (Promises) -> Macrotasks (setTimeout). `var` leaks scope in loops; `let` is block-scoped."
     }
   }
 ];
