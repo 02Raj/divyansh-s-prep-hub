@@ -3242,6 +3242,59 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "spring-component-vs-service-vs-bean",
+    "category": "Spring Boot",
+    "question": "What is the difference between @Service, @Component, and @Bean?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What Spring Boot annotations have you used in your real-time project?",
+      "What is the real difference between @Component, @Bean, and @Configuration beyond “they create beans”?"
+    ],
+    "answerSEE": {
+      "simple": "@Component is a generic stereotype. @Service is a specialized @Component for business logic. @Bean is used on methods to inject third-party classes.",
+      "explain": "`@Component` marks a class to be picked up by component scanning. `@Service` is technically identical to `@Component` but adds semantic meaning to show it holds business logic. `@Bean` is completely different: it is applied to a *method* (usually inside a `@Configuration` class) to explicitly tell Spring to register the returned object as a bean, which is required when you don't own the class's source code.",
+      "example": "\"I use `@Service` on my own business classes so Spring auto-detects them. But if I need to inject a `RestTemplate` or a `HikariDataSource`—which are external classes I can't modify—I write a method returning that object, annotate it with `@Bean`, and Spring manages it.\"",
+      "summary10s": "@Component/@Service are on classes you own (auto-scanned). @Bean is on methods returning 3rd-party classes."
+    }
+  },
+  {
+    "id": "spring-data-jpa-n-plus-one",
+    "category": "Spring Boot",
+    "question": "How to detect and fix N+1 query problem in Spring Data JPA?",
+    "frequency": 2,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "Why can an N+1 query problem remain completely hidden while using Spring Data JPA repositories?"
+    ],
+    "answerSEE": {
+      "simple": "Detect it by enabling SQL logging. Fix it by using @EntityGraph or a custom JPQL query with JOIN FETCH.",
+      "explain": "The N+1 problem occurs when you fetch 1 list of parent entities, and Hibernate executes N additional queries to fetch their lazy children. This destroys performance. Setting `spring.jpa.show-sql=true` makes it obvious. Fix it by fetching everything in a single SQL query.",
+      "example": "\"I saw 50 SQL queries firing for a simple `findAll()` on Orders. To fix it without writing SQL, I added `@EntityGraph(attributePaths = {\"items\"})` above my `findAll()` method in the JpaRepository. This tells Hibernate to do a single LEFT OUTER JOIN, instantly reducing 50 queries down to 1.\"",
+      "summary10s": "Problem: 1 query for parents, N queries for children. Fix: Use `JOIN FETCH` or `@EntityGraph`."
+    }
+  },
+  {
+    "id": "spring-graceful-shutdown",
+    "category": "Spring Boot",
+    "question": "How do you handle graceful shutdown in Spring Boot microservices (k8s readiness/liveness probes)?",
+    "frequency": 2,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "Your Spring Boot application receives SIGTERM while requests are still running. What happens to those in-flight requests?"
+    ],
+    "answerSEE": {
+      "simple": "Enable graceful shutdown in properties so Tomcat finishes processing active requests before dying, and map Actuator health endpoints to K8s probes.",
+      "explain": "By setting `server.shutdown=graceful`, Spring Boot stops accepting *new* requests but waits a defined timeout period for *active* requests to finish. You expose `/actuator/health/readiness` to Kubernetes so K8s instantly removes the pod from the load balancer before sending the SIGTERM kill signal.",
+      "example": "\"In `application.yml`, I set `server.shutdown=graceful` and `spring.lifecycle.timeout-per-shutdown-phase=30s`. In my Kubernetes deployment, I configure the `readinessProbe` to hit the Actuator endpoint. When rolling out an update, K8s marks the pod unready, traffic shifts away, and active threads finish cleanly without throwing 502 Bad Gateway errors to users.\"",
+      "summary10s": "Set `server.shutdown=graceful`. K8s uses Actuator readiness probes to stop routing traffic before killing the pod."
+    }
+  },
+  {
     "id": "angular-why-injectable",
     "category": "Angular",
     "question": "Why @Injectable()?",
@@ -10921,22 +10974,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-component-vs-service-vs-bean",
-    "category": "Spring Boot",
-    "question": "What is the difference between @Service, @Component, and @Bean?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "What Spring Boot annotations have you used in your real-time project?"
-    ],
-    "answerSEE": {
-      "simple": "@Component is a generic stereotype. @Service is a specialized @Component for business logic. @Bean is used on methods to inject third-party classes.",
-      "explain": "`@Component` marks a class to be picked up by component scanning. `@Service` is technically identical to `@Component` but adds semantic meaning to show it holds business logic. `@Bean` is completely different: it is applied to a *method* (usually inside a `@Configuration` class) to explicitly tell Spring to register the returned object as a bean, which is required when you don't own the class's source code.",
-      "example": "\"I use `@Service` on my own business classes so Spring auto-detects them. But if I need to inject a `RestTemplate` or a `HikariDataSource`—which are external classes I can't modify—I write a method returning that object, annotate it with `@Bean`, and Spring manages it.\"",
-      "summary10s": "@Component/@Service are on classes you own (auto-scanned). @Bean is on methods returning 3rd-party classes."
-    }
-  },
-  {
     "id": "spring-properties-vs-yml",
     "category": "Spring Boot",
     "question": "Which has higher precedence: application.yml or application.properties?",
@@ -11466,22 +11503,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-data-jpa-n-plus-one",
-    "category": "Spring Boot",
-    "question": "How to detect and fix N+1 query problem in Spring Data JPA?",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Detect it by enabling SQL logging. Fix it by using @EntityGraph or a custom JPQL query with JOIN FETCH.",
-      "explain": "The N+1 problem occurs when you fetch 1 list of parent entities, and Hibernate executes N additional queries to fetch their lazy children. This destroys performance. Setting `spring.jpa.show-sql=true` makes it obvious. Fix it by fetching everything in a single SQL query.",
-      "example": "\"I saw 50 SQL queries firing for a simple `findAll()` on Orders. To fix it without writing SQL, I added `@EntityGraph(attributePaths = {\"items\"})` above my `findAll()` method in the JpaRepository. This tells Hibernate to do a single LEFT OUTER JOIN, instantly reducing 50 queries down to 1.\"",
-      "summary10s": "Problem: 1 query for parents, N queries for children. Fix: Use `JOIN FETCH` or `@EntityGraph`."
-    }
-  },
-  {
     "id": "spring-hikaricp-config",
     "category": "Spring Boot",
     "question": "How do you configure connection pool (HikariCP) for high-throughput services?",
@@ -11495,22 +11516,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "For high throughput, a pool that is too small causes threads to bottleneck waiting for connections. A pool that is too large overwhelms the database CPU with context switching. The sweet spot is usually `connections = ((core_count * 2) + effective_spindle_count)`.",
       "example": "\"In a heavy microservice, I set `spring.datasource.hikari.maximum-pool-size=20`. I set `connection-timeout=3000` (3 seconds) so if the DB hangs, my app fails fast instead of freezing threads forever. I also configure Prometheus metrics to monitor the active connections in Grafana.\"",
       "summary10s": "Tune `maximum-pool-size` (not too high to avoid DB thrashing) and `connection-timeout` (fail fast)."
-    }
-  },
-  {
-    "id": "spring-graceful-shutdown",
-    "category": "Spring Boot",
-    "question": "How do you handle graceful shutdown in Spring Boot microservices (k8s readiness/liveness probes)?",
-    "frequency": 1,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Enable graceful shutdown in properties so Tomcat finishes processing active requests before dying, and map Actuator health endpoints to K8s probes.",
-      "explain": "By setting `server.shutdown=graceful`, Spring Boot stops accepting *new* requests but waits a defined timeout period for *active* requests to finish. You expose `/actuator/health/readiness` to Kubernetes so K8s instantly removes the pod from the load balancer before sending the SIGTERM kill signal.",
-      "example": "\"In `application.yml`, I set `server.shutdown=graceful` and `spring.lifecycle.timeout-per-shutdown-phase=30s`. In my Kubernetes deployment, I configure the `readinessProbe` to hit the Actuator endpoint. When rolling out an update, K8s marks the pod unready, traffic shifts away, and active threads finish cleanly without throwing 502 Bad Gateway errors to users.\"",
-      "summary10s": "Set `server.shutdown=graceful`. K8s uses Actuator readiness probes to stop routing traffic before killing the pod."
     }
   },
   {
@@ -11722,6 +11727,220 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Synchronous code throws exceptions that stop execution unless wrapped in a standard `try/catch` block. For asynchronous Promises, a thrown error is swallowed unless you chain a `.catch()` at the end. However, if you use the modern `async/await` syntax, you can seamlessly wrap asynchronous calls inside a standard `try/catch` block just like sync code.",
       "example": "\"In older code, I wrote `fetch(url).then(res => res.json()).catch(err => console.log(err))`. Now, I write an `async` function and do: `try { const res = await fetch(url); } catch (err) { console.log(err); }`. It makes the async error handling look perfectly synchronous.\"",
       "summary10s": "Sync: `try/catch`. Async Promises: `.catch()`. Modern Async/Await: `try/catch`."
+    }
+  },
+  {
+    "id": "spring-aop-self-invocation",
+    "category": "Spring Boot",
+    "question": "Why do @Transactional, @Async, and @Cacheable fail when called from another method within the same class?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "@Transactional is present, but a transaction isn’t created. Why does calling one method from another method in the same class cause this?",
+      "Why can @Async execute synchronously even though the method has @Async?",
+      "Why does @Cacheable fail when the cached method is called from the same class?"
+    ],
+    "answerSEE": {
+      "simple": "Because Spring uses AOP proxies. Calling a method from within the same class bypasses the proxy entirely.",
+      "explain": "When Spring creates a bean with these annotations, it wraps it in a Proxy object. When an external class calls the bean, it hits the proxy first, which starts the transaction/async thread. However, if `methodA()` calls `methodB()` within the *same* class, it uses the internal `this` reference, entirely bypassing the proxy wrapper and stripping away all annotation behaviors.",
+      "example": "\"I had an API call `saveUser()` which did some work and then called `@Async sendEmail()` in the same class. It blocked the main thread. I fixed it by moving `sendEmail()` to a separate `EmailService` bean and injecting it, forcing the call to route through the Spring Proxy.\"",
+      "summary10s": "Self-invocation bypasses Spring AOP proxies. Always call annotated methods from an external bean."
+    }
+  },
+  {
+    "id": "spring-bean-method-calls",
+    "category": "Spring Boot",
+    "question": "What actually happens when one @Bean method calls another @Bean method?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring intercepts the call using CGLIB and returns the existing Singleton bean from the context instead of executing the method again.",
+      "explain": "If your class is annotated with `@Configuration`, Spring creates a CGLIB subclass. When `beanA()` calls `beanB()`, the proxy intercepts the call. It checks the ApplicationContext for `beanB`. If it exists, it returns it instantly. This guarantees Singleton scoping even when methods call each other directly.",
+      "example": "\"In my Config class, `dataSource()` creates the DB pool, and `entityManagerFactory()` calls `dataSource()`. Even though it looks like I'm calling a method that creates a *new* pool, Spring intercepts it and injects the exact same Singleton DataSource object.\"",
+      "summary10s": "Spring proxies `@Configuration` classes. Intercepts the method call to return the Singleton from the IoC container."
+    }
+  },
+  {
+    "id": "spring-prototype-in-singleton",
+    "category": "Spring Boot",
+    "question": "Why can injecting a prototype-scoped bean into a singleton produce surprising behavior?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The prototype bean is only instantiated once when the singleton is created, effectively making the prototype act like a singleton.",
+      "explain": "Because the Singleton bean's dependencies are resolved exactly once during application startup, the injected Prototype bean becomes locked into that Singleton. Every subsequent request to the Singleton will reuse the exact same Prototype instance, violating the prototype lifecycle.",
+      "example": "\"I wanted a fresh `Worker` object for every request, so I marked it `@Scope(\\\"prototype\\\")` and `@Autowired` it into my Singleton Controller. But it shared the same worker state for all users. I fixed it by injecting the `ObjectFactory<Worker>` or using `@Lookup` to fetch a new instance dynamically on every method call.\"",
+      "summary10s": "Singleton dependencies are injected ONCE at startup. Use `ObjectFactory` or `@Lookup` to get a fresh Prototype."
+    }
+  },
+  {
+    "id": "spring-circular-dependencies",
+    "category": "Spring Boot",
+    "question": "Why do circular dependencies sometimes work — and sometimes cause Spring Boot startup failures?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "They work with field/setter injection because Spring can create empty objects first. They fail with constructor injection because objects can't be instantiated.",
+      "explain": "If Bean A requires Bean B in its constructor, and Bean B requires Bean A in its constructor, Spring hits a deadlock and throws `BeanCurrentlyInCreationException`. If you use field injection (`@Autowired`), Spring instantiates both objects first with default constructors, and then injects them into each other's fields later in the lifecycle.",
+      "example": "\"My app crashed on startup because `UserService` and `AuthService` had each other in their constructors. I solved it by redesigning the architecture to remove the cycle, rather than falling back to field injection which hides the bad design.\"",
+      "summary10s": "Fails on Constructor Injection (deadlock). Works on Field Injection (two-phase initialization)."
+    }
+  },
+  {
+    "id": "spring-bean-lifecycle",
+    "category": "Spring Boot",
+    "question": "What exactly happens during the Spring bean creation lifecycle?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Instantiation -> Populate Properties -> BeanPostProcessors (Before Init) -> Custom Init -> BeanPostProcessors (After Init) -> Ready.",
+      "explain": "Spring first instantiates the object via constructor. It then populates `@Autowired` dependencies. Then, `BeanPostProcessor.postProcessBeforeInitialization` runs. Next, custom init methods like `@PostConstruct` execute. Finally, `postProcessAfterInitialization` runs (this is where AOP Proxies for @Transactional or @Async are dynamically generated).",
+      "example": "\"Understanding this saved me when I tried to use a `@Transactional` repository inside a constructor. It crashed because dependencies weren't injected yet. I moved the DB call to a `@PostConstruct` method, which runs safely after all properties are fully populated.\"",
+      "summary10s": "Construct -> Inject Dependencies -> @PostConstruct -> Wrap in AOP Proxies -> Ready."
+    }
+  },
+  {
+    "id": "spring-transactional-readonly",
+    "category": "Spring Boot",
+    "question": "Does @Transactional(readOnly = true) actually prevent database writes? What does it really do?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It doesn't strictly prevent writes at the Java level. It acts as a massive performance optimization hint to Hibernate and the database.",
+      "explain": "When set to `true`, Hibernate disables 'Dirty Checking' (it doesn't keep snapshots of entities in memory to compare for changes). It also sets the JDBC connection to read-only mode. Depending on the specific database driver (like PostgreSQL), attempting a write *might* throw an exception, but it's fundamentally an optimization tool, not a strict security boundary.",
+      "example": "\"For my reporting endpoints, I always use `readOnly = true`. It drops CPU usage significantly because Hibernate skips dirty checking on the thousands of entities I'm fetching, and the database engine skips acquiring write-locks.\"",
+      "summary10s": "It disables Hibernate Dirty Checking (massive RAM/CPU optimization) and hints the DB to avoid write-locks."
+    }
+  },
+  {
+    "id": "spring-transactional-exception-caught",
+    "category": "Spring Boot",
+    "question": "What happens to a transaction when an exception is caught inside the @Transactional method?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If you catch the exception and don't rethrow it, the transaction will COMMIT normally, silently ignoring the failure.",
+      "explain": "Spring's AOP proxy decides to rollback ONLY if the method exits by throwing an unhandled exception. If your business logic wraps a DB call in a `try/catch` and swallows the error, the proxy assumes the method executed successfully and commits whatever data was written before the error.",
+      "example": "\"I had a bug where a user was created, but the welcome email failed. Because I caught the email exception inside the method, the user creation committed! To fix it, I either threw a custom `RuntimeException` in the catch block, or explicitly called `TransactionAspectSupport.currentTransactionStatus().setRollbackOnly()`.\"",
+      "summary10s": "Swallowing exceptions tricks the proxy into committing. You must throw the exception or manually mark for rollback."
+    }
+  },
+  {
+    "id": "spring-multiple-beans-interface",
+    "category": "Spring Boot",
+    "question": "Two beans implement the same interface. Neither has @Primary. What exactly does Spring do?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring tries to resolve it by matching the variable name to the bean name. If that fails, it throws a NoUniqueBeanDefinitionException.",
+      "explain": "When using `@Autowired`, Spring's primary resolution is by Type. If it finds two beans (e.g., `stripePayment` and `paypalPayment`), it falls back to resolving by Name. If your variable is named `paymentService`, it fails. If your variable is named exactly `stripePayment`, it successfully injects that specific bean.",
+      "example": "\"My app wouldn't start because I had two `NotificationService` implementations. Without adding `@Primary` or `@Qualifier(\\\"sms\\\")`, I simply renamed my constructor argument to `NotificationService smsNotificationService`. Spring's auto-wiring successfully matched the bean name and injected it.\"",
+      "summary10s": "It falls back to matching the variable name. If names don't match, it throws `NoUniqueBeanDefinitionException`."
+    }
+  },
+  {
+    "id": "spring-transactional-checked-vs-unchecked",
+    "category": "Spring Boot",
+    "question": "Why does @Transactional behave differently for checked vs unchecked exceptions?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "By default, Spring only rolls back for unchecked exceptions (RuntimeExceptions) and Errors, not checked exceptions (like IOException).",
+      "explain": "This is a historical design choice mirroring EJB specifications. The philosophy is that checked exceptions are 'recoverable' business conditions, so the transaction should commit whatever succeeded so far. Unchecked exceptions indicate catastrophic bugs, requiring a full rollback.",
+      "example": "\"I wrote a file upload method that threw a checked `IOException`, and was shocked when the partial database writes committed! To fix it, I updated the annotation to `@Transactional(rollbackFor = Exception.class)`, forcing Spring to roll back for absolutely everything.\"",
+      "summary10s": "Rolls back on `RuntimeException`, commits on Checked Exceptions. Use `rollbackFor = Exception.class` to fix."
+    }
+  },
+  {
+    "id": "spring-multiple-datasource",
+    "category": "Spring Boot",
+    "question": "What happens when your Spring Boot application has multiple DataSource beans?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot disables auto-configuration for DataSources, forcing you to manually configure the EntityManager and TransactionManager for each.",
+      "explain": "When you have two `@Bean` DataSources (e.g., one for Postgres, one for MySQL), Spring doesn't know which one JPA should use. You must mark one as `@Primary`. Furthermore, you have to write manual configuration classes to explicitly bind `LocalContainerEntityManagerFactoryBean` and `PlatformTransactionManager` to each specific datasource.",
+      "example": "\"I needed to read from an old Oracle DB and write to Postgres. I had to manually define `@Primary` on my Postgres beans, and use `@EnableJpaRepositories(basePackages = \\\"com.app.oracle\\\", entityManagerFactoryRef = \\\"oracleEM\\\")` to tell Spring exactly which database mapped to which repository package.\"",
+      "summary10s": "Auto-config shuts off. You must manually define `@Primary` and configure EntityManagers for each DB."
+    }
+  },
+  {
+    "id": "spring-interface-injection-proxy",
+    "category": "Spring Boot",
+    "question": "When you inject an interface instead of a concrete class, what is Spring actually injecting?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring injects a dynamically generated JDK Proxy object that wraps the concrete implementation.",
+      "explain": "When a class implements an interface, Spring AOP prefers using JDK Dynamic Proxies over CGLIB. The injected object is not an instance of your class; it's a proxy class (e.g., `$Proxy42`) generated in memory that implements the same interface, intercepts the calls, runs behaviors like `@Transactional`, and then delegates to your real object.",
+      "example": "\"I tried to cast my injected `UserService` interface back to `UserServiceImpl` and got a ClassCastException. That's because Spring didn't inject `UserServiceImpl`; it injected a JDK Proxy that only knows about the interface methods. You should never cast injected beans.\"",
+      "summary10s": "It injects a JDK Dynamic Proxy (an interceptor wrapper), NOT the concrete class instance."
+    }
+  },
+  {
+    "id": "spring-bean-init-order",
+    "category": "Spring Boot",
+    "question": "Why can changing bean initialization order fix a production issue without changing business logic?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Because some beans implicitly rely on static state or external systems initialized by other beans (e.g., database migrations or caches).",
+      "explain": "If Bean A populates a static cache, and Bean B reads from it in a `@PostConstruct`, Bean B will crash if it initializes first. Spring resolves dependency graphs, but if there's no explicit `@Autowired` relationship, order is non-deterministic. Using `@DependsOn(\"beanA\")` forces the correct initialization sequence.",
+      "example": "\"Our app randomly failed to start in production. It turns out Flyway DB migrations were running *after* Hibernate tried to validate the schema, causing a crash. Adding `@DependsOn(\\\"flyway\\\")` to the EntityManager bean guaranteed the tables existed before Hibernate booted.\"",
+      "summary10s": "Hidden dependencies on static state or external systems. Fix with `@DependsOn` to enforce strict ordering."
+    }
+  },
+  {
+    "id": "spring-request-during-init",
+    "category": "Spring Boot",
+    "question": "What happens if a request arrives while a required Spring bean is still initializing?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "By default, Tomcat doesn't start accepting HTTP traffic until the entire Spring ApplicationContext is fully initialized.",
+      "explain": "Spring Boot is strictly synchronous on startup. The web server (Tomcat/Netty) is started in the very final phases of the `refreshContext()` lifecycle. This guarantees that no HTTP request can ever hit a controller while a `@Service` is still running its `@PostConstruct` logic.",
+      "example": "\"I deliberately put a `Thread.sleep(10000)` inside a `@PostConstruct` to test this. When I curled the API, the connection was refused. Tomcat didn't bind to port 8080 until the sleep finished and the context was 100% ready, completely preventing half-initialized state bugs.\"",
+      "summary10s": "It is impossible. Tomcat waits until the Spring Context is 100% fully initialized before binding to port 8080."
+    }
+  },
+  {
+    "id": "spring-requestbody-validation",
+    "category": "Spring Boot",
+    "question": "@RequestBody validation works on one endpoint but not another. What would you investigate first?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Check if the @Valid or @Validated annotation is missing from the method parameter.",
+      "explain": "Putting `@NotNull` inside your DTO class does nothing on its own. Spring intercepts the request and runs Hibernate Validator *only* if the controller parameter is prefixed with `@Valid`. If it's missing, the JSON maps to the object perfectly, completely ignoring the validation constraints.",
+      "example": "\"A junior developer was confused why users could submit blank emails. The DTO had `@Email` and `@NotBlank`, but the controller signature was just `register(@RequestBody UserDto dto)`. I added `@Valid` right before `@RequestBody`, and Spring immediately started returning 400 Bad Request errors for invalid data.\"",
+      "summary10s": "Constraints in the DTO do nothing unless the Controller parameter is annotated with `@Valid`."
+    }
+  },
+  {
+    "id": "api-latency-spike",
+    "category": "DevOps",
+    "question": "Your API suddenly goes from 200 ms -> 5 seconds. What do you check?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Check database locks, connection pool exhaustion, memory/GC pauses, and downstream service timeouts.",
+      "explain": "A sudden spike isn't a code change; it's an environment state change. A massive query could be hogging all 20 HikariCP connections, forcing new requests to wait 4.8 seconds to get a connection. Alternatively, a third-party API is timing out, or the JVM is trapped in a 'Stop-The-World' Garbage Collection spiral due to a memory leak.",
+      "example": "\"I look at APM (Datadog/NewRelic). If the DB time is 4.9s, we are out of DB connections or hit a table lock. If external HTTP time is 4.9s, a third-party API is degraded. If CPU is at 100% and heap is full, the JVM is stuck in a GC death spiral and needs a restart.\"",
+      "summary10s": "Connection Pool Exhaustion, DB Locks, Downstream API Timeouts, or JVM GC Death Spiral."
     }
   }
 ];
