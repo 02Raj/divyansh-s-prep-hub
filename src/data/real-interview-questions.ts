@@ -2062,6 +2062,89 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "longest-substring-without-repe",
+    "category": "Java Coding",
+    "question": "Longest substring without repeating characters",
+    "frequency": 3,
+    "companies": [
+      "Accenture",
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "Longest substring without repeating characters.",
+      "Problem: Given a string s, find the length of the longest substring without repeating characters."
+    ],
+    "answerSEE": {
+      "simple": "Use a sliding window with a HashSet (or HashMap of last-seen index) to track characters in the current window.",
+      "explain": "Expand the window by moving the right pointer; if a duplicate is found, shrink from the left until the duplicate is removed. Track the max window length seen.\npublic class LongestSubstring {\n    public static int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastIndex = new HashMap<>();\n        int maxLen = 0, left = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            if (lastIndex.containsKey(c) && lastIndex.get(c) >= left) {\n                left = lastIndex.get(c) + 1; // jump left past the duplicate\n            }\n            lastIndex.put(c, right);\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(lengthOfLongestSubstring(\"abcabcbb\")); // 3 (\"abc\")\n    }\n}\n",
+      "example": "\"I'd use the sliding window technique with a HashMap tracking each character's last seen index. As I expand the window with a right pointer, if I encounter a character already in the map within my current window, I jump the left pointer past that duplicate's previous position instead of moving it one step at a time — that makes it a single O(n) pass instead of a nested-loop O(n squared) brute force.\"",
+      "summary10s": "\"Sliding window + HashMap of last-seen index — jump left pointer past duplicates, O(n) single pass.\""
+    }
+  },
+  {
+    "id": "spring-component-vs-service-vs-bean",
+    "category": "Spring Boot",
+    "question": "What is the difference between @Service, @Component, and @Bean?",
+    "frequency": 3,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "What Spring Boot annotations have you used in your real-time project?",
+      "What is the real difference between @Component, @Bean, and @Configuration beyond “they create beans”?",
+      "What is the @Bean annotation, and what are the internal mechanisms Spring uses to inject these beans?"
+    ],
+    "answerSEE": {
+      "simple": "@Component is a generic stereotype. @Service is a specialized @Component for business logic. @Bean is used on methods to inject third-party classes.",
+      "explain": "`@Component` marks a class to be picked up by component scanning. `@Service` is technically identical to `@Component` but adds semantic meaning to show it holds business logic. `@Bean` is completely different: it is applied to a *method* (usually inside a `@Configuration` class) to explicitly tell Spring to register the returned object as a bean, which is required when you don't own the class's source code.",
+      "example": "\"I use `@Service` on my own business classes so Spring auto-detects them. But if I need to inject a `RestTemplate` or a `HikariDataSource`—which are external classes I can't modify—I write a method returning that object, annotate it with `@Bean`, and Spring manages it.\"",
+      "summary10s": "@Component/@Service are on classes you own (auto-scanned). @Bean is on methods returning 3rd-party classes."
+    }
+  },
+  {
+    "id": "sysdesign-explain-architecture",
+    "category": "System Design",
+    "question": "Explain the architecture of one of your recent projects.",
+    "frequency": 3,
+    "companies": [
+      "JPMorganChase",
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "Explain your project architecture end-to-end.",
+      "What is your total experience and explain your recent project which you have done?"
+    ],
+    "answerSEE": {
+      "simple": "You should clearly describe the frontend, API gateway, backend microservices, database layer, and any async messaging.",
+      "explain": "Interviewers want to see you own the architecture. Start from the client, trace a request through the load balancer/API Gateway, explain the core microservices, how they scale, the database choices (SQL vs NoSQL), and how asynchronous tasks use Kafka or RabbitMQ.",
+      "example": "\"In my recent project, the React frontend hits our AWS API Gateway. It routes to our Spring Boot microservices running on Kubernetes. We use PostgreSQL for transactional data. For heavy jobs like generating reports, we drop a message onto a Kafka topic, which an asynchronous worker consumes to avoid blocking the user.\"",
+      "summary10s": "Trace the flow: Client -> Load Balancer -> API Gateway -> Microservices -> DB / Event Broker (Kafka)."
+    }
+  },
+  {
+    "id": "spring-boot-auto-config",
+    "category": "Spring Boot",
+    "question": "How does Auto-Configuration work?",
+    "frequency": 3,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "Explain Spring Boot auto-configuration internally.",
+      "Explain the exact differences between @AutoConfiguration and @EnableAutoConfiguration."
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot automatically configures beans based on the JARs on your classpath and the properties defined.",
+      "explain": "@EnableAutoConfiguration reads the spring.factories (or org.springframework.boot.autoconfigure.AutoConfiguration.imports in newer versions) and uses @Conditional annotations to decide which configurations to load.",
+      "example": "\"When I add spring-boot-starter-data-jpa, Auto-Configuration kicks in. It sees Hibernate and JPA on the classpath, checks if I provided database properties, and automatically creates a DataSource, EntityManager, and TransactionManager using @ConditionalOnClass and @ConditionalOnMissingBean.\"",
+      "summary10s": "Scans classpath and properties, uses @Conditional annotations to create necessary beans automatically."
+    }
+  },
+  {
     "id": "java-static-methods-interface",
     "category": "Java",
     "question": "What is the use of static methods in an interface?",
@@ -2816,24 +2899,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "longest-substring-without-repe",
-    "category": "Java Coding",
-    "question": "Longest substring without repeating characters",
-    "frequency": 2,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [
-      "Longest substring without repeating characters."
-    ],
-    "answerSEE": {
-      "simple": "Use a sliding window with a HashSet (or HashMap of last-seen index) to track characters in the current window.",
-      "explain": "Expand the window by moving the right pointer; if a duplicate is found, shrink from the left until the duplicate is removed. Track the max window length seen.\npublic class LongestSubstring {\n    public static int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastIndex = new HashMap<>();\n        int maxLen = 0, left = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            if (lastIndex.containsKey(c) && lastIndex.get(c) >= left) {\n                left = lastIndex.get(c) + 1; // jump left past the duplicate\n            }\n            lastIndex.put(c, right);\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(lengthOfLongestSubstring(\"abcabcbb\")); // 3 (\"abc\")\n    }\n}\n",
-      "example": "\"I'd use the sliding window technique with a HashMap tracking each character's last seen index. As I expand the window with a right pointer, if I encounter a character already in the map within my current window, I jump the left pointer past that duplicate's previous position instead of moving it one step at a time — that makes it a single O(n) pass instead of a nested-loop O(n squared) brute force.\"",
-      "summary10s": "\"Sliding window + HashMap of last-seen index — jump left pointer past duplicates, O(n) single pass.\""
-    }
-  },
-  {
     "id": "what-are-the-java-8-features-you-have-used",
     "category": "Java",
     "question": "What are the Java 8 features you have used?",
@@ -3372,23 +3437,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-component-vs-service-vs-bean",
-    "category": "Spring Boot",
-    "question": "What is the difference between @Service, @Component, and @Bean?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "What Spring Boot annotations have you used in your real-time project?",
-      "What is the real difference between @Component, @Bean, and @Configuration beyond “they create beans”?"
-    ],
-    "answerSEE": {
-      "simple": "@Component is a generic stereotype. @Service is a specialized @Component for business logic. @Bean is used on methods to inject third-party classes.",
-      "explain": "`@Component` marks a class to be picked up by component scanning. `@Service` is technically identical to `@Component` but adds semantic meaning to show it holds business logic. `@Bean` is completely different: it is applied to a *method* (usually inside a `@Configuration` class) to explicitly tell Spring to register the returned object as a bean, which is required when you don't own the class's source code.",
-      "example": "\"I use `@Service` on my own business classes so Spring auto-detects them. But if I need to inject a `RestTemplate` or a `HikariDataSource`—which are external classes I can't modify—I write a method returning that object, annotate it with `@Bean`, and Spring manages it.\"",
-      "summary10s": "@Component/@Service are on classes you own (auto-scanned). @Bean is on methods returning 3rd-party classes."
-    }
-  },
-  {
     "id": "spring-data-jpa-n-plus-one",
     "category": "Spring Boot",
     "question": "How to detect and fix N+1 query problem in Spring Data JPA?",
@@ -3748,24 +3796,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "sysdesign-explain-architecture",
-    "category": "System Design",
-    "question": "Explain the architecture of one of your recent projects.",
-    "frequency": 2,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [
-      "Explain your project architecture end-to-end."
-    ],
-    "answerSEE": {
-      "simple": "You should clearly describe the frontend, API gateway, backend microservices, database layer, and any async messaging.",
-      "explain": "Interviewers want to see you own the architecture. Start from the client, trace a request through the load balancer/API Gateway, explain the core microservices, how they scale, the database choices (SQL vs NoSQL), and how asynchronous tasks use Kafka or RabbitMQ.",
-      "example": "\"In my recent project, the React frontend hits our AWS API Gateway. It routes to our Spring Boot microservices running on Kubernetes. We use PostgreSQL for transactional data. For heavy jobs like generating reports, we drop a message onto a Kafka topic, which an asynchronous worker consumes to avoid blocking the user.\"",
-      "summary10s": "Trace the flow: Client -> Load Balancer -> API Gateway -> Microservices -> DB / Event Broker (Kafka)."
-    }
-  },
-  {
     "id": "spring-transactional-checked-vs-unchecked",
     "category": "Spring Boot",
     "question": "Why does @Transactional behave differently for checked vs unchecked exceptions?",
@@ -3866,22 +3896,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "2PC locks databases across the network, killing microservice performance and availability. The Saga pattern splits the transaction into individual local transactions. If a step fails, you publish a 'compensation event' that triggers previous services to undo their work (e.g., refunding the money).",
       "example": "\"In my e-commerce app, Order creates an order (Pending) and tells Payment to charge the card. If Payment succeeds, it tells Inventory to reserve stock. If Inventory is empty, it fails and publishes an `InventoryFailed` event. Payment listens, refunds the card, and Order changes status to Cancelled. No global locks needed.\"",
       "summary10s": "Avoid 2PC (too slow). Use Saga: sequential local transactions with 'compensating actions' (undo logic) if a step fails."
-    }
-  },
-  {
-    "id": "spring-boot-auto-config",
-    "category": "Spring Boot",
-    "question": "How does Auto-Configuration work?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Explain Spring Boot auto-configuration internally."
-    ],
-    "answerSEE": {
-      "simple": "Spring Boot automatically configures beans based on the JARs on your classpath and the properties defined.",
-      "explain": "@EnableAutoConfiguration reads the spring.factories (or org.springframework.boot.autoconfigure.AutoConfiguration.imports in newer versions) and uses @Conditional annotations to decide which configurations to load.",
-      "example": "\"When I add spring-boot-starter-data-jpa, Auto-Configuration kicks in. It sees Hibernate and JPA on the classpath, checks if I provided database properties, and automatically creates a DataSource, EntityManager, and TransactionManager using @ConditionalOnClass and @ConditionalOnMissingBean.\"",
-      "summary10s": "Scans classpath and properties, uses @Conditional annotations to create necessary beans automatically."
     }
   },
   {
@@ -4251,6 +4265,83 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Rendering 10,000 DOM elements freezes the browser. Virtual Scrolling (@angular/cdk/scrolling) only renders the visible items. trackBy prevents destroying and recreating DOM nodes unnecessarily. Pagination/Infinite scrolling limits data loaded at once.",
       "example": "\"If an API returns a massive array, I immediately use Angular CDK Virtual Scroll so only the items visible on the screen are actually in the DOM. I also strictly enforce the trackBy function on the *ngFor loop to prevent full re-renders when data updates.\"",
       "summary10s": "Virtual Scrolling (Angular CDK), trackBy, and Server-side Pagination."
+    }
+  },
+  {
+    "id": "imperative-vs-functional-programming",
+    "category": "Java",
+    "question": "Imperative vs Functional Programming",
+    "frequency": 2,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "What is Functional Programming in the context of Java?"
+    ],
+    "answerSEE": {
+      "simple": "Imperative tells the computer HOW to do something step by step, Functional tells it WHAT to do declaratively.",
+      "explain": "Imperative — explicit control flow, mutable state, loops, step-by-step instructions\nFunctional — pure functions, immutability, composition, declarative transformations\nImperative — easier to trace execution order, but verbose for collection processing\nFunctional — more concise, easier to parallelize, but can be less intuitive for control-flow-heavy logic\nJava supports both — traditional loops are imperative, Streams are functional\nSide by side:\n// Imperative — HOW\nint sum = 0;\nfor (int num : numbers) {\n    if (num % 2 == 0) {\n        sum += num;\n    }\n}\n\n// Functional — WHAT\nint sum = numbers.stream()\n    .filter(num -> num % 2 == 0)\n    .mapToInt(Integer::intValue)\n    .sum();",
+      "example": "\"Imperative programming describes the exact steps — initialize a sum variable, loop through, check condition, add. It is explicit about control flow and mutates state along the way. Functional programming describes the result I want — filter even numbers, sum them — without me managing the loop mechanics or mutable accumulator. Java lets me mix both — I use imperative for complex control flow with multiple exit conditions, and functional Streams for straightforward collection transformations.\"",
+      "summary10s": "Imperative=explicit steps and mutable state HOW, Functional=declarative transformations WHAT, Java supports both."
+    }
+  },
+  {
+    "id": "springbootapplication-annotations",
+    "category": "Spring Boot",
+    "question": "How does @SpringBootApplication combine multiple annotations?",
+    "frequency": 2,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "What exactly happens under the hood when you use @SpringBootApplication?"
+    ],
+    "answerSEE": {
+      "simple": "@SpringBootApplication is a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.",
+      "explain": "@Configuration tags the class as a source of bean definitions. @EnableAutoConfiguration tells Spring Boot to guess and configure beans based on classpath. @ComponentScan tells Spring to look for other components, configurations, and services in the current package and its sub-packages.",
+      "example": "\"Instead of writing three separate annotations, I just put @SpringBootApplication on my main class. It automatically enables component scanning in my base package, marks the class as a configuration source, and turns on Spring Boot's auto-configuration magic all at once.\"",
+      "summary10s": "It combines @Configuration, @EnableAutoConfiguration, and @ComponentScan."
+    }
+  },
+  {
+    "id": "define-data-structures",
+    "category": "Java Coding",
+    "question": "What is Data structures?",
+    "frequency": 2,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "How do you define Data Structures, and how would you rate your proficiency in them out of 10?",
+      "What is Data structures and how much would you rate yourself out of 10?"
+    ],
+    "answerSEE": {
+      "simple": "A data structure is a specialized format for organizing, processing, retrieving, and storing data in memory.",
+      "explain": "Data structures are the building blocks of algorithms. They define how data is stored in the computer's memory so that operations (like search, insert, delete) can be performed efficiently. Choosing the right data structure dictates the time and space complexity of the software.",
+      "example": "\"If I need to search a list of 10 million users by ID, using a simple Array (Data Structure) means an O(N) linear search. If I use a HashMap, it becomes an O(1) direct lookup. That's why understanding Data Structures is crucial—it directly impacts application performance.\"",
+      "summary10s": "A way to organize and store data in memory to enable efficient access and modification."
+    }
+  },
+  {
+    "id": "types-of-data-structures",
+    "category": "Java Coding",
+    "question": "Can you explain the primary types of Data Structures (Linear vs. Non-Linear) and when to use which?",
+    "frequency": 2,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "What are types of Data Structures?"
+    ],
+    "answerSEE": {
+      "simple": "Linear structures store data sequentially (Arrays, LinkedLists). Non-Linear structures store data hierarchically or interconnectedly (Trees, Graphs).",
+      "explain": "Linear: Elements are attached consecutively. Traversal is in a single run. Non-Linear: Elements can connect to multiple other elements, forming complex relationships. You use Linear for sequential processing and Non-Linear for hierarchical data or mapping networks.",
+      "example": "\"I use a Linear structure like an ArrayList to store a simple list of recent orders. But if I'm building an org chart or representing a file system, I use a Non-Linear Tree. If I'm building a social network to find 'friends of friends', I use a Graph.\"",
+      "summary10s": "Linear (Arrays, Queues, Stacks) for sequential data. Non-Linear (Trees, Graphs) for hierarchical/network data."
     }
   },
   {
@@ -5908,20 +5999,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "imperative-vs-functional-programming",
-    "category": "Java",
-    "question": "Imperative vs Functional Programming",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Imperative tells the computer HOW to do something step by step, Functional tells it WHAT to do declaratively.",
-      "explain": "Imperative — explicit control flow, mutable state, loops, step-by-step instructions\nFunctional — pure functions, immutability, composition, declarative transformations\nImperative — easier to trace execution order, but verbose for collection processing\nFunctional — more concise, easier to parallelize, but can be less intuitive for control-flow-heavy logic\nJava supports both — traditional loops are imperative, Streams are functional\nSide by side:\n// Imperative — HOW\nint sum = 0;\nfor (int num : numbers) {\n    if (num % 2 == 0) {\n        sum += num;\n    }\n}\n\n// Functional — WHAT\nint sum = numbers.stream()\n    .filter(num -> num % 2 == 0)\n    .mapToInt(Integer::intValue)\n    .sum();",
-      "example": "\"Imperative programming describes the exact steps — initialize a sum variable, loop through, check condition, add. It is explicit about control flow and mutates state along the way. Functional programming describes the result I want — filter even numbers, sum them — without me managing the loop mechanics or mutable accumulator. Java lets me mix both — I use imperative for complex control flow with multiple exit conditions, and functional Streams for straightforward collection transformations.\"",
-      "summary10s": "Imperative=explicit steps and mutable state HOW, Functional=declarative transformations WHAT, Java supports both."
-    }
-  },
-  {
     "id": "mock-vs-static-mock-in-junit",
     "category": "Spring Boot",
     "question": "Mock vs Static Mock in JUnit",
@@ -7193,20 +7270,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When you call run(), Spring Boot creates the appropriate ApplicationContext (web or standard). It then registers a ShutdownHook, parses application.properties, runs ComponentScan and AutoConfiguration, and finally starts the embedded Tomcat/Jetty before triggering any ApplicationRunners.",
       "example": "\"When I call SpringApplication.run(), Spring bootstraps the entire environment. It first creates the ApplicationContext, then evaluates all the auto-configuration rules. After wiring up the beans, it fires up the embedded Tomcat server so the app is ready to accept requests without any manual server configuration on my part.\"",
       "summary10s": "Creates context -> Loads properties -> Scans/Auto-configures beans -> Starts embedded server."
-    }
-  },
-  {
-    "id": "springbootapplication-annotations",
-    "category": "Spring Boot",
-    "question": "How does @SpringBootApplication combine multiple annotations?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "@SpringBootApplication is a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.",
-      "explain": "@Configuration tags the class as a source of bean definitions. @EnableAutoConfiguration tells Spring Boot to guess and configure beans based on classpath. @ComponentScan tells Spring to look for other components, configurations, and services in the current package and its sub-packages.",
-      "example": "\"Instead of writing three separate annotations, I just put @SpringBootApplication on my main class. It automatically enables component scanning in my base package, marks the class as a configuration source, and turns on Spring Boot's auto-configuration magic all at once.\"",
-      "summary10s": "It combines @Configuration, @EnableAutoConfiguration, and @ComponentScan."
     }
   },
   {
@@ -13068,6 +13131,74 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "HttpClient returns an Observable. You must subscribe to it (or use the async pipe) for the request to actually fire.",
       "example": "\"In my service, I inject HttpClient. To get data, I return this.http.get<Employee[]>('/api/employees'). In my component, I call this method and .subscribe() to it. If I don't subscribe, the HTTP request is never made because observables are lazy.\"",
       "summary10s": "this.http.get<Type>('url'). Must subscribe() or it won't fire (lazy execution)."
+    }
+  },
+  {
+    "id": "rearrange-negative-positive-array",
+    "category": "Java Coding",
+    "question": "Given an unsorted array of integers, rearrange the elements so that all negative numbers appear first, followed by all positive numbers. (O(1) Space)",
+    "frequency": 1,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the Two-Pointer approach or the partition logic from QuickSort.",
+      "explain": "Since O(1) space is required, we can't create a new array. We maintain a pointer 'j' that keeps track of the boundary of negative numbers. As we iterate, if we find a negative number, we swap it with the element at 'j' and increment 'j'.",
+      "example": "\"I initialize j = 0. I loop through the array with i. When arr[i] < 0, I swap arr[i] with arr[j] and do j++. This pushes all negatives to the left side in-place. The time complexity is O(N) and space is O(1).\"",
+      "summary10s": "Use QuickSort partition logic (Two-pointer approach) to swap negatives to the left in-place."
+    }
+  },
+  {
+    "id": "functional-interface-vs-lambda",
+    "category": "Java",
+    "question": "What is the fundamental difference between a Functional Interface and a Lambda Expression?",
+    "frequency": 1,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Functional Interface is the definition (a type). A Lambda Expression is the implementation (the value).",
+      "explain": "A Functional Interface is an interface with exactly one abstract method (annotated with @FunctionalInterface). A Lambda Expression is a shorthand syntax that provides the implementation for that single abstract method without writing an anonymous inner class.",
+      "example": "\"Runnable is a Functional Interface because it has only one method: run(). The Lambda Expression '() -> System.out.println(\"Hi\")' is the implementation. They optimize performance because Lambdas don't generate a new .class file on compilation like anonymous inner classes do; they use invokedynamic bytecode.\"",
+      "summary10s": "Functional Interface = Type (1 abstract method). Lambda = Implementation (body). Reduces bytecode bloat."
+    }
+  },
+  {
+    "id": "configure-repository-spring",
+    "category": "Spring Boot",
+    "question": "Which annotations are used to configure a Repository, and how does Spring's auto-configuration discover them?",
+    "frequency": 1,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "We use @Repository. Spring discovers it via component scanning triggered by @SpringBootApplication.",
+      "explain": "@Repository is a stereotype annotation extending @Component. When the application starts, @ComponentScan (bundled inside @SpringBootApplication) scans the packages. If you are using Spring Data JPA, you extend interfaces like JpaRepository, and Spring automatically generates proxy implementations for them at runtime.",
+      "example": "\"I annotate my DAO classes with @Repository so Spring translates database exceptions into DataAccessException. If I use Spring Data JPA, I don't even need the annotation; I just extend JpaRepository. Spring's auto-config sees the JPA starter dependency, scans for the interface, and uses JDK dynamic proxies to instantiate it in the Bean Context.\"",
+      "summary10s": "Use @Repository or extend JpaRepository. Discovered via @ComponentScan and instantiated using dynamic proxies."
+    }
+  },
+  {
+    "id": "git-vs-github",
+    "category": "Other",
+    "question": "What is the difference between Git and GitHub?",
+    "frequency": 1,
+    "companies": [
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Git is a local version control software. GitHub is a cloud-based hosting service for Git repositories.",
+      "explain": "Git runs locally on your computer to track code history and branches. You don't need the internet to use Git. GitHub is a remote server (owned by Microsoft) where you push your local Git repositories so you can collaborate with other developers.",
+      "example": "\"I use Git commands like 'git commit' on my laptop to save my changes locally. Then I use 'git push' to upload those changes to GitHub, which provides a web UI so my team can review my Pull Request.\"",
+      "summary10s": "Git = Local CLI tool for version control. GitHub = Cloud hosting service for Git repos."
     }
   }
 ];
