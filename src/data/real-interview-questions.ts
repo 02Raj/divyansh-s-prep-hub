@@ -69,6 +69,33 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-a-deadlock",
+    "category": "Java",
+    "question": "What is a deadlock?",
+    "frequency": 14,
+    "companies": [],
+    "variations": [
+      "Deadlock",
+      "Deadlocks, Livelocks, Starvation",
+      "What is deadlock, and how can you prevent it?",
+      "How would you find and prevent a deadlock?",
+      "How would you identify and resolve a deadlock in a running Java application?",
+      "Deadlock & how to detect it in a running JVM.",
+      "Explain deadlock, livelock, and starvation. How would you troubleshoot them?",
+      "How would you identify a deadlock in a Java application?",
+      "What is a deadlock? How would you identify one in production?",
+      "What is the difference between deadlock, livelock, and starvation?",
+      "Deadlock example in Java",
+      "How would you identify and fix thread contention in a Java application?"
+    ],
+    "answerSEE": {
+      "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
+      "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
+      "example": "\"A deadlock happens when two threads each hold a lock the other needs, and both wait forever, forming a cycle. I avoid this by always acquiring multiple locks in the same consistent order across the whole codebase, or by using tryLock() with a timeout so a thread can back off instead of waiting indefinitely.\"",
+      "summary10s": "Cyclic lock-wait between threads — avoid with consistent lock ordering or tryLock()."
+    }
+  },
+  {
     "id": "what-is-executorservice",
     "category": "Java",
     "question": "What is ExecutorService?",
@@ -96,36 +123,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-a-deadlock",
-    "category": "Java",
-    "question": "What is a deadlock?",
-    "frequency": 13,
-    "companies": [],
-    "variations": [
-      "Deadlock",
-      "Deadlocks, Livelocks, Starvation",
-      "What is deadlock, and how can you prevent it?",
-      "How would you find and prevent a deadlock?",
-      "How would you identify and resolve a deadlock in a running Java application?",
-      "Deadlock & how to detect it in a running JVM.",
-      "Explain deadlock, livelock, and starvation. How would you troubleshoot them?",
-      "How would you identify a deadlock in a Java application?",
-      "What is a deadlock? How would you identify one in production?",
-      "What is the difference between deadlock, livelock, and starvation?",
-      "Deadlock example in Java"
-    ],
-    "answerSEE": {
-      "simple": "A deadlock happens when two or more threads wait forever for locks held by each other.",
-      "explain": "Thread A holds Lock 1, waits for Lock 2; Thread B holds Lock 2, waits for Lock 1\nNeither can proceed — a permanent cyclic wait\nPrevented by always acquiring locks in a consistent order, or using tryLock() with timeout",
-      "example": "\"A deadlock happens when two threads each hold a lock the other needs, and both wait forever, forming a cycle. I avoid this by always acquiring multiple locks in the same consistent order across the whole codebase, or by using tryLock() with a timeout so a thread can back off instead of waiting indefinitely.\"",
-      "summary10s": "Cyclic lock-wait between threads — avoid with consistent lock ordering or tryLock()."
-    }
-  },
-  {
     "id": "internal-working-of-hashmap",
     "category": "Java",
     "question": "Internal working of HashMap",
-    "frequency": 12,
+    "frequency": 13,
     "companies": [
       "Zensar Technologies",
       "Deloitte"
@@ -140,7 +141,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "What is the internal working of a HashMap? Is HashMap thread-safe?",
       "What to handle collisions in a HashMap?",
       "What happens when two distinct keys in a Java HashMap produce the same hashCode() value, resulting in a hash collision?",
-      "HashMap Internal"
+      "HashMap Internal",
+      "How does \"HashMap\" work internally after Java 8?"
     ],
     "answerSEE": {
       "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
@@ -153,10 +155,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "circuit-breaker",
     "category": "Microservices",
     "question": "Circuit Breaker",
-    "frequency": 11,
+    "frequency": 12,
     "companies": [
       "EPAM",
-      "Deloitte"
+      "Deloitte",
+      "Accenture"
     ],
     "variations": [
       "Explain Circuit Breaker, Retry and Timeout patterns.",
@@ -166,7 +169,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "What is circuit breaker pattern and why is it important?",
       "An external API takes 20 seconds to respond. How would you protect your service?",
       "Circuit Breaker?",
-      "What is the circuit breaker design pattern in Java?"
+      "What is the circuit breaker design pattern in Java?",
+      "Can you explain the circuit breaker pattern? When have you used it?"
     ],
     "answerSEE": {
       "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
@@ -296,7 +300,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "memory-leak-in-java",
     "category": "Java",
     "question": "Memory Leak in Java",
-    "frequency": 9,
+    "frequency": 10,
     "companies": [
       "EPAM"
     ],
@@ -307,7 +311,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "How would you debug a Java application that suddenly starts consuming 90% memory?",
       "What would you check first if a Java application suddenly starts throwing OutOfMemoryError?",
       "What would you do if you found a memory leak in a Spring Boot application?",
-      "How would you identify the root cause of the memory leak?"
+      "How would you identify the root cause of the memory leak?",
+      "How would you investigate a Java memory leak in production?"
     ],
     "answerSEE": {
       "simple": "Objects that are no longer needed but still referenced — GC cannot collect them, heap grows over time.",
@@ -488,6 +493,52 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "why-is-string-immutable-in-java",
+    "category": "Java",
+    "question": "Why is String Immutable in Java?",
+    "frequency": 8,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "Why is \"String\" immutable in Java?",
+      "String Pool, intern(), == vs equals()",
+      "Why is String immutable?",
+      "Why String immutable?",
+      "Why String is immutable in Java? What benefits does it give in multi-threaded environments?"
+    ],
+    "answerSEE": {
+      "simple": "String objects cannot be changed after creation — any modification creates a new String object, never modifying the original.",
+      "explain": "Security — String used for class loading, DB URLs, network connections — mutable String would be a security vulnerability\nString Pool — JVM reuses String literals safely because immutable objects can be shared without copy\nThread Safety — immutable objects need no synchronization, inherently thread-safe\nHashCode Caching — String caches its hashCode, works correctly only because value never changes\nHashMap key safety — String is the safest map key because hashCode never changes after put",
+      "example": "\"String immutability serves four purposes. Security — if I pass a file path to a method, the method cannot secretly change the path after my security check. String pool efficiency — JVM reuses identical literals safely because two variables pointing to the same pooled String cannot affect each other through one changing it. Thread safety — multiple threads can read the same String simultaneously without locks. HashCode caching — String caches hashCode for fast HashMap lookups, valid only because the value never changes.\"",
+      "summary10s": "String immutable for security, string pool sharing, thread safety, and hashCode caching — all four depend on value never changing."
+    }
+  },
+  {
+    "id": "comparable-vs-comparator",
+    "category": "Java",
+    "question": "Comparable vs Comparator",
+    "frequency": 8,
+    "companies": [
+      "JPMorganChase",
+      "Deloitte",
+      "Accenture"
+    ],
+    "variations": [
+      "Comparable vs Comparator.",
+      "Difference between Comparable vs. Comparator? Which one to use in which condition?",
+      "What are the methods in Comparable and Comparator?",
+      "Comparable vs Comparator with examples",
+      "Explain the difference between Comparable and Comparator. Which one is more flexible in real projects?"
+    ],
+    "answerSEE": {
+      "simple": "Comparable defines a class's natural ordering; Comparator defines custom ordering from outside the class.",
+      "explain": "Comparable — compareTo(), inside the class, single default order\nComparator — compare(), external, multiple custom sort strategies\nComparator often used with lambdas for flexible sorting",
+      "example": "\"Comparable is implemented inside the class to define its one natural sort order, using compareTo(). Comparator is external and lets me define multiple different sorting strategies without modifying the original class, using compare(). In real projects, I mostly use Comparator with lambdas when I need to sort a list by different fields depending on the situation.\"",
+      "summary10s": "Comparable = one default order, Comparator = multiple custom orders."
+    }
+  },
+  {
     "id": "angular-onpush-change-detection",
     "category": "Angular",
     "question": "Default vs OnPush Change Detection",
@@ -528,25 +579,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "volatile — read and write individually atomic, but increment is read-modify-write, not atomic\nAtomicInteger — incrementAndGet is single atomic operation using CPU compare-and-swap\nAtomic classes are faster than synchronized for single variable operations\nUse volatile for flags, Atomic for counters and state that needs atomic updates",
       "example": "\"volatile ensures visibility but does not help with compound operations. Two threads both reading 5 and incrementing to 6 is a race condition even with volatile. AtomicInteger uses hardware compare-and-swap to make incrementAndGet a single unbreakable operation. For anything more than a simple boolean flag I use Atomic classes.\"",
       "summary10s": "volatile=visibility only, Atomic=visibility plus atomic compound operations via CAS."
-    }
-  },
-  {
-    "id": "why-is-string-immutable-in-java",
-    "category": "Java",
-    "question": "Why is String Immutable in Java?",
-    "frequency": 7,
-    "companies": [],
-    "variations": [
-      "Why is \"String\" immutable in Java?",
-      "String Pool, intern(), == vs equals()",
-      "Why is String immutable?",
-      "Why String immutable?"
-    ],
-    "answerSEE": {
-      "simple": "String objects cannot be changed after creation — any modification creates a new String object, never modifying the original.",
-      "explain": "Security — String used for class loading, DB URLs, network connections — mutable String would be a security vulnerability\nString Pool — JVM reuses String literals safely because immutable objects can be shared without copy\nThread Safety — immutable objects need no synchronization, inherently thread-safe\nHashCode Caching — String caches its hashCode, works correctly only because value never changes\nHashMap key safety — String is the safest map key because hashCode never changes after put",
-      "example": "\"String immutability serves four purposes. Security — if I pass a file path to a method, the method cannot secretly change the path after my security check. String pool efficiency — JVM reuses identical literals safely because two variables pointing to the same pooled String cannot affect each other through one changing it. Thread safety — multiple threads can read the same String simultaneously without locks. HashCode caching — String caches hashCode for fast HashMap lookups, valid only because the value never changes.\"",
-      "summary10s": "String immutable for security, string pool sharing, thread safety, and hashCode caching — all four depend on value never changing."
     }
   },
   {
@@ -593,28 +625,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "On the producer side, we enable Kafka's transactional API to avoid duplicate publishes. On the consumer side, we store a unique idempotency key (like a transaction ID) in the database with a UNIQUE constraint to prevent double processing.",
       "example": "\"Since true exactly-once is very hard end-to-end, I design for effectively-once. On the producer, I enable the idempotent producer flag. On the consumer, I store a unique transaction ID in the DB. Even if a message is redelivered, the duplicate DB insert fails safely. I usually combine this with the Outbox pattern.\"",
       "summary10s": "Idempotent producer + unique transaction ID DB check + Outbox pattern = effectively-once."
-    }
-  },
-  {
-    "id": "comparable-vs-comparator",
-    "category": "Java",
-    "question": "Comparable vs Comparator",
-    "frequency": 7,
-    "companies": [
-      "JPMorganChase",
-      "Deloitte"
-    ],
-    "variations": [
-      "Comparable vs Comparator.",
-      "Difference between Comparable vs. Comparator? Which one to use in which condition?",
-      "What are the methods in Comparable and Comparator?",
-      "Comparable vs Comparator with examples"
-    ],
-    "answerSEE": {
-      "simple": "Comparable defines a class's natural ordering; Comparator defines custom ordering from outside the class.",
-      "explain": "Comparable — compareTo(), inside the class, single default order\nComparator — compare(), external, multiple custom sort strategies\nComparator often used with lambdas for flexible sorting",
-      "example": "\"Comparable is implemented inside the class to define its one natural sort order, using compareTo(). Comparator is external and lets me define multiple different sorting strategies without modifying the original class, using compare(). In real projects, I mostly use Comparator with lambdas when I need to sort a list by different fields depending on the situation.\"",
-      "summary10s": "Comparable = one default order, Comparator = multiple custom orders."
     }
   },
   {
@@ -800,6 +810,25 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Sort distinct salaries descending, skip the first one, take the next.",
       "example": "\"I'd select distinct salaries, sort them descending, and use LIMIT 1 OFFSET 1 to skip the highest and grab the next one — DISTINCT handles cases where multiple employees share the top salary. Alternatively, I could use a subquery that finds the max salary less than the overall max, which achieves the same result without OFFSET, useful for databases that don't support it well.\"",
       "summary10s": "Distinct + ORDER BY DESC + LIMIT 1 OFFSET 1, or MAX() excluding the top value."
+    }
+  },
+  {
+    "id": "java-hashmap-internal-working",
+    "category": "Java",
+    "question": "How HashMap works internally",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "How does \"HashMap\" work internally, and what happens when two keys share the same hashcode?",
+      "What happens when two keys have the same hashcode?",
+      "Collections Internal Working",
+      "What happens when two objects have the same hash code?"
+    ],
+    "answerSEE": {
+      "simple": "It uses an array of Nodes (buckets) and a hashing algorithm to compute the index. On collision, it uses a LinkedList, which upgrades to a Red-Black tree.",
+      "explain": "When you put(K, V), it calculates `hash(K) % capacity` to find the bucket index. If the bucket is empty, it stores it. If occupied (collision), it appends to a LinkedList. In Java 8+, if the LinkedList exceeds 8 elements, it transforms into a Red-Black Tree to optimize search time from O(N) to O(log N).",
+      "example": "\"I explain it like an array of linked lists. You hash the key to find the array slot. If two keys hash to the same slot, they form a chain. To keep performance at O(1), HashMap automatically resizes (doubles capacity) when it gets 75% full (load factor), re-hashing everything.\"",
+      "summary10s": "Array of buckets. Hashing finds index. Collisions use LinkedLists (or Red-Black trees in Java 8+)."
     }
   },
   {
@@ -1362,24 +1391,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Retry — good for transient, short-lived failures (network blip)\nCircuit Breaker — trips after repeated failures, blocks further calls temporarily, protects both caller and the struggling service\nOften used together: retry a few times, and if it keeps failing, the circuit breaker trips",
       "example": "\"Retry is for transient failures — I retry the same call a few times, usually with backoff, hoping it was just a temporary blip. Circuit Breaker is different — after a certain number of consistent failures, it 'trips' and stops calling that service entirely for a cooldown period, protecting both the caller from wasting resources and the struggling service from more load. I typically combine both — retry a few times, and if it keeps failing, let the circuit breaker take over.\"",
       "summary10s": "Retry = try again on transient failure, Circuit Breaker = stop calling after repeated failures."
-    }
-  },
-  {
-    "id": "java-hashmap-internal-working",
-    "category": "Java",
-    "question": "How HashMap works internally",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "How does \"HashMap\" work internally, and what happens when two keys share the same hashcode?",
-      "What happens when two keys have the same hashcode?",
-      "Collections Internal Working"
-    ],
-    "answerSEE": {
-      "simple": "It uses an array of Nodes (buckets) and a hashing algorithm to compute the index. On collision, it uses a LinkedList, which upgrades to a Red-Black tree.",
-      "explain": "When you put(K, V), it calculates `hash(K) % capacity` to find the bucket index. If the bucket is empty, it stores it. If occupied (collision), it appends to a LinkedList. In Java 8+, if the LinkedList exceeds 8 elements, it transforms into a Red-Black Tree to optimize search time from O(N) to O(log N).",
-      "example": "\"I explain it like an array of linked lists. You hash the key to find the array slot. If two keys hash to the same slot, they form a chain. To keep performance at O(1), HashMap automatically resizes (doubles capacity) when it gets 75% full (load factor), re-hashing everything.\"",
-      "summary10s": "Array of buckets. Hashing finds index. Collisions use LinkedLists (or Red-Black trees in Java 8+)."
     }
   },
   {
@@ -2328,6 +2339,23 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
       "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
       "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
+    }
+  },
+  {
+    "id": "trace-request-microservices",
+    "category": "Microservices",
+    "question": "How do you trace a request across multiple services?",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "A request travels through 6 microservices. How would you trace it end-to-end?",
+      "How would you trace a request across multiple services?"
+    ],
+    "answerSEE": {
+      "simple": "By using a distributed tracing system like Zipkin or Jaeger, along with a library like Spring Cloud Sleuth (or Micrometer Tracing).",
+      "explain": "When a request hits the first service, a unique Trace ID is generated. This ID is passed in the HTTP headers to every subsequent downstream service. Each service also generates its own Span ID to track its specific execution.",
+      "example": "\"To debug a slow request across 5 microservices, I use distributed tracing. Micrometer assigns a unique Trace ID at the API Gateway. This ID is passed via headers to all downstream services. I can then open Zipkin, search for that Trace ID, and see a visual waterfall chart of exactly how much time each service took.\"",
+      "summary10s": "Generate a unique Trace ID at entry, pass it in headers, visualize in Zipkin/Jaeger."
     }
   },
   {
@@ -4095,22 +4123,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "trace-request-microservices",
-    "category": "Microservices",
-    "question": "How do you trace a request across multiple services?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "A request travels through 6 microservices. How would you trace it end-to-end?"
-    ],
-    "answerSEE": {
-      "simple": "By using a distributed tracing system like Zipkin or Jaeger, along with a library like Spring Cloud Sleuth (or Micrometer Tracing).",
-      "explain": "When a request hits the first service, a unique Trace ID is generated. This ID is passed in the HTTP headers to every subsequent downstream service. Each service also generates its own Span ID to track its specific execution.",
-      "example": "\"To debug a slow request across 5 microservices, I use distributed tracing. Micrometer assigns a unique Trace ID at the API Gateway. This ID is passed via headers to all downstream services. I can then open Zipkin, search for that Trace ID, and see a visual waterfall chart of exactly how much time each service took.\"",
-      "summary10s": "Generate a unique Trace ID at entry, pass it in headers, visualize in Zipkin/Jaeger."
-    }
-  },
-  {
     "id": "troubleshoot-5-second-api",
     "category": "System Design",
     "question": "A Java API suddenly starts returning 5-second responses instead of 100 ms. Walk through your complete troubleshooting approach.",
@@ -4530,6 +4542,148 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Instead of clients calling 10 different microservices directly, they call the API Gateway. The gateway routes the request to the right service. It also handles authentication (validating JWTs), rate limiting, SSL termination, and logging.",
       "example": "\"I use Spring Cloud Gateway as our API Gateway. It validates the JWT token before routing the request to the downstream microservices. This means my individual microservices don't need to worry about authentication logic—they just trust the requests coming from the gateway.\"",
       "summary10s": "Single entry point. Handles routing, authentication, rate limiting, and CORS."
+    }
+  },
+  {
+    "id": "spring-boot-auto-configuration",
+    "category": "Spring Boot",
+    "question": "What is Spring Boot auto-configuration?",
+    "frequency": 2,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "Can you explain how Spring Boot auto-configuration works internally?"
+    ],
+    "answerSEE": {
+      "simple": "It automatically configures Spring beans based on the dependencies present in the application classpath.",
+      "explain": "Spring Boot looks at the JARs in your classpath. If it sees a database driver, it automatically configures a DataSource. If it sees Spring Web, it configures Tomcat and Spring MVC. It uses @Conditional annotations heavily to only apply configurations if certain classes are present and beans are missing.",
+      "example": "\"Auto-configuration is what makes Spring Boot magical. If I add spring-boot-starter-data-jpa, Spring Boot automatically configures a DataSource, EntityManager, and TransactionManager for me based on the H2 or MySQL driver it finds in the classpath. It saves me from writing boilerplate XML or Java configuration.\"",
+      "summary10s": "Automatically configures beans based on classpath dependencies using @Conditional annotations."
+    }
+  },
+  {
+    "id": "synchronous-vs-asynchronous",
+    "category": "Microservices",
+    "question": "Difference between synchronous and asynchronous communication, and when to use each",
+    "frequency": 2,
+    "companies": [
+      "HCL",
+      "Accenture"
+    ],
+    "variations": [
+      "What’s the difference between synchronous vs asynchronous communication in microservices?"
+    ],
+    "answerSEE": {
+      "simple": "Synchronous waits for an immediate response (tightly coupled). Asynchronous fires a message and moves on (loosely coupled).",
+      "explain": "Synchronous (REST/gRPC) is for when you immediately need data to proceed. Asynchronous (Kafka) is for background tasks where the caller doesn't need to wait. Async improves resilience because the sender isn't blocked if the receiver is down.",
+      "example": "\"I use synchronous REST calls when the UI needs an immediate response, like verifying payment details before checkout. I use asynchronous messaging for sending the confirmation email afterwards, because the checkout process shouldn't fail just because the email service is temporarily slow.\"",
+      "summary10s": "Sync: need immediate response, blocks thread. Async: fire and forget, loosely coupled, resilient."
+    }
+  },
+  {
+    "id": "production-log-tracing",
+    "category": "DevOps",
+    "question": "How to trace and monitor logs when an error occurs in production",
+    "frequency": 2,
+    "companies": [
+      "HCL",
+      "Accenture"
+    ],
+    "variations": [
+      "How do you implement distributed logging in microservices?"
+    ],
+    "answerSEE": {
+      "simple": "Use centralized logging (ELK/Splunk) and distributed tracing (Sleuth/Zipkin) with unique Trace IDs.",
+      "explain": "In microservices, a single request spans multiple services. You must inject a unique Trace ID at the API Gateway and pass it in HTTP headers to every downstream service. All logs include this Trace ID. Tools like Kibana or Datadog let you search this ID to see the entire request lifecycle.",
+      "example": "\"We use the ELK stack with Micrometer Tracing. When an error occurs, the API returns a 500 error containing a Trace ID. I take that Trace ID, paste it into Kibana, and I can immediately see the exact path the request took through the API Gateway, Order Service, and Payment Service, making it obvious which one threw the exception.\"",
+      "summary10s": "Generate a unique Trace ID at entry, pass it to all services, search it in centralized logging (ELK)."
+    }
+  },
+  {
+    "id": "root-cause-analysis",
+    "category": "DevOps",
+    "question": "Approach to identifying the root cause of an issue",
+    "frequency": 2,
+    "companies": [
+      "HCL",
+      "Accenture"
+    ],
+    "variations": [
+      "Real-world scenario: If one service keeps failing in production, how will you identify whether it’s a code issue, infra issue, or DB issue?"
+    ],
+    "answerSEE": {
+      "simple": "Reproduce locally, check logs/traces, analyze metrics, review recent code changes, and test the fix.",
+      "explain": "First, isolate the scope (who is affected, since when). Check centralized logs using the trace ID. Look at monitoring dashboards (Grafana/Datadog) for CPU/Memory/DB spikes. Check Git history for recent deployments. Once identified, write a failing test to reproduce it, then fix it.",
+      "example": "\"My approach is: First, I check Datadog for any obvious metric spikes (like DB CPU at 100%). Then I pull the logs using the specific Trace ID of the failed request. If it's a NullPointerException in the PaymentService, I check the recent commits for that service. Then I try to replicate the exact payload locally before pushing a fix.\"",
+      "summary10s": "1. Check Metrics/Alerts. 2. Search Logs via Trace ID. 3. Check recent Git commits. 4. Reproduce locally."
+    }
+  },
+  {
+    "id": "fail-fast-vs-fail-safe",
+    "category": "Java",
+    "question": "What is the difference between Fail-Fast and Fail-Safe iterators?",
+    "frequency": 2,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "What is the difference between fail-fast and fail-safe iterators?"
+    ],
+    "answerSEE": {
+      "simple": "Fail-fast throws an exception if the collection is modified while iterating. Fail-safe does not, because it iterates over a clone.",
+      "explain": "Fail-fast iterators (like ArrayList, HashMap) use an internal modCount. If a thread modifies the collection during iteration, it throws ConcurrentModificationException. Fail-safe iterators (like ConcurrentHashMap, CopyOnWriteArrayList) work on a clone or snapshot of the collection, so modifications don't affect the iteration and no exception is thrown.",
+      "example": "\"If I iterate over a standard HashMap and try to add a new key inside the loop, it crashes immediately—that's fail-fast. If I do the same with a ConcurrentHashMap, it works perfectly because the iterator is fail-safe and doesn't crash on concurrent modifications.\"",
+      "summary10s": "Fail-fast: Throws ConcurrentModificationException (ArrayList). Fail-safe: Works on clone, no exception (ConcurrentHashMap)."
+    }
+  },
+  {
+    "id": "what-is-angular-and-how-is-it-different-from-angularjs",
+    "category": "Angular",
+    "question": "What is Angular and how is it different from AngularJS?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What causes \"StackOverflowError\" and how is it different from \"OutOfMemoryError\"?"
+    ],
+    "answerSEE": {
+      "simple": "Angular is a component-based framework written in TypeScript, while AngularJS was an MVC framework based on plain JavaScript.",
+      "explain": "AngularJS (1.x) used two-way data binding and scopes ($scope) which became slow in large apps. Angular (2+) was a complete rewrite. It uses a component tree, unidirectional data flow (mostly), TypeScript for static typing, and RxJS for async handling, making it much faster and more scalable.",
+      "example": "When they rewrote Angular, they dropped the MVC and $scope architecture entirely. Modern Angular is component-based. It uses TypeScript instead of JavaScript, which catches errors at compile time. It also uses RxJS heavily and a completely different change detection mechanism (Zone.js/Signals) which is far more performant than the old AngularJS digest cycle.",
+      "summary10s": "Angular = Component-based, TypeScript, fast. AngularJS = MVC, JavaScript, slow."
+    }
+  },
+  {
+    "id": "java-volatile",
+    "category": "Java",
+    "question": "What is volatile in Java?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What is the difference between volatile and synchronized?",
+      "What is the difference between \"volatile\", \"synchronized\", and \"AtomicInteger\"?"
+    ],
+    "answerSEE": {
+      "simple": "The volatile keyword ensures that changes to a variable are immediately visible to all threads by reading/writing directly to main memory instead of CPU caches.",
+      "explain": "It prevents thread caching issues (visibility) but does NOT provide atomicity. Synchronized provides both visibility and atomicity. If multiple threads increment a volatile counter, you will still get race conditions.",
+      "example": "\"I use volatile for boolean flags, like `volatile boolean keepRunning = true;`. When another thread sets it to false, the worker thread sees it instantly. But for a counter (`count++`), I use synchronized or AtomicInteger, because volatile doesn't stop two threads from reading the same value simultaneously.\"",
+      "summary10s": "Volatile fixes visibility (CPU cache). Synchronized fixes visibility AND atomicity (race conditions)."
+    }
+  },
+  {
+    "id": "java-reference-types",
+    "category": "Java",
+    "question": "What are Strong, Weak, Soft, and Phantom References?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What are strong, weak, soft, and phantom references?"
+    ],
+    "answerSEE": {
+      "simple": "They determine how eager the Garbage Collector is to delete an object.",
+      "explain": "Strong: Normal objects, never GC'd if referenced. Soft: GC'd only if the JVM is desperately running out of memory (good for caches). Weak: GC'd immediately on the next GC cycle if no strong references exist. Phantom: Used for pre-mortem cleanup scheduling instead of finalize().",
+      "example": "\"If I build an in-memory image cache, I use SoftReferences. This way, the JVM keeps the images in memory normally, but if the server is about to throw an OutOfMemoryError, the GC will automatically clear my cache to save the application.\"",
+      "summary10s": "Strong = never die. Soft = die on OOM. Weak = die on next GC. Phantom = for cleanup."
     }
   },
   {
@@ -5536,20 +5690,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Initialize two pointers, `slow` and `fast`, at the head. Move `slow` by one step and `fast` by two steps in a loop. When `fast` reaches the end of the list, `slow` will be exactly at the middle.",
       "example": "I use the two-pointer technique. I set a slow pointer and a fast pointer to the head of the LinkedList. I loop through while `fast` and `fast.next` are not null. I move `slow` one step, and `fast` two steps. Because `fast` moves twice as fast, when it hits the end of the list, `slow` is guaranteed to be pointing exactly at the middle node. This runs in O(N) time with O(1) space.",
       "summary10s": "Two pointers: slow moves 1 step, fast moves 2 steps. When fast ends, slow is at middle."
-    }
-  },
-  {
-    "id": "what-is-angular-and-how-is-it-different-from-angularjs",
-    "category": "Angular",
-    "question": "What is Angular and how is it different from AngularJS?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Angular is a component-based framework written in TypeScript, while AngularJS was an MVC framework based on plain JavaScript.",
-      "explain": "AngularJS (1.x) used two-way data binding and scopes ($scope) which became slow in large apps. Angular (2+) was a complete rewrite. It uses a component tree, unidirectional data flow (mostly), TypeScript for static typing, and RxJS for async handling, making it much faster and more scalable.",
-      "example": "When they rewrote Angular, they dropped the MVC and $scope architecture entirely. Modern Angular is component-based. It uses TypeScript instead of JavaScript, which catches errors at compile time. It also uses RxJS heavily and a completely different change detection mechanism (Zone.js/Signals) which is far more performant than the old AngularJS digest cycle.",
-      "summary10s": "Angular = Component-based, TypeScript, fast. AngularJS = MVC, JavaScript, slow."
     }
   },
   {
@@ -9891,22 +10031,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-volatile",
-    "category": "Java",
-    "question": "What is volatile in Java?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "What is the difference between volatile and synchronized?"
-    ],
-    "answerSEE": {
-      "simple": "The volatile keyword ensures that changes to a variable are immediately visible to all threads by reading/writing directly to main memory instead of CPU caches.",
-      "explain": "It prevents thread caching issues (visibility) but does NOT provide atomicity. Synchronized provides both visibility and atomicity. If multiple threads increment a volatile counter, you will still get race conditions.",
-      "example": "\"I use volatile for boolean flags, like `volatile boolean keepRunning = true;`. When another thread sets it to false, the worker thread sees it instantly. But for a counter (`count++`), I use synchronized or AtomicInteger, because volatile doesn't stop two threads from reading the same value simultaneously.\"",
-      "summary10s": "Volatile fixes visibility (CPU cache). Synchronized fixes visibility AND atomicity (race conditions)."
-    }
-  },
-  {
     "id": "java-future",
     "category": "Java",
     "question": "What is a Future in Java?",
@@ -9918,20 +10042,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When you submit a Callable to an ExecutorService, it immediately returns a Future. You can continue doing other work, and later call future.get() to retrieve the actual result. However, get() is blocking.",
       "example": "\"I use Future like a restaurant buzzer. I submit my order (task) and get a buzzer (Future). I can go sit down, and when I call buzzer.get(), I either get my food or I'm forced to wait until it's ready.\"",
       "summary10s": "A placeholder for a result that will be available in the future. Calling get() blocks."
-    }
-  },
-  {
-    "id": "java-reference-types",
-    "category": "Java",
-    "question": "What are Strong, Weak, Soft, and Phantom References?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "They determine how eager the Garbage Collector is to delete an object.",
-      "explain": "Strong: Normal objects, never GC'd if referenced. Soft: GC'd only if the JVM is desperately running out of memory (good for caches). Weak: GC'd immediately on the next GC cycle if no strong references exist. Phantom: Used for pre-mortem cleanup scheduling instead of finalize().",
-      "example": "\"If I build an in-memory image cache, I use SoftReferences. This way, the JVM keeps the images in memory normally, but if the server is about to throw an OutOfMemoryError, the GC will automatically clear my cache to save the application.\"",
-      "summary10s": "Strong = never die. Soft = die on OOM. Weak = die on next GC. Phantom = for cleanup."
     }
   },
   {
@@ -14638,20 +14748,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-boot-auto-configuration",
-    "category": "Spring Boot",
-    "question": "What is Spring Boot auto-configuration?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It automatically configures Spring beans based on the dependencies present in the application classpath.",
-      "explain": "Spring Boot looks at the JARs in your classpath. If it sees a database driver, it automatically configures a DataSource. If it sees Spring Web, it configures Tomcat and Spring MVC. It uses @Conditional annotations heavily to only apply configurations if certain classes are present and beans are missing.",
-      "example": "\"Auto-configuration is what makes Spring Boot magical. If I add spring-boot-starter-data-jpa, Spring Boot automatically configures a DataSource, EntityManager, and TransactionManager for me based on the H2 or MySQL driver it finds in the classpath. It saves me from writing boilerplate XML or Java configuration.\"",
-      "summary10s": "Automatically configures beans based on classpath dependencies using @Conditional annotations."
-    }
-  },
-  {
     "id": "component-vs-service-vs-repository",
     "category": "Spring Boot",
     "question": "@Component vs @Service vs @Repository?",
@@ -14930,22 +15026,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "synchronous-vs-asynchronous",
-    "category": "Microservices",
-    "question": "Difference between synchronous and asynchronous communication, and when to use each",
-    "frequency": 1,
-    "companies": [
-      "HCL"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Synchronous waits for an immediate response (tightly coupled). Asynchronous fires a message and moves on (loosely coupled).",
-      "explain": "Synchronous (REST/gRPC) is for when you immediately need data to proceed. Asynchronous (Kafka) is for background tasks where the caller doesn't need to wait. Async improves resilience because the sender isn't blocked if the receiver is down.",
-      "example": "\"I use synchronous REST calls when the UI needs an immediate response, like verifying payment details before checkout. I use asynchronous messaging for sending the confirmation email afterwards, because the checkout process shouldn't fail just because the email service is temporarily slow.\"",
-      "summary10s": "Sync: need immediate response, blocks thread. Async: fire and forget, loosely coupled, resilient."
-    }
-  },
-  {
     "id": "microservices-exception-handling",
     "category": "Microservices",
     "question": "Exception handling strategies in Microservices",
@@ -15026,38 +15106,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "production-log-tracing",
-    "category": "DevOps",
-    "question": "How to trace and monitor logs when an error occurs in production",
-    "frequency": 1,
-    "companies": [
-      "HCL"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use centralized logging (ELK/Splunk) and distributed tracing (Sleuth/Zipkin) with unique Trace IDs.",
-      "explain": "In microservices, a single request spans multiple services. You must inject a unique Trace ID at the API Gateway and pass it in HTTP headers to every downstream service. All logs include this Trace ID. Tools like Kibana or Datadog let you search this ID to see the entire request lifecycle.",
-      "example": "\"We use the ELK stack with Micrometer Tracing. When an error occurs, the API returns a 500 error containing a Trace ID. I take that Trace ID, paste it into Kibana, and I can immediately see the exact path the request took through the API Gateway, Order Service, and Payment Service, making it obvious which one threw the exception.\"",
-      "summary10s": "Generate a unique Trace ID at entry, pass it to all services, search it in centralized logging (ELK)."
-    }
-  },
-  {
-    "id": "root-cause-analysis",
-    "category": "DevOps",
-    "question": "Approach to identifying the root cause of an issue",
-    "frequency": 1,
-    "companies": [
-      "HCL"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Reproduce locally, check logs/traces, analyze metrics, review recent code changes, and test the fix.",
-      "explain": "First, isolate the scope (who is affected, since when). Check centralized logs using the trace ID. Look at monitoring dashboards (Grafana/Datadog) for CPU/Memory/DB spikes. Check Git history for recent deployments. Once identified, write a failing test to reproduce it, then fix it.",
-      "example": "\"My approach is: First, I check Datadog for any obvious metric spikes (like DB CPU at 100%). Then I pull the logs using the specific Trace ID of the failed request. If it's a NullPointerException in the PaymentService, I check the recent commits for that service. Then I try to replicate the exact payload locally before pushing a fix.\"",
-      "summary10s": "1. Check Metrics/Alerts. 2. Search Logs via Trace ID. 3. Check recent Git commits. 4. Reproduce locally."
-    }
-  },
-  {
     "id": "spring-boot-requestbody",
     "category": "Spring Boot",
     "question": "How does @RequestBody work in Spring Boot?",
@@ -15097,20 +15145,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When you create a thread (new Thread()), it is in the NEW state. The OS doesn't know about it yet. Once you call thread.start(), it transitions to RUNNABLE. In RUNNABLE, it might be actively executing on the CPU, or waiting in the runnable pool for the thread scheduler to give it CPU time.",
       "example": "\"If I write Thread t = new Thread(), it is in the NEW state. It's just a Java object. When I call t.start(), it moves to RUNNABLE. Even if it hasn't printed anything yet because the CPU is busy, it is still technically RUNNABLE, not NEW.\"",
       "summary10s": "NEW: Created but not started. RUNNABLE: start() called, executing or waiting for CPU."
-    }
-  },
-  {
-    "id": "fail-fast-vs-fail-safe",
-    "category": "Java",
-    "question": "What is the difference between Fail-Fast and Fail-Safe iterators?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Fail-fast throws an exception if the collection is modified while iterating. Fail-safe does not, because it iterates over a clone.",
-      "explain": "Fail-fast iterators (like ArrayList, HashMap) use an internal modCount. If a thread modifies the collection during iteration, it throws ConcurrentModificationException. Fail-safe iterators (like ConcurrentHashMap, CopyOnWriteArrayList) work on a clone or snapshot of the collection, so modifications don't affect the iteration and no exception is thrown.",
-      "example": "\"If I iterate over a standard HashMap and try to add a new key inside the loop, it crashes immediately—that's fail-fast. If I do the same with a ConcurrentHashMap, it works perfectly because the iterator is fail-safe and doesn't crash on concurrent modifications.\"",
-      "summary10s": "Fail-fast: Throws ConcurrentModificationException (ArrayList). Fail-safe: Works on clone, no exception (ConcurrentHashMap)."
     }
   },
   {
@@ -15196,5 +15230,849 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "\"If the code has no errors, the output will be 'Try block executed' followed by 'Finally block is executed'. The catch block is skipped. If there was a return statement in the try block, the finally block would still execute right before returning.\"",
       "summary10s": "Try block executes -> Finally block executes -> Method returns. Catch is skipped if no error."
     }
+  },
+  {
+    "id": "gc-minor-vs-major",
+    "category": "Java",
+    "question": "How does Garbage Collector decide which objects to clean? What is the difference between Minor GC & Major GC?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "GC cleans objects with no active references. Minor GC cleans the Young Generation, Major GC cleans the Old Generation.",
+      "explain": "Java uses tracing (reachability analysis) from GC Roots (local variables, active threads, statics). If an object isn't reachable, it is marked for garbage collection. Minor GC runs frequently to clear short-lived objects in the Young space. Objects that survive multiple Minor GCs move to the Old space. When the Old space fills up, a Major GC (or Full GC) runs, which is slower and can cause \"stop-the-world\" pauses.",
+      "example": "\"The GC starts at GC Roots and traces all live objects. Unreachable ones are cleaned. Minor GC happens constantly in the Young Generation and is very fast. Major GC happens in the Old Generation, checking long-lived objects. I monitor Major GCs closely because they pause application threads, affecting latency.\"",
+      "summary10s": "Unreachable from GC roots = garbage. Minor GC = Young Gen (fast). Major GC = Old Gen (slow, pauses)."
+    }
+  },
+  {
+    "id": "java-classloader",
+    "category": "Java",
+    "question": "How does ClassLoader work in Java? Can we have multiple classloaders in one JVM?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ClassLoaders load .class files into memory at runtime using a delegation model. Yes, you can have multiple classloaders.",
+      "explain": "Java uses three main classloaders: Bootstrap (core Java), Extension (jre/lib/ext), and System/Application (classpath). They follow the Delegation Principle: before loading a class, a classloader asks its parent to load it. If the parent can't, the child loads it. Yes, frameworks like Tomcat use multiple custom classloaders so different web apps can use different versions of the same library without conflict.",
+      "example": "\"When I run a Java app, the Application ClassLoader asks the Extension ClassLoader, which asks the Bootstrap ClassLoader. If Bootstrap finds it, it's loaded. Yes, we can have multiple. For instance, Tomcat creates a separate classloader for each deployed war file to isolate their dependencies.\"",
+      "summary10s": "Loads classes into memory via Delegation (Parent-first). Multiple allowed (e.g., Tomcat isolates web apps)."
+    }
+  },
+  {
+    "id": "stringbuffer-vs-stringbuilder-vs-string",
+    "category": "Java",
+    "question": "Difference between StringBuffer, StringBuilder, and normal String. Which one to use where?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "String is immutable. StringBuffer is mutable and thread-safe. StringBuilder is mutable but NOT thread-safe.",
+      "explain": "Any change to a String creates a new object in memory, which is bad for heavy concatenations. StringBuffer modifies the same object and uses synchronized methods to be thread-safe (but slower). StringBuilder is exactly like StringBuffer but without synchronization, making it much faster.",
+      "example": "\"If the text won't change, I use String. If I'm building a large JSON string in a single thread (like inside a method), I use StringBuilder for maximum performance. I rarely use StringBuffer anymore, as we usually don't share a single string builder across multiple threads.\"",
+      "summary10s": "String: Immutable. StringBuffer: Mutable + Synchronized (Slow). StringBuilder: Mutable + Unsynchronized (Fast)."
+    }
+  },
+  {
+    "id": "copyonwritearraylist",
+    "category": "Java",
+    "question": "How does CopyOnWriteArrayList work internally? When would you prefer it?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It creates a fresh copy of the underlying array for every write operation. It is used when reads vastly outnumber writes.",
+      "explain": "It implements a fail-safe iterator. Whenever you add or remove an element, it duplicates the entire array, makes the change, and swaps the reference. This makes write operations very expensive (O(n) memory and time). However, read operations don't require locks and are extremely fast and thread-safe.",
+      "example": "\"I use CopyOnWriteArrayList for things like a list of event listeners. Listeners are registered once (writes) but notified thousands of times (reads). Since reads are lock-free, iteration is extremely fast, and if someone adds a listener while I am iterating, I won't get a ConcurrentModificationException.\"",
+      "summary10s": "Clones array on every write. Lock-free reads. Best for Read-Heavy, Write-Rarely scenarios."
+    }
+  },
+  {
+    "id": "streams-vs-traditional-loops-millions",
+    "category": "Java",
+    "question": "If you have millions of records to process, would you use Stream API or traditional loops? Why?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "For sheer CPU performance on simple operations, traditional loops are faster. However, parallel Streams are better if the task is CPU-intensive and can be easily parallelized.",
+      "explain": "Traditional for-loops have less overhead than Streams (no object creation for lambdas, pipeline setup, etc.). If you are just summing millions of ints, a loop wins. But if the processing per record is heavy (e.g., parsing, DB calls), using parallelStream() automatically splits the workload across CPU cores, making it faster than a single-threaded loop.",
+      "example": "\"If it's a simple math operation over millions of primitives, I stick to a traditional for-loop because Stream overhead is real. But if I need to process images or run complex regex on millions of strings, I use parallelStream(). It gives me multi-threading for free without managing thread pools manually.\"",
+      "summary10s": "Traditional loop is faster for simple tasks (less overhead). parallelStream() wins for heavy, parallelizable tasks."
+    }
+  },
+  {
+    "id": "treemap-ordering",
+    "category": "Java",
+    "question": "How does TreeMap maintain ordering? Can we provide custom sorting logic?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "TreeMap uses a Red-Black tree structure. Yes, you can provide custom sorting via a Comparator.",
+      "explain": "Unlike HashMap (which uses hashes), TreeMap stores elements in a self-balancing Red-Black binary search tree. This guarantees O(log n) time for basic operations and keeps keys sorted. By default, it sorts using the keys' natural ordering (Comparable), but you can pass a custom Comparator into the TreeMap constructor.",
+      "example": "\"TreeMap keeps my keys sorted automatically using a Red-Black tree. If I use String keys, it sorts alphabetically. If I want them sorted by length instead, I just pass a custom Comparator into the constructor: new TreeMap<>(Comparator.comparingInt(String::length)).\"",
+      "summary10s": "Uses Red-Black tree for O(log n) sorted storage. Custom sort by passing Comparator to constructor."
+    }
+  },
+  {
+    "id": "java-8-find-duplicates",
+    "category": "Java Coding",
+    "question": "How do you find duplicates in a list using Java 8 features?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Collectors.groupingBy with counting(), or use Collections.frequency, or filter using a HashSet's add() method.",
+      "explain": "A clever and efficient way is to use a Set. Since Set.add() returns false if the item already exists, you can stream the list and filter items where set.add() returns false. Alternatively, you can use groupingBy to count occurrences and filter those > 1.",
+      "example": "\"My favorite way is using a Set: Set<Integer> items = new HashSet<>(); list.stream().filter(n -> !items.add(n)).collect(Collectors.toSet()); This immediately filters out elements that were already in the set, leaving only the duplicates.\"",
+      "summary10s": "Set<T> seen = new HashSet<>(); list.stream().filter(e -> !seen.add(e)).collect(Collectors.toList());"
+    }
+  },
+  {
+    "id": "transactional-class-vs-method",
+    "category": "Spring Boot",
+    "question": "What is the difference between @Transactional at class level vs method level?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Class-level applies the transaction to all public methods in the class. Method-level overrides class-level and applies only to that specific method.",
+      "explain": "If you put @Transactional on the class, every public method gets wrapped in a transaction by default. If a specific method needs different settings (like a different isolation level, or readOnly = true for performance), you place @Transactional on that method. Method-level annotations always override class-level ones.",
+      "example": "\"I usually put @Transactional(readOnly = true) at the class level of my Service so all read operations are fast and safe. Then, on methods that modify data like saveUser(), I add @Transactional at the method level to override the readOnly flag and allow writes.\"",
+      "summary10s": "Class-level applies to all public methods. Method-level overrides class-level for specific configurations."
+    }
+  },
+  {
+    "id": "spring-boot-multiple-datasources",
+    "category": "Spring Boot",
+    "question": "How do you configure multiple datasources in Spring Boot?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Define separate @Configuration classes for each DB, manually creating the DataSource, EntityManager, and TransactionManager beans.",
+      "explain": "Spring Boot auto-configures one datasource easily. For two, you must disable auto-configuration. In your properties file, prefix configs (e.g., spring.datasource.primary.* and spring.datasource.secondary.*). Then create two @Configuration classes. In each, build a DataSource bean using @ConfigurationProperties, and manually configure the EntityManagerFactory and TransactionManager. Mark one set with @Primary.",
+      "example": "\"I had to connect to MySQL for transactions and PostgreSQL for analytics. I created two Config classes. One reads spring.datasource.mysql and creates the EntityManager, marked with @Primary. The other reads spring.datasource.postgres. I also separated my JPA Repositories into two different packages and pointed each Config to its specific package using @EnableJpaRepositories.\"",
+      "summary10s": "Disable auto-config, define prefixed properties, manually build DataSource/EntityManager beans, use @Primary for one."
+    }
+  },
+  {
+    "id": "requestparam-vs-pathvariable-vs-requestbody",
+    "category": "Spring Boot",
+    "question": "What’s the difference between @RequestParam, @PathVariable, and @RequestBody?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RequestParam extracts query parameters, @PathVariable extracts from the URL path, and @RequestBody deserializes the JSON payload.",
+      "explain": "@PathVariable is for identifying a specific resource (e.g., /users/1). @RequestParam is for filtering, sorting, or optional data (e.g., /users?status=active). @RequestBody is for passing complex data structures (like a JSON object) typically in POST/PUT requests.",
+      "example": "\"If I want to get a specific user, I use GET /users/{id} with @PathVariable. If I want to search users, I use GET /users?name=john with @RequestParam. If I want to create a new user, I use POST /users and pass the user details as JSON, catching it with @RequestBody User object.\"",
+      "summary10s": "PathVariable = URL path (/id). RequestParam = Query string (?key=val). RequestBody = JSON payload."
+    }
+  },
+  {
+    "id": "design-high-throughput-service",
+    "category": "System Design",
+    "question": "How would you design a service to handle 1000+ requests per second?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Scale horizontally, use caching (Redis), optimize DB queries, use asynchronous processing, and put a Load Balancer in front.",
+      "explain": "For 1K+ RPS, a single instance will bottleneck. 1) Deploy multiple instances behind a Load Balancer. 2) Offload read-heavy data to Redis so the database isn't hammered. 3) For writes, use asynchronous message queues (Kafka/RabbitMQ) to absorb the spike and process in the background. 4) Ensure stateless authentication (JWT). 5) Optimize DB with connection pooling and indexes.",
+      "example": "\"To handle 1000 RPS, I first ensure the service is stateless so I can autoscale it horizontally on Kubernetes. I add Redis to cache frequent reads like product catalogs. For writes, like order creation, I don't write directly to DB; I publish to Kafka and return 202 Accepted, processing the DB write asynchronously to keep response times under 50ms.\"",
+      "summary10s": "Horizontal scaling + Load Balancer + Redis for reads + Kafka for async writes + Stateless (JWT)."
+    }
+  },
+  {
+    "id": "distributed-transactions-microservices",
+    "category": "Microservices",
+    "question": "How do you handle transactions that span across multiple microservices?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "We don't use traditional ACID transactions. We use the Saga pattern with compensating transactions.",
+      "explain": "Two-Phase Commit (2PC) is too slow and creates locks across services. Instead, we use the Saga pattern. Each service performs its local database transaction and publishes an event. If a downstream service fails, it publishes a failure event, and upstream services listen to it and execute a \"compensating transaction\" to undo their work.",
+      "example": "\"If an order spans Order, Payment, and Inventory services, I use a Choreography Saga. Order creates a PENDING order. Payment charges the card. If Inventory fails (out of stock), it publishes an OutOfStock event. Payment listens and refunds the money, and Order listens and marks the status as CANCELLED. We maintain eventual consistency without locking databases.\"",
+      "summary10s": "Use Saga Pattern. Sequence of local transactions. If one fails, trigger Compensating Transactions to rollback."
+    }
+  },
+  {
+    "id": "pagination-sql-java",
+    "category": "SQL",
+    "question": "How do you implement pagination in SQL + Java?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Spring Data JPA's Pageable interface in Java, which translates to LIMIT and OFFSET in SQL.",
+      "explain": "Fetching all records causes OOM errors. In SQL, you use LIMIT (how many rows) and OFFSET (where to start). In Spring Boot, you accept page and size parameters, create a PageRequest object, and pass it to the JpaRepository method. Spring automatically adds the LIMIT/OFFSET to the generated query.",
+      "example": "\"In my controller, I accept page=0 and size=10. I create Pageable pageable = PageRequest.of(page, size). I pass this to repository.findAll(pageable). Hibernate generates SELECT * FROM table LIMIT 10 OFFSET 0. It also automatically runs a COUNT query to tell the frontend the total number of pages.\"",
+      "summary10s": "Java: Spring Data JPA PageRequest.of(page, size). SQL: LIMIT <size> OFFSET <page * size>."
+    }
+  },
+  {
+    "id": "debug-optimize-slow-query",
+    "category": "System Design",
+    "question": "If a query is taking 5 seconds, how would you debug & optimize it?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use EXPLAIN to check the execution plan, add missing indexes, and avoid SELECT *.",
+      "explain": "First, I run EXPLAIN or EXPLAIN ANALYZE on the query to see if it's doing a Full Table Scan. Usually, a missing index on the WHERE or JOIN columns is the culprit. Second, I check if I'm pulling too much data (SELECT *). Third, I check for poorly written JOINs or subqueries. Finally, I check if the database statistics are outdated.",
+      "example": "\"I recently fixed a 5-second query. I ran EXPLAIN and saw a sequential scan on the orders table. The query filtered by user_id and status. I added a composite index on (user_id, status), which changed the plan to an Index Scan, dropping the time to 50ms. I also changed SELECT * to only select the 3 columns the UI actually needed.\"",
+      "summary10s": "Run EXPLAIN -> Find full table scans -> Add indexes (Composite) -> Remove SELECT * -> Rewrite subqueries to JOINs."
+    }
+  },
+  {
+    "id": "optimistic-vs-pessimistic-locking",
+    "category": "SQL",
+    "question": "What’s the difference between optimistic and pessimistic locking? Which one is better in microservices?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Optimistic checks for conflicts at the end (using versions). Pessimistic locks the row immediately. Optimistic is better for microservices.",
+      "explain": "Pessimistic Locking uses SQL (SELECT FOR UPDATE) to lock the row. No one else can read/write until the transaction finishes. Optimistic Locking doesn't lock; it adds a @Version column. When updating, it checks if the version changed since it was read. If yes, it throws an exception. Optimistic is preferred in distributed systems to avoid deadlocks and long DB locks.",
+      "example": "\"In a high-traffic microservice, I always use Optimistic Locking with JPA @Version. If two users buy the last ticket, both read version 1. User A updates it to version 2. User B tries to update version 1, but the DB rejects it (0 rows updated). We catch the OptimisticLockException and tell User B it's sold out. It's much faster than locking the database row.\"",
+      "summary10s": "Optimistic: Uses @Version, checks on update, no locks. Pessimistic: SELECT FOR UPDATE, blocks others. Optimistic is better."
+    }
+  },
+  {
+    "id": "caching-spring-boot",
+    "category": "Spring Boot",
+    "question": "How do you implement caching in Spring Boot + DB to reduce load?",
+    "frequency": 1,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use @EnableCaching and annotate read methods with @Cacheable, using Redis as the cache provider.",
+      "explain": "You add the spring-boot-starter-cache dependency. On the main class, add @EnableCaching. On methods that hit the DB (e.g., getProductById), add @Cacheable(\"products\"). Spring intercepts the call; if data is in cache, it returns it without hitting the DB. Use @CacheEvict or @CachePut on update/delete methods to keep the cache fresh.",
+      "example": "\"For our product catalog, I configured Redis. I put @Cacheable('products') on the findById method. The first call hits PostgreSQL, but subsequent calls hit Redis in 1ms. When a product is updated, I use @CacheEvict(value = 'products', key = '#product.id') to remove the stale data so the next read fetches fresh DB data.\"",
+      "summary10s": "@EnableCaching + @Cacheable for reads + @CacheEvict for updates/deletes. Usually backed by Redis."
+    }
+  },
+  {
+    "id": "angular-module",
+    "category": "Angular",
+    "question": "What is a Module in Angular?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Module is a container that groups related components, directives, pipes, and services together.",
+      "explain": "An Angular Module (NgModule) organizes an application into cohesive blocks of functionality. Every Angular app has at least one module (AppModule). It tells Angular how to compile and run the code.",
+      "example": "\"I use modules to organize my application into feature areas. For example, I might have an AuthModule for login and registration, and a SharedModule for common UI components. This keeps the codebase clean and enables lazy loading to improve performance.\"",
+      "summary10s": "Container for related components and services. Used to organize code and enable lazy loading."
+    }
+  },
+  {
+    "id": "angular-interpolation-vs-property-binding",
+    "category": "Angular",
+    "question": "What is the difference between Interpolation and Property Binding?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Interpolation uses {{ }} to render data as a string in the template, while Property Binding uses [ ] to bind a DOM property directly to a variable.",
+      "explain": "Interpolation converts the value to a string and inserts it into the HTML. Property binding binds the raw data type (like a boolean or object) to an element's property without converting it to a string.",
+      "example": "\"If I just need to display a string like a username, I use interpolation with double curly braces. But if I need to toggle a button's disabled state using a boolean, I use property binding like [disabled]='isInvalid', because interpolation would just turn the boolean into a string.\"",
+      "summary10s": "Interpolation {{}} for strings, Property binding [] for raw data types like booleans."
+    }
+  },
+  {
+    "id": "angular-viewchild",
+    "category": "Angular",
+    "question": "What is the use of @ViewChild?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@ViewChild is a decorator used to get a reference to a child component, directive, or DOM element inside the parent component class.",
+      "explain": "It allows the parent component to access properties and methods of the child, or directly manipulate a DOM element. It becomes available in the ngAfterViewInit lifecycle hook.",
+      "example": "\"I use @ViewChild when I need to call a method on a child component directly from the parent, or if I need to focus an input element programmatically. I just declare @ViewChild('myInput') inputRef; and then I can access its native element.\"",
+      "summary10s": "Decorator to grab a reference to a child component or DOM element from the parent."
+    }
+  },
+  {
+    "id": "angular-pipes",
+    "category": "Angular",
+    "question": "What are Pipes in Angular?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pipes are functions used in templates to transform data before displaying it to the user.",
+      "explain": "They take in data as input, format or transform it, and output the result. Common built-in pipes include DatePipe, UpperCasePipe, and CurrencyPipe.",
+      "example": "\"If I receive a raw date string from the backend, I use a pipe in the HTML like {{ user.dob | date:'shortDate' }}. It formats the date cleanly for the user without me having to change the actual data in the component.\"",
+      "summary10s": "Template functions that format data for display (e.g., dates, currency) using the | character."
+    }
+  },
+  {
+    "id": "angular-pure-vs-impure-pipes",
+    "category": "Angular",
+    "question": "What is the difference between Pure and Impure Pipes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pure pipes only execute when their input reference changes, while impure pipes execute on every single change detection cycle.",
+      "explain": "Pure pipes are highly optimized and only run when a primitive value or an object reference changes. Impure pipes run constantly, even on keystrokes or mouse movements, which can degrade performance.",
+      "example": "\"I always default to pure pipes because they are fast. If I pass an array to a pure pipe and push a new item, the pipe won't trigger because the array reference didn't change. If I absolutely need it to trigger on internal mutations, I'd make it impure by setting pure: false, but I try to avoid that for performance.\"",
+      "summary10s": "Pure = runs only on input reference change (fast). Impure = runs on every change detection cycle (slow)."
+    }
+  },
+  {
+    "id": "angular-async-pipe",
+    "category": "Angular",
+    "question": "What is the Async Pipe?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The async pipe subscribes to an Observable or Promise directly in the template and automatically unwraps the data.",
+      "explain": "It automatically handles the subscription and, most importantly, it automatically unsubscribes when the component is destroyed, preventing memory leaks. It also triggers change detection.",
+      "example": "\"Instead of manually subscribing to an HTTP call in my component and storing the result in a variable, I just expose the Observable itself. In the HTML, I write *ngFor=\\\"let item of items$ | async\\\". This keeps my component clean and prevents memory leaks because Angular handles the unsubscription automatically.\"",
+      "summary10s": "Auto-subscribes to Observables in HTML and auto-unsubscribes on destroy. Prevents memory leaks."
+    }
+  },
+  {
+    "id": "angular-forms-types",
+    "category": "Angular",
+    "question": "What are the two types of Forms in Angular?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Template-driven forms and Reactive forms.",
+      "explain": "Template-driven forms rely on directives in the HTML template (like ngModel) for two-way binding and validation. Reactive forms define the form model and validation programmatically in the component class.",
+      "example": "\"I use Template-driven forms for very simple things like a basic login. But for most enterprise applications, I use Reactive forms because they are more scalable, easier to unit test, and give me fine-grained control over validation and form state changes directly in TypeScript.\"",
+      "summary10s": "Template-driven (HTML based, simple) and Reactive forms (TypeScript based, complex/scalable)."
+    }
+  },
+  {
+    "id": "angular-template-driven-form",
+    "category": "Angular",
+    "question": "Have you created a Template-driven Form in Angular?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, they are built by using the FormsModule and the ngModel directive for two-way data binding.",
+      "explain": "In template-driven forms, the logic lives mostly in the HTML. We use standard HTML5 validation attributes (like required or minlength) and bind input fields to a model object.",
+      "example": "\"Yes, I've built template-driven forms by importing FormsModule, adding #myForm=\\\"ngForm\\\" to the form tag, and using [(ngModel)] on the inputs. I usually only use them for straightforward forms like a contact-us page where I don't need complex cross-field validation.\"",
+      "summary10s": "Built using FormsModule and ngModel. Form structure and validation defined in HTML."
+    }
+  },
+  {
+    "id": "angular-reactive-form-validation",
+    "category": "Angular",
+    "question": "How do you implement Form Validation in Reactive Forms?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "By passing Validators functions (like Validators.required) to the FormControl definition in the component class.",
+      "explain": "Reactive forms are configured in TypeScript using FormGroup and FormControl. We import the Validators class and attach synchronous or asynchronous validation functions when initializing the controls.",
+      "example": "\"When I create a form using FormBuilder, I define controls like this: email: ['', [Validators.required, Validators.email]]. To show error messages in the HTML, I check the control's state using form.get('email').hasError('required') and conditionally render a span.\"",
+      "summary10s": "Attach built-in Validators (like required, minLength) directly to the FormControl in TypeScript."
+    }
+  },
+  {
+    "id": "angular-custom-validation-reactive-forms",
+    "category": "Angular",
+    "question": "Can we create Custom Validation in Reactive Forms?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, by creating a custom function that takes an AbstractControl and returns an error object if validation fails, or null if it passes.",
+      "explain": "A custom validator is just a regular TypeScript function. It can be a synchronous validator for instant checks, or an asynchronous validator that returns a Promise or Observable for things like checking if a username is taken on the server.",
+      "example": "\"Yes, I frequently write custom validators. For example, a password-matching validator that takes a FormGroup, compares the password and confirm-password fields, and returns { passwordMismatch: true } if they don't match. I then attach this validator to the FormGroup level.\"",
+      "summary10s": "Yes, write a function taking AbstractControl. Return {errorKey: true} if invalid, null if valid."
+    }
+  },
+  {
+    "id": "microservices-vs-monolith-choice",
+    "category": "Microservices",
+    "question": "When would you choose Microservices over a Monolith?",
+    "answerSEE": {
+      "simple": "When a monolithic application becomes too large to scale, deploy, or maintain efficiently by multiple teams.",
+      "explain": "Microservices solve organizational and scaling problems. If you have independent teams needing to deploy at their own pace, or parts of the app with vastly different scaling needs (e.g., heavy background processing vs. light web traffic), microservices are ideal.",
+      "example": "\"I choose microservices when team autonomy and independent scaling become necessary. If a monolith takes hours to deploy, or if one specific module needs to scale to 100 instances while the rest needs only 2, it's time to split them.\"",
+      "summary10s": "Choose microservices for independent scaling, faster deployments, and team autonomy."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "microservice-boundary",
+    "category": "Microservices",
+    "question": "How do you decide the right boundary for a Microservice?",
+    "answerSEE": {
+      "simple": "By identifying Bounded Contexts using Domain-Driven Design (DDD).",
+      "explain": "A service boundary should encapsulate a single business capability. If two domains frequently share data and change together in the same transaction, they probably belong in the same service.",
+      "example": "\"I use Domain-Driven Design to identify Bounded Contexts. For example, in e-commerce, 'Order' and 'Shipping' are separate contexts. If changing a feature requires deploying both services simultaneously, my boundaries are wrong.\"",
+      "summary10s": "Use Bounded Contexts from DDD; services that change together should stay together."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "loosely-coupled-services",
+    "category": "Microservices",
+    "question": "What makes two services genuinely loosely coupled?",
+    "answerSEE": {
+      "simple": "They can be deployed, scaled, and fail independently without affecting each other.",
+      "explain": "Loose coupling means services communicate via contracts (APIs or events) rather than sharing a database or internal state. They should gracefully handle the other service's downtime.",
+      "example": "\"Two services are loosely coupled if I can completely rewrite one in a different language, deploy it, or have it crash, and the other service continues functioning—perhaps with degraded features, but without a hard failure.\"",
+      "summary10s": "Independent deployments, separate databases, and resilience to each other's failures."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "handle-unavailable-dependent-service",
+    "category": "Microservices",
+    "question": "How do you handle a request when the dependent service is unavailable?",
+    "answerSEE": {
+      "simple": "By using timeouts, retries, circuit breakers, and fallbacks.",
+      "explain": "You first fail fast using a Circuit Breaker so you don't exhaust resources. Then, provide a fallback: return cached data, an empty response, or queue the request for later processing.",
+      "example": "\"If a dependent service is down, I rely on a Circuit Breaker. Instead of hanging threads waiting for a timeout, the breaker opens and immediately routes to a fallback method, which might return cached data from Redis or a default response.\"",
+      "summary10s": "Circuit breakers to fail fast, followed by a fallback (cache or default value)."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "synchronous-communication-bad",
+    "category": "Microservices",
+    "question": "When is synchronous communication a bad choice?",
+    "answerSEE": {
+      "simple": "When you have a long chain of dependent services, causing latency accumulation and tight coupling.",
+      "explain": "Synchronous calls block threads. If Service A calls B, which calls C, a failure or slowdown in C brings down A. This creates a distributed monolith.",
+      "example": "\"I avoid synchronous REST calls when triggering a chain of events. For instance, after an order is placed, notifying shipping, billing, and inventory synchronously is risky. I prefer emitting an asynchronous 'OrderPlaced' event instead.\"",
+      "summary10s": "Bad for chained requests and non-blocking background tasks; use events instead."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "rest-grpc-messaging",
+    "category": "Microservices",
+    "question": "REST, gRPC, or messaging — how would you choose between them?",
+    "answerSEE": {
+      "simple": "REST for public APIs, gRPC for internal high-performance communication, and messaging for asynchronous decoupled workflows.",
+      "explain": "REST is universally understood and great for frontend-to-backend. gRPC is binary, strongly typed, and extremely fast, ideal for internal microservice chatter. Messaging (Kafka/RabbitMQ) is best when the sender doesn't need an immediate response.",
+      "example": "\"I use REST for my web clients because it's standard. Inside the cluster, if Service A needs real-time data from Service B, I use gRPC for speed. If Service A just wants to announce something happened without waiting, I use Kafka.\"",
+      "summary10s": "REST = External, gRPC = Fast Internal, Messaging = Async Decoupled."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "idempotent-distributed-operation",
+    "category": "System Design",
+    "question": "How do you make a distributed operation idempotent?",
+    "answerSEE": {
+      "simple": "By assigning a unique idempotency key to each request and tracking it in the database.",
+      "explain": "Idempotency means multiple identical requests have the same effect as a single one. The receiver checks if the unique key has already been processed before executing the business logic.",
+      "example": "\"I require clients to send an Idempotency-Key header. Before processing, I check my database to see if this key exists. If it does, I simply return the saved response of the previous successful execution, avoiding duplicate payments or inserts.\"",
+      "summary10s": "Use a unique idempotency key per request and verify it before processing."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "transaction-spanning-multiple-services",
+    "category": "Microservices",
+    "question": "How would you handle a transaction spanning multiple services?",
+    "answerSEE": {
+      "simple": "I avoid distributed transactions (like 2PC) and use the Saga pattern instead.",
+      "explain": "Two-Phase Commit (2PC) blocks resources and scales poorly. Saga breaks the transaction into local database transactions and uses events to trigger the next step, with compensating transactions for rollbacks.",
+      "example": "\"I use a Saga. If an order spans Payment and Inventory, Payment commits its local transaction and publishes an event. Inventory listens and commits. If Inventory fails, it publishes a failure event, and Payment executes a compensating transaction to refund the money.\"",
+      "summary10s": "Use the Saga pattern with compensating transactions instead of 2PC locks."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "saga-vs-distributed-transaction",
+    "category": "Microservices",
+    "question": "Saga vs distributed transaction — what trade-offs would you consider?",
+    "answerSEE": {
+      "simple": "Saga provides eventual consistency and high availability. Distributed transactions provide strong consistency but low availability and poor performance.",
+      "explain": "Sagas don't lock resources across services, making them fast and scalable, but you have to write complex compensating logic. Distributed transactions (2PC) guarantee ACID properties but lock everything until all services respond.",
+      "example": "\"For modern systems, I almost always pick Saga. I trade immediate consistency for availability and performance. The trade-off is that I have to write custom rollback logic (compensating transactions) and handle eventual consistency edge cases.\"",
+      "summary10s": "Saga = high performance/eventual consistency. Distributed TX = locks/strong consistency."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "message-delivered-twice",
+    "category": "Microservices",
+    "question": "What happens when a message is delivered twice?",
+    "answerSEE": {
+      "simple": "If the consumer is idempotent, nothing bad happens; the duplicate is ignored.",
+      "explain": "In distributed messaging (like Kafka), 'at-least-once' delivery is the standard. Network retries will cause duplicates. Consumers must be built to handle them safely.",
+      "example": "\"When I consume messages, I assume duplicates will happen. I store the message ID or transaction ID in a unique column in the database. When a duplicate arrives, the database throws a constraint violation, and I just acknowledge the message without reprocessing it.\"",
+      "summary10s": "It's handled safely if the consumer is designed to be idempotent."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "out-of-order-events",
+    "category": "Microservices",
+    "question": "How would you deal with out-of-order events?",
+    "answerSEE": {
+      "simple": "By using sequence numbers, timestamps, or routing related events to the same partition.",
+      "explain": "In Kafka, you ensure ordering by publishing events of the same entity (e.g., same OrderId) to the same partition. If consuming from systems without ordering guarantees, you use state machines and sequence numbers to reject older events.",
+      "example": "\"If ordering is strictly required, I use the entity ID as the Kafka partition key so all events for one order go to the same partition, preserving order. If I still receive an old event (based on timestamp or version), my database simply ignores it because a newer version is already saved.\"",
+      "summary10s": "Use partition keys for ordering, and sequence/version numbers to ignore stale data."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "investigate-consumer-lag",
+    "category": "Microservices",
+    "question": "Consumer lag suddenly increases. How would you investigate it?",
+    "answerSEE": {
+      "simple": "Check consumer logs for errors, monitor CPU/memory, and see if downstream systems (like DBs) are slowing down processing.",
+      "explain": "Lag means the consumer is slower than the producer. This usually happens because the consumer is stuck waiting for a database, is throwing exceptions and endlessly retrying, or simply needs more instances.",
+      "example": "\"First, I check the consumer logs to see if it's stuck in an infinite retry loop due to a poison pill message. Then, I check APM metrics to see if the database or a downstream API it calls has become slow. If everything is healthy but volume just increased, I scale up consumer instances and partitions.\"",
+      "summary10s": "Check for endless retries (poison pills), downstream DB slowness, or pure volume spikes."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "prevent-cascading-failure",
+    "category": "Microservices",
+    "question": "How do you prevent one failing service from creating a cascading failure?",
+    "answerSEE": {
+      "simple": "By using Circuit Breakers, Bulkheads, and aggressive Timeouts.",
+      "explain": "If Service A waits endlessly for failing Service B, Service A's threads exhaust, causing Service A to fail. Circuit breakers fail fast, and bulkheads isolate connection pools so a failure in one area doesn't drain all resources.",
+      "example": "\"I wrap all cross-service calls in a Circuit Breaker. If the downstream service is struggling, the circuit opens, immediately rejecting requests instead of hanging threads. I also use strict timeouts and bulkhead thread pools to ensure one bad endpoint doesn't crash the whole JVM.\"",
+      "summary10s": "Circuit breakers to fail fast, timeouts to prevent hanging, bulkheads for isolation."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "retries-timeouts-circuit-breakers",
+    "category": "Microservices",
+    "question": "Where would you apply retries, timeouts, and circuit breakers?",
+    "answerSEE": {
+      "simple": "Timeouts everywhere, retries for transient network errors, and circuit breakers for persistent downstream failures.",
+      "explain": "Timeouts prevent hanging forever. Retries handle temporary blips but should use exponential backoff. Circuit breakers sit in front of dependent services to stop sending traffic when the service is clearly overwhelmed.",
+      "example": "\"I apply timeouts on every single network call. I apply retries (with jitter and backoff) only for safe, idempotent read operations or 503/network errors. I wrap the entire HTTP client in a circuit breaker to protect the downstream service from being hammered while it's trying to recover.\"",
+      "summary10s": "Timeouts always, retries for brief glitches, circuit breakers for prolonged outages."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "maintain-backward-compatibility",
+    "category": "System Design",
+    "question": "How do you maintain backward compatibility when changing an API?",
+    "answerSEE": {
+      "simple": "By never deleting or renaming existing fields, and strictly using API versioning.",
+      "explain": "You can add new optional fields safely, but modifying or deleting existing ones breaks older clients. Major structural changes require a new API version (e.g., /v2/).",
+      "example": "\"If I need to change the data structure, I don't touch the existing endpoint. I either add new fields optionally, or I spin up a `/v2/` endpoint. I keep `/v1/` running until I can confirm all consumers have migrated, then I deprecate and eventually remove it.\"",
+      "summary10s": "Only add optional fields, never delete, and use /v1/ /v2/ versioning for breaking changes."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "two-services-same-data",
+    "category": "Microservices",
+    "question": "What would you do if two services need the same business data?",
+    "answerSEE": {
+      "simple": "I would designate one service as the source of truth and have the other service query it or replicate the data via events.",
+      "explain": "Services should not share a database. The service that 'owns' the data exposes an API. If the second service needs the data constantly and API calls are too slow, it can listen to Kafka events and maintain a read-only local replica.",
+      "example": "\"If Shipping needs User data, it cannot read the User database directly. It can either call the User API on-demand, or, for better performance and autonomy, it can listen to 'UserUpdated' events on Kafka and keep a localized, read-only copy of just the fields it needs.\"",
+      "summary10s": "No shared DBs. Use APIs for direct queries or async events for data replication."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "database-schema-changes-no-downtime",
+    "category": "System Design",
+    "question": "How would you handle database schema changes without downtime?",
+    "answerSEE": {
+      "simple": "By using the Expand and Contract pattern across multiple independent deployments.",
+      "explain": "You cannot simply rename or delete a column. First, add the new column. Deploy code that writes to both but reads from the old. Then deploy code that reads from the new. Finally, delete the old column.",
+      "example": "\"I use the Expand-Contract pattern. Phase 1: I add the new column via Flyway and deploy code that writes to both old and new. Phase 2: I migrate old data to the new column. Phase 3: I switch the code to read from the new column. Phase 4: I drop the old column. Zero downtime.\"",
+      "summary10s": "Expand-Contract pattern: Add new column, dual-write, migrate data, read new, drop old."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "distributed-monolith",
+    "category": "Microservices",
+    "question": "At what point does a Microservices architecture become a Distributed Monolith?",
+    "answerSEE": {
+      "simple": "When services are so tightly coupled that a change in one requires simultaneous deployment of the others.",
+      "explain": "If your services share databases, communicate via deep synchronous chains, or require synchronized deployment schedules, you've inherited all the network overhead of microservices with none of the independence.",
+      "example": "\"If I have to coordinate with three other teams to deploy my service because our API contracts or shared database tables changed, I don't have microservices. I have a distributed monolith, which is the worst of both worlds.\"",
+      "summary10s": "When independent deployments become impossible due to tight coupling and shared DBs."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "one-dashboard-production-incident",
+    "category": "DevOps",
+    "question": "If you could see only one dashboard during a production incident, which metrics would you want on it?",
+    "answerSEE": {
+      "simple": "The USE metrics (Utilization, Saturation, Errors) for infrastructure and RED metrics (Rate, Errors, Duration) for services.",
+      "explain": "I need to see the volume of traffic (Rate), the error rate (HTTP 5xx), the latency (Duration/Response Time), and the saturation of my resources (CPU/Memory/DB Connections).",
+      "example": "\"I would look at a RED dashboard. I need to see the Request Rate to know if we're under attack or experiencing a spike. I need Error Rates to see the immediate impact, and Latency (p99 Duration) to see if we're hanging. Combining that with Database connection pool stats solves 90% of incidents.\"",
+      "summary10s": "RED metrics: Request Rate, Error Rate, and p99 Latency (Duration)."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "concurrenthashmap-thread-safety",
+    "category": "Java",
+    "question": "How does \"ConcurrentHashMap\" achieve thread safety internally?",
+    "answerSEE": {
+      "simple": "By using node-level locking (CAS operations and synchronized blocks) instead of locking the whole map.",
+      "explain": "In Java 8+, it abandoned Segment locking. It uses Compare-And-Swap (CAS) for inserting the first node in a bucket. If a collision occurs, it synchronizes only on the head node of that specific bucket list or tree.",
+      "example": "\"Instead of locking the entire map like Hashtable, ConcurrentHashMap locks only the specific bucket being modified. For empty buckets, it uses highly efficient CAS operations. For collisions, it uses a synchronized block purely on the head node. This allows massive concurrent read/write throughput.\"",
+      "summary10s": "Uses CAS for empty buckets and locks only the head node of the bucket for collisions."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "jvm-class-loading",
+    "category": "Java",
+    "question": "What happens inside the JVM during class loading?",
+    "answerSEE": {
+      "simple": "The JVM finds the bytecode, loads it into memory, links it, and initializes static variables.",
+      "explain": "It goes through three phases: Loading (finding the .class file via the ClassLoader hierarchy), Linking (verifying bytecode, allocating memory for statics, and resolving references), and Initialization (executing static blocks).",
+      "example": "\"When I reference a class, the ClassLoader finds the .class file. Then the Linking phase verifies the bytecode is secure and allocates memory for static fields. Finally, the Initialization phase runs my static blocks and assigns actual values to static variables. All this happens lazily on first use.\"",
+      "summary10s": "Three phases: Loading (finding bytecode), Linking (verification/memory), Initialization (static blocks)."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "gc-eligibility",
+    "category": "Java",
+    "question": "How does Garbage Collection determine whether an object is eligible for collection?",
+    "answerSEE": {
+      "simple": "By using Reachability Analysis from Garbage Collection Roots (GC Roots).",
+      "explain": "The JVM identifies GC Roots, which include active local variables in thread stacks, static variables, and JNI references. It traces every object reachable from these roots. Anything not reachable is eligible for GC.",
+      "example": "\"Java doesn't use reference counting because of circular references. Instead, it traces paths from GC Roots like live thread variables or static fields. If an object tree gets disconnected from the GC Roots—even if the objects reference each other—the Garbage Collector considers them unreachable and sweeps them.\"",
+      "summary10s": "Reachability analysis: Objects with no path connecting them to active GC Roots are collected."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "jmm-visibility",
+    "category": "Java",
+    "question": "How does the Java Memory Model handle visibility between threads?",
+    "answerSEE": {
+      "simple": "It uses the \"Happens-Before\" relationship to ensure memory writes by one thread are visible to another.",
+      "explain": "Because threads have their own CPU caches, updates might not immediately flush to main memory. The JMM guarantees visibility through actions like writing to a volatile variable, releasing a monitor lock, or starting a thread.",
+      "example": "\"If Thread A updates a normal variable, Thread B might keep reading a stale cached value. The JMM dictates that if Thread A writes to a volatile variable, it flushes its cache to main memory, establishing a happens-before relationship, guaranteeing Thread B sees the latest data.\"",
+      "summary10s": "Threads cache variables. JMM uses 'happens-before' (via volatile/locks) to force memory flushes."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "completablefuture-async",
+    "category": "Java",
+    "question": "How does \"CompletableFuture\" handle asynchronous execution?",
+    "answerSEE": {
+      "simple": "It executes tasks in a background thread pool and provides a functional API to chain operations once the result is ready.",
+      "explain": "By default, it uses the common ForkJoinPool. You can submit tasks asynchronously without blocking the main thread, and use methods like thenApply, thenAccept, and allOf to build non-blocking asynchronous pipelines.",
+      "example": "\"Instead of blocking the thread waiting for a REST call, I use supplyAsync. Then I chain thenApply to transform the data, and exceptionally to handle errors. The thread is free to do other work, and the pipeline executes automatically as data flows through.\"",
+      "summary10s": "Uses ForkJoinPool to run tasks asynchronously and allows functional chaining without blocking threads."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "forkjoinpool-work-stealing",
+    "category": "Java",
+    "question": "What is work stealing in \"ForkJoinPool\"?",
+    "answerSEE": {
+      "simple": "It's an algorithm where idle threads steal pending tasks from the queues of busy threads to maximize CPU usage.",
+      "explain": "Unlike traditional thread pools with one shared queue, each thread in a ForkJoinPool has its own double-ended queue. If a thread finishes its queue early, it looks at other threads' queues and steals work from the tail end.",
+      "example": "\"If I have 4 threads, and Thread A gets stuck with a heavy chunk of data while Thread B finishes quickly, Thread B won't sit idle. It will perform work-stealing, taking tasks from the back of Thread A's queue, balancing the load perfectly across CPU cores.\"",
+      "summary10s": "Idle threads steal tasks from the queues of busy threads to prevent CPU underutilization."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "deadlock-detect-production",
+    "category": "Java",
+    "question": "How can a deadlock occur, and how would you detect it in production?",
+    "answerSEE": {
+      "simple": "It occurs when two threads hold locks the other needs, creating a cyclic wait. Detected via Thread Dumps.",
+      "explain": "Thread A holds Lock 1 and wants Lock 2. Thread B holds Lock 2 and wants Lock 1. Both wait forever. You detect this by capturing a thread dump using tools like jstack, visualvm, or APMs like Datadog.",
+      "example": "\"In production, if the application suddenly stops processing requests but CPU is low, I immediately suspect a deadlock. I run `jstack <pid>` to take a thread dump. The JVM actually detects deadlocks automatically in the dump and prints out the exact threads and locks involved in the cycle.\"",
+      "summary10s": "Cyclic wait for locks. Detect it by analyzing a JVM thread dump (jstack)."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "more-threads-reduce-performance",
+    "category": "Java",
+    "question": "Why can creating more threads actually reduce application performance?",
+    "answerSEE": {
+      "simple": "Due to overhead from Context Switching, memory consumption, and thread contention.",
+      "explain": "Threads aren't free. The CPU has to constantly save and load thread states (context switching), which wastes CPU cycles. Also, each thread consumes stack memory, and too many threads fighting for locks causes severe contention.",
+      "example": "\"If I have a 4-core CPU and spawn 1000 threads for CPU-bound tasks, the processor spends more time switching between threads than actually executing code. That's why thread pools should be sized appropriately—usually just the number of cores for CPU-intensive work.\"",
+      "summary10s": "High context switching overhead, memory limits, and lock contention waste CPU cycles."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "immutable-class-design",
+    "category": "Java",
+    "question": "How can an immutable class be designed in Java?",
+    "answerSEE": {
+      "simple": "Make the class final, make all fields private final, don't provide setters, and perform deep copies for mutable objects.",
+      "explain": "The goal is to prevent any changes after construction. Declaring fields final is not enough if the field is a mutable object like a List or Date. You must defensively copy mutable fields in constructors and getters.",
+      "example": "\"I declare the class as final so it can't be subclassed. All fields are private final. If I have a Date field, I don't assign it directly in the constructor; I make a clone of it. When returning it in a getter, I return a clone again so the caller cannot mutate the internal state.\"",
+      "summary10s": "Class final, fields private final, no setters, defensive copies for mutable references."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "thread-uncaught-exception",
+    "category": "Java",
+    "question": "What happens when a thread throws an uncaught exception?",
+    "answerSEE": {
+      "simple": "The thread terminates, but the JVM continues running unless it was the last non-daemon thread.",
+      "explain": "The exception propagates up the stack. If not caught, the thread dies and the exception stack trace is printed to System.err. In a thread pool, the pool might quietly replace the dead thread.",
+      "example": "\"If a thread in an ExecutorService throws a RuntimeException, that specific thread dies. If I used `submit()`, the exception is swallowed until I call `Future.get()`. To handle this globally, I usually set a custom `UncaughtExceptionHandler` on my threads to log the error properly before it dies.\"",
+      "summary10s": "The thread dies. Catch it via Future.get() or configure an UncaughtExceptionHandler."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "threadlocal-memory-leak",
+    "category": "Java",
+    "question": "How does \"ThreadLocal\" work, and how can it cause memory leaks?",
+    "answerSEE": {
+      "simple": "ThreadLocal stores data independently for each thread. It causes leaks in Thread Pools if you forget to remove the data after use.",
+      "explain": "It is often used to hold context (like user ID) for the current request. In application servers, threads are pooled and reused. If you don't call `.remove()`, the old context stays attached to the thread and leaks into the next request.",
+      "example": "\"I use ThreadLocal to pass the logged-in user through my service layers without adding it to every method signature. But because Tomcat reuses threads, if I don't explicitly call `ThreadLocal.remove()` in a `finally` block of my interceptor, the next user getting that thread might access the previous user's data.\"",
+      "summary10s": "Stores per-thread data. Causes leaks in Thread Pools if not cleared via `.remove()`."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "false-sharing-concurrent",
+    "category": "Java",
+    "question": "What is false sharing in concurrent programming?",
+    "answerSEE": {
+      "simple": "A performance degradation caused when multiple threads modify independent variables that happen to reside on the same CPU cache line.",
+      "explain": "CPUs cache data in blocks called Cache Lines (usually 64 bytes). If Thread A updates variable X and Thread B updates variable Y, and both sit on the same line, the CPU constantly invalidates and reloads the line for both threads, destroying performance.",
+      "example": "\"In high-frequency trading apps, if two counters are next to each other in memory, Thread A updating its counter invalidates Thread B's cache line, even though they modify different variables. I fix this by using the `@Contended` annotation in Java, which pads the memory so they sit on different cache lines.\"",
+      "summary10s": "Independent variables on the same CPU cache line cause unnecessary cache invalidations."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
+  },
+  {
+    "id": "troubleshoot-high-gc-pauses",
+    "category": "Java",
+    "question": "How would you troubleshoot high GC pauses in a production JVM?",
+    "answerSEE": {
+      "simple": "Enable GC logging, analyze it with a tool like GCEasy, and tune the heap size or switch to a low-pause collector like G1GC or ZGC.",
+      "explain": "High pauses mean 'Stop-The-World' events are taking too long. This usually happens if the Young Generation is sized incorrectly, causing premature promotion to the Old Generation, which leads to heavy Full GCs.",
+      "example": "\"First, I check the GC logs via GCEasy.io to see if the pauses are Minor or Major GCs. If the app is creating too many short-lived objects that spill into the Old space, I increase the Young Generation size. If that doesn't work, I upgrade the collector from Parallel GC to G1GC or ZGC which are optimized for low latency.\"",
+      "summary10s": "Analyze GC logs. Tune Young/Old generation sizes, or switch to G1GC/ZGC for lower latency."
+    },
+    "frequency": 1,
+    "companies": [],
+    "variations": []
   }
 ];
