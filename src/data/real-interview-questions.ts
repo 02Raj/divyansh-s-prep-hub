@@ -179,7 +179,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "spring-transactional-fails",
     "category": "Spring Boot",
     "question": "In what scenarios does the @Transactional annotation fail to work?",
-    "frequency": 10,
+    "frequency": 11,
     "companies": [
       "EPAM",
       "Capgemini"
@@ -187,7 +187,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "variations": [
       "Why is my @Transactional not rolling back?",
       "Why can @Transactional fail during self-invocation?",
-      "Why can \"@Transactional\" fail during self-invocation?"
+      "Why can \"@Transactional\" fail during self-invocation?",
+      "Why does \"@Transactional\" sometimes not work?"
     ],
     "answerSEE": {
       "simple": "@Transactional relies on Spring AOP proxies. It fails if the proxy is bypassed (like self-invocation) or if a checked exception is thrown.",
@@ -244,6 +245,31 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "angular-dependency-injection",
+    "category": "Angular",
+    "question": "Dependency Injection",
+    "frequency": 10,
+    "companies": [
+      "Deloitte",
+      "TCS"
+    ],
+    "variations": [
+      "What is Dependency Injection in Angular? Explain the different provider scopes.",
+      "Dependency Injection in Spring Boot",
+      "Explain Dependency Injection and IoC.",
+      "What are the different provider scopes in Angular?",
+      "Explain singleton design pattern.",
+      "What is Dependency Injection and why do we use it? How would you inject a service at the component level? - what's Singleton object means ?",
+      "Dependency Injection?"
+    ],
+    "answerSEE": {
+      "simple": "DI means Angular provides a class's dependencies instead of the class creating them itself.",
+      "explain": "Angular's injector creates and provides service instances automatically\nReduces tight coupling, makes components easier to test\nInjected via constructor, using providedIn: 'root' for singleton services",
+      "example": "\"Dependency Injection in Angular means I don't manually create service instances inside a component — Angular's injector provides them automatically through the constructor. This makes testing much easier since I can inject mock services. I typically use providedIn: 'root' so the service becomes a singleton, shared across the whole application.\"",
+      "summary10s": "Angular injects dependencies via constructor — don't create with new."
+    }
+  },
+  {
     "id": "memory-leak-in-java",
     "category": "Java",
     "question": "Memory Leak in Java",
@@ -287,31 +313,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Sending the same PUT request multiple times results in the same final state. PATCH is only idempotent if you set absolute values. If a PATCH request says \"increment counter by 1\", running it twice gives a different result, breaking idempotency.",
       "example": "\"PUT is meant to replace the whole resource, so it is naturally idempotent. PATCH updates specific fields. To keep PATCH idempotent, I make sure the updates are absolute value assignments (like setting status to ACTIVE) rather than relative operations (like increment by 1).\"",
       "summary10s": "PUT = full replace (always idempotent). PATCH = partial update (idempotent only if setting absolute values)."
-    }
-  },
-  {
-    "id": "angular-dependency-injection",
-    "category": "Angular",
-    "question": "Dependency Injection",
-    "frequency": 9,
-    "companies": [
-      "Deloitte",
-      "TCS"
-    ],
-    "variations": [
-      "What is Dependency Injection in Angular? Explain the different provider scopes.",
-      "Dependency Injection in Spring Boot",
-      "Explain Dependency Injection and IoC.",
-      "What are the different provider scopes in Angular?",
-      "Explain singleton design pattern.",
-      "What is Dependency Injection and why do we use it? How would you inject a service at the component level? - what's Singleton object means ?",
-      "Dependency Injection?"
-    ],
-    "answerSEE": {
-      "simple": "DI means Angular provides a class's dependencies instead of the class creating them itself.",
-      "explain": "Angular's injector creates and provides service instances automatically\nReduces tight coupling, makes components easier to test\nInjected via constructor, using providedIn: 'root' for singleton services",
-      "example": "\"Dependency Injection in Angular means I don't manually create service instances inside a component — Angular's injector provides them automatically through the constructor. This makes testing much easier since I can inject mock services. I typically use providedIn: 'root' so the service becomes a singleton, shared across the whole application.\"",
-      "summary10s": "Angular injects dependencies via constructor — don't create with new."
     }
   },
   {
@@ -425,6 +426,34 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
       "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
       "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
+    }
+  },
+  {
+    "id": "how-do-you-secure-rest-apis",
+    "category": "Spring Boot",
+    "question": "How do you secure REST APIs?",
+    "frequency": 8,
+    "companies": [
+      "Accenture",
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "What type of security are you using in your current project?",
+      "How to secure REST APIs?",
+      "Spring Security Implementation in Projects",
+      "How do you secure REST APIs in Spring Boot?",
+      "How would you secure a REST API using JWT?",
+      "How would you secure a Spring Boot REST API?"
+    ],
+    "answerSEE": {
+      "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
+      "explain": "SecurityFilterChain bean — configure which routes are public and which need auth\nAdd custom JWT filter before UsernamePasswordAuthenticationFilter\nJWT filter validates token, sets Authentication in SecurityContext\nUserDetailsService loads user details for validation",
+      "example": "\"I configure a SecurityFilterChain bean where I define public endpoints like login and protected ones requiring authentication. I add a custom JWT filter that intercepts every request, extracts and validates the token, and sets the authentication in SecurityContext. If token is invalid the filter rejects the request before it reaches any controller.\"",
+      "summary10s": "SecurityFilterChain defines routes, JWT filter validates token, sets SecurityContext."
     }
   },
   {
@@ -582,28 +611,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "how-do-you-secure-rest-apis",
-    "category": "Spring Boot",
-    "question": "How do you secure REST APIs?",
-    "frequency": 6,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [
-      "What type of security are you using in your current project?",
-      "How to secure REST APIs?",
-      "Spring Security Implementation in Projects",
-      "How do you secure REST APIs in Spring Boot?",
-      "How would you secure a REST API using JWT?"
-    ],
-    "answerSEE": {
-      "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
-      "explain": "SecurityFilterChain bean — configure which routes are public and which need auth\nAdd custom JWT filter before UsernamePasswordAuthenticationFilter\nJWT filter validates token, sets Authentication in SecurityContext\nUserDetailsService loads user details for validation",
-      "example": "\"I configure a SecurityFilterChain bean where I define public endpoints like login and protected ones requiring authentication. I add a custom JWT filter that intercepts every request, extracts and validates the token, and sets the authentication in SecurityContext. If token is invalid the filter rejects the request before it reaches any controller.\"",
-      "summary10s": "SecurityFilterChain defines routes, JWT filter validates token, sets SecurityContext."
-    }
-  },
-  {
     "id": "lazy-vs-eager-loading",
     "category": "Spring Boot",
     "question": "Lazy vs Eager Loading?",
@@ -621,6 +628,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Eager — loads everything in one query even if not needed\nLazy — loads related data on first access, default for collections\nLazy risk — LazyInitializationException if session closed before access\nFix — JOIN FETCH in query or keep method @Transactional",
       "example": "\"Lazy loading is the default for collections in Hibernate. Related entities load only when accessed which saves unnecessary DB calls. But if I access lazy data after session closes I get LazyInitializationException. I fix this with JOIN FETCH in my JPQL to load everything in one query when I know I will need it.\"",
       "summary10s": "Eager=load now always, Lazy=load on access, session must be open, fix with JOIN FETCH."
+    }
+  },
+  {
+    "id": "java-jvm-metrics",
+    "category": "Java",
+    "question": "Your Java API suddenly becomes slow in production. What JVM-level metrics do you check first?",
+    "frequency": 6,
+    "companies": [],
+    "variations": [
+      "An API response time was previously around 10 ms but suddenly increased to 3 seconds. How would you troubleshoot it?",
+      "What tools or metrics would you use for troubleshooting application performance?",
+      "Your Spring Boot API suddenly goes from 200 ms to 5 seconds. What would you check first?",
+      "Your Java API suddenly becomes slow in production. What JVM-level metrics would you check first?",
+      "Your Spring Boot API suddenly becomes slow. What do you check?"
+    ],
+    "answerSEE": {
+      "simple": "Check GC pause times, Heap memory usage, and Thread states (Blocked/Waiting).",
+      "explain": "If the API is slow, it is usually one of three things: 1. The JVM is constantly running Full GCs (\"Stop-the-world\" pauses) because the heap is 99% full. 2. Threads are deadlocked or blocked waiting for a database connection pool. 3. CPU is spiking due to infinite loops.",
+      "example": "\"First, I look at Datadog/Prometheus for GC metrics. If time spent in GC is spiking, the app is starving for memory. Next, I pull a thread dump. If I see 200 threads in `BLOCKED` state waiting for a HikariCP database lock, I know the database is the bottleneck, not the JVM.\"",
+      "summary10s": "1. GC Pause Times (Heap exhaustion). 2. Thread Dumps (Deadlocks/DB pool exhaustion)."
     }
   },
   {
@@ -661,25 +688,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "IoC — control of object creation is inverted from developer to framework\nTraditional code — you create dependencies with new keyword\nIoC — framework creates and manages objects for you\nDependency Injection is IoC implementation — framework injects dependencies into your class",
       "example": "\"Using the new keyword is not wrong. IoC doesn't mean we completely stop creating objects manually. I still use new for simple objects like DTOs or helper classes. However, for core application components like services, repositories, and controllers, I rely on Spring's IoC container to create and manage them. So the control of important dependencies is still inverted to Spring, which means IoC is properly followed.\"",
       "summary10s": "IoC=principle of inverted control, DI=technique to implement IoC by injecting dependencies."
-    }
-  },
-  {
-    "id": "java-jvm-metrics",
-    "category": "Java",
-    "question": "Your Java API suddenly becomes slow in production. What JVM-level metrics do you check first?",
-    "frequency": 5,
-    "companies": [],
-    "variations": [
-      "An API response time was previously around 10 ms but suddenly increased to 3 seconds. How would you troubleshoot it?",
-      "What tools or metrics would you use for troubleshooting application performance?",
-      "Your Spring Boot API suddenly goes from 200 ms to 5 seconds. What would you check first?",
-      "Your Java API suddenly becomes slow in production. What JVM-level metrics would you check first?"
-    ],
-    "answerSEE": {
-      "simple": "Check GC pause times, Heap memory usage, and Thread states (Blocked/Waiting).",
-      "explain": "If the API is slow, it is usually one of three things: 1. The JVM is constantly running Full GCs (\"Stop-the-world\" pauses) because the heap is 99% full. 2. Threads are deadlocked or blocked waiting for a database connection pool. 3. CPU is spiking due to infinite loops.",
-      "example": "\"First, I look at Datadog/Prometheus for GC metrics. If time spent in GC is spiking, the app is starving for memory. Next, I pull a thread dump. If I see 200 threads in `BLOCKED` state waiting for a HikariCP database lock, I know the database is the bottleneck, not the JVM.\"",
-      "summary10s": "1. GC Pause Times (Heap exhaustion). 2. Thread Dumps (Deadlocks/DB pool exhaustion)."
     }
   },
   {
@@ -13829,6 +13837,844 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Since values are from 1 to N and the array size is N+1, each value can act as an index pointer. If there's a duplicate, multiple indices point to the same index, forming a cycle. By using a slow pointer (moves 1 step) and a fast pointer (moves 2 steps), they will eventually meet. Then, move one pointer to the start and move both 1 step at a time; where they meet again is the duplicate.",
       "example": "\"Because I can't modify the array and need O(1) space, sorting or using a HashSet is out. Instead, I treat the array values as pointers to the next index, like a linked list. I use Floyd's Cycle Detection. I run a slow and fast pointer until they intersect, then reset the slow pointer to index 0 and move both one step at a time until they collide at the exact duplicate number.\"",
       "summary10s": "Treat array as linked list. Use Floyd's Cycle Detection (slow/fast pointers) to find the start of the cycle."
+    }
+  },
+  {
+    "id": "project-architecture-flow",
+    "category": "System Design",
+    "question": "Explain your project architecture and the complete flow of a request in production.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explain the high-level components (client, gateway, microservices, DB) and how a request travels through them.",
+      "explain": "A typical request hits a Load Balancer/API Gateway which handles auth and routing. It then goes to the appropriate Microservice. The service might communicate with a Cache (Redis) or Database (PostgreSQL) and publish events to a Message Broker (Kafka) before returning the response.",
+      "example": "\"In my project, a request hits our AWS ALB, forwards to the API Gateway for JWT validation, and routes to the Order Service. The Order Service checks Redis for cached user data, writes to PostgreSQL, and publishes an 'OrderCreated' event to Kafka for downstream services before returning 200 OK.\"",
+      "summary10s": "Client -> Gateway -> Service -> DB/Cache -> Broker."
+    }
+  },
+  {
+    "id": "highly-scalable-microservices",
+    "category": "System Design",
+    "question": "How would you design a highly scalable microservices application?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use stateless services, API gateways, load balancing, async messaging, and decentralized databases.",
+      "explain": "Scalability is achieved by making services stateless so they can scale horizontally. Use an API Gateway for routing, Kafka/RabbitMQ for async decoupling, caching (Redis) for read-heavy operations, and database per service to avoid bottlenecks.",
+      "example": "\"I would design stateless microservices deployed on Kubernetes for horizontal autoscaling. I'd use an API Gateway for rate limiting and routing. For communication, I'd favor async messaging via Kafka over synchronous REST calls to decouple services, and use Redis to cache heavy reads.\"",
+      "summary10s": "Stateless services, horizontal scaling, async messaging, and caching."
+    }
+  },
+  {
+    "id": "api-receives-10x-traffic",
+    "category": "System Design",
+    "question": "Your API suddenly receives 10x traffic. What will you do?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Scale up horizontally, implement rate limiting, cache aggressive reads, and use async processing.",
+      "explain": "Immediately: rely on auto-scaling (HPA in Kubernetes) to add more pods. Mid-term: add Redis caching for read-heavy endpoints and Rate Limiting to prevent abuse. Long-term: offload heavy processing to background workers via Kafka.",
+      "example": "\"If it's an unexpected spike, K8s HPA should auto-scale the pods. I would monitor DB connections to ensure the pool isn't exhausted. To protect the system, I'd enable rate limiting at the API Gateway and cache read-heavy responses in Redis. If writes are slow, I'd put them in a Kafka queue to process asynchronously.\"",
+      "summary10s": "Auto-scale pods, rate-limit at gateway, cache reads, queue writes."
+    }
+  },
+  {
+    "id": "failure-downstream-microservice",
+    "category": "Microservices",
+    "question": "How do you handle failure of a downstream microservice?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "Timeout, retry, circuit breaker, fallback, etc."
+    ],
+    "answerSEE": {
+      "simple": "Use Circuit Breakers, Retries, Timeouts, and Fallbacks to prevent cascading failures.",
+      "explain": "Set a Timeout so requests don't hang. Implement Retries for transient errors. Use a Circuit Breaker (like Resilience4j) to stop calling the service if it consistently fails, and return a Fallback response (like cached data or a default value).",
+      "example": "\"I use Resilience4j. I configure a short timeout and 3 retries for transient network glitches. If the downstream service is completely down, the Circuit Breaker opens to prevent thread exhaustion, and I provide a fallback method that returns cached data or a friendly error message.\"",
+      "summary10s": "Timeout -> Retry -> Circuit Breaker -> Fallback."
+    }
+  },
+  {
+    "id": "implement-rate-limiting-throttling",
+    "category": "Microservices",
+    "question": "How would you implement Rate Limiting and Throttling?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Implement rate limiting at the API Gateway using algorithms like Token Bucket or Redis-based counters.",
+      "explain": "Rate limiting prevents abuse by restricting requests per IP or user. It's best done at the API Gateway (like Spring Cloud Gateway) or using a centralized cache like Redis to track request counts across multiple instances.",
+      "example": "\"I typically implement rate limiting at the API Gateway level using Redis. We use the Token Bucket algorithm where each user gets a fixed number of tokens per minute. If they exceed it, the gateway returns a 429 Too Many Requests response before the request even hits our microservices.\"",
+      "summary10s": "API Gateway + Redis using Token Bucket algorithm -> 429 Too Many Requests."
+    }
+  },
+  {
+    "id": "maintain-data-consistency-microservices",
+    "category": "Microservices",
+    "question": "How do you maintain data consistency between multiple microservices?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "Saga, eventual consistency, etc."
+    ],
+    "answerSEE": {
+      "simple": "Use Eventual Consistency with the Saga Pattern (Choreography or Orchestration).",
+      "explain": "Since distributed transactions (2PC) are slow and lock resources, we use the Saga pattern. Each service updates its local DB and publishes an event. If a subsequent step fails, compensating transactions are triggered to undo previous steps.",
+      "example": "\"I avoid two-phase commits. Instead, I use Eventual Consistency via the Saga pattern. In an e-commerce flow, Order Service creates an order and sends a Kafka event. Payment Service listens, processes payment, and sends an event. If Payment fails, it sends a failure event, and Order Service listens to it and cancels the order (compensating transaction).\"",
+      "summary10s": "Saga pattern with compensating transactions for eventual consistency."
+    }
+  },
+  {
+    "id": "duplicate-kafka-messages-idempotency",
+    "category": "Microservices",
+    "question": "How do you handle duplicate Kafka messages and ensure idempotency?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use an idempotent consumer by storing a unique transaction ID in the database.",
+      "explain": "Kafka guarantees at-least-once delivery, so duplicates happen. Make the consumer idempotent: track processed message IDs (like an orderId or eventId) in a database table. If a message ID already exists, ignore it.",
+      "example": "\"To handle Kafka duplicates, I design my consumers to be idempotent. I extract a unique identifier from the message payload and attempt to insert it into a 'processed_events' DB table with a unique constraint. If it fails with a duplicate key exception, I know it's a retry and simply ACK the message without processing it again.\"",
+      "summary10s": "Store unique event ID in DB with unique constraint to ignore duplicates."
+    }
+  },
+  {
+    "id": "database-query-slow-production",
+    "category": "SQL",
+    "question": "Your database query becomes very slow in production. How will you troubleshoot it?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Analyze the execution plan using EXPLAIN, check for missing indexes, and look for locking issues.",
+      "explain": "First, find the slow query in DB logs or APM. Run EXPLAIN on the query to see if it's doing a full table scan. If so, add appropriate indexes. Also check for blocking locks, missing composite indexes, or outdated statistics.",
+      "example": "\"I would extract the slow query from DataDog or slow query logs. Then, I run 'EXPLAIN ANALYZE' in the database. If I see a sequential scan instead of an index scan, I know an index is missing or ignored. I'll add a B-Tree or composite index. I also check if the table has grown too large and might need partitioning.\"",
+      "summary10s": "EXPLAIN ANALYZE -> Check for full table scan -> Add index."
+    }
+  },
+  {
+    "id": "deploy-java-application-production",
+    "category": "DevOps",
+    "question": "How do you deploy a Java application to production?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "CI/CD -> Docker -> Kubernetes/Cloud -> Monitoring."
+    ],
+    "answerSEE": {
+      "simple": "Code is pushed to Git, CI builds a Docker image, CD deploys the image to Kubernetes, and we monitor it.",
+      "explain": "Pushing code triggers a CI pipeline (Jenkins/GitHub Actions) which runs tests and builds a JAR. The JAR is containerized into a Docker image and pushed to a registry. The CD pipeline then updates the Kubernetes deployment manifests to pull the new image.",
+      "example": "\"Our pipeline starts when code is merged to main. Jenkins runs Maven build and tests. If successful, it builds a Docker image using a multi-stage Dockerfile and pushes it to AWS ECR. Then, ArgoCD detects the new image tag and automatically performs a rolling update to our Kubernetes cluster. Datadog monitors the new pods.\"",
+      "summary10s": "Git push -> CI builds Docker image -> CD deploys to Kubernetes."
+    }
+  },
+  {
+    "id": "kubernetes-pod-restarting-troubleshoot",
+    "category": "DevOps",
+    "question": "A Kubernetes pod is continuously restarting. How will you troubleshoot it?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use kubectl describe pod and kubectl logs to find out if it's an OOM, crash, or probe failure.",
+      "explain": "First, run `kubectl describe pod` to check Events. Look for 'OOMKilled' (out of memory) or 'CrashLoopBackOff'. If it's CrashLoopBackOff, run `kubectl logs <pod> --previous` to see the application stack trace before it crashed. Also check if Liveness probes are failing.",
+      "example": "\"I start with 'kubectl get pods' to see the status. If it's CrashLoopBackOff, I use 'kubectl describe pod' to check the events. Often, it's a failed Liveness probe or an OOMKilled because the JVM heap exceeded the container memory limit. I then run 'kubectl logs -p' to see the exact Java exception that caused the crash.\"",
+      "summary10s": "kubectl describe (Events/OOMKilled) -> kubectl logs --previous (stack trace)."
+    }
+  },
+  {
+    "id": "works-locally-fails-production",
+    "category": "DevOps",
+    "question": "An application works locally but fails in production. How will you identify the issue?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Check environment variables, database connections, and network firewall rules.",
+      "explain": "Local vs Production issues are almost always environment-related. Check differences in DB credentials, missing environment variables, network access (VPC/Firewalls), or different Java/OS versions between local and production.",
+      "example": "\"First, I check the production application logs for explicit errors. If it's a connection timeout, it's usually a firewall or security group blocking access to the database. If it's a startup crash, I verify that all environment variables and secrets are correctly injected in the production Kubernetes config map.\"",
+      "summary10s": "Check logs, environment variables, and network/firewall access."
+    }
+  },
+  {
+    "id": "monitor-production-application",
+    "category": "DevOps",
+    "question": "How do you monitor a production application?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "Logs, metrics, tracing, alerts, dashboards, etc."
+    ],
+    "answerSEE": {
+      "simple": "Use the three pillars of observability: Logs, Metrics, and Distributed Tracing.",
+      "explain": "Collect Logs using ELK or Splunk for debugging. Collect Metrics (CPU, memory, HTTP response times) using Prometheus/Grafana or Datadog. Use Distributed Tracing (Jaeger/Zipkin) with correlation IDs to track requests across multiple microservices.",
+      "example": "\"I use Datadog for overall observability. For metrics, we monitor CPU, memory, and API latencies. For logs, we ensure every log line has a traceId. If an API is slow, I look at the distributed trace in Datadog to pinpoint exactly which microservice or database query caused the delay, and alerts notify us via PagerDuty.\"",
+      "summary10s": "Logs (ELK), Metrics (Prometheus/Grafana), Tracing (Jaeger) with traceIds."
+    }
+  },
+  {
+    "id": "zero-downtime-deployment-rollback",
+    "category": "DevOps",
+    "question": "How would you achieve zero-downtime deployment and rollback?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Kubernetes Rolling Updates or Blue-Green deployment strategies.",
+      "explain": "In a Rolling Update, new pods are spun up and verified via readiness probes before old pods are terminated. In Blue-Green, a parallel production environment is deployed; traffic is switched instantly, making rollback as simple as switching the router back.",
+      "example": "\"We use Kubernetes Rolling Updates. We configure readiness probes so a new pod only receives traffic when it's fully booted. K8s gradually replaces old pods with new ones, ensuring zero downtime. If a defect is found, rollback is instantaneous using 'kubectl rollout undo deployment'.\"",
+      "summary10s": "Rolling updates with readiness probes, or Blue-Green deployment for instant switch."
+    }
+  },
+  {
+    "id": "high-cpu-memory-usage-troubleshoot",
+    "category": "Java",
+    "question": "Your application suddenly has high CPU/memory usage. What will you check?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "Thread dumps, heap, GC, connection pools, threads, etc."
+    ],
+    "answerSEE": {
+      "simple": "Take a heap dump for memory issues, and a thread dump for CPU issues.",
+      "explain": "High Memory: Could be a memory leak. Check GC logs to see if Full GC is constantly running. Take a Heap Dump and analyze it with Eclipse MAT. High CPU: Usually an infinite loop or heavy processing. Take a Thread Dump to find which threads are consuming CPU.",
+      "example": "\"If CPU is spiking, I use 'top -H' to find the thread ID, convert it to hex, and match it in a Thread Dump (jstack) to see the exact code line looping. If Memory is spiking and causing OOM, I capture a Heap Dump (jmap) and open it in Eclipse MAT to find which objects are holding references and causing a memory leak.\"",
+      "summary10s": "Heap dump (jmap) for memory leaks; Thread dump (jstack) for CPU spikes."
+    }
+  },
+  {
+    "id": "benefits-of-sealed-classes-java-17",
+    "category": "Java",
+    "question": "What are the benefits of sealed classes introduced in Java 17?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Sealed classes restrict which classes can extend or implement them, giving you tight control over inheritance.",
+      "explain": "They allow a class to specify exactly which subclasses are permitted using the `permits` keyword. This makes domain modeling much more predictable and enables exhaustive pattern matching in switch statements since the compiler knows all possible subclasses.",
+      "example": "\"I use sealed classes to model strict hierarchies, like 'sealed interface PaymentMethod permits CreditCard, PayPal'. This prevents random classes from implementing PaymentMethod and allows the compiler to enforce that a switch statement handles all possible payment methods without a default clause.\"",
+      "summary10s": "Restricts inheritance using 'permits' keyword for predictable hierarchies and exhaustive pattern matching."
+    }
+  },
+  {
+    "id": "virtual-threads-java-21",
+    "category": "Java",
+    "question": "How do virtual threads in Java 21 improve request handling in high-load systems?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Virtual threads are lightweight threads managed by the JVM that make writing high-throughput concurrent apps easy without reactive programming.",
+      "explain": "Unlike OS threads, which are heavy and limited, virtual threads are cheap to create (you can have millions). When a virtual thread blocks on I/O (like a DB call), the underlying OS thread is freed up to run other virtual threads. This maximizes hardware usage without callback hell.",
+      "example": "\"In a Spring Boot app under high load, OS threads get exhausted quickly waiting on database calls. By enabling virtual threads in Java 21, the JVM unmounts the blocked virtual thread and reuses the OS thread for new requests. It gives the performance of reactive programming like WebFlux but with simple, readable blocking code.\"",
+      "summary10s": "Cheap, lightweight JVM threads. Unmounts on I/O, allowing millions of concurrent requests using normal blocking code."
+    }
+  },
+  {
+    "id": "optional-map-vs-flatmap",
+    "category": "Java",
+    "question": "What is the difference between Optional.map() and Optional.flatMap()?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Optional map vs flatMap"
+    ],
+    "answerSEE": {
+      "simple": "map wraps the result in an Optional, flatMap does not wrap it again if the result is already an Optional.",
+      "explain": "If your mapping function returns a normal object, use `map()`. It automatically wraps the return value in an `Optional`. If your mapping function itself returns an `Optional`, `map()` would result in `Optional<Optional<T>>`. `flatMap()` flattens this nested structure into a single `Optional<T>`.",
+      "example": "\"If I want to get an employee's name from an Optional<Employee>, I use map() because getName() returns a String. But if I want to get their Address, and getAddress() returns an Optional<Address>, I use flatMap() to avoid getting an Optional<Optional<Address>>.\"",
+      "summary10s": "map wraps result in Optional. flatMap flattens if the function already returns an Optional."
+    }
+  },
+  {
+    "id": "garbage-collection-serial-parallel-g1",
+    "category": "Java",
+    "question": "How does garbage collection differ in Serial, Parallel, and G1 collectors?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Serial uses one thread, Parallel uses multiple threads for throughput, and G1 divides the heap into regions for predictable pause times.",
+      "explain": "Serial GC is for small apps/single-core machines. Parallel GC (Throughput Collector) uses multiple threads to speed up GC but stops the world completely. G1 GC splits the heap into small regions and collects garbage incrementally to minimize pause times, making it ideal for large heap applications.",
+      "example": "\"I choose Serial for tiny CLI tools. I use Parallel GC for batch processing where I care about total throughput and don't care if the app pauses for a second. For our low-latency Spring Boot web apps with large heaps, I use G1 GC because it guarantees predictable, short pause times by collecting regions with the most garbage first.\"",
+      "summary10s": "Serial=1 thread. Parallel=throughput focused (long pauses). G1=region-based (short, predictable pauses)."
+    }
+  },
+  {
+    "id": "var-type-inference-java",
+    "category": "Java",
+    "question": "How does var help with type inference in Java?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "var lets the compiler infer the local variable type from the right-hand side, reducing boilerplate code.",
+      "explain": "Introduced in Java 10, `var` is not dynamic typing like in JavaScript. It is strictly typed; the compiler just figures out the type at compile time. It can only be used for local variables inside methods, not for class fields or method parameters.",
+      "example": "\"Instead of writing `Map<String, List<Employee>> map = new HashMap<>()`, I just write `var map = new HashMap<String, List<Employee>>()`. It makes the code cleaner and less repetitive, especially when dealing with complex generics, while maintaining Java's strong static typing.\"",
+      "summary10s": "Reduces boilerplate for local variables. Compiler infers static type from assigned value."
+    }
+  },
+  {
+    "id": "copyonwritearraylist-vs-arraylist",
+    "category": "Java",
+    "question": "Explain the difference between CopyOnWriteArrayList and ArrayList.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ArrayList is not thread-safe. CopyOnWriteArrayList is thread-safe and creates a new copy of the array for every write operation.",
+      "explain": "ArrayList throws ConcurrentModificationException if modified while iterating. CopyOnWriteArrayList allows safe concurrent reads without locking because any write operation (add/remove) clones the underlying array, modifies the clone, and replaces the reference.",
+      "example": "\"I use ArrayList for normal, single-threaded operations. I only use CopyOnWriteArrayList in highly concurrent environments where there are 99% reads and very few writes, like a list of active event listeners. Since writes are expensive (it copies the whole array), it's terrible if I'm constantly adding items.\"",
+      "summary10s": "ArrayList=not thread safe. CopyOnWriteArrayList=thread safe, copies underlying array on writes. Great for read-heavy workloads."
+    }
+  },
+  {
+    "id": "completablefuture-asynchronous",
+    "category": "Java",
+    "question": "What is the purpose of CompletableFuture in asynchronous programming?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It allows you to run tasks asynchronously and elegantly chain, combine, or handle errors for multiple tasks without blocking.",
+      "explain": "Unlike older `Future` which forced you to block using `.get()`, `CompletableFuture` provides a functional API (like `thenApply`, `thenCompose`, `allOf`). It allows you to build complex non-blocking asynchronous pipelines.",
+      "example": "\"I use CompletableFuture to speed up API responses. If an endpoint needs data from 3 different microservices, I fire 3 `CompletableFuture.supplyAsync()` calls in parallel, use `CompletableFuture.allOf()` to wait for them, and then combine the results. It completely eliminates sequential blocking wait times.\"",
+      "summary10s": "Non-blocking async execution. Great for chaining callbacks and parallel execution."
+    }
+  },
+  {
+    "id": "pattern-matching-switch-java-17",
+    "category": "Java",
+    "question": "How does pattern matching for switch improve readability in Java 17+?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It eliminates boilerplate by allowing you to switch on types and automatically casting them inside the case block.",
+      "explain": "Before pattern matching, you had to use massive `if-else` chains with `instanceof` and manual casting. With pattern matching, you can directly check the type in the `case` statement, and the variable is immediately available as that type.",
+      "example": "\"If I'm processing an unknown Event object, instead of checking `if (event instanceof UserEvent) { UserEvent u = (UserEvent) event; ... }`, I just write `switch(event) { case UserEvent u -> u.process(); case OrderEvent o -> o.process(); }`. It's cleaner, safer, and exhaustive.\"",
+      "summary10s": "Switch directly on object types and automatically cast them in the case block."
+    }
+  },
+  {
+    "id": "text-blocks-json-xml-java",
+    "category": "Java",
+    "question": "What are text blocks, and how do they simplify working with JSON/XML?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Text blocks allow you to write multi-line strings without ugly concatenation and escaping.",
+      "explain": "Using triple quotes `\"\"\"`, text blocks preserve formatting, newlines, and double quotes without needing `\\n` or `\\\"`. This makes embedding large blocks of HTML, JSON, XML, or SQL queries directly in Java code clean and readable.",
+      "example": "\"Before Java 15, embedding a JSON payload for a unit test meant a massive string of plus signs and escaped quotes. Now, I just wrap it in `\"\"\"` and paste the raw JSON exactly as it is. It's incredibly useful for mocking API responses or writing native SQL queries in repositories.\"",
+      "summary10s": "Multi-line strings using \"\"\". Removes need for string concatenation and quote escaping."
+    }
+  },
+  {
+    "id": "immutability-enforce-java",
+    "category": "Java",
+    "question": "Explain immutability and how to enforce it in Java.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Immutability means an object's state cannot be changed after creation, making it inherently thread-safe.",
+      "explain": "To enforce it: make the class `final`, make all fields `private final`, do not provide setters, assign all fields in the constructor, and if you have mutable fields (like Lists/Dates), return deep copies or unmodifiable wrappers.",
+      "example": "\"I heavily use immutability for DTOs and configuration objects. I make the class final, all fields private final, and for a list field, I do `Collections.unmodifiableList(list)` in the getter. In modern Java, I just use `record` classes which are immutable by default and eliminate all that boilerplate.\"",
+      "summary10s": "State cannot change. Enforce via final class, private final fields, no setters, and deep copies."
+    }
+  },
+  {
+    "id": "configuration-bean-annotations",
+    "category": "Spring Boot",
+    "question": "What is the role of @Configuration and @Bean annotations?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Configuration marks a class as a source of bean definitions, and @Bean tells Spring to manage the object returned by the method.",
+      "explain": "We use these when we cannot use `@Component` on a class (e.g., third-party library classes). Spring intercepts calls to `@Bean` methods inside a `@Configuration` class using CGLIB proxies to ensure singleton behavior.",
+      "example": "\"If I need to configure a custom `RestTemplate` or third-party `AmazonS3` client, I can't put `@Component` on their source code. Instead, I create a `AppConfig` class annotated with `@Configuration`, write a method that configures and returns the S3 client, and annotate it with `@Bean` so Spring manages it.\"",
+      "summary10s": "@Configuration marks a config class. @Bean tells Spring to manage the returned third-party object."
+    }
+  },
+  {
+    "id": "application-properties-multiple-environments",
+    "category": "Spring Boot",
+    "question": "How do you configure application properties for multiple environments in Spring Boot?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Spring profiles with separate application-{profile}.properties files.",
+      "explain": "You create files like `application-dev.yml` and `application-prod.yml`. You activate the profile by setting the `spring.profiles.active` environment variable. Spring loads the base `application.yml` and overrides it with the profile-specific file.",
+      "example": "\"In my project, `application.yml` has common settings like the app name. `application-dev.yml` points to a local H2 database, while `application-prod.yml` points to an AWS RDS instance. When deploying to Kubernetes, we set the environment variable `SPRING_PROFILES_ACTIVE=prod` to trigger the production configuration.\"",
+      "summary10s": "Create application-{env}.yml files and activate them via spring.profiles.active."
+    }
+  },
+  {
+    "id": "secure-spring-boot-jwt",
+    "category": "Spring Boot",
+    "question": "How do you secure Spring Boot REST APIs with JWT authentication?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Configure Spring Security with a custom filter that validates the JWT on every request.",
+      "explain": "You disable sessions/CSRF, define a `SecurityFilterChain` bean to protect endpoints, and write a `OncePerRequestFilter`. The filter extracts the JWT from the Authorization header, validates the signature using the secret key, and saves the user in the `SecurityContext`.",
+      "example": "\"I start by setting session management to STATELESS. I write a `JwtAuthFilter` that runs before the UsernamePasswordAuthenticationFilter. It grabs the Bearer token, verifies the signature, and extracts the roles. If valid, I populate the `SecurityContextHolder`, allowing Spring to authorize the request based on `@PreAuthorize` rules.\"",
+      "summary10s": "Disable sessions, add a custom filter to validate token signature, and populate SecurityContext."
+    }
+  },
+  {
+    "id": "spring-boot-embedded-servers",
+    "category": "Spring Boot",
+    "question": "Explain how Spring Boot manages embedded servers like Tomcat/Jetty.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot bundles Tomcat directly in the fat JAR and programmatically starts it via Java code.",
+      "explain": "Instead of deploying a WAR file to an external Tomcat server, Spring Boot includes Tomcat as a Maven dependency. When `SpringApplication.run()` is called, it creates the application context, configures the embedded Tomcat programmatically, maps the Servlets, and starts the server on port 8080.",
+      "example": "\"When I run my JAR file, the `EmbeddedWebServerFactoryCustomizer` starts Tomcat internally. This makes deployment incredibly easy because my application is entirely self-contained. If I want to use Undertow or Jetty instead, I just exclude the `spring-boot-starter-tomcat` dependency and add the Jetty starter.\"",
+      "summary10s": "Tomcat is a library inside the JAR. Spring Boot starts it programmatically via Java code."
+    }
+  },
+  {
+    "id": "spring-boot-actuator-monitoring",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot Actuator help with monitoring and metrics?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Actuator provides built-in REST endpoints to check health, metrics, and application environment details.",
+      "explain": "By just adding the dependency, you get endpoints like `/actuator/health` and `/actuator/metrics`. It automatically integrates with Micrometer to expose metrics to systems like Prometheus, making production observability trivial.",
+      "example": "\"We heavily rely on Actuator in production. Our Kubernetes liveness probes hit `/actuator/health`. We expose the `/actuator/prometheus` endpoint, which Grafana scrapes to show dashboards of our memory usage, Hikari DB connection pool stats, and API response times—all without writing any custom code.\"",
+      "summary10s": "Provides out-of-the-box endpoints for health checks and metrics. Integrates easily with Prometheus."
+    }
+  },
+  {
+    "id": "transaction-propagation-spring",
+    "category": "Spring Boot",
+    "question": "How do you manage transaction propagation in Spring?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the propagation attribute on the @Transactional annotation to define how methods interact with existing transactions.",
+      "explain": "The default is `REQUIRED` (joins existing transaction, or creates a new one). `REQUIRES_NEW` suspends the current transaction and starts a completely independent one. `NESTED` creates a savepoint within the current transaction.",
+      "example": "\"Most of the time I rely on the default `REQUIRED`. But for audit logging, I always use `@Transactional(propagation = Propagation.REQUIRES_NEW)`. This ensures that even if the main business logic fails and rolls back, the audit log transaction commits successfully independently.\"",
+      "summary10s": "Use @Transactional(propagation). REQUIRED joins current; REQUIRES_NEW starts a fresh independent transaction."
+    }
+  },
+  {
+    "id": "controlleradvice-vs-exceptionhandler",
+    "category": "Spring Boot",
+    "question": "What is the difference between @ControllerAdvice and @ExceptionHandler?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@ExceptionHandler handles exceptions locally in one controller. @ControllerAdvice handles exceptions globally across all controllers.",
+      "explain": "`@ExceptionHandler` is defined inside a specific controller class and only catches exceptions thrown from that class. `@ControllerAdvice` is a global interceptor that catches exceptions from any controller in the application, making it perfect for centralized error handling.",
+      "example": "\"I always use `@ControllerAdvice` with a `@ExceptionHandler(ResourceNotFoundException.class)` method to build a global exception handler. This way, if any controller throws a Not Found exception, my advice intercepts it and returns a standardized JSON error response with the correct HTTP 404 status code.\"",
+      "summary10s": "@ExceptionHandler = local to one controller. @ControllerAdvice = global for the whole app."
+    }
+  },
+  {
+    "id": "asynchronous-method-execution-spring-boot",
+    "category": "Spring Boot",
+    "question": "How do you enable asynchronous method execution in Spring Boot?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Add @EnableAsync on the main class and @Async on the method you want to run in the background.",
+      "explain": "Spring uses a proxy to intercept calls to `@Async` methods and submits them to a thread pool (TaskExecutor). The method must return `void` or a `CompletableFuture`. Note that calling an `@Async` method from within the same class bypasses the proxy and runs synchronously.",
+      "example": "\"When a user registers, I don't want the API to block while sending the welcome email. I enable async globally, and annotate the `sendEmail()` method with `@Async`. The controller returns the HTTP response immediately, while the email is processed in a background thread managed by Spring's Executor pool.\"",
+      "summary10s": "Use @EnableAsync on config and @Async on methods. Returns instantly, runs in background thread pool."
+    }
+  },
+  {
+    "id": "spring-boot-cloud-services-aws",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot integrate with cloud services (e.g., AWS S3, RDS)?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Using Spring Cloud AWS or official AWS SDKs, configured via application properties and injected as beans.",
+      "explain": "For RDS, it's just standard Spring Data JPA—you provide the AWS RDS endpoint as the JDBC URL. For S3, SQS, or SNS, you can use the AWS SDK for Java, configure the credentials and region, create a client `@Bean`, and inject it into your services.",
+      "example": "\"For RDS, I simply put the database endpoint in `application-prod.yml` and let Spring Boot auto-configure the Hikari connection pool. For uploading profile pictures to S3, I use `software.amazon.awssdk.services.s3.S3Client`, define it as a `@Bean`, and inject it into my ImageService to call `putObject`.\"",
+      "summary10s": "Standard JDBC for RDS. AWS SDK beans for S3/SQS injected via dependency injection."
+    }
+  },
+  {
+    "id": "inter-service-communication-microservices",
+    "category": "Microservices",
+    "question": "How do you implement inter-service communication in microservices?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use synchronous REST/gRPC for immediate responses, or asynchronous messaging via Kafka/RabbitMQ for decoupling.",
+      "explain": "Synchronous communication uses RestTemplate, WebClient, or OpenFeign, but can cause blocking and cascading failures. Asynchronous communication uses message brokers, allowing services to emit events without waiting for the consumer, vastly improving resilience.",
+      "example": "\"In my projects, if I absolutely need an immediate answer—like checking user permissions—I use Spring Cloud OpenFeign for a synchronous REST call. However, for most business flows like Order Creation, I prefer async. The Order Service drops an event into Kafka, and the Inventory Service picks it up asynchronously.\"",
+      "summary10s": "Synchronous via OpenFeign/REST. Asynchronous via Kafka/RabbitMQ for better resilience."
+    }
+  },
+  {
+    "id": "api-gateway-vs-service-mesh",
+    "category": "Microservices",
+    "question": "What is the difference between API Gateway and Service Mesh?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "API Gateway handles external traffic entering the cluster. Service Mesh handles internal traffic between microservices.",
+      "explain": "The API Gateway (e.g., Spring Cloud Gateway, Kong) focuses on cross-cutting concerns for clients: auth, rate limiting, and public routing (North-South traffic). Service Mesh (e.g., Istio) runs alongside services using sidecar proxies, handling internal mutual TLS, retries, and tracing (East-West traffic).",
+      "example": "\"The API Gateway acts as the single front door for our mobile app, validating JWTs and routing to the right service. Once the request is inside our Kubernetes cluster, Istio (our Service Mesh) takes over, ensuring secure mTLS encryption and retry logic whenever Service A talks to Service B.\"",
+      "summary10s": "Gateway = North-South traffic (external auth/routing). Mesh = East-West traffic (internal security/retries)."
+    }
+  },
+  {
+    "id": "eventual-consistency-distributed-systems",
+    "category": "Microservices",
+    "question": "How do you handle eventual consistency in distributed systems?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "By using event-driven architectures, the Saga pattern, and compensating transactions.",
+      "explain": "Instead of locking databases across services (2PC), services update their local state and emit events. Other services consume these events to update their state eventually. If an error occurs midway, compensating events are fired to undo previous updates.",
+      "example": "\"We handle consistency using Choreography Sagas. When an order is placed, the Order Service saves to DB and pushes to Kafka. Inventory Service consumes it and reduces stock. If Payment Service later fails, it pushes a 'PaymentFailed' event. The Inventory and Order services listen to this and reverse their previous actions.\"",
+      "summary10s": "Event-driven approach using Saga pattern and compensating transactions to rollback."
+    }
+  },
+  {
+    "id": "rate-limiting-microservices-ecosystem",
+    "category": "Microservices",
+    "question": "How do you implement rate limiting in a microservices ecosystem?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "At the API Gateway level using a centralized cache like Redis and algorithms like Token Bucket.",
+      "explain": "Implementing rate limiting centrally at the Gateway prevents malicious traffic from ever reaching the microservices. Redis is used to track request counts across multiple gateway instances reliably.",
+      "example": "\"I configure Spring Cloud Gateway with Redis Rate Limiter. We use the Token Bucket algorithm, assigning 100 requests per minute per User ID (extracted from JWT). If a user exceeds this, the Gateway immediately returns a 429 Too Many Requests response without burdening our internal services.\"",
+      "summary10s": "Centrally at API Gateway via Redis using Token Bucket to return 429."
+    }
+  },
+  {
+    "id": "palindrome-without-string-conversion",
+    "category": "Java Coding",
+    "question": "Write a program to check if a number is a palindrome without converting it to a string.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Mathematically reverse the integer using modulo and division, then compare it to the original.",
+      "explain": "Handle negatives (usually not palindromes). Extract the last digit using `% 10`, build the reversed number by multiplying by 10 and adding the digit, then shrink the original number using `/ 10`. Stop when the number becomes 0.",
+      "example": "\"In an interview, I write a `while (temp > 0)` loop. Inside, `reversed = reversed * 10 + temp % 10; temp /= 10;`. At the end, if `original == reversed`, it's a palindrome. This runs in O(log N) time and O(1) space, satisfying the constraint of no string conversion.\"",
+      "summary10s": "Reverse integer mathematically using % 10 and / 10. Compare reversed with original."
+    }
+  },
+  {
+    "id": "sort-stack-using-another-stack",
+    "category": "Java Coding",
+    "question": "Implement a function to sort a stack using another stack.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a temporary stack. Pop from original, and while the temp stack's top is greater, pop from temp and push back to original.",
+      "explain": "You take the top element from the input stack. Then, you look at the temporary stack. If the temp stack has elements larger than your current element, you move them back to the input stack. Then push your current element to the temp stack. Repeat until input is empty.",
+      "example": "\"I initialize an empty `tempStack`. I pop `curr` from `inputStack`. While `tempStack` isn't empty and its top > `curr`, I pop from `tempStack` and push back to `inputStack`. Then I push `curr` to `tempStack`. When the input is empty, `tempStack` is sorted. This is O(N^2) time but O(N) space.\"",
+      "summary10s": "Pop to curr. Move elements from temp to input if larger than curr. Push curr to temp."
+    }
+  },
+  {
+    "id": "maximum-sum-subarray-kadane",
+    "category": "Java Coding",
+    "question": "Write a program to find the maximum sum subarray (Kadane’s algorithm).",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Iterate through the array, keeping a running sum. If the sum drops below zero, reset it to zero.",
+      "explain": "Kadane's algorithm maintains `currentSum` and `maxSum`. For each element, add it to `currentSum`. Update `maxSum` if `currentSum` is larger. If `currentSum` becomes negative, it's useless for future sums, so reset it to 0.",
+      "example": "\"I set `maxSum = Integer.MIN_VALUE` and `currSum = 0`. I loop the array. `currSum += arr[i]`. `maxSum = Math.max(maxSum, currSum)`. If `currSum < 0`, I reset `currSum = 0`. This elegant logic solves the problem in O(N) time and O(1) space.\"",
+      "summary10s": "currSum += arr[i]. Update maxSum. If currSum < 0, reset currSum = 0."
+    }
+  },
+  {
+    "id": "kafka-topics-vs-partitions",
+    "category": "Other",
+    "question": "What is the difference between Kafka topics and partitions?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A topic is a logical category for messages. A partition is the physical split of that topic for scalability.",
+      "explain": "A topic is like a table in a database. To handle massive data, a topic is broken down into partitions distributed across different brokers. Partitions allow multiple consumers (in a consumer group) to read from the same topic in parallel.",
+      "example": "\"If I have an 'orders' topic, all order events go there logically. But if it has 10 partitions, Kafka spreads the data physically across brokers. This allows me to spin up 10 consumer instances, each reading from a different partition concurrently, giving me 10x the processing speed.\"",
+      "summary10s": "Topic = Logical category. Partition = Physical split of topic to enable parallel processing."
+    }
+  },
+  {
+    "id": "statefulsets-vs-deployments-kubernetes",
+    "category": "DevOps",
+    "question": "How do StatefulSets in Kubernetes differ from Deployments?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Deployments are for stateless apps where pods are interchangeable. StatefulSets are for stateful apps requiring stable identities.",
+      "explain": "In a Deployment, pods have random names and can be replaced instantly. In a StatefulSet, pods have sticky, predictable names (e.g., db-0, db-1), start in order, and have persistent storage attachments that follow them even if the pod is recreated on another node.",
+      "example": "\"I use Deployments for my Spring Boot APIs because they are stateless; if a pod dies, a random new one spins up. I use StatefulSets when deploying databases like PostgreSQL or Kafka brokers in Kubernetes, because they need stable network IDs and persistent volumes that don't get lost on restart.\"",
+      "summary10s": "Deployments = stateless, interchangeable pods. StatefulSets = sticky identities, ordered deployment, persistent storage."
+    }
+  },
+  {
+    "id": "sql-2nd-highest-salary",
+    "category": "SQL",
+    "question": "Write a SQL query to get the 2nd highest salary in a department.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the DENSE_RANK() window function or a subquery with MAX().",
+      "explain": "The modern approach uses `DENSE_RANK() OVER (PARTITION BY dept_id ORDER BY salary DESC)`. The classic subquery approach selects the max salary that is less than the overall max salary.",
+      "example": "\"I prefer window functions: `SELECT salary FROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rank FROM Employee) WHERE rank = 2;`. Alternatively, using a subquery: `SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);`.\"",
+      "summary10s": "Window function: DENSE_RANK() OVER (ORDER BY salary DESC). Or MAX() < MAX()."
+    }
+  },
+  {
+    "id": "readiness-vs-liveness-probes",
+    "category": "DevOps",
+    "question": "What are readiness probes in Kubernetes, and how do they differ from liveness probes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Liveness restarts a broken pod. Readiness stops sending traffic to a busy/loading pod.",
+      "explain": "If Liveness fails, K8s kills the pod and restarts it (used for deadlocks). If Readiness fails, K8s temporarily removes the pod from the LoadBalancer service, so it stops receiving traffic (used when app is still starting or overloaded), but does not kill it.",
+      "example": "\"I configure a Liveness probe to hit `/actuator/health`. If my Java app is deadlocked, the probe fails and Kubernetes restarts it. I configure a Readiness probe to check DB connection status. If the DB connection drops, the pod fails readiness, K8s stops routing traffic to it, but the JVM isn't killed.\"",
+      "summary10s": "Liveness failure = kill & restart pod. Readiness failure = remove from service/stop traffic."
+    }
+  },
+  {
+    "id": "request-tracing-multiple-microservices",
+    "category": "Microservices",
+    "question": "How do you implement request tracing across multiple microservices?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Micrometer Tracing (formerly Spring Cloud Sleuth) and inject a unique Correlation ID into every request.",
+      "explain": "When a request hits the Gateway, a `traceId` is generated. This ID is passed in the HTTP headers (e.g., W3C Trace Context) to all downstream services. The logging framework automatically includes this `traceId` in every logline, and systems like Jaeger or Datadog stitch the journey together.",
+      "example": "\"I add the Micrometer Tracing dependency. It automatically intercepts HTTP requests and Kafka messages, generating and propagating a `traceId`. I ship my logs to ELK or Datadog. If an API is slow, I search the `traceId` and instantly see a waterfall view of exactly which microservice caused the bottleneck.\"",
+      "summary10s": "Micrometer Tracing generates a traceId passed via HTTP headers and included in all logs."
+    }
+  },
+  {
+    "id": "docker-volumes-vs-bind-mounts",
+    "category": "DevOps",
+    "question": "What is the difference between Docker volumes and bind mounts?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Volumes are managed entirely by Docker, while bind mounts map an exact file path from the host OS into the container.",
+      "explain": "Bind mounts tie the container to the host filesystem structure (e.g., `/Users/me/data:/app/data`), which is great for local dev. Volumes are stored in Docker's internal storage area, isolated from the host OS, making them safer, easier to back up, and the standard for production.",
+      "example": "\"During local development, I use a bind mount so my code changes on my Mac reflect instantly inside the Nginx container without rebuilding. However, for deploying a Postgres database, I strictly use Docker Volumes so the DB files are safely managed by Docker and persist across container restarts.\"",
+      "summary10s": "Bind Mount = exact host path (local dev). Volume = Docker-managed storage (production)."
+    }
+  },
+  {
+    "id": "spring-boot-startup-process",
+    "category": "Spring Boot",
+    "question": "What happens when a Spring Boot application starts?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot creates the application context, scans components, applies auto-configuration, creates beans, and starts the embedded server.",
+      "explain": "When you run a Spring Boot application, it sets up the default configuration, creates the appropriate ApplicationContext, performs component scanning to find beans, applies auto-configuration based on classpath dependencies, initializes all the beans, and finally starts the embedded web server (like Tomcat).",
+      "example": "\"When a Spring Boot application starts, it creates the Spring ApplicationContext. Then it scans for @Component, @Service, and other beans. It applies auto-configuration based on what is in the classpath. Finally, it starts the embedded Tomcat server and maps the endpoints.\"",
+      "summary10s": "Context created → Component Scan → Auto-configuration → Beans initialized → Embedded Server started."
+    }
+  },
+  {
+    "id": "spring-boot-auto-configuration",
+    "category": "Spring Boot",
+    "question": "What is Spring Boot auto-configuration?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It automatically configures Spring beans based on the dependencies present in the application classpath.",
+      "explain": "Spring Boot looks at the JARs in your classpath. If it sees a database driver, it automatically configures a DataSource. If it sees Spring Web, it configures Tomcat and Spring MVC. It uses @Conditional annotations heavily to only apply configurations if certain classes are present and beans are missing.",
+      "example": "\"Auto-configuration is what makes Spring Boot magical. If I add spring-boot-starter-data-jpa, Spring Boot automatically configures a DataSource, EntityManager, and TransactionManager for me based on the H2 or MySQL driver it finds in the classpath. It saves me from writing boilerplate XML or Java configuration.\"",
+      "summary10s": "Automatically configures beans based on classpath dependencies using @Conditional annotations."
+    }
+  },
+  {
+    "id": "component-vs-service-vs-repository",
+    "category": "Spring Boot",
+    "question": "@Component vs @Service vs @Repository?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "All register Spring beans, but @Service and @Repository indicate specific layers, and @Repository translates database exceptions.",
+      "explain": "@Component is the generic stereotype. @Service is meant for the business logic layer. @Repository is for the data access layer and has a special feature: it automatically catches vendor-specific database exceptions (like SQLException) and translates them into Spring's unified DataAccessException hierarchy.",
+      "example": "\"I use @Component for generic utilities. I use @Service for my business logic classes to clarify their role. But I must use @Repository for my DAO classes because apart from making it a bean, Spring uses it to translate specific SQL exceptions into a standard Spring DataAccessException, making error handling consistent.\"",
+      "summary10s": "All make beans. @Service = business logic. @Repository = DB access + automatic exception translation."
+    }
+  },
+  {
+    "id": "multiple-beans-same-type",
+    "category": "Spring Boot",
+    "question": "What happens when multiple beans of the same type exist?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring throws a NoUniqueBeanDefinitionException. You fix it by using @Qualifier or @Primary.",
+      "explain": "When you autowire an interface that has multiple implementations, Spring doesn't know which one to inject. It throws NoUniqueBeanDefinitionException. To resolve this, you can mark one implementation as @Primary (the default choice), or use @Qualifier(\"beanName\") at the injection point to specify exactly which one you want.",
+      "example": "\"If I have a PaymentService interface with UPIPayment and CardPayment implementations, autowiring PaymentService will fail. I resolve this by either marking UPIPayment with @Primary so it's the default, or by using @Qualifier('cardPayment') where I inject it to explicitly ask for the card implementation.\"",
+      "summary10s": "Throws NoUniqueBeanDefinitionException. Fix using @Qualifier to specify or @Primary for default."
+    }
+  },
+  {
+    "id": "spring-global-exception-handling",
+    "category": "Spring Boot",
+    "question": "How do you handle exceptions globally?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a @ControllerAdvice class with @ExceptionHandler methods to catch and handle exceptions across all controllers.",
+      "explain": "@ControllerAdvice (or @RestControllerAdvice) is an interceptor that surrounds all controllers. Inside it, you write methods annotated with @ExceptionHandler(SpecificException.class). Whenever any controller throws that exception, Spring routes it to your handler method, where you can return a standardized error response and appropriate HTTP status code.",
+      "example": "\"I handle exceptions globally using @RestControllerAdvice. I create a method annotated with @ExceptionHandler(ResourceNotFoundException.class) and return a custom ErrorResponse object with a 404 status. This way, I don't have to write try-catch blocks in every single controller method, and the API always returns a consistent error format.\"",
+      "summary10s": "Use @RestControllerAdvice and @ExceptionHandler to catch exceptions globally and return consistent error responses."
+    }
+  },
+  {
+    "id": "filter-vs-interceptor",
+    "category": "Spring Boot",
+    "question": "Filter vs Interceptor?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Filters work at the Servlet container level before Spring; Interceptors work inside Spring MVC around controller execution.",
+      "explain": "A Filter is part of the Java Servlet API. It intercepts requests before they even reach the Spring DispatcherServlet. An Interceptor is specific to Spring MVC and executes after the DispatcherServlet but before/after the Controller. Interceptors have access to the actual handler (Controller) being executed and the Spring context.",
+      "example": "\"I use a Filter for things that need to happen before Spring even kicks in, like setting up CORS, logging raw request payloads, or Spring Security. I use an Interceptor when I need access to Spring context or controller metadata, like checking if the target method has a specific custom annotation for role-based access.\"",
+      "summary10s": "Filter = Servlet level (before Spring). Interceptor = Spring MVC level (around Controller execution)."
+    }
+  },
+  {
+    "id": "database-unavailable-startup",
+    "category": "Spring Boot",
+    "question": "What happens if the database is unavailable when the application starts?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The application startup will fail because Spring Boot cannot initialize database-related beans like DataSource and EntityManager.",
+      "explain": "During startup, Spring Boot tries to create the DataSource bean, establish a connection pool (like HikariCP), and validate the JPA schema. If the database is down, these connections time out or refuse, causing the bean creation to fail, which in turn causes the ApplicationContext to fail and the application shuts down.",
+      "example": "\"If the DB is down at startup, the app will crash with a ApplicationContextException. HikariCP tries to acquire an initial connection, and when it fails, the DataSource bean fails to initialize. This is usually what we want in a microservice—fail fast so the orchestrator (like Kubernetes) can restart it until the DB is ready.\"",
+      "summary10s": "Startup fails fast. DataSource bean cannot initialize connection pool, causing ApplicationContext to crash."
     }
   }
 ];
