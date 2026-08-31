@@ -270,6 +270,29 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "hashmap-vs-concurrenthashmap",
+    "category": "Java",
+    "question": "HashMap vs ConcurrentHashMap",
+    "frequency": 10,
+    "companies": [],
+    "variations": [
+      "When would you choose ConcurrentHashMap over HashMap?",
+      "HashMap vs ConcurrentHashMap",
+      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference in how they handle locks?",
+      "HashMap vs ConcurrentHashMap vs Hashtable.",
+      "Explain the differences between HashMap, ConcurrentHashMap, and Hashtable.",
+      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference?",
+      "ConcurrentHashMap vs HashMap scenario",
+      "What is a ConcurrentHashMap and why do we use it?"
+    ],
+    "answerSEE": {
+      "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
+      "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
+      "example": "\"HashMap isn't thread-safe — using it with multiple threads can lead to data corruption or infinite loops in older Java versions. ConcurrentHashMap solves this by locking only the specific bucket being updated instead of the whole map, so multiple threads can work on different parts simultaneously. I always use ConcurrentHashMap in multi-threaded scenarios, like a shared cache.\"",
+      "summary10s": "HashMap = not thread-safe, ConcurrentHashMap = bucket-level locking, thread-safe."
+    }
+  },
+  {
     "id": "memory-leak-in-java",
     "category": "Java",
     "question": "Memory Leak in Java",
@@ -313,28 +336,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Sending the same PUT request multiple times results in the same final state. PATCH is only idempotent if you set absolute values. If a PATCH request says \"increment counter by 1\", running it twice gives a different result, breaking idempotency.",
       "example": "\"PUT is meant to replace the whole resource, so it is naturally idempotent. PATCH updates specific fields. To keep PATCH idempotent, I make sure the updates are absolute value assignments (like setting status to ACTIVE) rather than relative operations (like increment by 1).\"",
       "summary10s": "PUT = full replace (always idempotent). PATCH = partial update (idempotent only if setting absolute values)."
-    }
-  },
-  {
-    "id": "hashmap-vs-concurrenthashmap",
-    "category": "Java",
-    "question": "HashMap vs ConcurrentHashMap",
-    "frequency": 9,
-    "companies": [],
-    "variations": [
-      "When would you choose ConcurrentHashMap over HashMap?",
-      "HashMap vs ConcurrentHashMap",
-      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference in how they handle locks?",
-      "HashMap vs ConcurrentHashMap vs Hashtable.",
-      "Explain the differences between HashMap, ConcurrentHashMap, and Hashtable.",
-      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference?",
-      "ConcurrentHashMap vs HashMap scenario"
-    ],
-    "answerSEE": {
-      "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
-      "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
-      "example": "\"HashMap isn't thread-safe — using it with multiple threads can lead to data corruption or infinite loops in older Java versions. ConcurrentHashMap solves this by locking only the specific bucket being updated instead of the whole map, so multiple threads can work on different parts simultaneously. I always use ConcurrentHashMap in multi-threaded scenarios, like a shared cache.\"",
-      "summary10s": "HashMap = not thread-safe, ConcurrentHashMap = bucket-level locking, thread-safe."
     }
   },
   {
@@ -1404,6 +1405,24 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "component-vs-service-vs-repository",
+    "category": "Spring Boot",
+    "question": "@Component vs @Service vs @Repository",
+    "frequency": 4,
+    "companies": [],
+    "variations": [
+      "Component vs Service vs Repository.",
+      "@Component vs @Service vs @Repository — what actually differs?",
+      "What are the purposes of the @Service and @Repository annotations in Spring, how does Spring treat them internally, and what is the typical request flow involving these layers?"
+    ],
+    "answerSEE": {
+      "simple": "All are specializations of @Component, used to indicate the layer of the class.",
+      "explain": "@Component — generic Spring-managed bean\n@Service — business logic layer, semantic clarity\n@Repository — data access layer, also translates DB exceptions into Spring's DataAccessException",
+      "example": "\"All three are technically @Component under the hood, so Spring detects them the same way through component scanning. But we use @Service for business logic and @Repository for the data access layer — @Repository additionally translates database-specific exceptions into Spring's unified DataAccessException, which is a real functional difference, not just naming.\"",
+      "summary10s": "Same base (@Component), Repository also translates DB exceptions."
+    }
+  },
+  {
     "id": "angular-route-guards",
     "category": "Angular",
     "question": "Route Guards",
@@ -2015,23 +2034,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "REST: Architectural style, uses JSON/XML/plain text, stateless, works over HTTP, lightweight, easier to scale.\nSOAP: Strict protocol, only uses XML, requires WSDL contract, has built-in security (WS-Security) and ACID compliance, heavier.",
       "example": "\"REST is flexible and lightweight, usually sending JSON over HTTP, making it perfect for public APIs and modern microservices. SOAP is a rigid, heavier XML-based protocol. I've only used SOAP when integrating with legacy enterprise systems or when we needed its strict WS-Security standards, but otherwise, REST is my default choice.\"",
       "summary10s": "REST = lightweight style, JSON. SOAP = strict protocol, XML, built-in security."
-    }
-  },
-  {
-    "id": "component-vs-service-vs-repository",
-    "category": "Spring Boot",
-    "question": "@Component vs @Service vs @Repository",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Component vs Service vs Repository.",
-      "@Component vs @Service vs @Repository — what actually differs?"
-    ],
-    "answerSEE": {
-      "simple": "All are specializations of @Component, used to indicate the layer of the class.",
-      "explain": "@Component — generic Spring-managed bean\n@Service — business logic layer, semantic clarity\n@Repository — data access layer, also translates DB exceptions into Spring's DataAccessException",
-      "example": "\"All three are technically @Component under the hood, so Spring detects them the same way through component scanning. But we use @Service for business logic and @Repository for the data access layer — @Repository additionally translates database-specific exceptions into Spring's unified DataAccessException, which is a real functional difference, not just naming.\"",
-      "summary10s": "Same base (@Component), Repository also translates DB exceptions."
     }
   },
   {
@@ -4492,6 +4494,42 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "In the past, developers manually created new Thread() objects. In modern production code, creating raw threads is an anti-pattern. We use Executor Framework (Thread Pools) to reuse threads, or CompletableFuture for asynchronous, non-blocking pipelines.",
       "example": "\"I never use 'new Thread()' in production because thread creation is expensive and unmanaged. Instead, I inject an ExecutorService bean to manage a fixed thread pool. For complex async workflows where I need to combine results from multiple APIs, I use CompletableFuture.\"",
       "summary10s": "Old: implements Runnable. Modern: ExecutorService (Thread Pools) and CompletableFuture."
+    }
+  },
+  {
+    "id": "microservices-core-components",
+    "category": "Microservices",
+    "question": "Core components of microservices architecture",
+    "frequency": 2,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [
+      "What do you know about Microservices architecture?"
+    ],
+    "answerSEE": {
+      "simple": "API Gateway, Service Registry, Config Server, Load Balancer, Circuit Breaker, and the Microservices themselves.",
+      "explain": "A robust microservices architecture needs an API Gateway as the entry point, a Service Registry (like Eureka) for discovery, a centralized Config Server, Load Balancers to distribute traffic, and Circuit Breakers to prevent cascading failures.",
+      "example": "\"In my architecture, the client hits the API Gateway. The Gateway talks to the Service Registry to find the IP of the target service. The services pull their configurations from a Config Server. And we wrap inter-service calls with Circuit Breakers to handle downtime gracefully.\"",
+      "summary10s": "API Gateway (entry), Registry (discovery), Config Server (settings), Circuit Breaker (resilience)."
+    }
+  },
+  {
+    "id": "api-gateway-role",
+    "category": "Microservices",
+    "question": "Role of an API Gateway",
+    "frequency": 2,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [
+      "What is an API Gateway in microservices?"
+    ],
+    "answerSEE": {
+      "simple": "It acts as the single entry point for all clients, handling routing, security, and cross-cutting concerns.",
+      "explain": "Instead of clients calling 10 different microservices directly, they call the API Gateway. The gateway routes the request to the right service. It also handles authentication (validating JWTs), rate limiting, SSL termination, and logging.",
+      "example": "\"I use Spring Cloud Gateway as our API Gateway. It validates the JWT token before routing the request to the downstream microservices. This means my individual microservices don't need to worry about authentication logic—they just trust the requests coming from the gateway.\"",
+      "summary10s": "Single entry point. Handles routing, authentication, rate limiting, and CORS."
     }
   },
   {
@@ -14876,38 +14914,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "microservices-core-components",
-    "category": "Microservices",
-    "question": "Core components of microservices architecture",
-    "frequency": 1,
-    "companies": [
-      "HCL"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "API Gateway, Service Registry, Config Server, Load Balancer, Circuit Breaker, and the Microservices themselves.",
-      "explain": "A robust microservices architecture needs an API Gateway as the entry point, a Service Registry (like Eureka) for discovery, a centralized Config Server, Load Balancers to distribute traffic, and Circuit Breakers to prevent cascading failures.",
-      "example": "\"In my architecture, the client hits the API Gateway. The Gateway talks to the Service Registry to find the IP of the target service. The services pull their configurations from a Config Server. And we wrap inter-service calls with Circuit Breakers to handle downtime gracefully.\"",
-      "summary10s": "API Gateway (entry), Registry (discovery), Config Server (settings), Circuit Breaker (resilience)."
-    }
-  },
-  {
-    "id": "api-gateway-role",
-    "category": "Microservices",
-    "question": "Role of an API Gateway",
-    "frequency": 1,
-    "companies": [
-      "HCL"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It acts as the single entry point for all clients, handling routing, security, and cross-cutting concerns.",
-      "explain": "Instead of clients calling 10 different microservices directly, they call the API Gateway. The gateway routes the request to the right service. It also handles authentication (validating JWTs), rate limiting, SSL termination, and logging.",
-      "example": "\"I use Spring Cloud Gateway as our API Gateway. It validates the JWT token before routing the request to the downstream microservices. This means my individual microservices don't need to worry about authentication logic—they just trust the requests coming from the gateway.\"",
-      "summary10s": "Single entry point. Handles routing, authentication, rate limiting, and CORS."
-    }
-  },
-  {
     "id": "inter-service-communication",
     "category": "Microservices",
     "question": "Inter-service communication — how data transfer happens between two services",
@@ -15049,6 +15055,146 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "First, isolate the scope (who is affected, since when). Check centralized logs using the trace ID. Look at monitoring dashboards (Grafana/Datadog) for CPU/Memory/DB spikes. Check Git history for recent deployments. Once identified, write a failing test to reproduce it, then fix it.",
       "example": "\"My approach is: First, I check Datadog for any obvious metric spikes (like DB CPU at 100%). Then I pull the logs using the specific Trace ID of the failed request. If it's a NullPointerException in the PaymentService, I check the recent commits for that service. Then I try to replicate the exact payload locally before pushing a fix.\"",
       "summary10s": "1. Check Metrics/Alerts. 2. Search Logs via Trace ID. 3. Check recent Git commits. 4. Reproduce locally."
+    }
+  },
+  {
+    "id": "spring-boot-requestbody",
+    "category": "Spring Boot",
+    "question": "How does @RequestBody work in Spring Boot?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RequestBody maps the body of an HTTP request (like JSON) to a Java object using a message converter.",
+      "explain": "When a request comes in, Spring Boot uses an HttpMessageConverter (usually Jackson for JSON) to deserialize the incoming JSON payload into the Java object specified in the method parameter. It happens automatically before the controller method executes.",
+      "example": "\"In my controllers, when I accept a POST request to create a User, I use @RequestBody UserDto dto. Spring automatically takes the JSON string from the request body and converts it into a UserDto object that I can immediately use.\"",
+      "summary10s": "Deserializes incoming JSON HTTP request body into a Java object using Jackson."
+    }
+  },
+  {
+    "id": "jpa-table-creation-flow",
+    "category": "Spring Boot",
+    "question": "Explain the complete flow of how a table is created in the database using Java, Spring Boot, and JPA.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Define an @Entity class, configure application.properties for DDL-auto, and on startup, Hibernate generates and executes the CREATE TABLE SQL.",
+      "explain": "First, you create a class annotated with @Entity and @Id. In application.properties, you set spring.jpa.hibernate.ddl-auto=update. During startup, Spring bootstraps Hibernate. Hibernate scans for @Entity classes, compares them against the database schema, translates the class fields to SQL columns (Dialect), and executes the CREATE TABLE SQL if it doesn't exist.",
+      "example": "\"I create an Employee class and add @Entity. I mark the id field with @Id and @GeneratedValue. In my properties file, I set ddl-auto to update. When I run the app, Hibernate scans my class, generates the CREATE TABLE employee (...) SQL for MySQL, and executes it automatically.\"",
+      "summary10s": "Create @Entity -> Set ddl-auto=update -> Hibernate scans -> Generates SQL Dialect -> Executes CREATE TABLE."
+    }
+  },
+  {
+    "id": "java-threads-new-vs-runnable",
+    "category": "Java",
+    "question": "In threads, what is the difference between the NEW state and the ACTIVE/RUNNABLE state?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "NEW means the thread object exists but has not started. RUNNABLE means start() was called and it is ready or running.",
+      "explain": "When you create a thread (new Thread()), it is in the NEW state. The OS doesn't know about it yet. Once you call thread.start(), it transitions to RUNNABLE. In RUNNABLE, it might be actively executing on the CPU, or waiting in the runnable pool for the thread scheduler to give it CPU time.",
+      "example": "\"If I write Thread t = new Thread(), it is in the NEW state. It's just a Java object. When I call t.start(), it moves to RUNNABLE. Even if it hasn't printed anything yet because the CPU is busy, it is still technically RUNNABLE, not NEW.\"",
+      "summary10s": "NEW: Created but not started. RUNNABLE: start() called, executing or waiting for CPU."
+    }
+  },
+  {
+    "id": "fail-fast-vs-fail-safe",
+    "category": "Java",
+    "question": "What is the difference between Fail-Fast and Fail-Safe iterators?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Fail-fast throws an exception if the collection is modified while iterating. Fail-safe does not, because it iterates over a clone.",
+      "explain": "Fail-fast iterators (like ArrayList, HashMap) use an internal modCount. If a thread modifies the collection during iteration, it throws ConcurrentModificationException. Fail-safe iterators (like ConcurrentHashMap, CopyOnWriteArrayList) work on a clone or snapshot of the collection, so modifications don't affect the iteration and no exception is thrown.",
+      "example": "\"If I iterate over a standard HashMap and try to add a new key inside the loop, it crashes immediately—that's fail-fast. If I do the same with a ConcurrentHashMap, it works perfectly because the iterator is fail-safe and doesn't crash on concurrent modifications.\"",
+      "summary10s": "Fail-fast: Throws ConcurrentModificationException (ArrayList). Fail-safe: Works on clone, no exception (ConcurrentHashMap)."
+    }
+  },
+  {
+    "id": "java-streams-filter-salary",
+    "category": "Java Coding",
+    "question": "Using Java Streams, how do you filter employees whose salary is greater than a given value?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use stream().filter(e -> e.getSalary() > value).collect(Collectors.toList());",
+      "explain": "Convert the list to a stream, use the intermediate operation filter() with a predicate condition checking the salary, and then collect the results back into a List using a terminal operation.",
+      "example": "\"If I have a List of employees, I can filter them by doing: List<Employee> highEarners = employees.stream().filter(emp -> emp.getSalary() > 50000).collect(Collectors.toList());\"",
+      "summary10s": "list.stream().filter(e -> e.getSalary() > 50000).collect(Collectors.toList());"
+    }
+  },
+  {
+    "id": "java-streams-average-salary",
+    "category": "Java Coding",
+    "question": "Using Java Streams, how do you find the average salary of all employees?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use stream().mapToDouble(Employee::getSalary).average().getAsDouble();",
+      "explain": "First, map the object stream to a primitive DoubleStream using mapToDouble(). Then call the terminal operation average(), which returns an OptionalDouble. Finally, resolve the Optional using getAsDouble() or orElse().",
+      "example": "\"To find the average salary, I write: double avg = employees.stream().mapToDouble(Employee::getSalary).average().orElse(0.0); I use orElse to safely handle the case where the list might be empty.\"",
+      "summary10s": "list.stream().mapToDouble(e -> e.getSalary()).average().orElse(0.0);"
+    }
+  },
+  {
+    "id": "java-streams-group-by-department",
+    "category": "Java Coding",
+    "question": "Using Java Streams, how do you group employees by department?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Collectors.groupingBy(Employee::getDepartment) inside the collect() method.",
+      "explain": "The groupingBy collector takes a classification function (like getting the department name) and returns a Map where the key is the department and the value is a List of employees belonging to that department.",
+      "example": "\"To group employees, I do: Map<String, List<Employee>> byDept = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment)); This gives me a map partitioned by department names.\"",
+      "summary10s": "list.stream().collect(Collectors.groupingBy(Employee::getDepartment));"
+    }
+  },
+  {
+    "id": "sql-group-by-department",
+    "category": "SQL",
+    "question": "How do you perform the same group-by-department operation in SQL?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the GROUP BY clause along with an aggregate function if needed.",
+      "explain": "In SQL, you write SELECT department, COUNT(*) FROM employees GROUP BY department; This partitions the rows into groups based on the department column. Note that in SQL, grouping usually requires an aggregate function to make sense of the grouped rows.",
+      "example": "\"To see how many employees are in each department, I would write: SELECT department, COUNT(*) FROM employee GROUP BY department;\"",
+      "summary10s": "SELECT department, COUNT(*) FROM employee GROUP BY department;"
+    }
+  },
+  {
+    "id": "sql-self-join",
+    "category": "SQL",
+    "question": "What is a Self Join in SQL and where is it used?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A self join is when a table is joined with itself. It's used when rows within the same table have a relationship.",
+      "explain": "There is no special SELF JOIN keyword; you just use a standard JOIN (like INNER or LEFT JOIN) but reference the same table twice using different aliases. It's used for hierarchical data, like finding the manager of an employee where both exist in the same Employees table.",
+      "example": "\"If I have an Employee table with emp_id and manager_id, I can find the manager's name by joining the table to itself: SELECT e.name AS Employee, m.name AS Manager FROM Employee e JOIN Employee m ON e.manager_id = m.emp_id;\"",
+      "summary10s": "Joining a table to itself using aliases. Commonly used for Employee-Manager hierarchies."
+    }
+  },
+  {
+    "id": "java-try-catch-finally-flow",
+    "category": "Java",
+    "question": "In the try–catch–finally block, which blocks will execute and what will be the output?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Both the try block and finally block will execute. The catch block is skipped because no exception is thrown.",
+      "explain": "When no exception is thrown, the code inside the try block runs successfully. The catch block is ignored. Before the method returns \"Done\", the finally block executes, because finally is guaranteed to run regardless of whether an exception occurred or a return statement was encountered.",
+      "example": "\"If the code has no errors, the output will be 'Try block executed' followed by 'Finally block is executed'. The catch block is skipped. If there was a return statement in the try block, the finally block would still execute right before returning.\"",
+      "summary10s": "Try block executes -> Finally block executes -> Method returns. Catch is skipped if no error."
     }
   }
 ];
