@@ -338,6 +338,57 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-a-functional-interface",
+    "category": "Java",
+    "question": "What is a Functional Interface?",
+    "frequency": 9,
+    "companies": [
+      "EPAM",
+      "Deloitte",
+      "HCL"
+    ],
+    "variations": [
+      "What is a Functional Interface? Can it have default and static methods?",
+      "What is a functional interface",
+      "Can it have default and static methods",
+      "Common examples (Runnable, Comparator, Callable)",
+      "\"Runnable\" vs \"Callable\" — when would you choose each?",
+      "What is a functional interface in Java8?",
+      "Functional interfaces and their methods"
+    ],
+    "answerSEE": {
+      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
+      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
+      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
+      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
+    }
+  },
+  {
+    "id": "explain-the-bean-lifecycle",
+    "category": "Spring Boot",
+    "question": "Explain the Bean Lifecycle.",
+    "frequency": 9,
+    "companies": [
+      "Deloitte",
+      "HCL"
+    ],
+    "variations": [
+      "What is the complete lifecycle of a Spring bean?",
+      "Bean Lifecycle",
+      "Spring Bean Lifecycle",
+      "Explain Spring dependency injection and bean lifecycle.",
+      "Bean lifecycle?",
+      "Explain the Spring Boot bean lifecycle in detail?",
+      "Spring Bean lifecycle"
+    ],
+    "answerSEE": {
+      "simple": "Instantiate, inject dependencies, PostConstruct, use, PreDestroy, destroy.",
+      "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
+      "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
+      "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
+    }
+  },
+  {
     "id": "spring-transactions-propagation",
     "category": "Spring Boot",
     "question": "Explain Transaction Propagation and Isolation Levels in Spring.",
@@ -360,30 +411,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-a-functional-interface",
-    "category": "Java",
-    "question": "What is a Functional Interface?",
-    "frequency": 8,
-    "companies": [
-      "EPAM",
-      "Deloitte"
-    ],
-    "variations": [
-      "What is a Functional Interface? Can it have default and static methods?",
-      "What is a functional interface",
-      "Can it have default and static methods",
-      "Common examples (Runnable, Comparator, Callable)",
-      "\"Runnable\" vs \"Callable\" — when would you choose each?",
-      "What is a functional interface in Java8?"
-    ],
-    "answerSEE": {
-      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
-      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
-      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
-      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
-    }
-  },
-  {
     "id": "what-is-spring-security",
     "category": "Spring Boot",
     "question": "What is Spring Security?",
@@ -403,29 +430,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
       "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
       "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
-    }
-  },
-  {
-    "id": "explain-the-bean-lifecycle",
-    "category": "Spring Boot",
-    "question": "Explain the Bean Lifecycle.",
-    "frequency": 8,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "What is the complete lifecycle of a Spring bean?",
-      "Bean Lifecycle",
-      "Spring Bean Lifecycle",
-      "Explain Spring dependency injection and bean lifecycle.",
-      "Bean lifecycle?",
-      "Explain the Spring Boot bean lifecycle in detail?"
-    ],
-    "answerSEE": {
-      "simple": "Instantiate, inject dependencies, PostConstruct, use, PreDestroy, destroy.",
-      "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
-      "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
-      "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
     }
   },
   {
@@ -460,18 +464,20 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-interface-vs-abstract",
     "category": "Java",
     "question": "Difference between Interface and Abstract Class?",
-    "frequency": 7,
+    "frequency": 8,
     "companies": [
       "Deloitte",
       "Virtusa",
       "L&T",
-      "Zensar Technologies"
+      "Zensar Technologies",
+      "HCL"
     ],
     "variations": [
       "When to use Interface vs Abstract Class?",
       "Can abstract classes have constructors?",
       "Difference between Abstract Class and Interface",
-      "Comparable interface"
+      "Comparable interface",
+      "Abstract class vs Interface"
     ],
     "answerSEE": {
       "simple": "An interface defines a pure contract with no state. An abstract class can have state and partial implementation.",
@@ -14675,6 +14681,374 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "During startup, Spring Boot tries to create the DataSource bean, establish a connection pool (like HikariCP), and validate the JPA schema. If the database is down, these connections time out or refuse, causing the bean creation to fail, which in turn causes the ApplicationContext to fail and the application shuts down.",
       "example": "\"If the DB is down at startup, the app will crash with a ApplicationContextException. HikariCP tries to acquire an initial connection, and when it fails, the DataSource bean fails to initialize. This is usually what we want in a microservice—fail fast so the orchestrator (like Kubernetes) can restart it until the DB is ready.\"",
       "summary10s": "Startup fails fast. DataSource bean cannot initialize connection pool, causing ApplicationContext to crash."
+    }
+  },
+  {
+    "id": "java-streams-remove-duplicates",
+    "category": "Java Coding",
+    "question": "Given an unsorted ArrayList, remove duplicates and print the result using only streams",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use stream().distinct().forEach(System.out::println) to remove duplicates and print.",
+      "explain": "You can convert the ArrayList to a Stream, call distinct() which uses equals() and hashCode() to filter out duplicates, and then use forEach() with a method reference to print each unique element.",
+      "example": "\"To remove duplicates using Streams, I would take the list and do list.stream().distinct().forEach(System.out::println); The distinct() method ensures only unique elements pass through the pipeline.\"",
+      "summary10s": "list.stream().distinct().forEach(System.out::println);"
+    }
+  },
+  {
+    "id": "java-8-17-21-features",
+    "category": "Java",
+    "question": "Java 8, 17, and 21 features",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Java 8 brought Streams/Lambdas. 17 brought Records and Sealed Classes. 21 brought Virtual Threads.",
+      "explain": "Java 8 introduced functional programming (Lambdas, Streams, Optional). Java 17 is a major LTS adding Records (immutable data carriers), Sealed Classes, and Pattern Matching for switch. Java 21 is the latest LTS, introducing Virtual Threads (Project Loom) for high-throughput concurrency and Sequenced Collections.",
+      "example": "\"In Java 8, I extensively use Streams and Lambdas. For Java 17, I love Records for DTOs to avoid Lombok, and pattern matching. Now in Java 21, Virtual Threads are the biggest game-changer because they allow millions of threads without the memory overhead of OS threads.\"",
+      "summary10s": "8: Streams/Lambdas. 17: Records/Sealed classes. 21: Virtual Threads."
+    }
+  },
+  {
+    "id": "why-use-lambda-expressions",
+    "category": "Java",
+    "question": "Why we use lambda expressions",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To provide a clear and concise way to represent one method interface using an expression, reducing boilerplate code.",
+      "explain": "Lambdas let you treat functionality as a method argument, or code as data. They eliminate the need for verbose anonymous inner classes, making the code much more readable, especially when working with the Stream API.",
+      "example": "\"Before lambdas, if I wanted to sort a list, I had to write a clunky anonymous inner class for Comparator. With lambdas, I can just write (a, b) -> a.compareTo(b). It reduces boilerplate and makes my intent immediately clear.\"",
+      "summary10s": "Reduces boilerplate of anonymous inner classes and makes functional programming possible in Java."
+    }
+  },
+  {
+    "id": "lambda-without-functional-interface",
+    "category": "Java",
+    "question": "Can we use lambda expressions without a functional interface?",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "No, lambdas rely on functional interfaces to provide the target type and context.",
+      "explain": "A lambda expression must be assigned to a Functional Interface. The compiler infers the method signature (parameters and return type) from the single abstract method of that functional interface.",
+      "example": "\"No, we cannot. A lambda is essentially an implementation of a Functional Interface. When we write a lambda, the Java compiler looks at the target type—which must be an interface with exactly one abstract method—to figure out what the lambda represents.\"",
+      "summary10s": "No. The compiler needs the single abstract method of the functional interface to infer the type."
+    }
+  },
+  {
+    "id": "solid-principles",
+    "category": "System Design",
+    "question": "SOLID principles",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Five design principles (SRP, OCP, LSP, ISP, DIP) that make object-oriented designs more understandable, flexible, and maintainable.",
+      "explain": "Single Responsibility (one reason to change). Open/Closed (open for extension, closed for modification). Liskov Substitution (subtypes must be substitutable for base types). Interface Segregation (small, specific interfaces). Dependency Inversion (depend on abstractions, not concretions).",
+      "example": "\"I apply SOLID daily. For Single Responsibility, I ensure my services do one thing. For Open/Closed, I use strategy patterns instead of massive if-else blocks. For Dependency Inversion, I inject interfaces using Spring rather than instantiating concrete classes.\"",
+      "summary10s": "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion."
+    }
+  },
+  {
+    "id": "acid-properties",
+    "category": "SQL",
+    "question": "ACID properties (databases)",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Atomicity, Consistency, Isolation, and Durability ensure reliable transaction processing in databases.",
+      "explain": "Atomicity (all or nothing). Consistency (data remains valid according to rules). Isolation (concurrent transactions don't interfere). Durability (committed data is saved permanently even if power fails).",
+      "example": "\"In a banking app transferring money, Atomicity ensures if the credit fails, the debit rolls back. Consistency ensures the total balance remains correct. Isolation ensures two simultaneous transfers don't read stale balances. Durability ensures the transaction is written to disk so a crash won't lose it.\"",
+      "summary10s": "Atomicity (all/none), Consistency (valid state), Isolation (concurrent safety), Durability (persisted)."
+    }
+  },
+  {
+    "id": "jpa-entity-relationships",
+    "category": "Spring Boot",
+    "question": "Entity relationships — one-to-one, one-to-many, and many-to-many mappings",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Annotations like @OneToOne, @OneToMany, and @ManyToMany define how database tables link to each other in JPA.",
+      "explain": "These annotations map object relations to foreign keys or join tables. @OneToOne links a single record to another. @OneToMany links one record to a collection. @ManyToMany requires a separate join table to link multiple records on both sides.",
+      "example": "\"In my project, User has a @OneToOne with Profile. A Department has a @OneToMany with Employees. And a Student has a @ManyToMany with Courses, which JPA manages using a middle join table under the hood.\"",
+      "summary10s": "@OneToOne (FK in one), @OneToMany (FK in many), @ManyToMany (requires Join Table)."
+    }
+  },
+  {
+    "id": "onetomany-vs-manytomany",
+    "category": "Spring Boot",
+    "question": "Difference between one-to-many and many-to-many relationships, and when to use each",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "One-to-many uses a foreign key in the child table. Many-to-many uses a separate join table because both sides have multiple associations.",
+      "explain": "In One-to-Many, a child belongs to exactly ONE parent, so the child table holds the parent_id. In Many-to-Many, since both entities can have multiple relationships with each other, you cannot put a foreign key in just one table. You must create a third \"mapping\" table.",
+      "example": "\"I use One-to-Many for an Order and its OrderItems, because an item belongs to exactly one order. I use Many-to-Many for Users and Roles, because a User can have multiple roles, and a Role can be assigned to multiple users, requiring a user_roles join table.\"",
+      "summary10s": "One-to-many = FK on child. Many-to-many = third Join Table to map both sides."
+    }
+  },
+  {
+    "id": "common-jpa-methods",
+    "category": "Spring Boot",
+    "question": "Common JPA methods",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Methods like save(), findById(), findAll(), deleteById() provided by Spring Data JPA interfaces.",
+      "explain": "Spring Data JPA (via JpaRepository) gives you out-of-the-box methods for CRUD operations. save() does both insert and update. findById() returns an Optional. You can also define custom query methods just by naming them properly, like findByEmail().",
+      "example": "\"I use JpaRepository which gives me save() to persist or merge entities, findById() which safely returns an Optional, and deleteById(). If I need something specific, I just write a method signature like findByStatusAndAgeGreaterThan() and Spring writes the SQL for me.\"",
+      "summary10s": "save() for insert/update, findById() for Optional read, deleteById(). Custom query methods by name."
+    }
+  },
+  {
+    "id": "spring-boot-common-annotations",
+    "category": "Spring Boot",
+    "question": "Commonly used annotations in Spring Boot",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RestController, @Service, @Autowired, @RequestMapping, @Transactional, and @SpringBootApplication.",
+      "explain": "Stereotype annotations (@Component, @Service) register beans. Request handling annotations (@GetMapping, @PostMapping) map URLs. Configuration annotations (@Configuration, @Bean) setup the context. @SpringBootApplication encapsulates @Configuration, @EnableAutoConfiguration, and @ComponentScan.",
+      "example": "\"At the class level I use @RestController for APIs. I inject dependencies with constructor injection (so I rarely use @Autowired anymore). I use @PostMapping for creation endpoints, @Service for business logic, and @Transactional for database operations that require rollback on failure.\"",
+      "summary10s": "@SpringBootApplication at root, @RestController for APIs, @Service for logic, @Transactional for DB."
+    }
+  },
+  {
+    "id": "requestmapping-vs-pathvariable",
+    "category": "Spring Boot",
+    "question": "@RequestMapping vs @PathVariable — difference and use case",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@RequestMapping maps an HTTP request URL to a method. @PathVariable extracts a dynamic value from that URL.",
+      "explain": "@RequestMapping (or @GetMapping/@PostMapping) defines the route, e.g., /users/{id}. @PathVariable is used on the method parameter to grab that {id} from the URL and bind it to a Java variable.",
+      "example": "\"I use @RequestMapping('/users') at the controller class level to define the base path. Then for a specific endpoint like GET /users/5, I define @GetMapping('/{id}') and use @PathVariable('id') Long id in the method signature to extract the number 5.\"",
+      "summary10s": "@RequestMapping defines the URL route. @PathVariable extracts dynamic data from that route."
+    }
+  },
+  {
+    "id": "why-use-requestmapping",
+    "category": "Spring Boot",
+    "question": "Why and when we use @RequestMapping",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To map web requests onto specific handler classes and/or handler methods in Spring controllers.",
+      "explain": "It routes HTTP requests to the correct controller method. While you can use it at the method level, it's most commonly used at the class level to define a base URI for all endpoints within that controller. At the method level, shortcuts like @GetMapping are preferred now.",
+      "example": "\"I use @RequestMapping('/api/v1/orders') at the top of my OrderController. This sets a base path so I don't have to repeat it. Inside the class, I just use @GetMapping or @PostMapping without specifying the full path again.\"",
+      "summary10s": "Routes HTTP requests. Used at class level for base paths, though @GetMapping is preferred for methods."
+    }
+  },
+  {
+    "id": "microservices-core-components",
+    "category": "Microservices",
+    "question": "Core components of microservices architecture",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "API Gateway, Service Registry, Config Server, Load Balancer, Circuit Breaker, and the Microservices themselves.",
+      "explain": "A robust microservices architecture needs an API Gateway as the entry point, a Service Registry (like Eureka) for discovery, a centralized Config Server, Load Balancers to distribute traffic, and Circuit Breakers to prevent cascading failures.",
+      "example": "\"In my architecture, the client hits the API Gateway. The Gateway talks to the Service Registry to find the IP of the target service. The services pull their configurations from a Config Server. And we wrap inter-service calls with Circuit Breakers to handle downtime gracefully.\"",
+      "summary10s": "API Gateway (entry), Registry (discovery), Config Server (settings), Circuit Breaker (resilience)."
+    }
+  },
+  {
+    "id": "api-gateway-role",
+    "category": "Microservices",
+    "question": "Role of an API Gateway",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It acts as the single entry point for all clients, handling routing, security, and cross-cutting concerns.",
+      "explain": "Instead of clients calling 10 different microservices directly, they call the API Gateway. The gateway routes the request to the right service. It also handles authentication (validating JWTs), rate limiting, SSL termination, and logging.",
+      "example": "\"I use Spring Cloud Gateway as our API Gateway. It validates the JWT token before routing the request to the downstream microservices. This means my individual microservices don't need to worry about authentication logic—they just trust the requests coming from the gateway.\"",
+      "summary10s": "Single entry point. Handles routing, authentication, rate limiting, and CORS."
+    }
+  },
+  {
+    "id": "inter-service-communication",
+    "category": "Microservices",
+    "question": "Inter-service communication — how data transfer happens between two services",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Services communicate either synchronously via HTTP/REST (using FeignClient or RestTemplate) or asynchronously via message brokers (Kafka/RabbitMQ).",
+      "explain": "For synchronous communication, Service A makes an HTTP call to Service B and waits for the response. For asynchronous, Service A publishes an event to a broker, and Service B consumes it whenever it is ready, decoupling the two services.",
+      "example": "\"In my project, if the Order Service needs real-time user validation, it makes a synchronous HTTP call to the User Service using OpenFeign. But when an order is created, it asynchronously publishes an 'OrderCreated' event to Kafka, which the Notification Service consumes to send an email.\"",
+      "summary10s": "Synchronous via HTTP (FeignClient). Asynchronous via Message Brokers (Kafka/RabbitMQ)."
+    }
+  },
+  {
+    "id": "synchronous-vs-asynchronous",
+    "category": "Microservices",
+    "question": "Difference between synchronous and asynchronous communication, and when to use each",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Synchronous waits for an immediate response (tightly coupled). Asynchronous fires a message and moves on (loosely coupled).",
+      "explain": "Synchronous (REST/gRPC) is for when you immediately need data to proceed. Asynchronous (Kafka) is for background tasks where the caller doesn't need to wait. Async improves resilience because the sender isn't blocked if the receiver is down.",
+      "example": "\"I use synchronous REST calls when the UI needs an immediate response, like verifying payment details before checkout. I use asynchronous messaging for sending the confirmation email afterwards, because the checkout process shouldn't fail just because the email service is temporarily slow.\"",
+      "summary10s": "Sync: need immediate response, blocks thread. Async: fire and forget, loosely coupled, resilient."
+    }
+  },
+  {
+    "id": "microservices-exception-handling",
+    "category": "Microservices",
+    "question": "Exception handling strategies in Microservices",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Global Exception Handlers, standardize error responses, and handle inter-service errors with Circuit Breakers and fallbacks.",
+      "explain": "Each service should have a @ControllerAdvice to return standard JSON errors. When calling other services, use Circuit Breakers (like Resilience4j) to catch timeouts/500s and return a fallback response. Also, correlate logs using tracing IDs to track the error across services.",
+      "example": "\"For local errors, I use @RestControllerAdvice to return a unified ErrorResponse. For inter-service calls using Feign, I configure an ErrorDecoder to translate 4xx/5xx responses into meaningful exceptions. I also wrap the calls in a CircuitBreaker to provide a fallback if the downstream service is dead.\"",
+      "summary10s": "@RestControllerAdvice for local, Feign ErrorDecoder for remote, CircuitBreaker for fallbacks."
+    }
+  },
+  {
+    "id": "overall-application-flow",
+    "category": "System Design",
+    "question": "Explaining the overall application flow end to end",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Client -> Load Balancer -> API Gateway -> Microservice -> Database/Message Broker.",
+      "explain": "A typical flow: A React client sends a request. Route 53 directs it to an AWS ALB. The ALB forwards to the API Gateway. The Gateway authenticates the JWT and routes to the Order Service. The Order Service saves to PostgreSQL and fires an event to Kafka. The Notification service consumes it and emails the user.",
+      "example": "\"When a user places an order, the request hits our API Gateway which validates the JWT. It forwards the request to the Order Service, which uses JPA to save to MySQL. The Order Service then publishes a message to Kafka. Finally, the Inventory Service consumes that message to update stock asynchronously.\"",
+      "summary10s": "Client -> API Gateway (Auth/Route) -> Service (Business Logic/DB) -> Kafka (Async events)."
+    }
+  },
+  {
+    "id": "jwt-flow",
+    "category": "Spring Boot",
+    "question": "JWT flow in my project & how JWT is generated, used, and where it's stored",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "User logs in -> Server generates JWT -> Client stores it -> Client sends it in Authorization header -> Server validates it via a Filter.",
+      "explain": "On login, if credentials are valid, the server creates a JWT using a secret key and returns it. The client stores it (usually in HttpOnly cookies or LocalStorage). For subsequent requests, the client sends it in the `Authorization: Bearer <token>` header. A Spring Security filter intercepts the request, verifies the signature, and sets the SecurityContext.",
+      "example": "\"In my project, the Auth Service generates the JWT using the jjwt library after validating the password. The frontend stores it in an HttpOnly cookie for XSS protection. Our API Gateway has a custom filter that extracts the token, verifies the signature using the shared secret, and forwards the user ID in a custom header to downstream services.\"",
+      "summary10s": "Generated on login, sent in Bearer header, intercepted/verified by Spring Security Filter."
+    }
+  },
+  {
+    "id": "schema-design",
+    "category": "System Design",
+    "question": "Schema design",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The process of structuring database tables, columns, relationships, and constraints to efficiently support application queries.",
+      "explain": "Good schema design requires normalizing data to reduce redundancy, defining Primary and Foreign keys for relationships, choosing appropriate data types, and creating indexes for fast retrieval based on access patterns.",
+      "example": "\"For our e-commerce app, I designed the schema with a Users table, an Orders table with a user_id foreign key, and a many-to-many OrderItems join table. I intentionally denormalized the product price into the OrderItems table at the time of purchase, so historical orders aren't affected if the product price changes later.\"",
+      "summary10s": "Define tables, types, relationships (FKs), and indexes based on read/write access patterns."
+    }
+  },
+  {
+    "id": "aws-deployment-services",
+    "category": "DevOps",
+    "question": "AWS services used for deployment",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Commonly EC2, ECS/EKS for containers, S3 for static assets, RDS for databases, and API Gateway/ALB for routing.",
+      "explain": "Depending on the architecture, you might deploy a Spring Boot JAR on an EC2 instance, or containerize it with Docker and deploy to ECS or EKS (Kubernetes). RDS is used for managed databases. CodePipeline/CodeBuild automate the CI/CD deployment process.",
+      "example": "\"In my current project, we dockerize our Spring Boot microservices. We push the images to ECR, and deploy them on ECS (Elastic Container Service) using Fargate. Our database is hosted on Amazon RDS for PostgreSQL, and our React frontend is hosted on S3 distributed via CloudFront.\"",
+      "summary10s": "EC2/ECS for compute, RDS for database, S3 for frontend, ALB for load balancing."
+    }
+  },
+  {
+    "id": "production-log-tracing",
+    "category": "DevOps",
+    "question": "How to trace and monitor logs when an error occurs in production",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use centralized logging (ELK/Splunk) and distributed tracing (Sleuth/Zipkin) with unique Trace IDs.",
+      "explain": "In microservices, a single request spans multiple services. You must inject a unique Trace ID at the API Gateway and pass it in HTTP headers to every downstream service. All logs include this Trace ID. Tools like Kibana or Datadog let you search this ID to see the entire request lifecycle.",
+      "example": "\"We use the ELK stack with Micrometer Tracing. When an error occurs, the API returns a 500 error containing a Trace ID. I take that Trace ID, paste it into Kibana, and I can immediately see the exact path the request took through the API Gateway, Order Service, and Payment Service, making it obvious which one threw the exception.\"",
+      "summary10s": "Generate a unique Trace ID at entry, pass it to all services, search it in centralized logging (ELK)."
+    }
+  },
+  {
+    "id": "root-cause-analysis",
+    "category": "DevOps",
+    "question": "Approach to identifying the root cause of an issue",
+    "frequency": 1,
+    "companies": [
+      "HCL"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Reproduce locally, check logs/traces, analyze metrics, review recent code changes, and test the fix.",
+      "explain": "First, isolate the scope (who is affected, since when). Check centralized logs using the trace ID. Look at monitoring dashboards (Grafana/Datadog) for CPU/Memory/DB spikes. Check Git history for recent deployments. Once identified, write a failing test to reproduce it, then fix it.",
+      "example": "\"My approach is: First, I check Datadog for any obvious metric spikes (like DB CPU at 100%). Then I pull the logs using the specific Trace ID of the failed request. If it's a NullPointerException in the PaymentService, I check the recent commits for that service. Then I try to replicate the exact payload locally before pushing a fix.\"",
+      "summary10s": "1. Check Metrics/Alerts. 2. Search Logs via Trace ID. 3. Check recent Git commits. 4. Reproduce locally."
     }
   }
 ];
