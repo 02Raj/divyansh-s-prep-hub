@@ -20,11 +20,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-equals-hashcode",
     "category": "Java",
     "question": "Why do we need to override equals() and hashCode() together?",
-    "frequency": 15,
+    "frequency": 17,
     "companies": [
       "Amazon",
       "Walmart",
-      "Morgan Stanley"
+      "Morgan Stanley",
+      "Capgemini"
     ],
     "variations": [
       "What happens if you only override equals() in HashMap?",
@@ -33,7 +34,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "How can \"HashSet\" fail to detect duplicates if that contract is broken?",
       "\"equals()\" & \"hashCode()\" contract.",
       "Why must \"equals()\" and \"hashCode()\" follow a contract?",
-      "Why can \"HashSet\" detect duplicate objects incorrectly if \"equals()\" and \"hashCode()\" are implemented badly?"
+      "Why can \"HashSet\" detect duplicate objects incorrectly if \"equals()\" and \"hashCode()\" are implemented badly?",
+      "equals() & hashCode()",
+      "What is the difference between equals() and hashCode()?",
+      "Why are equals() and hashCode() so important?",
+      "What happens if a key is modified after being inserted?"
     ],
     "answerSEE": {
       "simple": "HashMap uses hashCode() to find the correct bucket, and equals() to find the exact object in that bucket. Both must be consistent.",
@@ -43,10 +48,46 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "internal-working-of-hashmap",
+    "category": "Java",
+    "question": "Internal working of HashMap",
+    "frequency": 17,
+    "companies": [
+      "Zensar Technologies",
+      "Deloitte",
+      "Capgemini"
+    ],
+    "variations": [
+      "Why can HashMap become slow even with a good hash function?",
+      "How does HashMap work internally?",
+      "HashMap internal working. What happens when a bucket becomes a tree?",
+      "How does HashMap work internally in Java?",
+      "How does \"HashMap\" work internally?",
+      "HashMap internally?",
+      "What is the internal working of a HashMap? Is HashMap thread-safe?",
+      "What to handle collisions in a HashMap?",
+      "What happens when two distinct keys in a Java HashMap produce the same hashCode() value, resulting in a hash collision?",
+      "HashMap Internal",
+      "How does \"HashMap\" work internally after Java 8?",
+      "HashMap internal working",
+      "Explain the internal working of HashMap?",
+      "What happens when two keys have the same hash?",
+      "How does HashMap handle collisions?",
+      "What changed in HashMap after Java 8?",
+      "What happens internally during put() and get()?"
+    ],
+    "answerSEE": {
+      "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
+      "explain": "hash(key) determines the bucket index\nCollisions handled via linked list; converts to Red-Black Tree if a bucket has 8+ entries (Java 8+)\nResizes (doubles capacity) when load factor threshold (default 0.75) is crossed",
+      "example": "\"HashMap calculates a hash from the key to decide which bucket it goes into. If multiple keys collide into the same bucket, Java 8 uses a linked list, but converts it to a Red-Black Tree once that bucket has 8 or more entries, to keep lookups fast. It also resizes by doubling its capacity once the map exceeds the load factor, which is 0.75 by default.\"",
+      "summary10s": "Hash → bucket, collisions via list→tree(8+), resizes at 0.75 load factor."
+    }
+  },
+  {
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 15,
+    "frequency": 16,
     "companies": [
       "Deloitte",
       "EPAM"
@@ -72,7 +113,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-a-deadlock",
     "category": "Java",
     "question": "What is a deadlock?",
-    "frequency": 14,
+    "frequency": 15,
     "companies": [],
     "variations": [
       "Deadlock",
@@ -123,43 +164,15 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "internal-working-of-hashmap",
-    "category": "Java",
-    "question": "Internal working of HashMap",
-    "frequency": 13,
-    "companies": [
-      "Zensar Technologies",
-      "Deloitte"
-    ],
-    "variations": [
-      "Why can HashMap become slow even with a good hash function?",
-      "How does HashMap work internally?",
-      "HashMap internal working. What happens when a bucket becomes a tree?",
-      "How does HashMap work internally in Java?",
-      "How does \"HashMap\" work internally?",
-      "HashMap internally?",
-      "What is the internal working of a HashMap? Is HashMap thread-safe?",
-      "What to handle collisions in a HashMap?",
-      "What happens when two distinct keys in a Java HashMap produce the same hashCode() value, resulting in a hash collision?",
-      "HashMap Internal",
-      "How does \"HashMap\" work internally after Java 8?"
-    ],
-    "answerSEE": {
-      "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
-      "explain": "hash(key) determines the bucket index\nCollisions handled via linked list; converts to Red-Black Tree if a bucket has 8+ entries (Java 8+)\nResizes (doubles capacity) when load factor threshold (default 0.75) is crossed",
-      "example": "\"HashMap calculates a hash from the key to decide which bucket it goes into. If multiple keys collide into the same bucket, Java 8 uses a linked list, but converts it to a Red-Black Tree once that bucket has 8 or more entries, to keep lookups fast. It also resizes by doubling its capacity once the map exceeds the load factor, which is 0.75 by default.\"",
-      "summary10s": "Hash → bucket, collisions via list→tree(8+), resizes at 0.75 load factor."
-    }
-  },
-  {
     "id": "circuit-breaker",
     "category": "Microservices",
     "question": "Circuit Breaker",
-    "frequency": 12,
+    "frequency": 13,
     "companies": [
       "EPAM",
       "Deloitte",
-      "Accenture"
+      "Accenture",
+      "Capgemini"
     ],
     "variations": [
       "Explain Circuit Breaker, Retry and Timeout patterns.",
@@ -177,6 +190,38 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
       "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
       "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
+    }
+  },
+  {
+    "id": "hashmap-vs-concurrenthashmap",
+    "category": "Java",
+    "question": "HashMap vs ConcurrentHashMap",
+    "frequency": 13,
+    "companies": [],
+    "variations": [
+      "When would you choose ConcurrentHashMap over HashMap?",
+      "HashMap vs ConcurrentHashMap",
+      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference in how they handle locks?",
+      "HashMap vs ConcurrentHashMap vs Hashtable.",
+      "Explain the differences between HashMap, ConcurrentHashMap, and Hashtable.",
+      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference?",
+      "ConcurrentHashMap vs HashMap scenario",
+      "What is a ConcurrentHashMap and why do we use it?",
+      "What is the difference between HashMap and ConcurrentHashMap?",
+      "Why not simply use a synchronized HashMap instead of ConcurrentHashMap?",
+      "Why does ConcurrentHashMap not allow null keys or null values?",
+      "Why does HashMap allow null as a key and value?",
+      "How does ConcurrentHashMap achieve concurrency?",
+      "When should you use HashMap?",
+      "When should you use ConcurrentHashMap?",
+      "Why is ConcurrentHashMap better than synchronizing the entire Map?",
+      "How does ConcurrentHashMap achieve thread safety?"
+    ],
+    "answerSEE": {
+      "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
+      "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
+      "example": "\"HashMap isn't thread-safe — using it with multiple threads can lead to data corruption or infinite loops in older Java versions. ConcurrentHashMap solves this by locking only the specific bucket being updated instead of the whole map, so multiple threads can work on different parts simultaneously. I always use ConcurrentHashMap in multi-threaded scenarios, like a shared cache.\"",
+      "summary10s": "HashMap = not thread-safe, ConcurrentHashMap = bucket-level locking, thread-safe."
     }
   },
   {
@@ -202,6 +247,81 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-completablefuture",
+    "category": "Java",
+    "question": "What is CompletableFuture?",
+    "frequency": 11,
+    "companies": [],
+    "variations": [
+      "CompletableFuture use cases",
+      "CompletableFuture",
+      "CompletableFuture Key Methods",
+      "What is CompletableFuture, and why is it useful?",
+      "How would you run multiple asynchronous operations using CompletableFuture?",
+      "What specific problem does \"CompletableFuture\" solve in asynchronous programming?",
+      "What problem does \"CompletableFuture\" solve?",
+      "CompletableFuture real-time scenario"
+    ],
+    "answerSEE": {
+      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
+      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
+      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
+      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
+    }
+  },
+  {
+    "id": "memory-leak-in-java",
+    "category": "Java",
+    "question": "Memory Leak in Java",
+    "frequency": 11,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Why can memory keep increasing even after GC runs?",
+      "How would you identify a memory leak in a Java application?",
+      "Why can an object remain in memory even when you think it's no longer needed?",
+      "How would you debug a Java application that suddenly starts consuming 90% memory?",
+      "What would you check first if a Java application suddenly starts throwing OutOfMemoryError?",
+      "What would you do if you found a memory leak in a Spring Boot application?",
+      "How would you identify the root cause of the memory leak?",
+      "How would you investigate a Java memory leak in production?",
+      "How can you identify and avoid memory leaks in Java applications?"
+    ],
+    "answerSEE": {
+      "simple": "Objects that are no longer needed but still referenced — GC cannot collect them, heap grows over time.",
+      "explain": "Static collections growing without bound — cache without eviction policy\nThreadLocal not removed in thread pool — previous request's data held indefinitely\nEvent listeners or callbacks not unregistered — listener holds reference to object\nInner class holding implicit reference to outer class — outer class cannot be collected\nUnclosed resources — connections, streams held in open state",
+      "example": "\"Java memory leaks happen when objects are still referenced but no longer needed. Classic example is a static HashMap used as cache — if I keep adding and never remove, it grows until OOM. ThreadLocal in thread pool is dangerous — threads are reused, old ThreadLocal value from previous request accumulates. I detect leaks with heap dump analysis in Eclipse MAT — look for objects with unexpectedly high retention.\"",
+      "summary10s": "Still referenced but not needed — static cache no eviction, ThreadLocal not removed, listeners not unregistered."
+    }
+  },
+  {
+    "id": "comparable-vs-comparator",
+    "category": "Java",
+    "question": "Comparable vs Comparator",
+    "frequency": 11,
+    "companies": [
+      "JPMorganChase",
+      "Deloitte",
+      "Accenture"
+    ],
+    "variations": [
+      "Comparable vs Comparator.",
+      "Difference between Comparable vs. Comparator? Which one to use in which condition?",
+      "What are the methods in Comparable and Comparator?",
+      "Comparable vs Comparator with examples",
+      "Explain the difference between Comparable and Comparator. Which one is more flexible in real projects?",
+      "Comparable vs Comparator?",
+      "What is the difference between Comparable and Comparator?"
+    ],
+    "answerSEE": {
+      "simple": "Comparable defines a class's natural ordering; Comparator defines custom ordering from outside the class.",
+      "explain": "Comparable — compareTo(), inside the class, single default order\nComparator — compare(), external, multiple custom sort strategies\nComparator often used with lambdas for flexible sorting",
+      "example": "\"Comparable is implemented inside the class to define its one natural sort order, using compareTo(). Comparator is external and lets me define multiple different sorting strategies without modifying the original class, using compare(). In real projects, I mostly use Comparator with lambdas when I need to sort a list by different fields depending on the situation.\"",
+      "summary10s": "Comparable = one default order, Comparator = multiple custom orders."
+    }
+  },
+  {
     "id": "synchronized-vs-reentrantlock",
     "category": "Java",
     "question": "synchronized vs ReentrantLock?",
@@ -223,29 +343,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "synchronized — auto releases on exit, no timeout, cannot interrupt waiting thread\nReentrantLock — must manually unlock in finally, supports tryLock with timeout, interruptible\nBoth provide mutual exclusion and visibility\nReentrantLock also supports fair ordering and multiple condition variables",
       "example": "\"synchronized is simpler — lock acquired on entry, released automatically on exit. ReentrantLock requires manual unlock in finally block but gives more power — tryLock with timeout prevents indefinite blocking, lock can be interrupted, and fair mode ensures waiting threads get lock in order. I use ReentrantLock when I need timeout or interruptible locking.\"",
       "summary10s": "synchronized=simple auto release, ReentrantLock=manual unlock but tryLock, timeout, interruptible."
-    }
-  },
-  {
-    "id": "what-is-completablefuture",
-    "category": "Java",
-    "question": "What is CompletableFuture?",
-    "frequency": 10,
-    "companies": [],
-    "variations": [
-      "CompletableFuture use cases",
-      "CompletableFuture",
-      "CompletableFuture Key Methods",
-      "What is CompletableFuture, and why is it useful?",
-      "How would you run multiple asynchronous operations using CompletableFuture?",
-      "What specific problem does \"CompletableFuture\" solve in asynchronous programming?",
-      "What problem does \"CompletableFuture\" solve?",
-      "CompletableFuture real-time scenario"
-    ],
-    "answerSEE": {
-      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
-      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
-      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
-      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
     }
   },
   {
@@ -274,51 +371,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "hashmap-vs-concurrenthashmap",
+    "id": "what-is-a-functional-interface",
     "category": "Java",
-    "question": "HashMap vs ConcurrentHashMap",
-    "frequency": 10,
-    "companies": [],
-    "variations": [
-      "When would you choose ConcurrentHashMap over HashMap?",
-      "HashMap vs ConcurrentHashMap",
-      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference in how they handle locks?",
-      "HashMap vs ConcurrentHashMap vs Hashtable.",
-      "Explain the differences between HashMap, ConcurrentHashMap, and Hashtable.",
-      "\"HashMap\" vs \"ConcurrentHashMap\" — what's the real difference?",
-      "ConcurrentHashMap vs HashMap scenario",
-      "What is a ConcurrentHashMap and why do we use it?"
-    ],
-    "answerSEE": {
-      "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
-      "explain": "HashMap — no locking, fails/corrupts under concurrent modification\nConcurrentHashMap — locks only specific buckets, allows concurrent reads/writes\nConcurrentHashMap doesn't allow null keys/values; HashMap does",
-      "example": "\"HashMap isn't thread-safe — using it with multiple threads can lead to data corruption or infinite loops in older Java versions. ConcurrentHashMap solves this by locking only the specific bucket being updated instead of the whole map, so multiple threads can work on different parts simultaneously. I always use ConcurrentHashMap in multi-threaded scenarios, like a shared cache.\"",
-      "summary10s": "HashMap = not thread-safe, ConcurrentHashMap = bucket-level locking, thread-safe."
-    }
-  },
-  {
-    "id": "memory-leak-in-java",
-    "category": "Java",
-    "question": "Memory Leak in Java",
+    "question": "What is a Functional Interface?",
     "frequency": 10,
     "companies": [
-      "EPAM"
+      "EPAM",
+      "Deloitte",
+      "HCL"
     ],
     "variations": [
-      "Why can memory keep increasing even after GC runs?",
-      "How would you identify a memory leak in a Java application?",
-      "Why can an object remain in memory even when you think it's no longer needed?",
-      "How would you debug a Java application that suddenly starts consuming 90% memory?",
-      "What would you check first if a Java application suddenly starts throwing OutOfMemoryError?",
-      "What would you do if you found a memory leak in a Spring Boot application?",
-      "How would you identify the root cause of the memory leak?",
-      "How would you investigate a Java memory leak in production?"
+      "What is a Functional Interface? Can it have default and static methods?",
+      "What is a functional interface",
+      "Can it have default and static methods",
+      "Common examples (Runnable, Comparator, Callable)",
+      "\"Runnable\" vs \"Callable\" — when would you choose each?",
+      "What is a functional interface in Java8?",
+      "Functional interfaces and their methods",
+      "What is a Functional Interface? Why can it have only one abstract method? Why can't it have multiple abstract methods?"
     ],
     "answerSEE": {
-      "simple": "Objects that are no longer needed but still referenced — GC cannot collect them, heap grows over time.",
-      "explain": "Static collections growing without bound — cache without eviction policy\nThreadLocal not removed in thread pool — previous request's data held indefinitely\nEvent listeners or callbacks not unregistered — listener holds reference to object\nInner class holding implicit reference to outer class — outer class cannot be collected\nUnclosed resources — connections, streams held in open state",
-      "example": "\"Java memory leaks happen when objects are still referenced but no longer needed. Classic example is a static HashMap used as cache — if I keep adding and never remove, it grows until OOM. ThreadLocal in thread pool is dangerous — threads are reused, old ThreadLocal value from previous request accumulates. I detect leaks with heap dump analysis in Eclipse MAT — look for objects with unexpectedly high retention.\"",
-      "summary10s": "Still referenced but not needed — static cache no eviction, ThreadLocal not removed, listeners not unregistered."
+      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
+      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
+      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
+      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
     }
   },
   {
@@ -341,32 +417,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Sending the same PUT request multiple times results in the same final state. PATCH is only idempotent if you set absolute values. If a PATCH request says \"increment counter by 1\", running it twice gives a different result, breaking idempotency.",
       "example": "\"PUT is meant to replace the whole resource, so it is naturally idempotent. PATCH updates specific fields. To keep PATCH idempotent, I make sure the updates are absolute value assignments (like setting status to ACTIVE) rather than relative operations (like increment by 1).\"",
       "summary10s": "PUT = full replace (always idempotent). PATCH = partial update (idempotent only if setting absolute values)."
-    }
-  },
-  {
-    "id": "what-is-a-functional-interface",
-    "category": "Java",
-    "question": "What is a Functional Interface?",
-    "frequency": 9,
-    "companies": [
-      "EPAM",
-      "Deloitte",
-      "HCL"
-    ],
-    "variations": [
-      "What is a Functional Interface? Can it have default and static methods?",
-      "What is a functional interface",
-      "Can it have default and static methods",
-      "Common examples (Runnable, Comparator, Callable)",
-      "\"Runnable\" vs \"Callable\" — when would you choose each?",
-      "What is a functional interface in Java8?",
-      "Functional interfaces and their methods"
-    ],
-    "answerSEE": {
-      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
-      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
-      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
-      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
     }
   },
   {
@@ -515,27 +565,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "comparable-vs-comparator",
-    "category": "Java",
-    "question": "Comparable vs Comparator",
+    "id": "spring-kafka-exactly-once",
+    "category": "Microservices",
+    "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
     "frequency": 8,
     "companies": [
-      "JPMorganChase",
-      "Deloitte",
-      "Accenture"
+      "Paytm",
+      "PhonePe",
+      "Razorpay",
+      "EPAM"
     ],
     "variations": [
-      "Comparable vs Comparator.",
-      "Difference between Comparable vs. Comparator? Which one to use in which condition?",
-      "What are the methods in Comparable and Comparator?",
-      "Comparable vs Comparator with examples",
-      "Explain the difference between Comparable and Comparator. Which one is more flexible in real projects?"
+      "How to handle duplicate messages in Kafka?",
+      "How would you prevent duplicate processing of Kafka messages?",
+      "Kafka duplicate message handling"
     ],
     "answerSEE": {
-      "simple": "Comparable defines a class's natural ordering; Comparator defines custom ordering from outside the class.",
-      "explain": "Comparable — compareTo(), inside the class, single default order\nComparator — compare(), external, multiple custom sort strategies\nComparator often used with lambdas for flexible sorting",
-      "example": "\"Comparable is implemented inside the class to define its one natural sort order, using compareTo(). Comparator is external and lets me define multiple different sorting strategies without modifying the original class, using compare(). In real projects, I mostly use Comparator with lambdas when I need to sort a list by different fields depending on the situation.\"",
-      "summary10s": "Comparable = one default order, Comparator = multiple custom orders."
+      "simple": "True exactly-once is hard. We design for \"effectively-once\" using an idempotent producer and a unique transaction ID on the consumer side.",
+      "explain": "On the producer side, we enable Kafka's transactional API to avoid duplicate publishes. On the consumer side, we store a unique idempotency key (like a transaction ID) in the database with a UNIQUE constraint to prevent double processing.",
+      "example": "\"Since true exactly-once is very hard end-to-end, I design for effectively-once. On the producer, I enable the idempotent producer flag. On the consumer, I store a unique transaction ID in the DB. Even if a message is redelivered, the duplicate DB insert fails safely. I usually combine this with the Outbox pattern.\"",
+      "summary10s": "Idempotent producer + unique transaction ID DB check + Outbox pattern = effectively-once."
     }
   },
   {
@@ -605,26 +654,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-kafka-exactly-once",
-    "category": "Microservices",
-    "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
+    "id": "sql-find-second-highest-salary",
+    "category": "SQL",
+    "question": "Find the second-highest salary",
     "frequency": 7,
     "companies": [
-      "Paytm",
-      "PhonePe",
-      "Razorpay",
-      "EPAM"
+      "Zensar Technologies",
+      "Deloitte",
+      "Capgemini"
     ],
     "variations": [
-      "How to handle duplicate messages in Kafka?",
-      "How would you prevent duplicate processing of Kafka messages?",
-      "Kafka duplicate message handling"
+      "Query to Find the 2nd Highest Salary",
+      "Find second-highest salary without \"LIMIT\".",
+      "For employee ID, name, and salary, write a query to fetch employee employees second highest salary; also find out the distinct employees and give the count of them.",
+      "Find 2nd highest salary"
     ],
     "answerSEE": {
-      "simple": "True exactly-once is hard. We design for \"effectively-once\" using an idempotent producer and a unique transaction ID on the consumer side.",
-      "explain": "On the producer side, we enable Kafka's transactional API to avoid duplicate publishes. On the consumer side, we store a unique idempotency key (like a transaction ID) in the database with a UNIQUE constraint to prevent double processing.",
-      "example": "\"Since true exactly-once is very hard end-to-end, I design for effectively-once. On the producer, I enable the idempotent producer flag. On the consumer, I store a unique transaction ID in the DB. Even if a message is redelivered, the duplicate DB insert fails safely. I usually combine this with the Outbox pattern.\"",
-      "summary10s": "Idempotent producer + unique transaction ID DB check + Outbox pattern = effectively-once."
+      "simple": "Use LIMIT/OFFSET on a descending sorted distinct salary list, or a subquery with MAX() excluding the top value.",
+      "explain": "Sort distinct salaries descending, skip the first one, take the next.",
+      "example": "\"I'd select distinct salaries, sort them descending, and use LIMIT 1 OFFSET 1 to skip the highest and grab the next one — DISTINCT handles cases where multiple employees share the top salary. Alternatively, I could use a subquery that finds the max salary less than the overall max, which achieves the same result without OFFSET, useful for databases that don't support it well.\"",
+      "summary10s": "Distinct + ORDER BY DESC + LIMIT 1 OFFSET 1, or MAX() excluding the top value."
     }
   },
   {
@@ -668,6 +717,132 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "ioc-vs-dependency-injection",
+    "category": "Spring Boot",
+    "question": "IoC vs Dependency Injection?",
+    "frequency": 6,
+    "companies": [
+      "Deloitte",
+      "EPAM",
+      "Capgemini"
+    ],
+    "variations": [
+      "IoC vs Dependency Injection",
+      "IoC Container (Inversion of Control)",
+      "How does Dependency Injection work internally in Spring?",
+      "Dependency Injection & IoC"
+    ],
+    "answerSEE": {
+      "simple": "IoC is the principle, Dependency Injection is one way to implement it.",
+      "explain": "IoC — control of object creation is inverted from developer to framework\nTraditional code — you create dependencies with new keyword\nIoC — framework creates and manages objects for you\nDependency Injection is IoC implementation — framework injects dependencies into your class",
+      "example": "\"Using the new keyword is not wrong. IoC doesn't mean we completely stop creating objects manually. I still use new for simple objects like DTOs or helper classes. However, for core application components like services, repositories, and controllers, I rely on Spring's IoC container to create and manage them. So the control of important dependencies is still inverted to Spring, which means IoC is properly followed.\"",
+      "summary10s": "IoC=principle of inverted control, DI=technique to implement IoC by injecting dependencies."
+    }
+  },
+  {
+    "id": "what-is-the-saga-pattern",
+    "category": "Microservices",
+    "question": "What is the Saga Pattern?",
+    "frequency": 6,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Saga Design Pattern",
+      "Explain Saga pattern and when you would use it.",
+      "Saga?",
+      "Saga Pattern vs 2PC?"
+    ],
+    "answerSEE": {
+      "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
+      "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
+      "example": "\"Saga Pattern manages distributed transactions across microservices — since we can't have one transaction spanning multiple databases, each service does its own local transaction, and if something fails downstream, we run a compensating transaction to undo the earlier steps. I've used it to keep data consistent across order, payment, and inventory services, using the Orchestration style with a central coordinator.\"",
+      "summary10s": "Distributed transaction → local steps + rollback via compensation."
+    }
+  },
+  {
+    "id": "jvm-memory-management",
+    "category": "Java",
+    "question": "JVM Memory Management",
+    "frequency": 6,
+    "companies": [],
+    "variations": [
+      "Why can increasing JVM heap size sometimes make the problem worse?",
+      "Explain memory management in java.",
+      "JVM Memory Management",
+      "How does JVM handle memory management?"
+    ],
+    "answerSEE": {
+      "simple": "JVM manages memory using different areas like Heap, Stack, and Metaspace, and cleans unused objects via Garbage Collection.",
+      "explain": "Heap — stores objects, divided into Young Gen (Eden, Survivor) and Old Gen\nStack — stores method calls and local variables, per thread\nGC automatically removes objects with no references (Minor GC for Young Gen, Major GC for Old Gen)",
+      "example": "\"\"JVM memory is mainly divided into Heap and Stack. Objects are created in the Heap, which itself is split into Young and Old Generation for efficient garbage collection. The Stack holds method calls and local variables per thread. Garbage Collector automatically removes \nobjects that no longer have references, so we don't manage memory manually like in C++.\"\"",
+      "summary10s": "Heap for objects, Stack for method calls, GC auto-cleans unused ones."
+    }
+  },
+  {
+    "id": "how-do-microservices-communicate-with-each-other",
+    "category": "Microservices",
+    "question": "How do microservices communicate with each other?",
+    "frequency": 6,
+    "companies": [
+      "Flipkart",
+      "Capgemini"
+    ],
+    "variations": [
+      "How do microservices communicate?",
+      "Microservices Communication",
+      "Inter-service communication"
+    ],
+    "answerSEE": {
+      "simple": "Synchronously via REST/gRPC or asynchronously via Message Brokers like Kafka/RabbitMQ.",
+      "explain": "Synchronous communication blocks the caller until a response is received, which is good for querying data but creates tight coupling. Asynchronous communication uses events/messages, which is fire-and-forget, leading to loose coupling and better fault tolerance.",
+      "example": "We use two main approaches. For real-time data fetching, like the Order service asking the User service for a profile, we use REST APIs via Feign Client. For state changes, like sending an email after an order is placed, we use asynchronous events via Kafka so the Order service doesn't have to wait for the email to send.",
+      "summary10s": "REST/gRPC for synchronous reads. Kafka/RabbitMQ for asynchronous events."
+    }
+  },
+  {
+    "id": "how-did-you-handle-global-exception-handling",
+    "category": "Spring Boot",
+    "question": "How did you handle global exception handling?",
+    "frequency": 6,
+    "companies": [
+      "Flipkart",
+      "Capgemini"
+    ],
+    "variations": [
+      "Global Exception Handling",
+      "Spring Boot Exception Handling",
+      "Exception handling in REST APIs",
+      "How to implement Global Exception Handling?"
+    ],
+    "answerSEE": {
+      "simple": "By using @RestControllerAdvice and @ExceptionHandler annotations in Spring Boot.",
+      "explain": "@RestControllerAdvice intercepts exceptions thrown globally across all controllers. Inside it, methods annotated with @ExceptionHandler specify which exception to catch (like CustomNotFoundException). We then return a standardized JSON error response.",
+      "example": "I created a GlobalExceptionHandler class annotated with @RestControllerAdvice. Inside it, I wrote methods with @ExceptionHandler(ResourceNotFoundException.class) to catch specific exceptions. These methods return a custom ErrorResponse object containing the timestamp, error message, and HTTP status code, ensuring the client always gets a consistent JSON format instead of a messy stack trace.",
+      "summary10s": "@RestControllerAdvice + @ExceptionHandler to return a consistent JSON error response."
+    }
+  },
+  {
+    "id": "how-to-optimize-slow-queries",
+    "category": "Java",
+    "question": "How to optimize slow queries?",
+    "frequency": 6,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Troubleshooting a slow query",
+      "SQL Optimization",
+      "Query optimization"
+    ],
+    "answerSEE": {
+      "simple": "Optimize slow queries by indexing, avoiding unnecessary data fetching, and analyzing the execution plan.",
+      "explain": "Add proper indexes on frequently filtered/joined columns\nUse EXPLAIN ANALYZE to check query execution plan\nAvoid SELECT *, fetch only needed columns; use pagination for large data\nFix N+1 issues and use proper fetch strategies",
+      "example": "\"To optimize slow queries, I first check the execution plan using EXPLAIN ANALYZE to see if indexes are being used properly. Then I add indexes on columns used in WHERE or JOIN clauses. I also avoid fetching unnecessary columns, use pagination for large result sets, and make sure I'm not hitting N+1 issues from lazy loading.\"",
+      "summary10s": "Index + EXPLAIN ANALYZE + avoid SELECT * + pagination."
+    }
+  },
+  {
     "id": "java-final-finally-finalize",
     "category": "Java",
     "question": "Difference between final, finally, and finalize",
@@ -684,27 +859,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
       "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
       "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
-    }
-  },
-  {
-    "id": "ioc-vs-dependency-injection",
-    "category": "Spring Boot",
-    "question": "IoC vs Dependency Injection?",
-    "frequency": 5,
-    "companies": [
-      "Deloitte",
-      "EPAM"
-    ],
-    "variations": [
-      "IoC vs Dependency Injection",
-      "IoC Container (Inversion of Control)",
-      "How does Dependency Injection work internally in Spring?"
-    ],
-    "answerSEE": {
-      "simple": "IoC is the principle, Dependency Injection is one way to implement it.",
-      "explain": "IoC — control of object creation is inverted from developer to framework\nTraditional code — you create dependencies with new keyword\nIoC — framework creates and manages objects for you\nDependency Injection is IoC implementation — framework injects dependencies into your class",
-      "example": "\"Using the new keyword is not wrong. IoC doesn't mean we completely stop creating objects manually. I still use new for simple objects like DTOs or helper classes. However, for core application components like services, repositories, and controllers, I rely on Spring's IoC container to create and manage them. So the control of important dependencies is still inverted to Spring, which means IoC is properly followed.\"",
-      "summary10s": "IoC=principle of inverted control, DI=technique to implement IoC by injecting dependencies."
     }
   },
   {
@@ -725,26 +879,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Runnable — run(), no return value, no checked exceptions\nCallable — call(), returns a value via Future, can throw checked exceptions",
       "example": "\"Runnable's run() doesn't return anything and can't throw checked exceptions. Callable's call() can return a result through a Future, and can also throw checked exceptions. I use Callable whenever I need the outcome of an async task, like fetching data in parallel.\"",
       "summary10s": "Runnable = no result, Callable = returns result via Future."
-    }
-  },
-  {
-    "id": "what-is-the-saga-pattern",
-    "category": "Microservices",
-    "question": "What is the Saga Pattern?",
-    "frequency": 5,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "Saga Design Pattern",
-      "Explain Saga pattern and when you would use it.",
-      "Saga?"
-    ],
-    "answerSEE": {
-      "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
-      "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
-      "example": "\"Saga Pattern manages distributed transactions across microservices — since we can't have one transaction spanning multiple databases, each service does its own local transaction, and if something fails downstream, we run a compensating transaction to undo the earlier steps. I've used it to keep data consistent across order, payment, and inventory services, using the Orchestration style with a central coordinator.\"",
-      "summary10s": "Distributed transaction → local steps + rollback via compensation."
     }
   },
   {
@@ -791,28 +925,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "sql-find-second-highest-salary",
-    "category": "SQL",
-    "question": "Find the second-highest salary",
-    "frequency": 5,
-    "companies": [
-      "Zensar Technologies",
-      "Deloitte"
-    ],
-    "variations": [
-      "Query to Find the 2nd Highest Salary",
-      "Find second-highest salary without \"LIMIT\".",
-      "For employee ID, name, and salary, write a query to fetch employee employees second highest salary; also find out the distinct employees and give the count of them.",
-      "Find 2nd highest salary"
-    ],
-    "answerSEE": {
-      "simple": "Use LIMIT/OFFSET on a descending sorted distinct salary list, or a subquery with MAX() excluding the top value.",
-      "explain": "Sort distinct salaries descending, skip the first one, take the next.",
-      "example": "\"I'd select distinct salaries, sort them descending, and use LIMIT 1 OFFSET 1 to skip the highest and grab the next one — DISTINCT handles cases where multiple employees share the top salary. Alternatively, I could use a subquery that finds the max salary less than the overall max, which achieves the same result without OFFSET, useful for databases that don't support it well.\"",
-      "summary10s": "Distinct + ORDER BY DESC + LIMIT 1 OFFSET 1, or MAX() excluding the top value."
-    }
-  },
-  {
     "id": "java-hashmap-internal-working",
     "category": "Java",
     "question": "How HashMap works internally",
@@ -829,6 +941,186 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When you put(K, V), it calculates `hash(K) % capacity` to find the bucket index. If the bucket is empty, it stores it. If occupied (collision), it appends to a LinkedList. In Java 8+, if the LinkedList exceeds 8 elements, it transforms into a Red-Black Tree to optimize search time from O(N) to O(log N).",
       "example": "\"I explain it like an array of linked lists. You hash the key to find the array slot. If two keys hash to the same slot, they form a chain. To keep performance at O(1), HashMap automatically resizes (doubles capacity) when it gets 75% full (load factor), re-hashing everything.\"",
       "summary10s": "Array of buckets. Hashing finds index. Collisions use LinkedLists (or Red-Black trees in Java 8+)."
+    }
+  },
+  {
+    "id": "spring-restful-api",
+    "category": "Spring Boot",
+    "question": "What is a RESTful API?",
+    "frequency": 5,
+    "companies": [
+      "JPMorganChase",
+      "Capgemini"
+    ],
+    "variations": [
+      "REST API Best Practices",
+      "REST API concepts"
+    ],
+    "answerSEE": {
+      "simple": "It's an architectural style for APIs that uses standard HTTP methods, URIs to represent resources, and transfers data (usually in JSON) without keeping server state.",
+      "explain": "REST stands for Representational State Transfer. Key constraints include being stateless (each request contains all needed info), using standard HTTP methods (GET, POST, PUT, DELETE), and using noun-based URLs representing entities.",
+      "example": "\"A RESTful API maps CRUD operations to HTTP methods. For example, to manage users, I design the API around the resource URL `/users`. A GET request fetches them, a POST creates one, and a DELETE to `/users/123` removes the specific user. Importantly, no client session state is stored on the server.\"",
+      "summary10s": "Stateless, uses standard HTTP methods (GET, POST), noun-based resource URIs, usually returns JSON."
+    }
+  },
+  {
+    "id": "java-singleton-class",
+    "category": "Java Coding",
+    "question": "Write a Singleton class.",
+    "frequency": 5,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "Thread-safe Singleton implementation"
+    ],
+    "answerSEE": {
+      "simple": "A Singleton ensures only one instance exists by making the constructor private and providing a static method to get the instance.",
+      "explain": "The best thread-safe ways to create a Singleton are using an Enum (safest against serialization/reflection) or the Double-Checked Locking pattern with a volatile instance variable to ensure thread safety without synchronization overhead on every call.",
+      "example": "\"I prefer using an Enum for Singletons because Java guarantees it's instantiated only once and protects against reflection. If I must use a class, I use double-checked locking: a private constructor, a volatile static instance, and a getInstance() method that synchronizes only if the instance is null.\"",
+      "summary10s": "Private constructor + static getInstance(). Best implemented via Enum or Double-Checked Locking."
+    }
+  },
+  {
+    "id": "longest-substring-without-repe",
+    "category": "Java Coding",
+    "question": "Longest substring without repeating characters",
+    "frequency": 5,
+    "companies": [
+      "Accenture",
+      "Accolite",
+      "Bounteous India"
+    ],
+    "variations": [
+      "Longest substring without repeating characters.",
+      "Problem: Given a string s, find the length of the longest substring without repeating characters.",
+      "Find longest substring without repeating characters"
+    ],
+    "answerSEE": {
+      "simple": "Use a sliding window with a HashSet (or HashMap of last-seen index) to track characters in the current window.",
+      "explain": "Expand the window by moving the right pointer; if a duplicate is found, shrink from the left until the duplicate is removed. Track the max window length seen.\npublic class LongestSubstring {\n    public static int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastIndex = new HashMap<>();\n        int maxLen = 0, left = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            if (lastIndex.containsKey(c) && lastIndex.get(c) >= left) {\n                left = lastIndex.get(c) + 1; // jump left past the duplicate\n            }\n            lastIndex.put(c, right);\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(lengthOfLongestSubstring(\"abcabcbb\")); // 3 (\"abc\")\n    }\n}\n",
+      "example": "\"I'd use the sliding window technique with a HashMap tracking each character's last seen index. As I expand the window with a right pointer, if I encounter a character already in the map within my current window, I jump the left pointer past that duplicate's previous position instead of moving it one step at a time — that makes it a single O(n) pass instead of a nested-loop O(n squared) brute force.\"",
+      "summary10s": "\"Sliding window + HashMap of last-seen index — jump left pointer past duplicates, O(n) single pass.\""
+    }
+  },
+  {
+    "id": "reverse-a-string-without-built-in-methods",
+    "category": "Java Coding",
+    "question": "Reverse a String without built-in methods.",
+    "frequency": 5,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Reverse String Without Predefined Methods",
+      "Reverse a String without using inbuilt methods",
+      "Reverse a String"
+    ],
+    "answerSEE": {
+      "simple": "Use a loop from end to start, build reversed string character by character.",
+      "explain": "Loop from last index to 0\nAppend each character to a new string or StringBuilder\nStringBuilder approach is more efficient — no new String object each iteration\nTime O(n), Space O(n)",
+      "example": "\"I loop from the last index of the string down to zero and append each character to a StringBuilder. Finally I return the StringBuilder as a string. This avoids using reverse method and runs in O(n) time. Using StringBuilder instead of string concatenation avoids creating unnecessary intermediate string objects.\"",
+      "summary10s": "Loop from end to start, append each char to StringBuilder, return result."
+    }
+  },
+  {
+    "id": "how-does-transactional-work-internally",
+    "category": "Spring Boot",
+    "question": "How does @Transactional work internally?",
+    "frequency": 5,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "How does @Transactional work?",
+      "How @Transactional Works",
+      "How does @Transactional work internally in Spring Boot?"
+    ],
+    "answerSEE": {
+      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
+      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
+      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
+      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
+    }
+  },
+  {
+    "id": "fail-fast-vs-fail-safe-iterator",
+    "category": "Java",
+    "question": "Fail-Fast vs Fail-Safe Iterator",
+    "frequency": 5,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Fail-Fast vs Fail-Safe",
+      "Fail-Fast vs Fail-Safe iterators",
+      "Difference between Fail-Fast and Fail-Safe?"
+    ],
+    "answerSEE": {
+      "simple": "Fail-fast throws exception on modification during iteration, Fail-safe iterates over a copy — no exception.",
+      "explain": "Fail-fast — ArrayList, HashMap, tracks modCount, throws ConcurrentModificationException immediately on structural change\nFail-safe — CopyOnWriteArrayList, ConcurrentHashMap, iterates over snapshot copy\nFail-safe may see stale data — snapshot not reflect latest additions\nUse fail-safe in multithreaded scenarios",
+      "example": "\"Fail-fast iterators detect structural modification during iteration by tracking modCount. Any add or remove increments modCount. Iterator checks on every next call — mismatch means someone modified the collection and it throws immediately rather than producing wrong results. Fail-safe iterators in concurrent collections work on a snapshot — no exception possible but you might miss recent updates.\"",
+      "summary10s": "Fail-fast=modCount check throws immediately, Fail-safe=snapshot no exception may see stale data."
+    }
+  },
+  {
+    "id": "what-is-n-1-problem",
+    "category": "Spring Boot",
+    "question": "What is N+1 Problem",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "N+1 Problem",
+      "What is the N+1 problem? How do you fix it?",
+      "What is the N+1 query problem and how would you fix it?",
+      "What is N+1 problem?"
+    ],
+    "answerSEE": {
+      "simple": "One query fetches N parents, then N additional queries fire one per parent to load their children — total N+1 queries.",
+      "explain": "Fetch 10 orders — 1 query. Access each order's items lazily — 10 more queries. Total 11\nSilently kills performance — 100 customers means 101 queries, 1000 means 1001\nLooks fine in tests with small data, catastrophic in production with real volume\nDetect with show_sql enabled in dev — count queries per request\nHibernate Batch Fetching can partially help but JOIN FETCH is the proper fix\n\nExample:\n// N+1 problem\nList<Order> orders = orderRepository.findAll();  // 1 query: SELECT * FROM orders\norders.forEach(order -> {\n    // EACH iteration fires a query: SELECT * FROM items WHERE order_id = ?\n    System.out.println(order.getItems().size()); // N queries!\n});\n// Total: 1 + N queries\n\n// Fix with JOIN FETCH\n@Query(\"SELECT o FROM Order o JOIN FETCH o.items\")\nList<Order> findAllWithItems(); // 1 query with JOIN: SELECT o.*, i.* FROM orders o JOIN items i",
+      "example": "\"N+1 is when Hibernate fires one query for the list and then one additional query per element to load a lazy relationship. Loading 100 orders and accessing items for each fires 101 queries — unnoticed in development with 5 rows of test data but catastrophic in production with 10,000 orders. I always enable show_sql in development and count queries per API call. As soon as I see the same query pattern repeating I know there's an N+1 and fix it with JOIN FETCH.\"",
+      "summary10s": "1 query for list + N queries for lazy child = N+1. Enable show_sql to detect, fix with JOIN FETCH or @EntityGraph."
+    }
+  },
+  {
+    "id": "jwt-authentication-flow",
+    "category": "Microservices",
+    "question": "JWT Authentication Flow",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "JWT Authentication Flow",
+      "Spring Security & JWT flow.",
+      "JWT?",
+      "How do you implement JWT authentication?"
+    ],
+    "answerSEE": {
+      "simple": "Login generates signed token, client sends it every request, server validates signature.",
+      "explain": "User logs in with credentials, server validates, creates JWT with user details\nJWT signed with secret key — Header.Payload.Signature\nClient stores and sends in Authorization Bearer header\nServer validates signature on every request — no session needed\nStateless — scales perfectly across multiple instances",
+      "example": "\"Login generates a signed JWT, Angular stores it in localStorage and sends it via HTTP interceptor in Authorization header, server validates token using a filter—stateless so it scales horizontally.\"",
+      "summary10s": "Login creates signed JWT, client sends in header, filter validates signature, stateless scales horizontally."
+    }
+  },
+  {
+    "id": "api-gateway-and-why-it-s-required",
+    "category": "Microservices",
+    "question": "API Gateway and why it's required",
+    "frequency": 5,
+    "companies": [
+      "EPAM",
+      "Capgemini"
+    ],
+    "variations": [
+      "API Gateway vs Load Balancer — what is the difference?",
+      "What does an API Gateway do?",
+      "API Gateway",
+      "What is API Gateway and why is it required?"
+    ],
+    "answerSEE": {
+      "simple": "API Gateway is a single entry point that routes client requests to the correct microservice.",
+      "explain": "Handles routing, authentication, rate limiting in one place\nClients don't need to know individual service addresses\nReduces cross-cutting logic duplication across services",
+      "example": "\"API Gateway acts as a single entry point for all client requests and routes them to the right microservice internally. It's required because it centralizes things like authentication, rate limiting, and logging, so individual services don't have to repeat that logic. I've used Spring Cloud Gateway for this in a microservices setup.\"",
+      "summary10s": "Single entry point → routing + auth + rate limiting, centralized."
     }
   },
   {
@@ -885,26 +1177,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When multiple beans of same type exist, Spring does not know which to inject\n@Primary on one bean — Spring uses it by default when no qualifier specified\n@Qualifier on injection point — explicitly names which bean to use\n@Qualifier overrides @Primary — more specific wins",
       "example": "\"If I have two DataSource beans, Spring gets confused which to inject. I mark one with @Primary to be the default choice. When a specific component needs the other DataSource, I use @Qualifier with the bean name at the injection point. @Qualifier always wins over @Primary — explicit beats default.\"",
       "summary10s": "@Primary=default when multiple beans, @Qualifier=explicit by name, Qualifier overrides Primary."
-    }
-  },
-  {
-    "id": "how-does-transactional-work-internally",
-    "category": "Spring Boot",
-    "question": "How does @Transactional work internally?",
-    "frequency": 4,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "How does @Transactional work?",
-      "How @Transactional Works",
-      "How does @Transactional work internally in Spring Boot?"
-    ],
-    "answerSEE": {
-      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
-      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
-      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
-      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
     }
   },
   {
@@ -1035,25 +1307,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "If Bird is parent and Penguin extends Bird but cannot fly — LSP violated\nSubclass should not remove or weaken behavior of parent\nInheritance is needed even with LSP for code reuse and polymorphism\nLSP ensures the substitution is correct — not that inheritance is unnecessary",
       "example": "\"LSP says I should be able to replace a parent class with any subclass without breaking functionality. If I have a method accepting Animal, passing any subclass should work correctly. Inheritance is still needed for code reuse and polymorphism — LSP just guides how to do it correctly. Violating LSP means the subclass is not a true is-a relationship.\"",
       "summary10s": "Subclass replaces parent without breaking behavior. Inheritance for reuse, LSP for correctness."
-    }
-  },
-  {
-    "id": "fail-fast-vs-fail-safe-iterator",
-    "category": "Java",
-    "question": "Fail-Fast vs Fail-Safe Iterator",
-    "frequency": 4,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "Fail-Fast vs Fail-Safe",
-      "Fail-Fast vs Fail-Safe iterators"
-    ],
-    "answerSEE": {
-      "simple": "Fail-fast throws exception on modification during iteration, Fail-safe iterates over a copy — no exception.",
-      "explain": "Fail-fast — ArrayList, HashMap, tracks modCount, throws ConcurrentModificationException immediately on structural change\nFail-safe — CopyOnWriteArrayList, ConcurrentHashMap, iterates over snapshot copy\nFail-safe may see stale data — snapshot not reflect latest additions\nUse fail-safe in multithreaded scenarios",
-      "example": "\"Fail-fast iterators detect structural modification during iteration by tracking modCount. Any add or remove increments modCount. Iterator checks on every next call — mismatch means someone modified the collection and it throws immediately rather than producing wrong results. Fail-safe iterators in concurrent collections work on a snapshot — no exception possible but you might miss recent updates.\"",
-      "summary10s": "Fail-fast=modCount check throws immediately, Fail-safe=snapshot no exception may see stale data."
     }
   },
   {
@@ -1191,24 +1444,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-n-1-problem",
-    "category": "Spring Boot",
-    "question": "What is N+1 Problem",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "N+1 Problem",
-      "What is the N+1 problem? How do you fix it?",
-      "What is the N+1 query problem and how would you fix it?"
-    ],
-    "answerSEE": {
-      "simple": "One query fetches N parents, then N additional queries fire one per parent to load their children — total N+1 queries.",
-      "explain": "Fetch 10 orders — 1 query. Access each order's items lazily — 10 more queries. Total 11\nSilently kills performance — 100 customers means 101 queries, 1000 means 1001\nLooks fine in tests with small data, catastrophic in production with real volume\nDetect with show_sql enabled in dev — count queries per request\nHibernate Batch Fetching can partially help but JOIN FETCH is the proper fix\n\nExample:\n// N+1 problem\nList<Order> orders = orderRepository.findAll();  // 1 query: SELECT * FROM orders\norders.forEach(order -> {\n    // EACH iteration fires a query: SELECT * FROM items WHERE order_id = ?\n    System.out.println(order.getItems().size()); // N queries!\n});\n// Total: 1 + N queries\n\n// Fix with JOIN FETCH\n@Query(\"SELECT o FROM Order o JOIN FETCH o.items\")\nList<Order> findAllWithItems(); // 1 query with JOIN: SELECT o.*, i.* FROM orders o JOIN items i",
-      "example": "\"N+1 is when Hibernate fires one query for the list and then one additional query per element to load a lazy relationship. Loading 100 orders and accessing items for each fires 101 queries — unnoticed in development with 5 rows of test data but catastrophic in production with 10,000 orders. I always enable show_sql in development and count queries per API call. As soon as I see the same query pattern repeating I know there's an N+1 and fix it with JOIN FETCH.\"",
-      "summary10s": "1 query for list + N queries for lazy child = N+1. Enable show_sql to detect, fix with JOIN FETCH or @EntityGraph."
-    }
-  },
-  {
     "id": "what-happens-inside-the-jvm-when-a-method-executes-with-primitives-and-objects",
     "category": "Java",
     "question": "What happens inside the JVM when a method executes with primitives and objects?",
@@ -1306,78 +1541,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "jwt-authentication-flow",
-    "category": "Microservices",
-    "question": "JWT Authentication Flow",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "JWT Authentication Flow",
-      "Spring Security & JWT flow.",
-      "JWT?"
-    ],
-    "answerSEE": {
-      "simple": "Login generates signed token, client sends it every request, server validates signature.",
-      "explain": "User logs in with credentials, server validates, creates JWT with user details\nJWT signed with secret key — Header.Payload.Signature\nClient stores and sends in Authorization Bearer header\nServer validates signature on every request — no session needed\nStateless — scales perfectly across multiple instances",
-      "example": "\"Login generates a signed JWT, Angular stores it in localStorage and sends it via HTTP interceptor in Authorization header, server validates token using a filter—stateless so it scales horizontally.\"",
-      "summary10s": "Login creates signed JWT, client sends in header, filter validates signature, stateless scales horizontally."
-    }
-  },
-  {
-    "id": "jvm-memory-management",
-    "category": "Java",
-    "question": "JVM Memory Management",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "Why can increasing JVM heap size sometimes make the problem worse?",
-      "Explain memory management in java.",
-      "JVM Memory Management"
-    ],
-    "answerSEE": {
-      "simple": "JVM manages memory using different areas like Heap, Stack, and Metaspace, and cleans unused objects via Garbage Collection.",
-      "explain": "Heap — stores objects, divided into Young Gen (Eden, Survivor) and Old Gen\nStack — stores method calls and local variables, per thread\nGC automatically removes objects with no references (Minor GC for Young Gen, Major GC for Old Gen)",
-      "example": "\"\"JVM memory is mainly divided into Heap and Stack. Objects are created in the Heap, which itself is split into Young and Old Generation for efficient garbage collection. The Stack holds method calls and local variables per thread. Garbage Collector automatically removes \nobjects that no longer have references, so we don't manage memory manually like in C++.\"\"",
-      "summary10s": "Heap for objects, Stack for method calls, GC auto-cleans unused ones."
-    }
-  },
-  {
-    "id": "java-singleton-class",
-    "category": "Java Coding",
-    "question": "Write a Singleton class.",
-    "frequency": 4,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [
-      "Thread-safe Singleton implementation"
-    ],
-    "answerSEE": {
-      "simple": "A Singleton ensures only one instance exists by making the constructor private and providing a static method to get the instance.",
-      "explain": "The best thread-safe ways to create a Singleton are using an Enum (safest against serialization/reflection) or the Double-Checked Locking pattern with a volatile instance variable to ensure thread safety without synchronization overhead on every call.",
-      "example": "\"I prefer using an Enum for Singletons because Java guarantees it's instantiated only once and protects against reflection. If I must use a class, I use double-checked locking: a private constructor, a volatile static instance, and a getInstance() method that synchronizes only if the instance is null.\"",
-      "summary10s": "Private constructor + static getInstance(). Best implemented via Enum or Double-Checked Locking."
-    }
-  },
-  {
-    "id": "spring-restful-api",
-    "category": "Spring Boot",
-    "question": "What is a RESTful API?",
-    "frequency": 4,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [
-      "REST API Best Practices"
-    ],
-    "answerSEE": {
-      "simple": "It's an architectural style for APIs that uses standard HTTP methods, URIs to represent resources, and transfers data (usually in JSON) without keeping server state.",
-      "explain": "REST stands for Representational State Transfer. Key constraints include being stateless (each request contains all needed info), using standard HTTP methods (GET, POST, PUT, DELETE), and using noun-based URLs representing entities.",
-      "example": "\"A RESTful API maps CRUD operations to HTTP methods. For example, to manage users, I design the API around the resource URL `/users`. A GET request fetches them, a POST creates one, and a DELETE to `/users/123` removes the specific user. Importantly, no client session state is stored on the server.\"",
-      "summary10s": "Stateless, uses standard HTTP methods (GET, POST), noun-based resource URIs, usually returns JSON."
-    }
-  },
-  {
     "id": "retry-vs-circuit-breaker",
     "category": "Microservices",
     "question": "Retry vs Circuit Breaker",
@@ -1391,28 +1554,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Retry — good for transient, short-lived failures (network blip)\nCircuit Breaker — trips after repeated failures, blocks further calls temporarily, protects both caller and the struggling service\nOften used together: retry a few times, and if it keeps failing, the circuit breaker trips",
       "example": "\"Retry is for transient failures — I retry the same call a few times, usually with backoff, hoping it was just a temporary blip. Circuit Breaker is different — after a certain number of consistent failures, it 'trips' and stops calling that service entirely for a cooldown period, protecting both the caller from wasting resources and the struggling service from more load. I typically combine both — retry a few times, and if it keeps failing, let the circuit breaker take over.\"",
       "summary10s": "Retry = try again on transient failure, Circuit Breaker = stop calling after repeated failures."
-    }
-  },
-  {
-    "id": "longest-substring-without-repe",
-    "category": "Java Coding",
-    "question": "Longest substring without repeating characters",
-    "frequency": 4,
-    "companies": [
-      "Accenture",
-      "Accolite",
-      "Bounteous India"
-    ],
-    "variations": [
-      "Longest substring without repeating characters.",
-      "Problem: Given a string s, find the length of the longest substring without repeating characters.",
-      "Find longest substring without repeating characters"
-    ],
-    "answerSEE": {
-      "simple": "Use a sliding window with a HashSet (or HashMap of last-seen index) to track characters in the current window.",
-      "explain": "Expand the window by moving the right pointer; if a duplicate is found, shrink from the left until the duplicate is removed. Track the max window length seen.\npublic class LongestSubstring {\n    public static int lengthOfLongestSubstring(String s) {\n        Map<Character, Integer> lastIndex = new HashMap<>();\n        int maxLen = 0, left = 0;\n\n        for (int right = 0; right < s.length(); right++) {\n            char c = s.charAt(right);\n            if (lastIndex.containsKey(c) && lastIndex.get(c) >= left) {\n                left = lastIndex.get(c) + 1; // jump left past the duplicate\n            }\n            lastIndex.put(c, right);\n            maxLen = Math.max(maxLen, right - left + 1);\n        }\n        return maxLen;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(lengthOfLongestSubstring(\"abcabcbb\")); // 3 (\"abc\")\n    }\n}\n",
-      "example": "\"I'd use the sliding window technique with a HashMap tracking each character's last seen index. As I expand the window with a right pointer, if I encounter a character already in the map within my current window, I jump the left pointer past that duplicate's previous position instead of moving it one step at a time — that makes it a single O(n) pass instead of a nested-loop O(n squared) brute force.\"",
-      "summary10s": "\"Sliding window + HashMap of last-seen index — jump left pointer past duplicates, O(n) single pass.\""
     }
   },
   {
@@ -1431,6 +1572,146 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "@Component — generic Spring-managed bean\n@Service — business logic layer, semantic clarity\n@Repository — data access layer, also translates DB exceptions into Spring's DataAccessException",
       "example": "\"All three are technically @Component under the hood, so Spring detects them the same way through component scanning. But we use @Service for business logic and @Repository for the data access layer — @Repository additionally translates database-specific exceptions into Spring's unified DataAccessException, which is a real functional difference, not just naming.\"",
       "summary10s": "Same base (@Component), Repository also translates DB exceptions."
+    }
+  },
+  {
+    "id": "restcontroller-vs-controller",
+    "category": "Spring Boot",
+    "question": "@RestController vs @Controller",
+    "frequency": 4,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "What is the difference between @Controller and @RestController?",
+      "Controller vs RestController?",
+      "@RestController"
+    ],
+    "answerSEE": {
+      "simple": "@RestController returns data directly (like JSON); @Controller is used for returning views.",
+      "explain": "@Controller — typically returns a view name (used with Thymeleaf/JSP)\n@RestController = @Controller + @ResponseBody — returns data directly serialized as JSON/XML\nREST APIs almost always use @RestController",
+      "example": "\"@Controller is traditionally used when we're returning a view, like a Thymeleaf template. @RestController is a combination of @Controller and @ResponseBody, so every method's return value is directly serialized into the response body, usually as JSON. Since I mostly build REST APIs, I use @RestController almost everywhere.\"",
+      "summary10s": "@Controller = returns view, @RestController = @Controller + @ResponseBody (returns JSON)."
+    }
+  },
+  {
+    "id": "spring-component-vs-service-vs-bean",
+    "category": "Spring Boot",
+    "question": "What is the difference between @Service, @Component, and @Bean?",
+    "frequency": 4,
+    "companies": [
+      "Accolite",
+      "Bounteous India",
+      "Capgemini"
+    ],
+    "variations": [
+      "What Spring Boot annotations have you used in your real-time project?",
+      "What is the real difference between @Component, @Bean, and @Configuration beyond “they create beans”?",
+      "What is the @Bean annotation, and what are the internal mechanisms Spring uses to inject these beans?",
+      "@Component, @Service, @Repository"
+    ],
+    "answerSEE": {
+      "simple": "@Component is a generic stereotype. @Service is a specialized @Component for business logic. @Bean is used on methods to inject third-party classes.",
+      "explain": "`@Component` marks a class to be picked up by component scanning. `@Service` is technically identical to `@Component` but adds semantic meaning to show it holds business logic. `@Bean` is completely different: it is applied to a *method* (usually inside a `@Configuration` class) to explicitly tell Spring to register the returned object as a bean, which is required when you don't own the class's source code.",
+      "example": "\"I use `@Service` on my own business classes so Spring auto-detects them. But if I need to inject a `RestTemplate` or a `HikariDataSource`—which are external classes I can't modify—I write a method returning that object, annotate it with `@Bean`, and Spring manages it.\"",
+      "summary10s": "@Component/@Service are on classes you own (auto-scanned). @Bean is on methods returning 3rd-party classes."
+    }
+  },
+  {
+    "id": "what-are-the-java-8-features-you-have-used",
+    "category": "Java",
+    "question": "What are the Java 8 features you have used?",
+    "frequency": 4,
+    "companies": [
+      "Accenture",
+      "Deloitte",
+      "Capgemini"
+    ],
+    "variations": [
+      "Key Java 8 features (Streams, Lambdas, Functional interfaces)",
+      "What are java 8 features do you know? Which ones have you implemented in your project?",
+      "Java 8 features"
+    ],
+    "answerSEE": {
+      "simple": "I mostly use Streams, Lambdas, Optional, and the new Date/Time API.",
+      "explain": "Java 8 changed how we write Java. Streams allow declarative data processing. Lambdas provide concise implementations for functional interfaces. Optional prevents NullPointerExceptions, and the java.time package replaces the old, thread-unsafe Date/Calendar classes.",
+      "example": "In my current project, I use Streams heavily to map and filter lists of DTOs. I use Optional as a return type for database queries to force null-checking, and I use the LocalDate API for all timestamp logging because it's thread-safe and immutable.",
+      "summary10s": "Streams (processing), Lambdas (concise code), Optional (null-safety), Date/Time API (thread-safe dates)."
+    }
+  },
+  {
+    "id": "producer-consumer-pattern",
+    "category": "Java",
+    "question": "Producer-Consumer Pattern",
+    "frequency": 4,
+    "companies": [],
+    "variations": [
+      "Producer-Consumer Problem and Solutions",
+      "Producer Consumer problem"
+    ],
+    "answerSEE": {
+      "simple": "Producer adds to shared queue, Consumer takes from it — decoupled by the queue.",
+      "explain": "Producer and Consumer run at different speeds — queue acts as buffer\nProducer waits when queue is full, Consumer waits when queue is empty\nIn Java — BlockingQueue handles waiting automatically\nUsed in Kafka, thread pools, task queues everywhere",
+      "example": "\"Producer-Consumer decouples the producer from the consumer using a shared queue. Producer puts items in, consumer takes items out. If queue is full producer waits, if empty consumer waits. In Java I use BlockingQueue which handles all the waiting and signaling internally. This pattern is everywhere — Kafka is essentially a distributed Producer-Consumer.\"",
+      "summary10s": "Producer adds, Consumer takes, BlockingQueue handles waiting — decoupled by buffer."
+    }
+  },
+  {
+    "id": "coding-first-non-repeating-character-stream",
+    "category": "Java Coding",
+    "question": "Find the first non-repeating character using Java 8 Streams",
+    "frequency": 4,
+    "companies": [
+      "EPAM"
+    ],
+    "variations": [
+      "Find the first non-repeating character in a string.",
+      "Find first non-repeated character in String"
+    ],
+    "answerSEE": {
+      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
+      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
+      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
+      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
+    }
+  },
+  {
+    "id": "given-a-list-of-integers-find-print-duplicate-values-using-java-8-streams",
+    "category": "Java Coding",
+    "question": "Given a list of integers, find/print duplicate values using Java 8 Streams.",
+    "frequency": 4,
+    "companies": [
+      "Accenture",
+      "Capgemini"
+    ],
+    "variations": [
+      "Find duplicate elements using Streams",
+      "Find duplicate elements",
+      "Find duplicate elements in an array"
+    ],
+    "answerSEE": {
+      "simple": "Use a Set to track seen items, and filter the stream based on whether adding the item to the Set fails.",
+      "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
+      "example": "I would initialize a `Set<Integer> seen = new HashSet<>();`. Then I'd create the stream from the list and use `list.stream().filter(n -> !seen.add(n)).forEach(System.out::println);`. It runs in O(N) time and requires O(N) space for the Set.",
+      "summary10s": "Create an external Set. Use `.filter(n -> !set.add(n))` inside the stream."
+    }
+  },
+  {
+    "id": "java-concurrenthashmap-internals",
+    "category": "Java",
+    "question": "ConcurrentHashMap internals.",
+    "frequency": 4,
+    "companies": [
+      "JPMorganChase"
+    ],
+    "variations": [
+      "How does ConcurrentHashMap work internally?"
+    ],
+    "answerSEE": {
+      "simple": "It achieves thread safety without locking the entire map by locking only the specific bucket being updated.",
+      "explain": "Before Java 8, it used Segment-based locking. In Java 8+, it uses CAS (Compare-And-Swap) for empty buckets and a synchronized block on the first node (the head) of the bucket for updates. Reads are completely lock-free.",
+      "example": "\"ConcurrentHashMap scales incredibly well because it uses bucket-level locking. If Thread A writes to bucket 1 and Thread B writes to bucket 5, they execute simultaneously without blocking each other. And reads don't use locks at all, making them extremely fast.\"",
+      "summary10s": "Thread-safe via bucket-level locking (synchronized on node head) and CAS. Reads are lock-free."
     }
   },
   {
@@ -1743,22 +2024,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-concurrenthashmap-internals",
-    "category": "Java",
-    "question": "ConcurrentHashMap internals.",
-    "frequency": 3,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "It achieves thread safety without locking the entire map by locking only the specific bucket being updated.",
-      "explain": "Before Java 8, it used Segment-based locking. In Java 8+, it uses CAS (Compare-And-Swap) for empty buckets and a synchronized block on the first node (the head) of the bucket for updates. Reads are completely lock-free.",
-      "example": "\"ConcurrentHashMap scales incredibly well because it uses bucket-level locking. If Thread A writes to bucket 1 and Thread B writes to bucket 5, they execute simultaneously without blocking each other. And reads don't use locks at all, making them extremely fast.\"",
-      "summary10s": "Thread-safe via bucket-level locking (synchronized on node head) and CAS. Reads are lock-free."
-    }
-  },
-  {
     "id": "coding-combination-sum-2",
     "category": "Java Coding",
     "question": "Combination Sum II.",
@@ -2011,25 +2276,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "api-gateway-and-why-it-s-required",
-    "category": "Microservices",
-    "question": "API Gateway and why it's required",
-    "frequency": 3,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "API Gateway vs Load Balancer — what is the difference?",
-      "What does an API Gateway do?"
-    ],
-    "answerSEE": {
-      "simple": "API Gateway is a single entry point that routes client requests to the correct microservice.",
-      "explain": "Handles routing, authentication, rate limiting in one place\nClients don't need to know individual service addresses\nReduces cross-cutting logic duplication across services",
-      "example": "\"API Gateway acts as a single entry point for all client requests and routes them to the right microservice internally. It's required because it centralizes things like authentication, rate limiting, and logging, so individual services don't have to repeat that logic. I've used Spring Cloud Gateway for this in a microservices setup.\"",
-      "summary10s": "Single entry point → routing + auth + rate limiting, centralized."
-    }
-  },
-  {
     "id": "rest-vs-soap-what-are-the-diff",
     "category": "System Design",
     "question": "REST vs SOAP — what are the differences?",
@@ -2099,23 +2345,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "restcontroller-vs-controller",
-    "category": "Spring Boot",
-    "question": "@RestController vs @Controller",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "What is the difference between @Controller and @RestController?",
-      "Controller vs RestController?"
-    ],
-    "answerSEE": {
-      "simple": "@RestController returns data directly (like JSON); @Controller is used for returning views.",
-      "explain": "@Controller — typically returns a view name (used with Thymeleaf/JSP)\n@RestController = @Controller + @ResponseBody — returns data directly serialized as JSON/XML\nREST APIs almost always use @RestController",
-      "example": "\"@Controller is traditionally used when we're returning a view, like a Thymeleaf template. @RestController is a combination of @Controller and @ResponseBody, so every method's return value is directly serialized into the response body, usually as JSON. Since I mostly build REST APIs, I use @RestController almost everywhere.\"",
-      "summary10s": "@Controller = returns view, @RestController = @Controller + @ResponseBody (returns JSON)."
-    }
-  },
-  {
     "id": "explain-transactional-annotation-in-spring",
     "category": "Spring Boot",
     "question": "Explain @Transactional annotation in Spring",
@@ -2149,27 +2378,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Zone.js patches async operations and notifies Angular when something might have changed\nAngular traverses component tree from root checking each component\nDefault — every component checked every cycle\nOnPush — component skipped unless Input changed, async emitted, or DOM event fired",
       "example": "\"Zone.js intercepts all async operations — setTimeout, HTTP calls, events — and triggers Angular change detection after each. Angular then walks the component tree from root to leaves checking if any data bound in templates changed. Default strategy checks everything. OnPush skips components unless they are specifically marked dirty.\"",
       "summary10s": "Zone.js triggers detection, Angular walks tree checking templates, Default=all, OnPush=only marked dirty."
-    }
-  },
-  {
-    "id": "spring-component-vs-service-vs-bean",
-    "category": "Spring Boot",
-    "question": "What is the difference between @Service, @Component, and @Bean?",
-    "frequency": 3,
-    "companies": [
-      "Accolite",
-      "Bounteous India"
-    ],
-    "variations": [
-      "What Spring Boot annotations have you used in your real-time project?",
-      "What is the real difference between @Component, @Bean, and @Configuration beyond “they create beans”?",
-      "What is the @Bean annotation, and what are the internal mechanisms Spring uses to inject these beans?"
-    ],
-    "answerSEE": {
-      "simple": "@Component is a generic stereotype. @Service is a specialized @Component for business logic. @Bean is used on methods to inject third-party classes.",
-      "explain": "`@Component` marks a class to be picked up by component scanning. `@Service` is technically identical to `@Component` but adds semantic meaning to show it holds business logic. `@Bean` is completely different: it is applied to a *method* (usually inside a `@Configuration` class) to explicitly tell Spring to register the returned object as a bean, which is required when you don't own the class's source code.",
-      "example": "\"I use `@Service` on my own business classes so Spring auto-detects them. But if I need to inject a `RestTemplate` or a `HikariDataSource`—which are external classes I can't modify—I write a method returning that object, annotate it with `@Bean`, and Spring manages it.\"",
-      "summary10s": "@Component/@Service are on classes you own (auto-scanned). @Bean is on methods returning 3rd-party classes."
     }
   },
   {
@@ -2214,134 +2422,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-are-the-java-8-features-you-have-used",
-    "category": "Java",
-    "question": "What are the Java 8 features you have used?",
-    "frequency": 3,
-    "companies": [
-      "Accenture",
-      "Deloitte"
-    ],
-    "variations": [
-      "Key Java 8 features (Streams, Lambdas, Functional interfaces)",
-      "What are java 8 features do you know? Which ones have you implemented in your project?"
-    ],
-    "answerSEE": {
-      "simple": "I mostly use Streams, Lambdas, Optional, and the new Date/Time API.",
-      "explain": "Java 8 changed how we write Java. Streams allow declarative data processing. Lambdas provide concise implementations for functional interfaces. Optional prevents NullPointerExceptions, and the java.time package replaces the old, thread-unsafe Date/Calendar classes.",
-      "example": "In my current project, I use Streams heavily to map and filter lists of DTOs. I use Optional as a return type for database queries to force null-checking, and I use the LocalDate API for all timestamp logging because it's thread-safe and immutable.",
-      "summary10s": "Streams (processing), Lambdas (concise code), Optional (null-safety), Date/Time API (thread-safe dates)."
-    }
-  },
-  {
-    "id": "how-do-microservices-communicate-with-each-other",
-    "category": "Microservices",
-    "question": "How do microservices communicate with each other?",
-    "frequency": 3,
-    "companies": [
-      "Flipkart"
-    ],
-    "variations": [
-      "How do microservices communicate?",
-      "Microservices Communication"
-    ],
-    "answerSEE": {
-      "simple": "Synchronously via REST/gRPC or asynchronously via Message Brokers like Kafka/RabbitMQ.",
-      "explain": "Synchronous communication blocks the caller until a response is received, which is good for querying data but creates tight coupling. Asynchronous communication uses events/messages, which is fire-and-forget, leading to loose coupling and better fault tolerance.",
-      "example": "We use two main approaches. For real-time data fetching, like the Order service asking the User service for a profile, we use REST APIs via Feign Client. For state changes, like sending an email after an order is placed, we use asynchronous events via Kafka so the Order service doesn't have to wait for the email to send.",
-      "summary10s": "REST/gRPC for synchronous reads. Kafka/RabbitMQ for asynchronous events."
-    }
-  },
-  {
-    "id": "how-did-you-handle-global-exception-handling",
-    "category": "Spring Boot",
-    "question": "How did you handle global exception handling?",
-    "frequency": 3,
-    "companies": [
-      "Flipkart"
-    ],
-    "variations": [
-      "Global Exception Handling",
-      "Spring Boot Exception Handling"
-    ],
-    "answerSEE": {
-      "simple": "By using @RestControllerAdvice and @ExceptionHandler annotations in Spring Boot.",
-      "explain": "@RestControllerAdvice intercepts exceptions thrown globally across all controllers. Inside it, methods annotated with @ExceptionHandler specify which exception to catch (like CustomNotFoundException). We then return a standardized JSON error response.",
-      "example": "I created a GlobalExceptionHandler class annotated with @RestControllerAdvice. Inside it, I wrote methods with @ExceptionHandler(ResourceNotFoundException.class) to catch specific exceptions. These methods return a custom ErrorResponse object containing the timestamp, error message, and HTTP status code, ensuring the client always gets a consistent JSON format instead of a messy stack trace.",
-      "summary10s": "@RestControllerAdvice + @ExceptionHandler to return a consistent JSON error response."
-    }
-  },
-  {
-    "id": "reverse-a-string-without-built-in-methods",
-    "category": "Java Coding",
-    "question": "Reverse a String without built-in methods.",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Reverse String Without Predefined Methods",
-      "Reverse a String without using inbuilt methods"
-    ],
-    "answerSEE": {
-      "simple": "Use a loop from end to start, build reversed string character by character.",
-      "explain": "Loop from last index to 0\nAppend each character to a new string or StringBuilder\nStringBuilder approach is more efficient — no new String object each iteration\nTime O(n), Space O(n)",
-      "example": "\"I loop from the last index of the string down to zero and append each character to a StringBuilder. Finally I return the StringBuilder as a string. This avoids using reverse method and runs in O(n) time. Using StringBuilder instead of string concatenation avoids creating unnecessary intermediate string objects.\"",
-      "summary10s": "Loop from end to start, append each char to StringBuilder, return result."
-    }
-  },
-  {
-    "id": "how-to-optimize-slow-queries",
-    "category": "Java",
-    "question": "How to optimize slow queries?",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Troubleshooting a slow query",
-      "SQL Optimization"
-    ],
-    "answerSEE": {
-      "simple": "Optimize slow queries by indexing, avoiding unnecessary data fetching, and analyzing the execution plan.",
-      "explain": "Add proper indexes on frequently filtered/joined columns\nUse EXPLAIN ANALYZE to check query execution plan\nAvoid SELECT *, fetch only needed columns; use pagination for large data\nFix N+1 issues and use proper fetch strategies",
-      "example": "\"To optimize slow queries, I first check the execution plan using EXPLAIN ANALYZE to see if indexes are being used properly. Then I add indexes on columns used in WHERE or JOIN clauses. I also avoid fetching unnecessary columns, use pagination for large result sets, and make sure I'm not hitting N+1 issues from lazy loading.\"",
-      "summary10s": "Index + EXPLAIN ANALYZE + avoid SELECT * + pagination."
-    }
-  },
-  {
-    "id": "producer-consumer-pattern",
-    "category": "Java",
-    "question": "Producer-Consumer Pattern",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Producer-Consumer Problem and Solutions",
-      "Producer Consumer problem"
-    ],
-    "answerSEE": {
-      "simple": "Producer adds to shared queue, Consumer takes from it — decoupled by the queue.",
-      "explain": "Producer and Consumer run at different speeds — queue acts as buffer\nProducer waits when queue is full, Consumer waits when queue is empty\nIn Java — BlockingQueue handles waiting automatically\nUsed in Kafka, thread pools, task queues everywhere",
-      "example": "\"Producer-Consumer decouples the producer from the consumer using a shared queue. Producer puts items in, consumer takes items out. If queue is full producer waits, if empty consumer waits. In Java I use BlockingQueue which handles all the waiting and signaling internally. This pattern is everywhere — Kafka is essentially a distributed Producer-Consumer.\"",
-      "summary10s": "Producer adds, Consumer takes, BlockingQueue handles waiting — decoupled by buffer."
-    }
-  },
-  {
-    "id": "coding-first-non-repeating-character-stream",
-    "category": "Java Coding",
-    "question": "Find the first non-repeating character using Java 8 Streams",
-    "frequency": 3,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "Find the first non-repeating character in a string.",
-      "Find first non-repeated character in String"
-    ],
-    "answerSEE": {
-      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
-      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
-      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
-      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
-    }
-  },
-  {
     "id": "trace-request-microservices",
     "category": "Microservices",
     "question": "How do you trace a request across multiple services?",
@@ -2356,6 +2436,40 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When a request hits the first service, a unique Trace ID is generated. This ID is passed in the HTTP headers to every subsequent downstream service. Each service also generates its own Span ID to track its specific execution.",
       "example": "\"To debug a slow request across 5 microservices, I use distributed tracing. Micrometer assigns a unique Trace ID at the API Gateway. This ID is passed via headers to all downstream services. I can then open Zipkin, search for that Trace ID, and see a visual waterfall chart of exactly how much time each service took.\"",
       "summary10s": "Generate a unique Trace ID at entry, pass it in headers, visualize in Zipkin/Jaeger."
+    }
+  },
+  {
+    "id": "daemon-thread",
+    "category": "Java",
+    "question": "Daemon Thread",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "Daemon Thread",
+      "What is a Daemon Thread?"
+    ],
+    "answerSEE": {
+      "simple": "A daemon thread is a background thread that doesn't stop the JVM from exiting.",
+      "explain": "JVM exits once all non-daemon (user) threads finish, ignoring daemon threads\nSet using thread.setDaemon(true) before calling start()\nUsed for background tasks like garbage collection, logging",
+      "example": "\"A daemon thread runs in the background and doesn't prevent the JVM from shutting down — once all normal threads finish, the JVM exits even if daemon threads are still running. Garbage collection is a classic example. We set it using setDaemon(true) before starting the thread.\"",
+      "summary10s": "Background thread — JVM doesn't wait for it to finish."
+    }
+  },
+  {
+    "id": "solid-principles-with-real-time-example",
+    "category": "Java",
+    "question": "SOLID principles with real-time example",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "SOLID Principles",
+      "SOLID principles with real-time example?"
+    ],
+    "answerSEE": {
+      "simple": "Five design principles for clean, maintainable, and extensible object-oriented code.",
+      "explain": "S — Single Responsibility, one class one reason to change\nO — Open Closed, open for extension closed for modification\nL — Liskov Substitution, subclass should replace parent without breaking behavior\nI — Interface Segregation, small specific interfaces not one fat interface\nD — Dependency Inversion, depend on abstractions not concrete classes",
+      "example": "\"SOLID helps me write maintainable code. Single Responsibility means each class does one thing. Open Closed means I add features by extending not modifying. Liskov means subclasses should work wherever parent is expected. Interface Segregation means split fat interfaces into focused ones. Dependency Inversion means depend on interfaces not implementations — this is what enables Spring DI.\"",
+      "summary10s": "Single Responsibility, Open Closed, Liskov, Interface Segregation, Dependency Inversion."
     }
   },
   {
@@ -2683,24 +2797,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "given-a-list-of-integers-find-print-duplicate-values-using-java-8-streams",
-    "category": "Java Coding",
-    "question": "Given a list of integers, find/print duplicate values using Java 8 Streams.",
-    "frequency": 2,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [
-      "Find duplicate elements using Streams"
-    ],
-    "answerSEE": {
-      "simple": "Use a Set to track seen items, and filter the stream based on whether adding the item to the Set fails.",
-      "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
-      "example": "I would initialize a `Set<Integer> seen = new HashSet<>();`. Then I'd create the stream from the list and use `list.stream().filter(n -> !seen.add(n)).forEach(System.out::println);`. It runs in O(N) time and requires O(N) space for the Set.",
-      "summary10s": "Create an external Set. Use `.filter(n -> !set.add(n))` inside the stream."
-    }
-  },
-  {
     "id": "singleton-design-pattern",
     "category": "System Design",
     "question": "Singleton Design Pattern",
@@ -2764,38 +2860,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "save() — marks entity as persistent, actual SQL may not execute until flush happens at commit\nsaveAndFlush() — immediately executes SQL to DB, useful when subsequent logic needs DB-generated values\nflush() — forces SQL execution without committing the transaction\nUse case for saveAndFlush — save entity then call a stored procedure that needs that data in same transaction\nCode:\n// save() — SQL executes at transaction commit\nEmployee emp = new Employee(\"Alice\", \"Engineering\");\nemployeeRepository.save(emp);\n// At this point, emp.id might be null if DB assigns it\n// SQL executes when transaction flushes (usually at commit)\n\n// saveAndFlush() — SQL executes immediately\nEmployee emp = new Employee(\"Alice\", \"Engineering\");\nemployeeRepository.saveAndFlush(emp);\n// emp.id is populated NOW — DB has the row, generated ID is available\nLong empId = emp.getId(); // available immediately\n\n// Use case — save then immediately reference\nDepartment dept = new Department(\"Engineering\");\ndepartmentRepository.saveAndFlush(dept); // flush to DB now\n// Now I can reference dept.getId() in the next query\nList<Employee> emps = employeeRepository.findByDepartmentId(dept.getId());",
       "example": "\"save() stages the entity in the persistence context but SQL execution timing is controlled by Hibernate's flush mode — usually at transaction commit. saveAndFlush() forces immediate SQL execution to the database right now, still within the same transaction. I use saveAndFlush when I need the database-generated ID or need to reference the saved record in a subsequent query within the same transaction. For normal use save() is sufficient and better for batching multiple operations.\"",
       "summary10s": "save()=stages in context SQL at flush/commit, saveAndFlush()=immediate SQL to DB. Use saveAndFlush when DB-generated ID needed immediately or for same-transaction reference."
-    }
-  },
-  {
-    "id": "daemon-thread",
-    "category": "Java",
-    "question": "Daemon Thread",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Daemon Thread"
-    ],
-    "answerSEE": {
-      "simple": "A daemon thread is a background thread that doesn't stop the JVM from exiting.",
-      "explain": "JVM exits once all non-daemon (user) threads finish, ignoring daemon threads\nSet using thread.setDaemon(true) before calling start()\nUsed for background tasks like garbage collection, logging",
-      "example": "\"A daemon thread runs in the background and doesn't prevent the JVM from shutting down — once all normal threads finish, the JVM exits even if daemon threads are still running. Garbage collection is a classic example. We set it using setDaemon(true) before starting the thread.\"",
-      "summary10s": "Background thread — JVM doesn't wait for it to finish."
-    }
-  },
-  {
-    "id": "solid-principles-with-real-time-example",
-    "category": "Java",
-    "question": "SOLID principles with real-time example",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "SOLID Principles"
-    ],
-    "answerSEE": {
-      "simple": "Five design principles for clean, maintainable, and extensible object-oriented code.",
-      "explain": "S — Single Responsibility, one class one reason to change\nO — Open Closed, open for extension closed for modification\nL — Liskov Substitution, subclass should replace parent without breaking behavior\nI — Interface Segregation, small specific interfaces not one fat interface\nD — Dependency Inversion, depend on abstractions not concrete classes",
-      "example": "\"SOLID helps me write maintainable code. Single Responsibility means each class does one thing. Open Closed means I add features by extending not modifying. Liskov means subclasses should work wherever parent is expected. Interface Segregation means split fat interfaces into focused ones. Dependency Inversion means depend on interfaces not implementations — this is what enables Spring DI.\"",
-      "summary10s": "Single Responsibility, Open Closed, Liskov, Interface Segregation, Dependency Inversion."
     }
   },
   {
@@ -4684,6 +4748,112 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Strong: Normal objects, never GC'd if referenced. Soft: GC'd only if the JVM is desperately running out of memory (good for caches). Weak: GC'd immediately on the next GC cycle if no strong references exist. Phantom: Used for pre-mortem cleanup scheduling instead of finalize().",
       "example": "\"If I build an in-memory image cache, I use SoftReferences. This way, the JVM keeps the images in memory normally, but if the server is about to throw an OutOfMemoryError, the GC will automatically clear my cache to save the application.\"",
       "summary10s": "Strong = never die. Soft = die on OOM. Weak = die on next GC. Phantom = for cleanup."
+    }
+  },
+  {
+    "id": "collections-framework",
+    "category": "Java",
+    "question": "Collections Framework",
+    "frequency": 2,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Collections Internal Working"
+    ],
+    "answerSEE": {
+      "simple": "A unified architecture for storing and manipulating groups of objects (Lists, Sets, Maps).",
+      "explain": "It provides interfaces like List (ordered, duplicates), Set (unordered, unique), and Map (key-value pairs) with implementations like ArrayList, HashSet, and HashMap.",
+      "example": "\"I use ArrayList for fast iteration, HashSet to remove duplicates, and HashMap for fast key-based lookups.\"",
+      "summary10s": "List=ordered, Set=unique, Map=key-value lookup."
+    }
+  },
+  {
+    "id": "multithreading-basics",
+    "category": "Java",
+    "question": "Multithreading",
+    "frequency": 2,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Multithreading executes multiple threads concurrently to maximize CPU utilization.",
+      "explain": "Threads share the same memory space but have their own call stack. They can be created by extending Thread or implementing Runnable/Callable. Synchronization is needed to prevent race conditions.",
+      "example": "\"I use multithreading to process independent tasks in parallel, often using ExecutorService to manage thread pools efficiently instead of creating manual threads.\"",
+      "summary10s": "Concurrent execution maximizing CPU, managed safely via ExecutorService."
+    }
+  },
+  {
+    "id": "sql-joins",
+    "category": "SQL",
+    "question": "Joins",
+    "frequency": 2,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "INNER JOIN vS LEFT JOIN"
+    ],
+    "answerSEE": {
+      "simple": "Joins combine rows from two or more tables based on a related column.",
+      "explain": "INNER JOIN returns matching rows in both. LEFT JOIN returns all from the left table and matches from the right. RIGHT JOIN is the opposite. FULL OUTER JOIN returns all rows from both when there is a match.",
+      "example": "\"I use INNER JOIN to get orders that have valid customers, and LEFT JOIN if I need all customers, even those who haven't placed any orders yet.\"",
+      "summary10s": "INNER=matches only, LEFT=all left + matches, RIGHT=all right + matches."
+    }
+  },
+  {
+    "id": "group-by-having",
+    "category": "SQL",
+    "question": "Group By & Having",
+    "frequency": 2,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Difference between WHERE and HAVING"
+    ],
+    "answerSEE": {
+      "simple": "GROUP BY groups rows with the same values. HAVING filters those groups.",
+      "explain": "WHERE filters rows before grouping. GROUP BY aggregates data (like COUNT, SUM). HAVING acts like WHERE but applies after aggregation.",
+      "example": "\"I use 'GROUP BY department' to get the total salary per department. If I only want departments with totals over 100k, I add 'HAVING SUM(salary) > 100k'.\"",
+      "summary10s": "WHERE filters rows, GROUP BY aggregates, HAVING filters the grouped aggregates."
+    }
+  },
+  {
+    "id": "count-char-frequency",
+    "category": "Java Coding",
+    "question": "Count character frequency",
+    "frequency": 2,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Count frequency of characters using HashMap"
+    ],
+    "answerSEE": {
+      "simple": "Loop through the string and use a HashMap or Java 8 Streams (Collectors.groupingBy) to count occurrences.",
+      "explain": "In Java 8: s.chars().mapToObj(c -> (char)c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).",
+      "example": "\"To count characters, I prefer the Java 8 approach with Collectors.groupingBy. It elegantly groups by the character itself and counts them into a Map in one readable line.\"",
+      "summary10s": "Use a HashMap to store chars as keys and increments as values, or Java 8 groupingBy."
+    }
+  },
+  {
+    "id": "java-8-stream-programs",
+    "category": "Java Coding",
+    "question": "Java 8 Stream programs",
+    "frequency": 2,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Java 8 Streams"
+    ],
+    "answerSEE": {
+      "simple": "Common stream operations include filter(), map(), sorted(), and collect().",
+      "explain": "They allow declarative processing of collections. You can easily find max/min, sum elements, group by fields, or flatten nested lists.",
+      "example": "\"I use streams daily. For instance, finding all active users and extracting their emails is just users.stream().filter(u -> u.isActive()).map(User::getEmail).collect(Collectors.toList()).\"",
+      "summary10s": "Declarative collection processing: filter, map, collect, reduce."
     }
   },
   {
@@ -16074,5 +16244,779 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "frequency": 1,
     "companies": [],
     "variations": []
+  },
+  {
+    "id": "oops-concepts",
+    "category": "Java",
+    "question": "OOPs concepts",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "OOPs concepts include Encapsulation, Inheritance, Polymorphism, and Abstraction.",
+      "explain": "These four pillars structure code. Encapsulation hides data, Inheritance reuses code, Polymorphism allows multiple forms, and Abstraction hides complexity.",
+      "example": "\"I use Encapsulation to protect state with private fields. I use Polymorphism for method overriding to change behavior dynamically.\"",
+      "summary10s": "Encapsulation, Inheritance, Polymorphism, and Abstraction structure object-oriented code."
+    }
+  },
+  {
+    "id": "string-vs-builder-vs-buffer",
+    "category": "Java",
+    "question": "String vs StringBuilder vs StringBuffer",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "String is immutable. StringBuilder is mutable and not thread-safe. StringBuffer is mutable and thread-safe.",
+      "explain": "Because String is immutable, modifying it creates new objects. StringBuilder modifies the same object and is fast. StringBuffer synchronizes methods for thread-safety but is slower.",
+      "example": "\"I use String for constants. When concatenating in a loop, I use StringBuilder. If multiple threads share the builder, I use StringBuffer.\"",
+      "summary10s": "String=immutable. StringBuilder=mutable fast. StringBuffer=mutable thread-safe."
+    }
+  },
+  {
+    "id": "exception-handling-core",
+    "category": "Java",
+    "question": "Exception handling",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Exception handling gracefully manages runtime errors using try, catch, finally, throw, and throws.",
+      "explain": "It prevents application crashes. Checked exceptions must be declared or caught. Unchecked exceptions occur at runtime. The finally block executes regardless of errors.",
+      "example": "\"I wrap risky operations in try-catch blocks and always use finally or try-with-resources to close connections, ensuring no resource leaks.\"",
+      "summary10s": "Try-catch-finally manages errors and resource cleanup."
+    }
+  },
+  {
+    "id": "spring-vs-spring-boot",
+    "category": "Spring Boot",
+    "question": "Spring vs Spring Boot",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring is a framework that requires extensive XML/Java configuration. Spring Boot provides auto-configuration and embedded servers.",
+      "explain": "Spring provides dependency injection and modules but takes time to set up. Spring Boot sits on top of Spring, uses sensible defaults (@EnableAutoConfiguration), and embeds Tomcat, making it ready to run instantly.",
+      "example": "\"With Spring, I had to configure DispatcherServlet and Tomcat manually. With Spring Boot, I just add the web starter and use @SpringBootApplication to run a production-ready app in seconds.\"",
+      "summary10s": "Spring=manual config, Spring Boot=auto-config + embedded server."
+    }
+  },
+  {
+    "id": "spring-boot-actuator",
+    "category": "Spring Boot",
+    "question": "Spring Boot Actuator",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Actuator provides built-in endpoints to monitor and manage a Spring Boot application.",
+      "explain": "It exposes metrics, health checks (/actuator/health), environment properties, and thread dumps without writing extra code. Essential for production monitoring.",
+      "example": "\"I expose the /actuator/health endpoint so Kubernetes or AWS target groups can check if the pod is alive and ready to receive traffic.\"",
+      "summary10s": "Production-ready endpoints for health, metrics, and monitoring."
+    }
+  },
+  {
+    "id": "spring-boot-project-structure",
+    "category": "Spring Boot",
+    "question": "Spring Boot project structure",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Standard layered architecture: Controllers, Services, Repositories, and Entities.",
+      "explain": "Controllers handle HTTP. Services contain business logic. Repositories handle database interactions. This separation of concerns keeps code testable and maintainable.",
+      "example": "\"I keep my @RestController lean. It receives the DTO, passes it to the @Service layer for business logic, and the Service uses @Repository interfaces to save entities.\"",
+      "summary10s": "Layered: Controller (HTTP) -> Service (Business Logic) -> Repository (DB)."
+    }
+  },
+  {
+    "id": "monolithic-vs-microservices",
+    "category": "Microservices",
+    "question": "Monolithic vs Microservices",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Monolith is a single deployable unit. Microservices are small, independent services communicating over a network.",
+      "explain": "Monoliths are easy to start but hard to scale and maintain as they grow. Microservices allow independent scaling, deployment, and diverse technology stacks, but introduce network complexity.",
+      "example": "\"If one module in a monolith crashes, the whole app dies. With microservices, if the email service goes down, the checkout service can still process payments.\"",
+      "summary10s": "Monolith=single unit, Microservices=independent, scalable network of services."
+    }
+  },
+  {
+    "id": "service-discovery",
+    "category": "Microservices",
+    "question": "Service Discovery",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A mechanism that allows microservices to find each other dynamically without hardcoding IP addresses.",
+      "explain": "Since microservice instances spin up and down (changing IPs), a Service Registry (like Eureka or Consul) keeps track of their locations. Services query the registry to find peers.",
+      "example": "\"Instead of hardcoding a payment service URL, the order service asks Eureka 'Where is the payment-service?'. Eureka returns the IP so the request can be routed.\"",
+      "summary10s": "Dynamic registry for microservices to find each other without hardcoded IPs."
+    }
+  },
+  {
+    "id": "sql-subqueries",
+    "category": "SQL",
+    "question": "Subqueries",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A query nested inside another query (SELECT, INSERT, UPDATE, or DELETE).",
+      "explain": "It's used to return data that will be used in the main query as a condition to further restrict the data to be retrieved. Can be correlated (depends on outer query) or non-correlated.",
+      "example": "\"I use a non-correlated subquery in the WHERE clause to find employees whose salary is greater than the average salary: WHERE salary > (SELECT AVG(salary) FROM employees).\"",
+      "summary10s": "Nested query providing intermediate data to the main query."
+    }
+  },
+  {
+    "id": "sql-indexes",
+    "category": "SQL",
+    "question": "Indexes",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Indexes speed up data retrieval by providing quick lookups, like an index in a book.",
+      "explain": "They are internally stored as B-Trees. While they make SELECT statements very fast, they slow down INSERT/UPDATE/DELETE because the index must also be updated.",
+      "example": "\"If my query 'SELECT * FROM users WHERE email = ?' is slow, I add an index on the email column. The DB then uses a fast tree search instead of scanning every row.\"",
+      "summary10s": "Speeds up SELECTs (B-Tree lookup), slows down writes (needs index update)."
+    }
+  },
+  {
+    "id": "array-string-coding",
+    "category": "Java Coding",
+    "question": "Array/String-based coding problems",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Problems focused on traversal, manipulation, or two-pointer techniques on contiguous memory structures.",
+      "explain": "Common tasks include finding palindromes, removing duplicates, array rotation, or finding pairs summing to a target (Two Sum). HashMaps and two-pointer techniques are most used.",
+      "example": "\"For Two Sum, instead of O(n^2) nested loops, I use a HashMap to store seen values and their indices, achieving O(n) time complexity.\"",
+      "summary10s": "Master HashMap lookups and Two-Pointer techniques for O(n) solutions."
+    }
+  },
+  {
+    "id": "sort-employee-streams",
+    "category": "Java Coding",
+    "question": "Sort Employee list using Comparator & Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use stream().sorted(Comparator.comparing(Employee::getSalary)).collect(Collectors.toList()).",
+      "explain": "You can chain comparators using .thenComparing() for multiple fields. It is declarative and clean.",
+      "example": "\"To sort employees by salary then by name, I use employees.stream().sorted(Comparator.comparing(Employee::getSalary).reversed().thenComparing(Employee::getName)).collect(Collectors.toList())\"",
+      "summary10s": "Use stream().sorted() with Comparator.comparing()."
+    }
+  },
+  {
+    "id": "top-n-highest-salaries",
+    "category": "Java Coding",
+    "question": "Find Top N highest salaries using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Sort descending by salary and use limit(N).",
+      "explain": "employees.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).limit(N).collect(Collectors.toList())",
+      "example": "\"For top 3 highest salaries, I map to salary, sort in reverse order, and use limit(3) before collecting.\"",
+      "summary10s": "stream().sorted(reversed).limit(N)."
+    }
+  },
+  {
+    "id": "group-employees-department",
+    "category": "Java Coding",
+    "question": "Group Employees by Department using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Collectors.groupingBy(Employee::getDepartment).",
+      "explain": "Returns a Map<String, List<Employee>>. You can also pass a downstream collector to count them.",
+      "example": "\"To group employees by their department, I simply use stream().collect(Collectors.groupingBy(Employee::getDepartment)).\"",
+      "summary10s": "Use Collectors.groupingBy()."
+    }
+  },
+  {
+    "id": "convert-list-to-map",
+    "category": "Java Coding",
+    "question": "Convert List to Map using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Collectors.toMap(keyMapper, valueMapper).",
+      "explain": "Handle duplicates by providing a merge function as the third argument to toMap().",
+      "example": "\"I convert a list of employees to a Map using stream().collect(Collectors.toMap(Employee::getId, Function.identity(), (e1, e2) -> e1)).\"",
+      "summary10s": "Collectors.toMap(key, value, mergeFunction)."
+    }
+  },
+  {
+    "id": "remove-duplicates-streams",
+    "category": "Java Coding",
+    "question": "Remove duplicates using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use stream().distinct().",
+      "explain": "Requires equals() and hashCode() to be properly overridden in the object.",
+      "example": "\"To get a unique list of departments from employees, I use map(Employee::getDepartment).distinct().collect(Collectors.toList()).\"",
+      "summary10s": "Use stream.distinct()."
+    }
+  },
+  {
+    "id": "balanced-parentheses",
+    "category": "Java Coding",
+    "question": "Balanced Parentheses problem using Stack",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Push opening brackets to a Stack. Pop and match when encountering closing brackets.",
+      "explain": "If the stack is empty or doesn't match on pop, it's unbalanced. If stack is empty at the end, it's balanced.",
+      "example": "\"I iterate through the string. Push '(' and pop when seeing ')'. If the popped element isn't '(', it's unbalanced.\"",
+      "summary10s": "Push open, pop on close and verify."
+    }
+  },
+  {
+    "id": "merge-sorted-arrays",
+    "category": "Java Coding",
+    "question": "Merge two sorted arrays",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use two pointers, one for each array, and pick the smaller element.",
+      "explain": "Compare arr1[i] and arr2[j]. Put the smaller one in the result array and increment its pointer. Finally, copy any remaining elements.",
+      "example": "\"To merge them efficiently without an extra sort, I use two pointers starting at index 0 of both arrays, and build the result array in O(n+m) time.\"",
+      "summary10s": "Two-pointer technique, pick smaller, copy remaining."
+    }
+  },
+  {
+    "id": "implement-lru-cache",
+    "category": "System Design",
+    "question": "Implement LRU Cache",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a HashMap and a Doubly Linked List, or simply extend LinkedHashMap and override removeEldestEntry.",
+      "explain": "HashMap gives O(1) access. Doubly Linked List gives O(1) removal and insertion to track the most recently used. In Java, LinkedHashMap does this natively.",
+      "example": "\"In an interview, I explain the HashMap + Doubly Linked List approach. But for production Java, I just extend LinkedHashMap and override removeEldestEntry to return size() > capacity.\"",
+      "summary10s": "HashMap + Doubly Linked List = O(1) LRU Cache."
+    }
+  },
+  {
+    "id": "retry-rest-api",
+    "category": "Microservices",
+    "question": "Retry failed REST API calls",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Resilience4j @Retry annotation or Spring Retry.",
+      "explain": "Configured with max attempts and exponential backoff to handle transient network glitches.",
+      "example": "\"I annotate my RestTemplate or FeignClient method with Resilience4j's @Retry, specifying a fallback method to execute if all 3 retries fail.\"",
+      "summary10s": "Use Resilience4j @Retry with exponential backoff."
+    }
+  },
+  {
+    "id": "spring-boot-pagination",
+    "category": "Spring Boot",
+    "question": "Pagination implementation in Spring Boot",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Pageable and PageRequest in Spring Data JPA.",
+      "explain": "Pass PageRequest.of(page, size) to the repository method. It automatically adds LIMIT and OFFSET to the query and returns a Page object.",
+      "example": "\"I accept page and size as request params, convert them to a Pageable object, and pass it to my JpaRepository. It returns a Page containing the content and total elements.\"",
+      "summary10s": "Pass Pageable to JpaRepository, returns a Page."
+    }
+  },
+  {
+    "id": "rate-limiter-implementation",
+    "category": "System Design",
+    "question": "Rate Limiter implementation",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Implement Token Bucket algorithm or use libraries like Resilience4j / Redis.",
+      "explain": "A rate limiter restricts the number of requests a user can make in a given time frame to prevent abuse and DDoS attacks.",
+      "example": "\"I use Resilience4j's @RateLimiter in Spring Boot, or Redis with a sliding window pattern for distributed rate limiting across multiple instances.\"",
+      "summary10s": "Token Bucket, Resilience4j, or Redis sliding window."
+    }
+  },
+  {
+    "id": "write-immutable-class",
+    "category": "Java",
+    "question": "Write Immutable class in Java",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Make class final, fields private final, no setters, and deep copy mutable objects.",
+      "explain": "Deep copy is crucial in constructor and getters so the internal state cannot be modified via external references.",
+      "example": "\"I declare the class as final. I make all fields private final. If the class holds a Date or a List, I return a clone or an unmodifiable list in the getter.\"",
+      "summary10s": "Final class, private final fields, deep copy mutable fields."
+    }
+  },
+  {
+    "id": "nth-highest-salary",
+    "category": "SQL",
+    "question": "Find nth highest salary",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use DENSE_RANK() window function or LIMIT OFFSET.",
+      "explain": "DENSE_RANK() assigns a rank without skipping numbers for duplicates. LIMIT (N-1), 1 works in MySQL.",
+      "example": "\"I prefer using DENSE_RANK() OVER (ORDER BY salary DESC). Then I wrap it in a subquery and select where rank = N.\"",
+      "summary10s": "Use DENSE_RANK() OVER (ORDER BY salary DESC)."
+    }
+  },
+  {
+    "id": "remove-duplicates-sql",
+    "category": "SQL",
+    "question": "Remove duplicate records from table",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a CTE with ROW_NUMBER() and delete where row_number > 1.",
+      "explain": "Partition by the duplicate columns and order by ID. Delete the rows that get a rank of 2 or higher.",
+      "example": "\"I write a Common Table Expression using ROW_NUMBER() PARTITION BY email. Then I DELETE FROM CTE WHERE rn > 1.\"",
+      "summary10s": "CTE with ROW_NUMBER() > 1."
+    }
+  },
+  {
+    "id": "employees-same-salary",
+    "category": "SQL",
+    "question": "Employees having same salary",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a self-join or GROUP BY having COUNT() > 1.",
+      "explain": "SELECT salary, COUNT(*) FROM employees GROUP BY salary HAVING COUNT(*) > 1.",
+      "example": "\"To find the actual employees, I use a self join: SELECT e1.name, e2.name FROM emp e1 JOIN emp e2 ON e1.salary = e2.salary AND e1.id != e2.id.\"",
+      "summary10s": "GROUP BY salary HAVING COUNT(*) > 1 or Self Join."
+    }
+  },
+  {
+    "id": "dept-max-salary",
+    "category": "SQL",
+    "question": "Department-wise maximum salary query",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use GROUP BY department with MAX(salary) or a Window Function.",
+      "explain": "SELECT dept, MAX(salary) FROM emp GROUP BY dept. To get the employee details, use a subquery or DENSE_RANK().",
+      "example": "\"If I just need the number, I use GROUP BY. If I need the employee's name too, I use a subquery joining on both department and max salary.\"",
+      "summary10s": "GROUP BY dept with MAX(salary)."
+    }
+  },
+  {
+    "id": "pagination-limit-offset",
+    "category": "SQL",
+    "question": "Pagination using LIMIT & OFFSET",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use LIMIT to restrict rows and OFFSET to skip rows.",
+      "explain": "Formula for offset: (pageNumber - 1) * pageSize. Not efficient for deep pagination because the DB still scans skipped rows.",
+      "example": "\"For page 3 with size 10, I use LIMIT 10 OFFSET 20. But for massive tables, I use keyset pagination (WHERE id > last_id) instead.\"",
+      "summary10s": "LIMIT size OFFSET (page-1)*size."
+    }
+  },
+  {
+    "id": "find-duplicate-rows",
+    "category": "SQL",
+    "question": "Find duplicate rows in table",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use GROUP BY on all columns and HAVING COUNT(*) > 1.",
+      "explain": "Similar to finding duplicates on a single column, but you group by all the columns that define a duplicate.",
+      "example": "\"I just SELECT column1, column2, COUNT(*) FROM table GROUP BY column1, column2 HAVING COUNT(*) > 1.\"",
+      "summary10s": "GROUP BY columns HAVING COUNT(*) > 1."
+    }
+  },
+  {
+    "id": "count-emp-dept-wise",
+    "category": "SQL",
+    "question": "Count employees department-wise",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use GROUP BY department and COUNT(*).",
+      "explain": "SELECT department_id, COUNT(*) FROM employees GROUP BY department_id.",
+      "example": "\"I use SELECT dept, COUNT(id) FROM employees GROUP BY dept. If I want departments with 0 employees, I do a LEFT JOIN from the department table.\"",
+      "summary10s": "GROUP BY dept with COUNT(*)."
+    }
+  },
+  {
+    "id": "rest-api-best-practices",
+    "category": "Microservices",
+    "question": "REST API Best Practices",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use nouns instead of verbs, proper HTTP methods, return standard status codes, and version your API.",
+      "explain": "Use GET for read, POST for create, PUT for update. Return 201 Created, 404 Not Found, 400 Bad Request.",
+      "example": "\"I always design APIs using plural nouns like /users, use pagination for lists, and include a version prefix like /v1/users.\"",
+      "summary10s": "Plural nouns, proper HTTP methods, standard status codes."
+    }
+  },
+  {
+    "id": "optional-ispresent-ifpresent",
+    "category": "Java",
+    "question": "Optional: isPresent() vs ifPresent()?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "isPresent() checks if a value exists; ifPresent() executes a lambda function if the value exists.",
+      "explain": "isPresent() returns a boolean and is used in if-statements. ifPresent(Consumer) takes a Consumer functional interface and runs it only when the Optional is not empty.",
+      "example": "\"Instead of writing 'if(opt.isPresent()) { print(opt.get()); }', I just write 'opt.ifPresent(System.out::println)' for cleaner code.\"",
+      "summary10s": "isPresent = returns boolean. ifPresent = executes lambda if not empty."
+    }
+  },
+  {
+    "id": "oauth2-vs-jwt",
+    "category": "Spring Boot",
+    "question": "OAuth2 vs JWT?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "OAuth2 is a delegated authorization framework, whereas JWT is a token format often used within OAuth2.",
+      "explain": "OAuth2 defines how apps get access on behalf of a user (using flows like Authorization Code). JWT (JSON Web Token) is just a way to securely transmit JSON data as a token. OAuth2 servers often issue JWTs as access tokens.",
+      "example": "\"OAuth2 is the protocol describing how the user logs in and grants permission. JWT is the actual string token passed in the Authorization header to verify that permission.\"",
+      "summary10s": "OAuth2 is the authorization framework/protocol; JWT is the token format."
+    }
+  },
+  {
+    "id": "resttemplate-vs-webclient",
+    "category": "Spring Boot",
+    "question": "RestTemplate vs WebClient?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "RestTemplate is synchronous and blocking; WebClient is asynchronous, non-blocking, and reactive.",
+      "explain": "RestTemplate uses a thread-per-request model, tying up threads while waiting for a response. WebClient is part of Spring WebFlux, uses event loops, and can handle many concurrent requests with fewer threads.",
+      "example": "\"Spring is deprecating RestTemplate. For all new services, I use WebClient, especially for microservices that make multiple dependent API calls, so threads aren't blocked.\"",
+      "summary10s": "RestTemplate=sync/blocking. WebClient=async/non-blocking/reactive."
+    }
+  },
+  {
+    "id": "first-vs-second-level-cache",
+    "category": "Spring Boot",
+    "question": "First-level vs Second-level cache?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "First-level cache is session-scoped (default). Second-level cache is SessionFactory-scoped (shared across sessions).",
+      "explain": "Hibernate caches entities in the L1 cache within a single transaction/EntityManager. If the session closes, the cache is cleared. L2 cache (like Ehcache) must be explicitly enabled and is shared globally across the application.",
+      "example": "\"By default, if I query the same user twice in one transaction, Hibernate hits the DB once (L1 cache). But across two different requests, it hits the DB twice unless I configure an L2 cache.\"",
+      "summary10s": "L1 = default, per-transaction. L2 = optional, global app-level."
+    }
+  },
+  {
+    "id": "handle-concurrent-updates",
+    "category": "SQL",
+    "question": "How do you handle concurrent updates?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Optimistic Locking with a @Version field or Pessimistic Locking.",
+      "explain": "Optimistic Locking adds a version number to the table. If two users update the same row, the second one gets an ObjectOptimisticLockingFailureException. Pessimistic Locking locks the DB row explicitly using SELECT ... FOR UPDATE.",
+      "example": "\"I always prefer Optimistic Locking (@Version) because it doesn't hold DB locks. I only use Pessimistic locking for strictly serialized operations like financial transactions.\"",
+      "summary10s": "Optimistic Locking (@Version) for performance, Pessimistic for strict DB row locks."
+    }
+  },
+  {
+    "id": "design-payment-system",
+    "category": "System Design",
+    "question": "Design a Payment / NEFT Processing System",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use an event-driven architecture with idempotency, distributed transactions (Saga), and Dead Letter Queues.",
+      "explain": "Payment systems require ACID properties at the DB level, idempotent APIs (using idempotency keys) to prevent double charges, and a Saga pattern to handle rollbacks across microservices. Kafka is used for asynchronous processing.",
+      "example": "\"I design the payment API to accept an idempotency-key. If a network timeout happens and the client retries, the DB constraint ensures we don't process the same key twice.\"",
+      "summary10s": "Idempotency keys, Saga pattern, ACID databases, and Async messaging."
+    }
+  },
+  {
+    "id": "handle-1m-transactions",
+    "category": "System Design",
+    "question": "How to handle 1M+ transactions daily?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Horizontal Scaling, Read Replicas, Caching (Redis), and Async processing (Kafka).",
+      "explain": "1M/day is ~12 TPS, which is easy. But for spikes, stateless microservices allow auto-scaling. Offload heavy reads to DB Replicas and Redis. Use Kafka to queue burst transactions and process them at a steady rate.",
+      "example": "\"I'd use a load balancer, scale Spring Boot instances horizontally, cache frequent data in Redis, and use Kafka as a buffer to protect the database from write spikes.\"",
+      "summary10s": "Horizontal scaling, DB Read Replicas, Redis Caching, Kafka queuing."
+    }
+  },
+  {
+    "id": "data-consistency-microservices",
+    "category": "System Design",
+    "question": "How to ensure data consistency across services?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the Saga Pattern with compensating transactions, or the Outbox Pattern.",
+      "explain": "You cannot use traditional ACID transactions across microservices. The Outbox pattern ensures DB updates and message publishing happen atomically. The Saga pattern handles the multi-step process and rolls back (compensates) if a step fails.",
+      "example": "\"I use the Transactional Outbox pattern. When I save the order to the DB, I save an event in an 'outbox' table in the same transaction. A separate process reads the outbox and publishes to Kafka.\"",
+      "summary10s": "Outbox pattern for atomic event publishing, Saga pattern for distributed rollbacks."
+    }
+  },
+  {
+    "id": "distributed-locking",
+    "category": "System Design",
+    "question": "How to implement distributed locking?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Redis (Redisson) or ZooKeeper to manage locks across multiple microservice instances.",
+      "explain": "If you have 5 instances of a service and they all try to process a scheduled job, a distributed lock ensures only one instance proceeds. Redisson implements this easily in Java using Redis SETNX (Set if Not eXists).",
+      "example": "\"I use Redisson's RLock. Before processing a batch job, the instance tries to acquire the lock. If successful, it runs; otherwise, it skips. I always set a lease time to avoid deadlocks if the instance crashes.\"",
+      "summary10s": "Use Redis (SETNX via Redisson) or ZooKeeper to lock across instances."
+    }
+  },
+  {
+    "id": "tell-me-about-yourself",
+    "category": "Other",
+    "question": "Tell me about yourself?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Tell me about yourself?"
+    ],
+    "answerSEE": {
+      "simple": "A brief summary of your professional background, current role, and key achievements.",
+      "explain": "Start with a quick overview of your experience, highlight the most relevant skills for the job, and mention a recent accomplishment. Keep it structured and focused on your professional journey rather than personal details.",
+      "example": "\"I have over 5 years of experience in backend development, primarily using Java and Spring Boot. In my current role, I led the migration of a legacy monolith to microservices, improving system performance by 30%. I'm currently looking for opportunities where I can design scalable systems.\"",
+      "summary10s": "Brief professional background, relevant skills, and a key achievement."
+    }
+  },
+  {
+    "id": "explain-your-project",
+    "category": "Other",
+    "question": "Explain your project and your roles and responsibilities?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Explain your project and your roles and responsibilities?"
+    ],
+    "answerSEE": {
+      "simple": "Describe the project's purpose, architecture, and your specific contributions.",
+      "explain": "Explain the business problem the project solves, the tech stack used, and the architecture (like microservices or monolith). Then, detail your specific role, the features you built, and any challenges you overcame.",
+      "example": "\"My project is a payment gateway handling thousands of transactions daily. We use Java, Spring Boot, and Kafka for asynchronous processing. My main responsibility was designing the fraud detection module, which reduced fraudulent transactions by 15% using a rule-based engine.\"",
+      "summary10s": "Project purpose, tech stack, architecture, and your specific impact."
+    }
+  },
+  {
+    "id": "java-8-features",
+    "category": "Java",
+    "question": "What are the important features introduced in Java 8?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What are the important features introduced in Java 8?"
+    ],
+    "answerSEE": {
+      "simple": "Java 8 introduced functional programming concepts like Lambdas, Streams, and Functional Interfaces.",
+      "explain": "Key features include Lambda expressions for concise code, Stream API for functional-style operations on collections, Default and Static methods in interfaces to add new functionality without breaking existing code, Optional to prevent NullPointerExceptions, and the new Date and Time API (java.time).",
+      "example": "\"The most important features I use from Java 8 are Streams and Lambdas, which make data processing concise and readable. I also heavily use Optional to handle potential null values gracefully instead of using manual null checks.\"",
+      "summary10s": "Lambdas, Streams, Functional Interfaces, Optional, and new Date/Time API."
+    }
+  },
+  {
+    "id": "stream-api",
+    "category": "Java",
+    "question": "What is the Stream API? Explain some commonly used Stream methods?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is the Stream API? Explain some commonly used Stream methods?"
+    ],
+    "answerSEE": {
+      "simple": "A sequence of elements supporting sequential and parallel aggregate operations.",
+      "explain": "The Stream API allows you to process data declaratively. You can chain intermediate operations like filter(), map(), and sorted() which are lazy. Finally, a terminal operation like collect(), forEach(), or reduce() triggers the processing.",
+      "example": "\"I use the Stream API to process collections cleanly. For example, if I have a list of users, I can use .stream().filter(u -> u.isActive()).map(u -> u.getName()).collect(Collectors.toList()) to get a list of active user names in just one line of code.\"",
+      "summary10s": "Declarative data processing: intermediate (lazy) ops + terminal (eager) op."
+    }
+  },
+  {
+    "id": "spring-boot-global-exception-handling",
+    "category": "Spring Boot",
+    "question": "How do you implement Global Exception Handling in Spring Boot?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How do you implement Global Exception Handling in Spring Boot?"
+    ],
+    "answerSEE": {
+      "simple": "Use @ControllerAdvice and @ExceptionHandler to handle exceptions globally across all controllers.",
+      "explain": "@ControllerAdvice acts as an interceptor for exceptions thrown by any @RequestMapping method. Inside it, you define methods annotated with @ExceptionHandler for specific exception types. This allows returning a consistent ErrorResponse structure and HTTP status code.",
+      "example": "\"I create a class annotated with @ControllerAdvice. Inside, I have an @ExceptionHandler(ResourceNotFoundException.class) method that catches that specific exception anywhere in the app and returns a custom ErrorDTO with a 404 Not Found HTTP status.\"",
+      "summary10s": "@ControllerAdvice class with @ExceptionHandler methods for consistent error responses."
+    }
+  },
+  {
+    "id": "springbootapplication-annotation",
+    "category": "Spring Boot",
+    "question": "What is @SpringBootApplication? What annotations does it combine?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is @SpringBootApplication? What annotations does it combine?"
+    ],
+    "answerSEE": {
+      "simple": "@SpringBootApplication is a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.",
+      "explain": "@Configuration tags the class as a source of bean definitions. @EnableAutoConfiguration tells Spring Boot to automatically configure beans based on classpath dependencies. @ComponentScan tells Spring to look for other components, configurations, and services in the current package and its sub-packages.",
+      "example": "\"@SpringBootApplication is the entry point annotation. It's basically a shortcut so I don't have to write @Configuration, @EnableAutoConfiguration, and @ComponentScan separately. It sets up the default auto-configuration and component scanning from the root package downwards.\"",
+      "summary10s": "Combines @Configuration, @EnableAutoConfiguration, and @ComponentScan."
+    }
+  },
+  {
+    "id": "spring-boot-actuator",
+    "category": "Spring Boot",
+    "question": "What is Spring Boot Actuator? Why is it used?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is Spring Boot Actuator? Why is it used?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot Actuator provides production-ready features like health checks, metrics, and monitoring.",
+      "explain": "It exposes HTTP endpoints (like /actuator/health, /actuator/metrics, /actuator/info) that let you monitor and manage your application. It's crucial for Kubernetes liveness/readiness probes and integrating with monitoring tools like Prometheus.",
+      "example": "\"I use Spring Boot Actuator primarily for health checks. In Kubernetes, the /actuator/health endpoint is used for liveness and readiness probes to ensure traffic is only routed to healthy pods. I also expose the /actuator/prometheus endpoint to scrape application metrics.\"",
+      "summary10s": "Exposes endpoints for health checks, metrics, and application monitoring."
+    }
+  },
+  {
+    "id": "rest-template",
+    "category": "Spring Boot",
+    "question": "What is RestTemplate? Where have you used it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is RestTemplate? Where have you used it?"
+    ],
+    "answerSEE": {
+      "simple": "RestTemplate is a synchronous HTTP client provided by Spring for calling RESTful APIs.",
+      "explain": "It abstracts the complex boilerplate of making HTTP requests and maps the JSON response directly to Java objects. Although Spring now recommends WebClient for newer applications, RestTemplate is still widely used in legacy systems for making REST calls.",
+      "example": "\"I used RestTemplate to call a third-party payment API. I can use restTemplate.getForObject(url, PaymentResponse.class) to make a GET request and have Spring automatically deserialize the JSON response into my PaymentResponse Java object.\"",
+      "summary10s": "Synchronous Spring HTTP client for calling APIs and mapping responses to objects."
+    }
+  },
+  {
+    "id": "deploy-spring-boot",
+    "category": "Spring Boot",
+    "question": "How do you deploy a Spring Boot application?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How do you deploy a Spring Boot application?"
+    ],
+    "answerSEE": {
+      "simple": "Package it as an executable JAR using Maven/Gradle and run it with 'java -jar', or containerize it using Docker.",
+      "explain": "Spring Boot embeds a web server (like Tomcat), so you don't need a traditional application server. You can package the app as a fat JAR. In modern environments, you typically write a Dockerfile, build a Docker image containing the JAR, and deploy it to Kubernetes or a cloud provider.",
+      "example": "\"To deploy, I first build the fat JAR using 'mvn clean package'. Then, I use a Dockerfile to package this JAR into a Docker image based on a lightweight JRE. Finally, the image is pushed to a registry and deployed as a container in Kubernetes using a Deployment manifest.\"",
+      "summary10s": "Package as fat JAR with embedded server, usually containerized with Docker for deployment."
+    }
+  },
+  {
+    "id": "spring-custom-annotation",
+    "category": "Spring Boot",
+    "question": "How do you create a custom annotation in Spring?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How do you create a custom annotation in Spring?"
+    ],
+    "answerSEE": {
+      "simple": "Define an @interface and use meta-annotations like @Target and @Retention, then implement the logic using Spring AOP or a Validator.",
+      "explain": "You create the annotation using the @interface keyword. @Target specifies where it can be applied (Method, Field, etc.), and @Retention specifies its availability (usually RUNTIME). The actual behavior is implemented elsewhere, often using a Spring AOP Aspect that intercepts the annotated methods, or a custom ConstraintValidator.",
+      "example": "\"I created a custom @LogExecutionTime annotation. I defined it with @Target(ElementType.METHOD) and @Retention(RetentionPolicy.RUNTIME). Then, I wrote a Spring AOP Aspect with an @Around pointcut for that annotation, which calculates the method execution time and logs it.\"",
+      "summary10s": "Create @interface with @Target/@Retention, implement logic via AOP or Validator."
+    }
+  },
+  {
+    "id": "nearest-value-to-target",
+    "category": "Java Coding",
+    "question": "Find the nearest value to a target from given array",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Find the nearest value to a target from given array (3, 5, 9, 11, 13, target 10)."
+    ],
+    "answerSEE": {
+      "simple": "Iterate through the array and keep track of the element with the minimum absolute difference from the target.",
+      "explain": "Calculate Math.abs(currentElement - target) for each element. If this difference is smaller than the smallest difference found so far, update the closest element. To handle ties, you can define a rule like picking the smaller or larger number.",
+      "example": "\"To find the nearest value to 10 in [3, 5, 9, 11, 13], I initialize closest = array[0]. Then I loop through the array. The absolute difference for 9 is 1, and for 11 is 1. If I want the smaller number in a tie, I update closest only if the new difference is strictly less than the old difference. So it returns 9.\"",
+      "summary10s": "Find min(Math.abs(element - target)) in a loop. Define tie-breaking logic."
+    }
+  },
+  {
+    "id": "concurrentmodificationexception",
+    "category": "Java",
+    "question": "What is ConcurrentModificationException? When does it occur?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is ConcurrentModificationException? When does it occur?"
+    ],
+    "answerSEE": {
+      "simple": "It is thrown when a collection is modified while iterating over it using an iterator.",
+      "explain": "Java collections like ArrayList and HashMap use a fail-fast iterator backed by a modCount field. If you add or remove elements from the collection directly while iterating with a for-each or iterator, the modCount changes and the iterator detects the mismatch, throwing ConcurrentModificationException. Note that ConcurrentHashMap and CopyOnWriteArrayList use fail-safe iterators that work on a snapshot, so they don't throw this exception.",
+      "example": "\"ConcurrentModificationException happens when I modify a collection while iterating over it. For example, calling list.remove() inside a for-each loop. The fix is to use iterator.remove() instead, or use CopyOnWriteArrayList or ConcurrentHashMap which use fail-safe iterators that work on a copy or snapshot of the data.\"",
+      "summary10s": "Modifying a collection during iteration triggers it. Fix: use iterator.remove() or fail-safe collections."
+    }
   }
 ];
