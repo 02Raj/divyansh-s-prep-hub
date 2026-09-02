@@ -322,6 +322,62 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-a-functional-interface",
+    "category": "Java",
+    "question": "What is a Functional Interface?",
+    "frequency": 11,
+    "companies": [
+      "EPAM",
+      "Deloitte",
+      "HCL",
+      "GDAS"
+    ],
+    "variations": [
+      "What is a Functional Interface? Can it have default and static methods?",
+      "What is a functional interface",
+      "Can it have default and static methods",
+      "Common examples (Runnable, Comparator, Callable)",
+      "\"Runnable\" vs \"Callable\" — when would you choose each?",
+      "What is a functional interface in Java8?",
+      "Functional interfaces and their methods",
+      "What is a Functional Interface? Why can it have only one abstract method? Why can't it have multiple abstract methods?",
+      "What is the difference between a Functional Interface and a Marker Interface? What are their uses? Give some examples."
+    ],
+    "answerSEE": {
+      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
+      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
+      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
+      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
+    }
+  },
+  {
+    "id": "angular-dependency-injection",
+    "category": "Angular",
+    "question": "Dependency Injection",
+    "frequency": 11,
+    "companies": [
+      "Deloitte",
+      "TCS",
+      "GDAS"
+    ],
+    "variations": [
+      "What is Dependency Injection in Angular? Explain the different provider scopes.",
+      "Dependency Injection in Spring Boot",
+      "Explain Dependency Injection and IoC.",
+      "What are the different provider scopes in Angular?",
+      "Explain singleton design pattern.",
+      "What is Dependency Injection and why do we use it? How would you inject a service at the component level? - what's Singleton object means ?",
+      "Dependency Injection?",
+      "What is DI and how does Angular implement it?"
+    ],
+    "answerSEE": {
+      "simple": "DI means Angular provides a class's dependencies instead of the class creating them itself.",
+      "explain": "Angular's injector creates and provides service instances automatically\nReduces tight coupling, makes components easier to test\nInjected via constructor, using providedIn: 'root' for singleton services",
+      "example": "\"Dependency Injection in Angular means I don't manually create service instances inside a component — Angular's injector provides them automatically through the constructor. This makes testing much easier since I can inject mock services. I typically use providedIn: 'root' so the service becomes a singleton, shared across the whole application.\"",
+      "summary10s": "Angular injects dependencies via constructor — don't create with new."
+    }
+  },
+  {
     "id": "synchronized-vs-reentrantlock",
     "category": "Java",
     "question": "synchronized vs ReentrantLock?",
@@ -346,55 +402,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-dependency-injection",
-    "category": "Angular",
-    "question": "Dependency Injection",
+    "id": "explain-the-bean-lifecycle",
+    "category": "Spring Boot",
+    "question": "Explain the Bean Lifecycle.",
     "frequency": 10,
     "companies": [
       "Deloitte",
-      "TCS"
+      "HCL",
+      "GDAS"
     ],
     "variations": [
-      "What is Dependency Injection in Angular? Explain the different provider scopes.",
-      "Dependency Injection in Spring Boot",
-      "Explain Dependency Injection and IoC.",
-      "What are the different provider scopes in Angular?",
-      "Explain singleton design pattern.",
-      "What is Dependency Injection and why do we use it? How would you inject a service at the component level? - what's Singleton object means ?",
-      "Dependency Injection?"
+      "What is the complete lifecycle of a Spring bean?",
+      "Bean Lifecycle",
+      "Spring Bean Lifecycle",
+      "Explain Spring dependency injection and bean lifecycle.",
+      "Bean lifecycle?",
+      "Explain the Spring Boot bean lifecycle in detail?",
+      "Spring Bean lifecycle",
+      "Explain the Spring Bean Lifecycle."
     ],
     "answerSEE": {
-      "simple": "DI means Angular provides a class's dependencies instead of the class creating them itself.",
-      "explain": "Angular's injector creates and provides service instances automatically\nReduces tight coupling, makes components easier to test\nInjected via constructor, using providedIn: 'root' for singleton services",
-      "example": "\"Dependency Injection in Angular means I don't manually create service instances inside a component — Angular's injector provides them automatically through the constructor. This makes testing much easier since I can inject mock services. I typically use providedIn: 'root' so the service becomes a singleton, shared across the whole application.\"",
-      "summary10s": "Angular injects dependencies via constructor — don't create with new."
-    }
-  },
-  {
-    "id": "what-is-a-functional-interface",
-    "category": "Java",
-    "question": "What is a Functional Interface?",
-    "frequency": 10,
-    "companies": [
-      "EPAM",
-      "Deloitte",
-      "HCL"
-    ],
-    "variations": [
-      "What is a Functional Interface? Can it have default and static methods?",
-      "What is a functional interface",
-      "Can it have default and static methods",
-      "Common examples (Runnable, Comparator, Callable)",
-      "\"Runnable\" vs \"Callable\" — when would you choose each?",
-      "What is a functional interface in Java8?",
-      "Functional interfaces and their methods",
-      "What is a Functional Interface? Why can it have only one abstract method? Why can't it have multiple abstract methods?"
-    ],
-    "answerSEE": {
-      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
-      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
-      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
-      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
+      "simple": "Instantiate, inject dependencies, PostConstruct, use, PreDestroy, destroy.",
+      "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
+      "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
+      "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
     }
   },
   {
@@ -420,28 +451,27 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "explain-the-bean-lifecycle",
-    "category": "Spring Boot",
-    "question": "Explain the Bean Lifecycle.",
+    "id": "why-is-string-immutable-in-java",
+    "category": "Java",
+    "question": "Why is String Immutable in Java?",
     "frequency": 9,
     "companies": [
-      "Deloitte",
-      "HCL"
+      "Accenture",
+      "GDAS"
     ],
     "variations": [
-      "What is the complete lifecycle of a Spring bean?",
-      "Bean Lifecycle",
-      "Spring Bean Lifecycle",
-      "Explain Spring dependency injection and bean lifecycle.",
-      "Bean lifecycle?",
-      "Explain the Spring Boot bean lifecycle in detail?",
-      "Spring Bean lifecycle"
+      "Why is \"String\" immutable in Java?",
+      "String Pool, intern(), == vs equals()",
+      "Why is String immutable?",
+      "Why String immutable?",
+      "Why String is immutable in Java? What benefits does it give in multi-threaded environments?",
+      "Why is String immutable in Java?"
     ],
     "answerSEE": {
-      "simple": "Instantiate, inject dependencies, PostConstruct, use, PreDestroy, destroy.",
-      "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
-      "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
-      "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
+      "simple": "String objects cannot be changed after creation — any modification creates a new String object, never modifying the original.",
+      "explain": "Security — String used for class loading, DB URLs, network connections — mutable String would be a security vulnerability\nString Pool — JVM reuses String literals safely because immutable objects can be shared without copy\nThread Safety — immutable objects need no synchronization, inherently thread-safe\nHashCode Caching — String caches its hashCode, works correctly only because value never changes\nHashMap key safety — String is the safest map key because hashCode never changes after put",
+      "example": "\"String immutability serves four purposes. Security — if I pass a file path to a method, the method cannot secretly change the path after my security check. String pool efficiency — JVM reuses identical literals safely because two variables pointing to the same pooled String cannot affect each other through one changing it. Thread safety — multiple threads can read the same String simultaneously without locks. HashCode caching — String caches hashCode for fast HashMap lookups, valid only because the value never changes.\"",
+      "summary10s": "String immutable for security, string pool sharing, thread safety, and hashCode caching — all four depend on value never changing."
     }
   },
   {
@@ -543,28 +573,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "why-is-string-immutable-in-java",
-    "category": "Java",
-    "question": "Why is String Immutable in Java?",
-    "frequency": 8,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [
-      "Why is \"String\" immutable in Java?",
-      "String Pool, intern(), == vs equals()",
-      "Why is String immutable?",
-      "Why String immutable?",
-      "Why String is immutable in Java? What benefits does it give in multi-threaded environments?"
-    ],
-    "answerSEE": {
-      "simple": "String objects cannot be changed after creation — any modification creates a new String object, never modifying the original.",
-      "explain": "Security — String used for class loading, DB URLs, network connections — mutable String would be a security vulnerability\nString Pool — JVM reuses String literals safely because immutable objects can be shared without copy\nThread Safety — immutable objects need no synchronization, inherently thread-safe\nHashCode Caching — String caches its hashCode, works correctly only because value never changes\nHashMap key safety — String is the safest map key because hashCode never changes after put",
-      "example": "\"String immutability serves four purposes. Security — if I pass a file path to a method, the method cannot secretly change the path after my security check. String pool efficiency — JVM reuses identical literals safely because two variables pointing to the same pooled String cannot affect each other through one changing it. Thread safety — multiple threads can read the same String simultaneously without locks. HashCode caching — String caches hashCode for fast HashMap lookups, valid only because the value never changes.\"",
-      "summary10s": "String immutable for security, string pool sharing, thread safety, and hashCode caching — all four depend on value never changing."
-    }
-  },
-  {
     "id": "spring-kafka-exactly-once",
     "category": "Microservices",
     "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
@@ -591,16 +599,18 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "angular-onpush-change-detection",
     "category": "Angular",
     "question": "Default vs OnPush Change Detection",
-    "frequency": 7,
+    "frequency": 8,
     "companies": [
-      "Deloitte"
+      "Deloitte",
+      "GDAS"
     ],
     "variations": [
       "What is Change Detection in Angular? Explain OnPush strategy.",
       "How does ChangeDetectionStrategy.OnPush work?",
       "Why did you choose ChangeDetectionStrategy.OnPush? What changes did you make to ensure the UI refreshed reliably without affecting performance?",
       "If data in a dropdown changes while using OnPush, what exactly would you change in the code? Would you create a new reference or manually trigger change detection?",
-      "Why is \"String\" immutable in Java, and how does it impact memory?"
+      "Why is \"String\" immutable in Java, and how does it impact memory?",
+      "why to use change detection ?"
     ],
     "answerSEE": {
       "simple": "Default checks the entire component tree on every event; OnPush only checks when an Input reference changes or an event fires within it.",
@@ -1715,6 +1725,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "checked-vs-unchecked-exceptions",
+    "category": "Java",
+    "question": "Checked vs Unchecked Exceptions?",
+    "frequency": 4,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "Checked Exception — Pros and Cons",
+      "Checked vs Unchecked Exceptions.",
+      "How do you create checked, unchecked, and custom exceptions in Java?"
+    ],
+    "answerSEE": {
+      "simple": "Checked exception must be handled or declared — compiler enforces it.",
+      "explain": "Checked — IOException, SQLException — compiler forces handle or declare with throws\nAdvantage — forces caller to handle, makes error handling explicit and visible\nDisadvantage — verbose, pollutes method signatures, leads to empty catch blocks\nUnchecked — RuntimeException — no forced handling, cleaner but easy to miss",
+      "example": "\"Checked exceptions force developers to handle error cases at compile time which improves reliability. The downside is they add throws declarations to every method in the call stack and often lead to swallowed exceptions in empty catch blocks. In modern Spring Boot I prefer unchecked exceptions and handle them globally with @ControllerAdvice.\"",
+      "summary10s": "Checked=compiler forces handling, pro=explicit, con=verbose and pollutes signatures."
+    }
+  },
+  {
     "id": "angular-route-guards",
     "category": "Angular",
     "question": "Route Guards",
@@ -2259,23 +2289,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "checked-vs-unchecked-exceptions",
-    "category": "Java",
-    "question": "Checked vs Unchecked Exceptions?",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Checked Exception — Pros and Cons",
-      "Checked vs Unchecked Exceptions."
-    ],
-    "answerSEE": {
-      "simple": "Checked exception must be handled or declared — compiler enforces it.",
-      "explain": "Checked — IOException, SQLException — compiler forces handle or declare with throws\nAdvantage — forces caller to handle, makes error handling explicit and visible\nDisadvantage — verbose, pollutes method signatures, leads to empty catch blocks\nUnchecked — RuntimeException — no forced handling, cleaner but easy to miss",
-      "example": "\"Checked exceptions force developers to handle error cases at compile time which improves reliability. The downside is they add throws declarations to every method in the call stack and often lead to swallowed exceptions in empty catch blocks. In modern Spring Boot I prefer unchecked exceptions and handle them globally with @ControllerAdvice.\"",
-      "summary10s": "Checked=compiler forces handling, pro=explicit, con=verbose and pollutes signatures."
-    }
-  },
-  {
     "id": "rest-vs-soap-what-are-the-diff",
     "category": "System Design",
     "question": "REST vs SOAP — what are the differences?",
@@ -2470,6 +2483,25 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "S — Single Responsibility, one class one reason to change\nO — Open Closed, open for extension closed for modification\nL — Liskov Substitution, subclass should replace parent without breaking behavior\nI — Interface Segregation, small specific interfaces not one fat interface\nD — Dependency Inversion, depend on abstractions not concrete classes",
       "example": "\"SOLID helps me write maintainable code. Single Responsibility means each class does one thing. Open Closed means I add features by extending not modifying. Liskov means subclasses should work wherever parent is expected. Interface Segregation means split fat interfaces into focused ones. Dependency Inversion means depend on interfaces not implementations — this is what enables Spring DI.\"",
       "summary10s": "Single Responsibility, Open Closed, Liskov, Interface Segregation, Dependency Inversion."
+    }
+  },
+  {
+    "id": "angular-guards",
+    "category": "Angular",
+    "question": "Angular Guards?",
+    "frequency": 3,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [
+      "What is a Route Guard? Why do we use it?",
+      "Write code to implement a Route Guard in Angular."
+    ],
+    "answerSEE": {
+      "simple": "Guards control access to routes based on conditions, like authentication.",
+      "explain": "CanActivate checks if a route can be visited. CanDeactivate checks if you can leave (like unsaved changes). CanMatch/CanLoad prevents downloading lazy-loaded modules if the user isn't authorized.",
+      "example": "\"I implement CanActivate to check if the user has a valid JWT token before letting them access the /dashboard route. If they don't, the guard returns false and redirects them to /login. I use CanDeactivate to warn users if they try to leave a form with unsaved changes.\"",
+      "summary10s": "CanActivate (enter), CanDeactivate (leave), CanMatch (lazy load). Controls route access."
     }
   },
   {
@@ -4854,6 +4886,156 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "They allow declarative processing of collections. You can easily find max/min, sum elements, group by fields, or flatten nested lists.",
       "example": "\"I use streams daily. For instance, finding all active users and extracting their emails is just users.stream().filter(u -> u.isActive()).map(User::getEmail).collect(Collectors.toList()).\"",
       "summary10s": "Declarative collection processing: filter, map, collect, reduce."
+    }
+  },
+  {
+    "id": "oops-concepts",
+    "category": "Java",
+    "question": "OOPs concepts",
+    "frequency": 2,
+    "companies": [
+      "Capgemini",
+      "GDAS"
+    ],
+    "variations": [
+      "Explain the important concepts of Java."
+    ],
+    "answerSEE": {
+      "simple": "OOPs concepts include Encapsulation, Inheritance, Polymorphism, and Abstraction.",
+      "explain": "These four pillars structure code. Encapsulation hides data, Inheritance reuses code, Polymorphism allows multiple forms, and Abstraction hides complexity.",
+      "example": "\"I use Encapsulation to protect state with private fields. I use Polymorphism for method overriding to change behavior dynamically.\"",
+      "summary10s": "Encapsulation, Inheritance, Polymorphism, and Abstraction structure object-oriented code."
+    }
+  },
+  {
+    "id": "string-vs-builder-vs-buffer",
+    "category": "Java",
+    "question": "String vs StringBuilder vs StringBuffer",
+    "frequency": 2,
+    "companies": [
+      "Capgemini",
+      "GDAS"
+    ],
+    "variations": [
+      "What is the difference between String, StringBuffer, and StringBuilder?"
+    ],
+    "answerSEE": {
+      "simple": "String is immutable. StringBuilder is mutable and not thread-safe. StringBuffer is mutable and thread-safe.",
+      "explain": "Because String is immutable, modifying it creates new objects. StringBuilder modifies the same object and is fast. StringBuffer synchronizes methods for thread-safety but is slower.",
+      "example": "\"I use String for constants. When concatenating in a loop, I use StringBuilder. If multiple threads share the builder, I use StringBuffer.\"",
+      "summary10s": "String=immutable. StringBuilder=mutable fast. StringBuffer=mutable thread-safe."
+    }
+  },
+  {
+    "id": "tell-me-about-yourself",
+    "category": "Other",
+    "question": "Tell me about yourself?",
+    "frequency": 2,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "Tell me about yourself?",
+      "Tell me about yourself."
+    ],
+    "answerSEE": {
+      "simple": "A brief summary of your professional background, current role, and key achievements.",
+      "explain": "Start with a quick overview of your experience, highlight the most relevant skills for the job, and mention a recent accomplishment. Keep it structured and focused on your professional journey rather than personal details.",
+      "example": "\"I have over 5 years of experience in backend development, primarily using Java and Spring Boot. In my current role, I led the migration of a legacy monolith to microservices, improving system performance by 30%. I'm currently looking for opportunities where I can design scalable systems.\"",
+      "summary10s": "Brief professional background, relevant skills, and a key achievement."
+    }
+  },
+  {
+    "id": "explain-your-project",
+    "category": "Other",
+    "question": "Explain your project and your roles and responsibilities?",
+    "frequency": 2,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "Explain your project and your roles and responsibilities?",
+      "Explain your project."
+    ],
+    "answerSEE": {
+      "simple": "Describe the project's purpose, architecture, and your specific contributions.",
+      "explain": "Explain the business problem the project solves, the tech stack used, and the architecture (like microservices or monolith). Then, detail your specific role, the features you built, and any challenges you overcame.",
+      "example": "\"My project is a payment gateway handling thousands of transactions daily. We use Java, Spring Boot, and Kafka for asynchronous processing. My main responsibility was designing the fraud detection module, which reduced fraudulent transactions by 15% using a rule-based engine.\"",
+      "summary10s": "Project purpose, tech stack, architecture, and your specific impact."
+    }
+  },
+  {
+    "id": "java-8-features",
+    "category": "Java",
+    "question": "What are the important features introduced in Java 8?",
+    "frequency": 2,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "What are the important features introduced in Java 8?"
+    ],
+    "answerSEE": {
+      "simple": "Java 8 introduced functional programming concepts like Lambdas, Streams, and Functional Interfaces.",
+      "explain": "Key features include Lambda expressions for concise code, Stream API for functional-style operations on collections, Default and Static methods in interfaces to add new functionality without breaking existing code, Optional to prevent NullPointerExceptions, and the new Date and Time API (java.time).",
+      "example": "\"The most important features I use from Java 8 are Streams and Lambdas, which make data processing concise and readable. I also heavily use Optional to handle potential null values gracefully instead of using manual null checks.\"",
+      "summary10s": "Lambdas, Streams, Functional Interfaces, Optional, and new Date/Time API."
+    }
+  },
+  {
+    "id": "springbootapplication-annotation",
+    "category": "Spring Boot",
+    "question": "What is @SpringBootApplication? What annotations does it combine?",
+    "frequency": 2,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "What is @SpringBootApplication? What annotations does it combine?",
+      "What is the use of @SpringBootApplication?"
+    ],
+    "answerSEE": {
+      "simple": "@SpringBootApplication is a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.",
+      "explain": "@Configuration tags the class as a source of bean definitions. @EnableAutoConfiguration tells Spring Boot to automatically configure beans based on classpath dependencies. @ComponentScan tells Spring to look for other components, configurations, and services in the current package and its sub-packages.",
+      "example": "\"@SpringBootApplication is the entry point annotation. It's basically a shortcut so I don't have to write @Configuration, @EnableAutoConfiguration, and @ComponentScan separately. It sets up the default auto-configuration and component scanning from the root package downwards.\"",
+      "summary10s": "Combines @Configuration, @EnableAutoConfiguration, and @ComponentScan."
+    }
+  },
+  {
+    "id": "angular-forms-types",
+    "category": "Angular",
+    "question": "What are the two types of Forms in Angular?",
+    "frequency": 2,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "Template-driven vs Reactive forms"
+    ],
+    "answerSEE": {
+      "simple": "Template-driven forms and Reactive forms.",
+      "explain": "Template-driven forms rely on directives in the HTML template (like ngModel) for two-way binding and validation. Reactive forms define the form model and validation programmatically in the component class.",
+      "example": "\"I use Template-driven forms for very simple things like a basic login. But for most enterprise applications, I use Reactive forms because they are more scalable, easier to unit test, and give me fine-grained control over validation and form state changes directly in TypeScript.\"",
+      "summary10s": "Template-driven (HTML based, simple) and Reactive forms (TypeScript based, complex/scalable)."
+    }
+  },
+  {
+    "id": "java-version-currently-using",
+    "category": "Java",
+    "question": "Which version of Java are you currently using?",
+    "frequency": 2,
+    "companies": [
+      "GDAS",
+      "Mastercard"
+    ],
+    "variations": [
+      "Which JDK version have you worked with?"
+    ],
+    "answerSEE": {
+      "simple": "Usually Java 17 or 21 in modern projects.",
+      "explain": "Mention the LTS version used in the project and one or two features used from it.",
+      "example": "\"I am currently using Java 17 in my project, taking advantage of features like records, pattern matching for instanceof, and text blocks.\"",
+      "summary10s": "Java 17 or 21 (LTS), mention key features used."
     }
   },
   {
@@ -13490,20 +13672,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-guards",
-    "category": "Angular",
-    "question": "Angular Guards?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Guards control access to routes based on conditions, like authentication.",
-      "explain": "CanActivate checks if a route can be visited. CanDeactivate checks if you can leave (like unsaved changes). CanMatch/CanLoad prevents downloading lazy-loaded modules if the user isn't authorized.",
-      "example": "\"I implement CanActivate to check if the user has a valid JWT token before letting them access the /dashboard route. If they don't, the guard returns false and redirects them to /login. I use CanDeactivate to warn users if they try to leave a form with unsaved changes.\"",
-      "summary10s": "CanActivate (enter), CanDeactivate (leave), CanMatch (lazy load). Controls route access."
-    }
-  },
-  {
     "id": "multiple-api-calls-angular",
     "category": "Angular",
     "question": "Multiple API calls?",
@@ -15742,20 +15910,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-forms-types",
-    "category": "Angular",
-    "question": "What are the two types of Forms in Angular?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Template-driven forms and Reactive forms.",
-      "explain": "Template-driven forms rely on directives in the HTML template (like ngModel) for two-way binding and validation. Reactive forms define the form model and validation programmatically in the component class.",
-      "example": "\"I use Template-driven forms for very simple things like a basic login. But for most enterprise applications, I use Reactive forms because they are more scalable, easier to unit test, and give me fine-grained control over validation and form state changes directly in TypeScript.\"",
-      "summary10s": "Template-driven (HTML based, simple) and Reactive forms (TypeScript based, complex/scalable)."
-    }
-  },
-  {
     "id": "angular-template-driven-form",
     "category": "Angular",
     "question": "Have you created a Template-driven Form in Angular?",
@@ -16244,38 +16398,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "frequency": 1,
     "companies": [],
     "variations": []
-  },
-  {
-    "id": "oops-concepts",
-    "category": "Java",
-    "question": "OOPs concepts",
-    "frequency": 1,
-    "companies": [
-      "Capgemini"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "OOPs concepts include Encapsulation, Inheritance, Polymorphism, and Abstraction.",
-      "explain": "These four pillars structure code. Encapsulation hides data, Inheritance reuses code, Polymorphism allows multiple forms, and Abstraction hides complexity.",
-      "example": "\"I use Encapsulation to protect state with private fields. I use Polymorphism for method overriding to change behavior dynamically.\"",
-      "summary10s": "Encapsulation, Inheritance, Polymorphism, and Abstraction structure object-oriented code."
-    }
-  },
-  {
-    "id": "string-vs-builder-vs-buffer",
-    "category": "Java",
-    "question": "String vs StringBuilder vs StringBuffer",
-    "frequency": 1,
-    "companies": [
-      "Capgemini"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "String is immutable. StringBuilder is mutable and not thread-safe. StringBuffer is mutable and thread-safe.",
-      "explain": "Because String is immutable, modifying it creates new objects. StringBuilder modifies the same object and is fast. StringBuffer synchronizes methods for thread-safety but is slower.",
-      "example": "\"I use String for constants. When concatenating in a loop, I use StringBuilder. If multiple threads share the builder, I use StringBuffer.\"",
-      "summary10s": "String=immutable. StringBuilder=mutable fast. StringBuffer=mutable thread-safe."
-    }
   },
   {
     "id": "exception-handling-core",
@@ -16828,54 +16950,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "tell-me-about-yourself",
-    "category": "Other",
-    "question": "Tell me about yourself?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "Tell me about yourself?"
-    ],
-    "answerSEE": {
-      "simple": "A brief summary of your professional background, current role, and key achievements.",
-      "explain": "Start with a quick overview of your experience, highlight the most relevant skills for the job, and mention a recent accomplishment. Keep it structured and focused on your professional journey rather than personal details.",
-      "example": "\"I have over 5 years of experience in backend development, primarily using Java and Spring Boot. In my current role, I led the migration of a legacy monolith to microservices, improving system performance by 30%. I'm currently looking for opportunities where I can design scalable systems.\"",
-      "summary10s": "Brief professional background, relevant skills, and a key achievement."
-    }
-  },
-  {
-    "id": "explain-your-project",
-    "category": "Other",
-    "question": "Explain your project and your roles and responsibilities?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "Explain your project and your roles and responsibilities?"
-    ],
-    "answerSEE": {
-      "simple": "Describe the project's purpose, architecture, and your specific contributions.",
-      "explain": "Explain the business problem the project solves, the tech stack used, and the architecture (like microservices or monolith). Then, detail your specific role, the features you built, and any challenges you overcame.",
-      "example": "\"My project is a payment gateway handling thousands of transactions daily. We use Java, Spring Boot, and Kafka for asynchronous processing. My main responsibility was designing the fraud detection module, which reduced fraudulent transactions by 15% using a rule-based engine.\"",
-      "summary10s": "Project purpose, tech stack, architecture, and your specific impact."
-    }
-  },
-  {
-    "id": "java-8-features",
-    "category": "Java",
-    "question": "What are the important features introduced in Java 8?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "What are the important features introduced in Java 8?"
-    ],
-    "answerSEE": {
-      "simple": "Java 8 introduced functional programming concepts like Lambdas, Streams, and Functional Interfaces.",
-      "explain": "Key features include Lambda expressions for concise code, Stream API for functional-style operations on collections, Default and Static methods in interfaces to add new functionality without breaking existing code, Optional to prevent NullPointerExceptions, and the new Date and Time API (java.time).",
-      "example": "\"The most important features I use from Java 8 are Streams and Lambdas, which make data processing concise and readable. I also heavily use Optional to handle potential null values gracefully instead of using manual null checks.\"",
-      "summary10s": "Lambdas, Streams, Functional Interfaces, Optional, and new Date/Time API."
-    }
-  },
-  {
     "id": "stream-api",
     "category": "Java",
     "question": "What is the Stream API? Explain some commonly used Stream methods?",
@@ -16905,22 +16979,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "@ControllerAdvice acts as an interceptor for exceptions thrown by any @RequestMapping method. Inside it, you define methods annotated with @ExceptionHandler for specific exception types. This allows returning a consistent ErrorResponse structure and HTTP status code.",
       "example": "\"I create a class annotated with @ControllerAdvice. Inside, I have an @ExceptionHandler(ResourceNotFoundException.class) method that catches that specific exception anywhere in the app and returns a custom ErrorDTO with a 404 Not Found HTTP status.\"",
       "summary10s": "@ControllerAdvice class with @ExceptionHandler methods for consistent error responses."
-    }
-  },
-  {
-    "id": "springbootapplication-annotation",
-    "category": "Spring Boot",
-    "question": "What is @SpringBootApplication? What annotations does it combine?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "What is @SpringBootApplication? What annotations does it combine?"
-    ],
-    "answerSEE": {
-      "simple": "@SpringBootApplication is a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.",
-      "explain": "@Configuration tags the class as a source of bean definitions. @EnableAutoConfiguration tells Spring Boot to automatically configure beans based on classpath dependencies. @ComponentScan tells Spring to look for other components, configurations, and services in the current package and its sub-packages.",
-      "example": "\"@SpringBootApplication is the entry point annotation. It's basically a shortcut so I don't have to write @Configuration, @EnableAutoConfiguration, and @ComponentScan separately. It sets up the default auto-configuration and component scanning from the root package downwards.\"",
-      "summary10s": "Combines @Configuration, @EnableAutoConfiguration, and @ComponentScan."
     }
   },
   {
@@ -17017,6 +17075,620 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Java collections like ArrayList and HashMap use a fail-fast iterator backed by a modCount field. If you add or remove elements from the collection directly while iterating with a for-each or iterator, the modCount changes and the iterator detects the mismatch, throwing ConcurrentModificationException. Note that ConcurrentHashMap and CopyOnWriteArrayList use fail-safe iterators that work on a snapshot, so they don't throw this exception.",
       "example": "\"ConcurrentModificationException happens when I modify a collection while iterating over it. For example, calling list.remove() inside a for-each loop. The fix is to use iterator.remove() instead, or use CopyOnWriteArrayList or ConcurrentHashMap which use fail-safe iterators that work on a copy or snapshot of the data.\"",
       "summary10s": "Modifying a collection during iteration triggers it. Fix: use iterator.remove() or fail-safe collections."
+    }
+  },
+  {
+    "id": "count-word-frequency",
+    "category": "Java Coding",
+    "question": "Write a Java program to count the frequency of each word in a String and print the words in descending order of their frequency.",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Split string, use HashMap/Streams to count, then sort entry set by value descending.",
+      "explain": "Use Arrays.stream(str.split(\" \")) with Collectors.groupingBy and counting. Then stream the entrySet, sort by value in reverseOrder, and print.",
+      "example": "\"I'd split the string into words, collect them into a Map using Collectors.groupingBy with a counting downstream collector, then stream the map's entrySet sorted by value descending to print the results.\"",
+      "summary10s": "Split -> group by word with counting -> sort entrySet by value desc."
+    }
+  },
+  {
+    "id": "marker-interface",
+    "category": "Java",
+    "question": "What is a Marker Interface?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "What is the difference between a Functional Interface and a Marker Interface?"
+    ],
+    "answerSEE": {
+      "simple": "An interface with no methods, used to signal the JVM or framework.",
+      "explain": "It marks a class to have some special capability. Examples: Serializable, Cloneable. Modern Java often uses annotations instead.",
+      "example": "\"A marker interface like Serializable has no methods. It just tells the JVM that this class can be serialized. Nowadays, custom annotations are usually preferred over marker interfaces.\"",
+      "summary10s": "Empty interface marking a class for JVM/framework capability (e.g. Serializable)."
+    }
+  },
+  {
+    "id": "types-of-exceptions-sql-npe",
+    "category": "Java",
+    "question": "SQLException, ClassNotFoundException, NullPointerException, and ClassCastException — which type of exceptions are these?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "SQLException and ClassNotFoundException are Checked. NullPointerException and ClassCastException are Unchecked.",
+      "explain": "Checked exceptions happen at compile time (must be handled). Unchecked happen at runtime due to programming errors.",
+      "example": "\"SQLException and ClassNotFoundException are checked exceptions that must be caught or declared. NullPointerException and ClassCastException are unchecked runtime exceptions, usually caused by logical bugs.\"",
+      "summary10s": "Checked = SQL/ClassNotFound. Unchecked = NPE/ClassCast."
+    }
+  },
+  {
+    "id": "features-after-java-21",
+    "category": "Java",
+    "question": "What features were introduced after Java 21?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Java 22 and beyond introduce preview features like String Templates, Unnamed Variables, and Structured Concurrency.",
+      "explain": "After Java 21 LTS, Java 22/23 focus on finalizing Project Loom (virtual threads), Project Amber (pattern matching), and FFI (Panama).",
+      "example": "\"Since Java 21 is the latest LTS most companies use, later versions like 22 and 23 introduce unnamed variables and patterns, scoped values, and finalize FFM API and string templates.\"",
+      "summary10s": "Unnamed variables, Structured Concurrency, Scoped Values, FFM API."
+    }
+  },
+  {
+    "id": "stream-intermediate-terminal",
+    "category": "Java",
+    "question": "Explain intermediate and terminal operations in the Stream API.",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Intermediate operations transform the stream and are lazy (e.g., map, filter). Terminal operations trigger execution and produce a result (e.g., collect, count).",
+      "explain": "A stream pipeline must have exactly one terminal operation at the end to execute. Intermediate operations return a new stream.",
+      "example": "\"Intermediate operations like filter() or map() return another stream and are lazy—they don't do anything until a terminal operation like collect() or forEach() is invoked to produce the final result.\"",
+      "summary10s": "Intermediate = lazy transform (map). Terminal = trigger execution (collect)."
+    }
+  },
+  {
+    "id": "default-server-spring-boot",
+    "category": "Spring Boot",
+    "question": "What is the default server used by Spring Boot?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Apache Tomcat is the default embedded server.",
+      "explain": "Spring Boot starter web includes Tomcat by default, starting on port 8080.",
+      "example": "\"The default embedded server is Tomcat, but we can easily switch to Jetty or Undertow by excluding the Tomcat dependency and including the one we want.\"",
+      "summary10s": "Embedded Tomcat on port 8080."
+    }
+  },
+  {
+    "id": "change-default-tomcat-port",
+    "category": "Spring Boot",
+    "question": "Where and how can you change the default Tomcat port in Spring Boot?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "In application.properties or application.yml, set server.port.",
+      "explain": "server.port=8081 in application.properties. It can also be set via command line arguments or environment variables.",
+      "example": "\"I usually change the port in application.yml by setting server.port to the desired port number, or by passing --server.port as a command line argument when starting the jar.\"",
+      "summary10s": "server.port=8081 in application.properties/yml."
+    }
+  },
+  {
+    "id": "what-is-rest-api",
+    "category": "Spring Boot",
+    "question": "What is REST? What is a REST API?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "REST is an architectural style for distributed systems. A REST API is a web service that follows REST principles using HTTP methods.",
+      "explain": "REST uses standard HTTP methods (GET, POST, PUT, DELETE) to manipulate resources, usually returning JSON.",
+      "example": "\"REST stands for Representational State Transfer. A REST API uses HTTP methods to perform CRUD operations on resources, keeping the server stateless and returning standard representations like JSON.\"",
+      "summary10s": "Architectural style using standard HTTP methods for stateless resource manipulation."
+    }
+  },
+  {
+    "id": "common-sql-commands",
+    "category": "SQL",
+    "question": "What are the commonly used SQL commands?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "DDL (CREATE, ALTER, DROP), DML (SELECT, INSERT, UPDATE, DELETE), DCL (GRANT, REVOKE), TCL (COMMIT, ROLLBACK).",
+      "explain": "They are categorized by function: defining schema (DDL), manipulating data (DML), access control (DCL), and transaction control (TCL).",
+      "example": "\"The most common ones I use are DML commands like SELECT, INSERT, UPDATE, and DELETE for data manipulation, and DDL commands like CREATE or ALTER table for schema changes.\"",
+      "summary10s": "DDL (CREATE/ALTER), DML (SELECT/UPDATE), TCL (COMMIT), DCL (GRANT)."
+    }
+  },
+  {
+    "id": "update-columns-join",
+    "category": "SQL",
+    "question": "Write an SQL query to update three columns — salary, age, and city — in two tables.",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use an UPDATE statement with a JOIN.",
+      "explain": "UPDATE table1 t1 JOIN table2 t2 ON t1.id = t2.id SET t1.salary = X, t1.age = Y, t2.city = Z WHERE condition. (MySQL syntax).",
+      "example": "\"Depending on the database, I would use an UPDATE with a JOIN. For example in MySQL, `UPDATE employees e JOIN departments d ON e.dept_id = d.id SET e.salary = 5000, e.age = 30, d.city = 'NY' WHERE e.id = 1;`.\"",
+      "summary10s": "UPDATE t1 JOIN t2 ON condition SET t1.col1 = x, t2.col2 = y."
+    }
+  },
+  {
+    "id": "angular-pass-data-between-components",
+    "category": "Angular",
+    "question": "How do you pass data between two components?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use @Input() to pass data down, @Output() with EventEmitter to pass data up, or a Service to share data anywhere.",
+      "explain": "Parent to Child uses @Input(). Child to Parent uses @Output() and emits an event. For unrelated components, a shared Service with a Subject or BehaviorSubject is used.",
+      "example": "\"If the components have a parent-child relationship, I use @Input() and @Output(). If they are siblings or far apart in the DOM tree, I inject a shared service that holds a BehaviorSubject to reactively share the state.\"",
+      "summary10s": "@Input() for down, @Output() for up, Service with Subject for anywhere."
+    }
+  },
+  {
+    "id": "angular-directives",
+    "category": "Angular",
+    "question": "What is directive? what are the directive available in angular? how to create and use custom directive?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Directives are instructions in the DOM. Types: Components, Structural (*ngIf, *ngFor), and Attribute (ngClass, ngStyle).",
+      "explain": "A Component is a directive with a template. Structural directives change the DOM layout. Attribute directives change the appearance or behavior of an element. Custom directives are created with the @Directive decorator.",
+      "example": "\"I create custom attribute directives using the @Directive decorator. For example, I built an appHover directive that uses @HostListener to listen to mouse events and changes the background color via ElementRef and Renderer2.\"",
+      "summary10s": "Directives modify DOM. Components, Structural (*ngIf), Attribute (ngClass). Create using @Directive."
+    }
+  },
+  {
+    "id": "angular-guards",
+    "category": "Angular",
+    "question": "What is a guard? Explain each guard present in angular.",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Guards protect routes from unauthorized access. Key types: CanActivate, CanActivateChild, CanDeactivate, Resolve, CanLoad/CanMatch.",
+      "explain": "CanActivate checks if a route can be visited. CanDeactivate warns before leaving (e.g., unsaved changes). Resolve pre-fetches data before routing. CanMatch (replaced CanLoad) checks if a route should even be considered during lazy loading.",
+      "example": "\"I use CanActivate to check if the user has a valid JWT token before letting them access the dashboard. I also use CanDeactivate to show a warning dialog if they try to navigate away while filling out a form.\"",
+      "summary10s": "Protect routes. CanActivate (enter), CanDeactivate (leave), CanMatch (lazy load)."
+    }
+  },
+  {
+    "id": "rxjs-subject-vs-behavior-vs-replay",
+    "category": "Angular",
+    "question": "What is the difference between Subject, BehaviorSubject, ReplaySubject?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Subject has no memory. BehaviorSubject remembers the last value and needs an initial value. ReplaySubject remembers a specific number of previous values.",
+      "explain": "When you subscribe to a Subject, you only get future values. BehaviorSubject immediately gives you the latest value upon subscription. ReplaySubject gives you the last N values based on how it is configured.",
+      "example": "\"I use BehaviorSubject for storing the current logged-in user, because any component that subscribes needs to immediately know the current user. I use a plain Subject for events like emitting a UI notification trigger where past events don't matter.\"",
+      "summary10s": "Subject = future only. BehaviorSubject = current + future. ReplaySubject = past N + future."
+    }
+  },
+  {
+    "id": "observable-vs-promise",
+    "category": "Angular",
+    "question": "Difference between Observable and Promise.",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Promises emit one value and execute immediately. Observables can emit multiple values over time, are lazy, and can be cancelled.",
+      "explain": "Promises are eager (start immediately) and cannot be cancelled. Observables are lazy (start only when subscribed), can be unsubscribed from, and provide powerful operators (map, filter, switchMap) from RxJS.",
+      "example": "\"I prefer Observables for HTTP calls in Angular because they allow me to easily cancel a request if the user navigates away using unsubscribe(), and I can easily chain them with operators like switchMap to avoid race conditions. Promises can't do that natively.\"",
+      "summary10s": "Promise = one value, eager, not cancellable. Observable = stream, lazy, cancellable."
+    }
+  },
+  {
+    "id": "angular-memory-leaks",
+    "category": "Angular",
+    "question": "How do you avoid memory leaks in angular?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Always unsubscribe from Observables when the component is destroyed.",
+      "explain": "Use the async pipe in the template which unsubscribes automatically, or use takeUntil(destroy$) pattern, or manually call unsubscribe() in ngOnDestroy(). Also avoid keeping references to DOM elements unnecessarily.",
+      "example": "\"The safest way I avoid memory leaks is by using the async pipe in the HTML template because Angular handles the unsubscription. When I must subscribe in TypeScript, I create a Subject called destroy$, emit in ngOnDestroy, and chain takeUntil(this.destroy$) to all my observables.\"",
+      "summary10s": "Unsubscribe in ngOnDestroy, use async pipe, or use takeUntil(destroy$)."
+    }
+  },
+  {
+    "id": "angular-performance-optimization",
+    "category": "Angular",
+    "question": "Performance optimization in Angular",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "Perfomance optimization"
+    ],
+    "answerSEE": {
+      "simple": "Use OnPush change detection, lazy loading, trackBy in loops, and pure pipes.",
+      "explain": "Lazy load routing modules so initial bundle is small. Use ChangeDetectionStrategy.OnPush so components only check when Inputs change. Unsubscribe from observables to save memory. Use Server-Side Rendering (SSR) for faster first paint.",
+      "example": "\"To optimize a slow Angular app, I first switch components to OnPush change detection to stop unnecessary re-renders. Then I implement lazy loading for feature modules, and make sure all ngFor loops use a trackBy function to avoid re-rendering entire lists.\"",
+      "summary10s": "OnPush, Lazy Loading, trackBy, Unsubscribe, SSR."
+    }
+  },
+  {
+    "id": "angular-lazy-loading",
+    "category": "Angular",
+    "question": "What is lazy loading? How do you implement it?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Lazy loading delays loading a module until the user navigates to its route, reducing the initial bundle size.",
+      "explain": "Instead of importing a module at the top of the routing file, you use the loadChildren property with a dynamic import() statement in the route configuration.",
+      "example": "\"I implement lazy loading in the AppRoutingModule using loadChildren. For example: { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }. This ensures the admin code isn't downloaded until the user actually visits the admin page.\"",
+      "summary10s": "Loads modules on demand via routing using loadChildren and dynamic import()."
+    }
+  },
+  {
+    "id": "angular-trackby-ngfor",
+    "category": "Angular",
+    "question": "What is trackBy in *ngFor and why does it matter?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "trackBy tells Angular how to uniquely identify items in an *ngFor list, so it only updates changed DOM elements instead of recreating the whole list.",
+      "explain": "Without trackBy, if you fetch a new array from the server, Angular deletes all existing DOM elements and recreates them, which is slow. With trackBy (usually returning the item ID), Angular reuses the DOM nodes and only updates the ones that changed.",
+      "example": "\"In any large list, I always add trackBy: trackById to my *ngFor. The trackById function just returns item.id. This massive performance boost prevents the browser from freezing when polling the server for updated lists.\"",
+      "summary10s": "Helps Angular track items by ID to reuse DOM nodes instead of destroying and recreating them."
+    }
+  },
+  {
+    "id": "angular-ssr",
+    "category": "Angular",
+    "question": "What is Server-Side Rendering (SSR) with Angular?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "What is Server-Side Rendering (SSR) with Angula?"
+    ],
+    "answerSEE": {
+      "simple": "SSR renders the Angular application into HTML on the server before sending it to the browser.",
+      "explain": "Normally Angular is a SPA (Client-Side Rendering) where the browser downloads JS and builds the HTML. SSR (using Angular Universal) generates the HTML on the server, which improves SEO and provides a faster First Contentful Paint.",
+      "example": "\"If SEO is critical or initial load performance is poor on mobile devices, I add Angular Universal. It renders the first view on the Node server, so search engine bots can read the HTML immediately, and then the client-side app 'hydrates' to take over interactivity.\"",
+      "summary10s": "Renders HTML on the server for better SEO and faster initial load (Angular Universal)."
+    }
+  },
+  {
+    "id": "rxjs-error-handling",
+    "category": "Angular",
+    "question": "How do you handle errors in RxJS?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use catchError operator to intercept the error and return an observable, or handle it in the subscribe block.",
+      "explain": "The catchError operator can be used in the pipe to swallow the error, return a fallback value (using of()), or rethrow it (using throwError()). You can also handle errors directly in the error callback of the subscribe() method.",
+      "example": "\"I usually handle errors in a global HTTP interceptor for things like 401s. But for specific calls, I use the catchError operator in the pipe. If a product fetch fails, I might use catchError(err => of([])) to return an empty list so the UI doesn't break.\"",
+      "summary10s": "Use catchError inside the pipe to provide a fallback, or handle in subscribe error callback."
+    }
+  },
+  {
+    "id": "ngrx-state-management",
+    "category": "Angular",
+    "question": "How to handle state of the application using NgRx?",
+    "frequency": 1,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "NgRx uses a Redux pattern with Actions, Reducers, Selectors, and Effects to manage global state.",
+      "explain": "Components dispatch Actions. Effects listen for Actions to perform side-effects like HTTP calls. Reducers listen to Actions to update the immutable Store. Components read from the Store using Selectors.",
+      "example": "\"In NgRx, if a user clicks 'Load Data', the component dispatches a LoadAction. An Effect catches this, makes the API call, and dispatches a SuccessAction. The Reducer updates the store with the new data. My component uses a Selector to automatically reflect the new state in the UI.\"",
+      "summary10s": "Dispatch Action -> Effect fetches data -> Reducer updates Store -> Selector reads Store."
+    }
+  },
+  {
+    "id": "responsive-application-angular",
+    "category": "Angular",
+    "question": "What do you mean by a responsive application? How did you make a banking application responsive across different screen sizes and devices?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A responsive app adapts its layout to different screen sizes. Achieved using CSS media queries, Flexbox/Grid, and responsive frameworks like Bootstrap or Tailwind.",
+      "explain": "In Angular, we build responsive layouts using CSS frameworks (Tailwind, Bootstrap) or Angular Flex-Layout. We use relative units (%, vh, vw) and CSS media queries to adjust styling based on breakpoints.",
+      "example": "\"For the banking app, I used CSS Flexbox and media queries so the dashboard grid collapses into a single column on mobile devices, ensuring buttons and text remain touch-friendly and legible.\"",
+      "summary10s": "Adapts to screen size using media queries, Flexbox, and CSS frameworks."
+    }
+  },
+  {
+    "id": "angular-versions-worked-with",
+    "category": "Angular",
+    "question": "Which Angular versions have you worked with?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I have worked with Angular versions 12 through 17.",
+      "explain": "Mention the versions you have professional experience with, highlighting modern features like standalone components and signals in recent versions.",
+      "example": "\"I have primarily worked with Angular 14, 15, and 17. In Angular 17, I migrated several NgModules to standalone components and started exploring signals for reactive state management.\"",
+      "summary10s": "Mention specific versions (e.g., 14-17) and key features like standalone components."
+    }
+  },
+  {
+    "id": "angular-routing-works",
+    "category": "Angular",
+    "question": "How does routing work in Angular?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Angular uses the RouterModule to map URL paths to components, rendering them in a <router-outlet>.",
+      "explain": "You configure an array of Routes defining path-to-component mappings. The RouterModule provides directives like routerLink for navigation and <router-outlet> as the placeholder where the matched component is inserted.",
+      "example": "\"In the AppRoutingModule, I define paths like '/dashboard' pointing to DashboardComponent. In the HTML, I place a <router-outlet> tag. When a user clicks a routerLink='/dashboard', Angular intercepts the URL change and loads the component into the outlet without reloading the page.\"",
+      "summary10s": "Maps URLs to components. routerLink navigates, <router-outlet> displays."
+    }
+  },
+  {
+    "id": "angular-global-exception-handling",
+    "category": "Angular",
+    "question": "How do you handle exceptions globally in Angular?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Implement the ErrorHandler interface and provide it globally to catch client-side errors, and use an HTTP Interceptor for server-side errors.",
+      "explain": "For unhandled JS exceptions, create a class implementing ErrorHandler and override handleError(). Provide it in the root module. For API errors, use an HttpInterceptor to catch error responses.",
+      "example": "\"I created a GlobalErrorHandler class implementing ErrorHandler to catch UI bugs and log them to a service like Sentry. For API errors like 401s or 500s, I use an HttpInterceptor that catches the error and shows a toaster notification to the user.\"",
+      "summary10s": "Implement ErrorHandler for UI bugs. Use HttpInterceptor for API errors."
+    }
+  },
+  {
+    "id": "angular-http-interceptor-errors",
+    "category": "Angular",
+    "question": "What is an HTTP Interceptor? How do you use it for global error handling?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "An interceptor catches outgoing requests and incoming responses. We use it to globally catch HttpErrorResponses.",
+      "explain": "By implementing HttpInterceptor, you can hook into every HTTP call. You use RxJS catchError on the response stream to inspect the status code, handle retries, or redirect to a login page if a 401 occurs.",
+      "example": "\"I implement HttpInterceptor and in the intercept method, I pipe the next.handle() observable with catchError. If it's a 401 Unauthorized, I clear local storage and redirect the user to login. If it's a 500, I show a generic 'Something went wrong' toast.\"",
+      "summary10s": "Hooks into HTTP calls. Use catchError in the response stream to handle global API errors."
+    }
+  },
+  {
+    "id": "error-before-api-request",
+    "category": "Angular",
+    "question": "What happens if an error occurs before the API request is actually sent? Would an HTTP Interceptor handle it?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "If the error occurs before HttpClient is called, the Interceptor will NOT handle it.",
+      "explain": "Interceptors only process requests that enter the HttpClient pipeline. If synchronous code throws an error (like a null pointer) before calling http.get(), the Global ErrorHandler catches it, not the HttpInterceptor.",
+      "example": "\"If my component throws a TypeError before making the HTTP call, the HttpInterceptor never sees it. That's why we need both: an HttpInterceptor for network responses, and a global ErrorHandler for runtime JavaScript exceptions.\"",
+      "summary10s": "No. Interceptors only catch HttpClient pipeline errors. Global ErrorHandler catches pre-request JS errors."
+    }
+  },
+  {
+    "id": "async-programming-js",
+    "category": "JavaScript",
+    "question": "What is asynchronous programming?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Asynchronous programming allows code to execute in the background without blocking the main thread.",
+      "explain": "Since JavaScript is single-threaded, long-running tasks like API calls would freeze the UI. Async programming uses callbacks, Promises, or async/await to defer execution, allowing the main thread to continue.",
+      "example": "\"Instead of freezing the browser while waiting 2 seconds for a server response, async programming lets the browser continue rendering and responding to clicks. Once the server replies, a callback or Promise then resolves to handle the data.\"",
+      "summary10s": "Non-blocking execution. Allows main thread to keep running while waiting for slow tasks."
+    }
+  },
+  {
+    "id": "async-await-js",
+    "category": "JavaScript",
+    "question": "What are the \"async\" and \"await\" keywords in JavaScript/TypeScript?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Syntactic sugar on top of Promises that makes asynchronous code look synchronous.",
+      "explain": "The async keyword marks a function as returning a Promise. The await keyword pauses the execution of that specific async function until the Promise resolves or rejects.",
+      "example": "\"Instead of chaining .then() and .catch() on a fetch call, I prefix the function with async and use await fetch(url). This makes the code read linearly top-to-bottom, which is much easier to debug and understand.\"",
+      "summary10s": "Syntactic sugar for Promises. async returns a Promise, await pauses execution until resolved."
+    }
+  },
+  {
+    "id": "java-17-features-used",
+    "category": "Java",
+    "question": "What Java 17 features have you used?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Records, Text Blocks, Pattern Matching for instanceof, and Switch Expressions.",
+      "explain": "Records reduce boilerplate for DTOs. Text Blocks make JSON/SQL strings readable. Pattern matching removes redundant casting. Switch expressions return values directly without break statements.",
+      "example": "\"I replaced standard DTO classes with Java Records to eliminate getters/setters/hashCode boilerplate. I also use Text Blocks heavily for writing readable multiline SQL queries instead of concatenating strings with plus signs.\"",
+      "summary10s": "Records (immutable DTOs), Text Blocks (multiline strings), Pattern Matching (no casting)."
+    }
+  },
+  {
+    "id": "java-stream-extract-numbers",
+    "category": "Java Coding",
+    "question": "Given a string containing alphabets, numbers, and spaces, extract all the numbers and calculate their sum using the Java Stream API.",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Split the string by non-digits, filter out empty strings, map to Integer, and sum.",
+      "explain": "Use str.split(\"\\\\D+\") to split by any non-digit character. Convert the array to a Stream, filter out empty elements, mapToInt, and call sum().",
+      "example": "\"I would use Arrays.stream(str.split(\\\"\\\\\\\\D+\\\")).filter(s -> !s.isEmpty()).mapToInt(Integer::parseInt).sum(); This splits the string at every character that is not a number, parses the remaining numbers, and sums them.\"",
+      "summary10s": "Split by \\\\D+, filter empty, mapToInt, sum."
+    }
+  },
+  {
+    "id": "genai-resume-work",
+    "category": "Other",
+    "question": "You have mentioned GenAI in your resume. What work have you done related to AI?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I have used LLM APIs (like OpenAI) to automate text summarization, content generation, and integrated coding assistants like Copilot.",
+      "explain": "Mention specific API integrations or tools. For example, using LangChain or Spring AI to build RAG (Retrieval-Augmented Generation) applications, or simply using AI for developer productivity.",
+      "example": "\"In my recent project, I integrated the OpenAI API using Spring AI to automatically categorize and summarize user support tickets based on their text. I also use GitHub Copilot daily for boilerplate code generation.\"",
+      "summary10s": "Mention specific API integrations (OpenAI/Spring AI) or productivity usage (Copilot)."
+    }
+  },
+  {
+    "id": "how-used-github-copilot",
+    "category": "Other",
+    "question": "How have you used GitHub Copilot?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "As an AI pair programmer for writing unit tests, generating boilerplate, and explaining complex legacy code.",
+      "explain": "Copilot suggests code completions inline. I use it to rapidly generate repetitive boilerplate (like entity mappings) and to scaffold unit tests by just writing the test method name.",
+      "example": "\"I primarily use it to speed up writing unit tests. I write a descriptive comment of what I want to test, and Copilot generates the mock setups and assertions. It's also great for regex generation and explaining unfamiliar legacy code blocks.\"",
+      "summary10s": "Used for unit tests, boilerplate, regex, and explaining legacy code."
+    }
+  },
+  {
+    "id": "github-copilot-project-tool",
+    "category": "Other",
+    "question": "Is GitHub Copilot a project or a development tool?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It is a development tool (an AI coding assistant).",
+      "explain": "It integrates into IDEs like VS Code or IntelliJ as an extension to assist developers with coding, rather than being a standalone software project you build or deploy for end-users.",
+      "example": "\"It is firmly a development tool. We install it as a plugin in our IDEs to enhance developer productivity, much like a linter or a debugger, rather than a project we deploy to production.\"",
+      "summary10s": "It is a development tool integrated into the IDE to assist developers."
+    }
+  },
+  {
+    "id": "what-is-an-llm",
+    "category": "Other",
+    "question": "What is an LLM?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Large Language Model (LLM) is an AI model trained on massive amounts of text to understand and generate human-like language.",
+      "explain": "LLMs like GPT-4 or Llama use deep learning and transformer architectures to predict the next word in a sequence. They can translate, summarize, answer questions, and write code.",
+      "example": "\"An LLM is a specialized neural network trained on vast text data. Its core function is simply predicting the next most likely token, but at scale, this allows it to write essays, code, and answer complex questions like a human.\"",
+      "summary10s": "Large Language Model. Deep learning model trained on vast text to generate human language."
+    }
+  },
+  {
+    "id": "llm-vs-genai",
+    "category": "Other",
+    "question": "What is the difference between an LLM and Generative AI?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Generative AI is the broad category of AI that creates new content (text, images, audio). An LLM is a specific type of GenAI focused only on text.",
+      "explain": "GenAI encompasses models like Midjourney (images) or Suno (audio). LLMs (like ChatGPT) are a subset of GenAI specifically architected using transformers to handle natural language processing tasks.",
+      "example": "\"Generative AI is the umbrella term for any AI that creates new data—images, music, or video. An LLM is a specific sub-category of GenAI that exclusively processes and generates text and code.\"",
+      "summary10s": "GenAI = broad category for creating any content. LLM = subset focused purely on text."
+    }
+  },
+  {
+    "id": "agentic-ai-vs-traditional-genai",
+    "category": "Other",
+    "question": "What is Agentic AI, and how is it different from a traditional GenAI application?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Traditional GenAI just answers prompts. Agentic AI can independently plan, use tools, and execute a sequence of actions to achieve a goal.",
+      "explain": "A standard LLM is passive—it takes an input and returns an output. An AI Agent has a loop: it observes, thinks, uses external tools (like APIs, web search, code execution), and acts autonomously until it solves the problem.",
+      "example": "\"If I ask traditional GenAI for the weather, it just outputs text based on its training. If I ask an Agentic AI, it realizes it needs real-time data, decides to call a weather API tool, reads the response, and then formats the final answer for me. It has agency and tool access.\"",
+      "summary10s": "GenAI = passive text generation. Agentic AI = autonomous loop with tool use to achieve goals."
     }
   }
 ];
