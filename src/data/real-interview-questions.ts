@@ -20,12 +20,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "internal-working-of-hashmap",
     "category": "Java",
     "question": "Internal working of HashMap",
-    "frequency": 18,
+    "frequency": 21,
     "companies": [
       "Zensar Technologies",
       "Deloitte",
       "Capgemini",
-      "Wissen Technology"
+      "Wissen Technology",
+      "Infosys"
     ],
     "variations": [
       "Why can HashMap become slow even with a good hash function?",
@@ -44,7 +45,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "What happens when two keys have the same hash?",
       "How does HashMap handle collisions?",
       "What changed in HashMap after Java 8?",
-      "What happens internally during put() and get()?"
+      "What happens internally during put() and get()?",
+      "Explain the internal working of HashMap",
+      "What happens when two keys have the same hash code?",
+      "How does HashMap identify the correct value when hash collisions occur?"
     ],
     "answerSEE": {
       "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
@@ -118,10 +122,11 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "hashmap-vs-concurrenthashmap",
     "category": "Java",
     "question": "HashMap vs ConcurrentHashMap",
-    "frequency": 16,
+    "frequency": 17,
     "companies": [
       "BCT Consulting",
-      "Wissen Technology"
+      "Wissen Technology",
+      "Infosys"
     ],
     "variations": [
       "When would you choose ConcurrentHashMap over HashMap?",
@@ -142,7 +147,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Why is ConcurrentHashMap better than synchronizing the entire Map?",
       "How does ConcurrentHashMap achieve thread safety?",
       "Why does ConcurrentHashMap exist, and when would you use it?",
-      "HashMap vs ConcurrentHashMap — When, Why & Where?"
+      "HashMap vs ConcurrentHashMap — When, Why & Where?",
+      "HashMap vs Hashtable vs ConcurrentHashMap"
     ],
     "answerSEE": {
       "simple": "HashMap isn't thread-safe; ConcurrentHashMap is designed for safe concurrent access.",
@@ -266,6 +272,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-completablefuture",
+    "category": "Java",
+    "question": "What is CompletableFuture?",
+    "frequency": 12,
+    "companies": [],
+    "variations": [
+      "CompletableFuture use cases",
+      "CompletableFuture",
+      "CompletableFuture Key Methods",
+      "What is CompletableFuture, and why is it useful?",
+      "How would you run multiple asynchronous operations using CompletableFuture?",
+      "What specific problem does \"CompletableFuture\" solve in asynchronous programming?",
+      "What problem does \"CompletableFuture\" solve?",
+      "CompletableFuture real-time scenario",
+      "How does CompletableFuture support asynchronous programming?"
+    ],
+    "answerSEE": {
+      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
+      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
+      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
+      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
+    }
+  },
+  {
     "id": "spring-transactional-fails",
     "category": "Spring Boot",
     "question": "In what scenarios does the @Transactional annotation fail to work?",
@@ -285,29 +315,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "If you call a @Transactional method from another method inside the exact same class, it bypasses the Spring proxy completely. Also, by default, Spring only rolls back for RuntimeExceptions (unchecked), not for Checked exceptions.",
       "example": "\"The most common reason is self-invocation. If I call a @Transactional method from within the same class, no transaction is created. It also won't work if the method isn't public. Finally, checked exceptions silently commit unless I explicitly add rollbackFor = Exception.class.\"",
       "summary10s": "Self-invocation bypasses the proxy. Checked exceptions don't auto-rollback by default."
-    }
-  },
-  {
-    "id": "what-is-completablefuture",
-    "category": "Java",
-    "question": "What is CompletableFuture?",
-    "frequency": 11,
-    "companies": [],
-    "variations": [
-      "CompletableFuture use cases",
-      "CompletableFuture",
-      "CompletableFuture Key Methods",
-      "What is CompletableFuture, and why is it useful?",
-      "How would you run multiple asynchronous operations using CompletableFuture?",
-      "What specific problem does \"CompletableFuture\" solve in asynchronous programming?",
-      "What problem does \"CompletableFuture\" solve?",
-      "CompletableFuture real-time scenario"
-    ],
-    "answerSEE": {
-      "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
-      "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
-      "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
-      "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
     }
   },
   {
@@ -417,6 +424,32 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "why-is-string-immutable-in-java",
+    "category": "Java",
+    "question": "Why is String Immutable in Java?",
+    "frequency": 11,
+    "companies": [
+      "Accenture",
+      "GDAS",
+      "BCT Consulting",
+      "Infosys"
+    ],
+    "variations": [
+      "Why is \"String\" immutable in Java?",
+      "String Pool, intern(), == vs equals()",
+      "Why is String immutable?",
+      "Why String immutable?",
+      "Why String is immutable in Java? What benefits does it give in multi-threaded environments?",
+      "Why is String immutable in Java?"
+    ],
+    "answerSEE": {
+      "simple": "String objects cannot be changed after creation — any modification creates a new String object, never modifying the original.",
+      "explain": "Security — String used for class loading, DB URLs, network connections — mutable String would be a security vulnerability\nString Pool — JVM reuses String literals safely because immutable objects can be shared without copy\nThread Safety — immutable objects need no synchronization, inherently thread-safe\nHashCode Caching — String caches its hashCode, works correctly only because value never changes\nHashMap key safety — String is the safest map key because hashCode never changes after put",
+      "example": "\"String immutability serves four purposes. Security — if I pass a file path to a method, the method cannot secretly change the path after my security check. String pool efficiency — JVM reuses identical literals safely because two variables pointing to the same pooled String cannot affect each other through one changing it. Thread safety — multiple threads can read the same String simultaneously without locks. HashCode caching — String caches hashCode for fast HashMap lookups, valid only because the value never changes.\"",
+      "summary10s": "String immutable for security, string pool sharing, thread safety, and hashCode caching — all four depend on value never changing."
+    }
+  },
+  {
     "id": "synchronized-vs-reentrantlock",
     "category": "Java",
     "question": "synchronized vs ReentrantLock?",
@@ -441,28 +474,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "why-is-string-immutable-in-java",
-    "category": "Java",
-    "question": "Why is String Immutable in Java?",
+    "id": "how-did-you-handle-global-exception-handling",
+    "category": "Spring Boot",
+    "question": "How did you handle global exception handling?",
     "frequency": 10,
     "companies": [
-      "Accenture",
-      "GDAS",
-      "BCT Consulting"
+      "Flipkart",
+      "Capgemini",
+      "Infosys"
     ],
     "variations": [
-      "Why is \"String\" immutable in Java?",
-      "String Pool, intern(), == vs equals()",
-      "Why is String immutable?",
-      "Why String immutable?",
-      "Why String is immutable in Java? What benefits does it give in multi-threaded environments?",
-      "Why is String immutable in Java?"
+      "Global Exception Handling",
+      "Spring Boot Exception Handling",
+      "Exception handling in REST APIs",
+      "How to implement Global Exception Handling?",
+      "How do you implement global exception handling?",
+      "How do you handle multiple exceptions separately?",
+      "How do you map custom exceptions to different handlers?",
+      "How do you implement global exception handling in Spring Boot?"
     ],
     "answerSEE": {
-      "simple": "String objects cannot be changed after creation — any modification creates a new String object, never modifying the original.",
-      "explain": "Security — String used for class loading, DB URLs, network connections — mutable String would be a security vulnerability\nString Pool — JVM reuses String literals safely because immutable objects can be shared without copy\nThread Safety — immutable objects need no synchronization, inherently thread-safe\nHashCode Caching — String caches its hashCode, works correctly only because value never changes\nHashMap key safety — String is the safest map key because hashCode never changes after put",
-      "example": "\"String immutability serves four purposes. Security — if I pass a file path to a method, the method cannot secretly change the path after my security check. String pool efficiency — JVM reuses identical literals safely because two variables pointing to the same pooled String cannot affect each other through one changing it. Thread safety — multiple threads can read the same String simultaneously without locks. HashCode caching — String caches hashCode for fast HashMap lookups, valid only because the value never changes.\"",
-      "summary10s": "String immutable for security, string pool sharing, thread safety, and hashCode caching — all four depend on value never changing."
+      "simple": "By using @RestControllerAdvice and @ExceptionHandler annotations in Spring Boot.",
+      "explain": "@RestControllerAdvice intercepts exceptions thrown globally across all controllers. Inside it, methods annotated with @ExceptionHandler specify which exception to catch (like CustomNotFoundException). We then return a standardized JSON error response.",
+      "example": "I created a GlobalExceptionHandler class annotated with @RestControllerAdvice. Inside it, I wrote methods with @ExceptionHandler(ResourceNotFoundException.class) to catch specific exceptions. These methods return a custom ErrorResponse object containing the timestamp, error message, and HTTP status code, ensuring the client always gets a consistent JSON format instead of a messy stack trace.",
+      "summary10s": "@RestControllerAdvice + @ExceptionHandler to return a consistent JSON error response."
     }
   },
   {
@@ -514,6 +549,35 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "how-do-you-secure-rest-apis",
+    "category": "Spring Boot",
+    "question": "How do you secure REST APIs?",
+    "frequency": 9,
+    "companies": [
+      "Accenture",
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "What type of security are you using in your current project?",
+      "How to secure REST APIs?",
+      "Spring Security Implementation in Projects",
+      "How do you secure REST APIs in Spring Boot?",
+      "How would you secure a REST API using JWT?",
+      "How would you secure a Spring Boot REST API?",
+      "How do you secure REST and SOAP APIs using JWT?"
+    ],
+    "answerSEE": {
+      "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
+      "explain": "SecurityFilterChain bean — configure which routes are public and which need auth\nAdd custom JWT filter before UsernamePasswordAuthenticationFilter\nJWT filter validates token, sets Authentication in SecurityContext\nUserDetailsService loads user details for validation",
+      "example": "\"I configure a SecurityFilterChain bean where I define public endpoints like login and protected ones requiring authentication. I add a custom JWT filter that intercepts every request, extracts and validates the token, and sets the authentication in SecurityContext. If token is invalid the filter rejects the request before it reaches any controller.\"",
+      "summary10s": "SecurityFilterChain defines routes, JWT filter validates token, sets SecurityContext."
+    }
+  },
+  {
     "id": "spring-transactions-propagation",
     "category": "Spring Boot",
     "question": "Explain Transaction Propagation and Isolation Levels in Spring.",
@@ -555,34 +619,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
       "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
       "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
-    }
-  },
-  {
-    "id": "how-do-you-secure-rest-apis",
-    "category": "Spring Boot",
-    "question": "How do you secure REST APIs?",
-    "frequency": 8,
-    "companies": [
-      "Accenture",
-      "Deloitte",
-      "Atyeti",
-      "Signify",
-      "Altimetrik",
-      "EPAM"
-    ],
-    "variations": [
-      "What type of security are you using in your current project?",
-      "How to secure REST APIs?",
-      "Spring Security Implementation in Projects",
-      "How do you secure REST APIs in Spring Boot?",
-      "How would you secure a REST API using JWT?",
-      "How would you secure a Spring Boot REST API?"
-    ],
-    "answerSEE": {
-      "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
-      "explain": "SecurityFilterChain bean — configure which routes are public and which need auth\nAdd custom JWT filter before UsernamePasswordAuthenticationFilter\nJWT filter validates token, sets Authentication in SecurityContext\nUserDetailsService loads user details for validation",
-      "example": "\"I configure a SecurityFilterChain bean where I define public endpoints like login and protected ones requiring authentication. I add a custom JWT filter that intercepts every request, extracts and validates the token, and sets the authentication in SecurityContext. If token is invalid the filter rejects the request before it reaches any controller.\"",
-      "summary10s": "SecurityFilterChain defines routes, JWT filter validates token, sets SecurityContext."
     }
   },
   {
@@ -772,6 +808,33 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-are-the-java-8-features-you-have-used",
+    "category": "Java",
+    "question": "What are the Java 8 features you have used?",
+    "frequency": 7,
+    "companies": [
+      "Accenture",
+      "Deloitte",
+      "Capgemini",
+      "Deloitte INDIA",
+      "Wissen Technology",
+      "Infosys"
+    ],
+    "variations": [
+      "Key Java 8 features (Streams, Lambdas, Functional interfaces)",
+      "What are java 8 features do you know? Which ones have you implemented in your project?",
+      "Java 8 features",
+      "Java 8 Features",
+      "What are Java 8 features?"
+    ],
+    "answerSEE": {
+      "simple": "I mostly use Streams, Lambdas, Optional, and the new Date/Time API.",
+      "explain": "Java 8 changed how we write Java. Streams allow declarative data processing. Lambdas provide concise implementations for functional interfaces. Optional prevents NullPointerExceptions, and the java.time package replaces the old, thread-unsafe Date/Calendar classes.",
+      "example": "In my current project, I use Streams heavily to map and filter lists of DTOs. I use Optional as a return type for database queries to force null-checking, and I use the LocalDate API for all timestamp logging because it's thread-safe and immutable.",
+      "summary10s": "Streams (processing), Lambdas (concise code), Optional (null-safety), Date/Time API (thread-safe dates)."
+    }
+  },
+  {
     "id": "lazy-vs-eager-loading",
     "category": "Spring Boot",
     "question": "Lazy vs Eager Loading?",
@@ -873,28 +936,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "how-did-you-handle-global-exception-handling",
-    "category": "Spring Boot",
-    "question": "How did you handle global exception handling?",
-    "frequency": 6,
-    "companies": [
-      "Flipkart",
-      "Capgemini"
-    ],
-    "variations": [
-      "Global Exception Handling",
-      "Spring Boot Exception Handling",
-      "Exception handling in REST APIs",
-      "How to implement Global Exception Handling?"
-    ],
-    "answerSEE": {
-      "simple": "By using @RestControllerAdvice and @ExceptionHandler annotations in Spring Boot.",
-      "explain": "@RestControllerAdvice intercepts exceptions thrown globally across all controllers. Inside it, methods annotated with @ExceptionHandler specify which exception to catch (like CustomNotFoundException). We then return a standardized JSON error response.",
-      "example": "I created a GlobalExceptionHandler class annotated with @RestControllerAdvice. Inside it, I wrote methods with @ExceptionHandler(ResourceNotFoundException.class) to catch specific exceptions. These methods return a custom ErrorResponse object containing the timestamp, error message, and HTTP status code, ensuring the client always gets a consistent JSON format instead of a messy stack trace.",
-      "summary10s": "@RestControllerAdvice + @ExceptionHandler to return a consistent JSON error response."
-    }
-  },
-  {
     "id": "how-to-optimize-slow-queries",
     "category": "Java",
     "question": "How to optimize slow queries?",
@@ -958,28 +999,47 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-are-the-java-8-features-you-have-used",
-    "category": "Java",
-    "question": "What are the Java 8 features you have used?",
+    "id": "spring-restful-api",
+    "category": "Spring Boot",
+    "question": "What is a RESTful API?",
     "frequency": 6,
     "companies": [
-      "Accenture",
-      "Deloitte",
+      "JPMorganChase",
       "Capgemini",
-      "Deloitte INDIA",
-      "Wissen Technology"
+      "Infosys"
     ],
     "variations": [
-      "Key Java 8 features (Streams, Lambdas, Functional interfaces)",
-      "What are java 8 features do you know? Which ones have you implemented in your project?",
-      "Java 8 features",
-      "Java 8 Features"
+      "REST API Best Practices",
+      "REST API concepts",
+      "What is a REST API?"
     ],
     "answerSEE": {
-      "simple": "I mostly use Streams, Lambdas, Optional, and the new Date/Time API.",
-      "explain": "Java 8 changed how we write Java. Streams allow declarative data processing. Lambdas provide concise implementations for functional interfaces. Optional prevents NullPointerExceptions, and the java.time package replaces the old, thread-unsafe Date/Calendar classes.",
-      "example": "In my current project, I use Streams heavily to map and filter lists of DTOs. I use Optional as a return type for database queries to force null-checking, and I use the LocalDate API for all timestamp logging because it's thread-safe and immutable.",
-      "summary10s": "Streams (processing), Lambdas (concise code), Optional (null-safety), Date/Time API (thread-safe dates)."
+      "simple": "It's an architectural style for APIs that uses standard HTTP methods, URIs to represent resources, and transfers data (usually in JSON) without keeping server state.",
+      "explain": "REST stands for Representational State Transfer. Key constraints include being stateless (each request contains all needed info), using standard HTTP methods (GET, POST, PUT, DELETE), and using noun-based URLs representing entities.",
+      "example": "\"A RESTful API maps CRUD operations to HTTP methods. For example, to manage users, I design the API around the resource URL `/users`. A GET request fetches them, a POST creates one, and a DELETE to `/users/123` removes the specific user. Importantly, no client session state is stored on the server.\"",
+      "summary10s": "Stateless, uses standard HTTP methods (GET, POST), noun-based resource URIs, usually returns JSON."
+    }
+  },
+  {
+    "id": "how-does-transactional-work-internally",
+    "category": "Spring Boot",
+    "question": "How does @Transactional work internally?",
+    "frequency": 6,
+    "companies": [
+      "EPAM",
+      "Infosys"
+    ],
+    "variations": [
+      "How does @Transactional work?",
+      "How @Transactional Works",
+      "How does @Transactional work internally in Spring Boot?",
+      "What is @Transactional and where would you use it?"
+    ],
+    "answerSEE": {
+      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
+      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
+      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
+      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
     }
   },
   {
@@ -1045,26 +1105,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-restful-api",
-    "category": "Spring Boot",
-    "question": "What is a RESTful API?",
-    "frequency": 5,
-    "companies": [
-      "JPMorganChase",
-      "Capgemini"
-    ],
-    "variations": [
-      "REST API Best Practices",
-      "REST API concepts"
-    ],
-    "answerSEE": {
-      "simple": "It's an architectural style for APIs that uses standard HTTP methods, URIs to represent resources, and transfers data (usually in JSON) without keeping server state.",
-      "explain": "REST stands for Representational State Transfer. Key constraints include being stateless (each request contains all needed info), using standard HTTP methods (GET, POST, PUT, DELETE), and using noun-based URLs representing entities.",
-      "example": "\"A RESTful API maps CRUD operations to HTTP methods. For example, to manage users, I design the API around the resource URL `/users`. A GET request fetches them, a POST creates one, and a DELETE to `/users/123` removes the specific user. Importantly, no client session state is stored on the server.\"",
-      "summary10s": "Stateless, uses standard HTTP methods (GET, POST), noun-based resource URIs, usually returns JSON."
-    }
-  },
-  {
     "id": "java-singleton-class",
     "category": "Java Coding",
     "question": "Write a Singleton class.",
@@ -1122,26 +1162,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Loop from last index to 0\nAppend each character to a new string or StringBuilder\nStringBuilder approach is more efficient — no new String object each iteration\nTime O(n), Space O(n)",
       "example": "\"I loop from the last index of the string down to zero and append each character to a StringBuilder. Finally I return the StringBuilder as a string. This avoids using reverse method and runs in O(n) time. Using StringBuilder instead of string concatenation avoids creating unnecessary intermediate string objects.\"",
       "summary10s": "Loop from end to start, append each char to StringBuilder, return result."
-    }
-  },
-  {
-    "id": "how-does-transactional-work-internally",
-    "category": "Spring Boot",
-    "question": "How does @Transactional work internally?",
-    "frequency": 5,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "How does @Transactional work?",
-      "How @Transactional Works",
-      "How does @Transactional work internally in Spring Boot?"
-    ],
-    "answerSEE": {
-      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
-      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
-      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
-      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
     }
   },
   {
@@ -1241,6 +1261,50 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
       "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
       "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
+    }
+  },
+  {
+    "id": "what-is-optional-when-should-you-use-it",
+    "category": "Java",
+    "question": "What is Optional? When should you use it?",
+    "frequency": 5,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "What is the use of Optional?",
+      "Optional Class",
+      "What is Optional and where does it help?",
+      "How do you use Optional and what are its pitfalls?"
+    ],
+    "answerSEE": {
+      "simple": "Optional is a container that may or may not hold a value — eliminates NullPointerException.",
+      "explain": "Wrap return value in Optional instead of returning null\nisPresent or isEmpty to check, get to retrieve value\norElse for default value, orElseThrow for exception\nmap and flatMap to transform value if present",
+      "example": "\"Optional forces the caller to handle the case where value may be absent instead of getting a surprise NullPointerException. I use it as return type from service methods when result may not exist. I chain orElseThrow to throw a meaningful exception or orElse to return a default. I avoid Optional.get without checking — defeats the purpose.\"",
+      "summary10s": "Optional=nullable wrapper, use orElse or orElseThrow, avoid get without check."
+    }
+  },
+  {
+    "id": "garbage-collection-in-java",
+    "category": "Java",
+    "question": "Garbage Collection in Java",
+    "frequency": 5,
+    "companies": [
+      "Accenture",
+      "Zensar Technologies",
+      "Infosys"
+    ],
+    "variations": [
+      "How does Garbage Collection work in Java?",
+      "What is garbage collection in Java?",
+      "How does garbage collection work in modern Java?",
+      "What is Garbage Collection and why is it required?"
+    ],
+    "answerSEE": {
+      "simple": "GC automatically removes objects that no longer have any live references, freeing up heap memory.",
+      "explain": "- Heap split into Young Gen (Minor GC) and Old Gen (Major GC)\n- Modern default collector: G1, divides heap into regions, collects garbage-heavy regions first\n- Developer doesn't manually free memory — GC handles it based on reachability",
+      "example": "\"Garbage Collection automatically identifies and removes objects that no longer have any live references, so I don't have to manually free memory like in C++. The heap is split into Young and Old Generation for efficient collection — short-lived objects get cleaned quickly in Minor GC, while long-lived ones move to Old Gen and get cleaned less frequently in Major GC.\"",
+      "summary10s": "\"Auto-removes unreachable objects — Young Gen (Minor GC) + Old Gen (Major GC).\""
     }
   },
   {
@@ -1470,26 +1534,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-optional-when-should-you-use-it",
-    "category": "Java",
-    "question": "What is Optional? When should you use it?",
-    "frequency": 4,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [
-      "What is the use of Optional?",
-      "Optional Class",
-      "What is Optional and where does it help?"
-    ],
-    "answerSEE": {
-      "simple": "Optional is a container that may or may not hold a value — eliminates NullPointerException.",
-      "explain": "Wrap return value in Optional instead of returning null\nisPresent or isEmpty to check, get to retrieve value\norElse for default value, orElseThrow for exception\nmap and flatMap to transform value if present",
-      "example": "\"Optional forces the caller to handle the case where value may be absent instead of getting a surprise NullPointerException. I use it as return type from service methods when result may not exist. I chain orElseThrow to throw a meaningful exception or orElse to return a default. I avoid Optional.get without checking — defeats the purpose.\"",
-      "summary10s": "Optional=nullable wrapper, use orElse or orElseThrow, avoid get without check."
-    }
-  },
-  {
     "id": "what-is-controlleradvice",
     "category": "Spring Boot",
     "question": "What is @ControllerAdvice?",
@@ -1540,27 +1584,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Maintain an insert index starting at 0. As you iterate through the array, whenever you find a non-zero element, swap it with the element at the insert index, and increment the insert index.",
       "example": "\"I use a single pointer called `insertPos` starting at 0. I loop through the array, and every time I see a non-zero number, I put it at `arr[insertPos]` and increment `insertPos`. After the loop, I just fill the rest of the array from `insertPos` to the end with zeroes.\"",
       "summary10s": "Track non-zero insert position. Move all non-zeroes to front, fill remainder with zeroes."
-    }
-  },
-  {
-    "id": "garbage-collection-in-java",
-    "category": "Java",
-    "question": "Garbage Collection in Java",
-    "frequency": 4,
-    "companies": [
-      "Accenture",
-      "Zensar Technologies"
-    ],
-    "variations": [
-      "How does Garbage Collection work in Java?",
-      "What is garbage collection in Java?",
-      "How does garbage collection work in modern Java?"
-    ],
-    "answerSEE": {
-      "simple": "GC automatically removes objects that no longer have any live references, freeing up heap memory.",
-      "explain": "- Heap split into Young Gen (Minor GC) and Old Gen (Major GC)\n- Modern default collector: G1, divides heap into regions, collects garbage-heavy regions first\n- Developer doesn't manually free memory — GC handles it based on reachability",
-      "example": "\"Garbage Collection automatically identifies and removes objects that no longer have any live references, so I don't have to manually free memory like in C++. The heap is split into Young and Old Generation for efficient collection — short-lived objects get cleaned quickly in Minor GC, while long-lived ones move to Old Gen and get cleaned less frequently in Major GC.\"",
-      "summary10s": "\"Auto-removes unreachable objects — Young Gen (Minor GC) + Old Gen (Major GC).\""
     }
   },
   {
@@ -18568,6 +18591,650 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Without an index, the database must scan the entire table (a full table scan) to find relevant rows, which is extremely slow for large tables. An index (usually a B-Tree) allows the database to find rows in logarithmic time. We use them on columns that are frequently used in WHERE clauses, JOIN conditions, or ORDER BY clauses.",
       "example": "\"If I have a 'users' table with a million rows and I frequently query by 'email', I will add an index on the 'email' column (`CREATE INDEX idx_email ON users(email)`). This way, the database immediately knows where that email is stored on disk instead of checking all 1 million rows one by one.\"",
       "summary10s": "Data structure (like a book index) that speeds up data retrieval. Prevents slow full table scans."
+    }
+  },
+  {
+    "id": "java-improve-scalability-multiple-calls",
+    "category": "Java",
+    "question": "How would you improve service scalability with multiple API/repository calls?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use CompletableFuture to make parallel calls instead of sequential ones, reducing overall latency.",
+      "explain": "When a service makes multiple independent network or DB calls sequentially, the total response time is the sum of all calls. By wrapping them in CompletableFuture.supplyAsync(), they execute concurrently, and the total time drops to the slowest call.",
+      "example": "\"If I need to fetch user details and their recent orders, doing it sequentially takes 500ms + 500ms = 1s. I use CompletableFuture to fire both calls in parallel, use CompletableFuture.allOf() to wait, and combine them. The API now responds in just 500ms, heavily improving scalability under load.\"",
+      "summary10s": "Replace sequential calls with parallel CompletableFutures to minimize latency."
+    }
+  },
+  {
+    "id": "future-vs-completablefuture",
+    "category": "Java",
+    "question": "Difference between Future and CompletableFuture?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Future is synchronous and blocking when getting the result. CompletableFuture is fully asynchronous and supports non-blocking chaining.",
+      "explain": "With a standard Future, you have to call .get() which blocks the thread until the result is ready. CompletableFuture provides callbacks like .thenApply() or .thenAccept(), allowing the thread to move on without ever blocking.",
+      "example": "\"With a regular Future, I submit a task and then my main thread gets stuck waiting on future.get(). With CompletableFuture, I just attach a .thenAccept() callback. My main thread continues its work, and the callback automatically executes whenever the result arrives.\"",
+      "summary10s": "Future.get() blocks. CompletableFuture uses callbacks to stay non-blocking."
+    }
+  },
+  {
+    "id": "try-with-resources",
+    "category": "Java",
+    "question": "Explain try-with-resources.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How does try-with-resources automatically close resources?"
+    ],
+    "answerSEE": {
+      "simple": "It's a try block that automatically closes any resource declared within its parentheses once the block finishes.",
+      "explain": "Introduced in Java 7, it eliminates the need for a finally block to close streams or connections. Any object that implements the AutoCloseable interface can be used, and its close() method is guaranteed to be called, even if an exception occurs.",
+      "example": "\"Instead of writing a messy finally block to close a FileInputStream, I declare it inside the parentheses of the try statement: try(FileInputStream fis = new FileInputStream(file)). Java guarantees fis.close() is called automatically as soon as the try block ends.\"",
+      "summary10s": "Auto-closes objects implementing AutoCloseable without a finally block."
+    }
+  },
+  {
+    "id": "angular-shared-state-rxjs",
+    "category": "Angular",
+    "question": "How do you manage shared state using Services and RxJS?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use an Angular Service provided in root, holding state in a BehaviorSubject so multiple components can subscribe to it.",
+      "explain": "A BehaviorSubject holds the current value and emits it to new subscribers immediately. The service exposes this as an Observable for components to read, and provides methods to update the BehaviorSubject's value.",
+      "example": "\"For a shopping cart, I create a CartService with a private BehaviorSubject holding the items. I expose it as a public observable. The header component subscribes to display the count, and the product component calls a service method that pushes a new value into the BehaviorSubject. Both stay perfectly in sync.\"",
+      "summary10s": "Service with private BehaviorSubject and public Observable for reactive state sharing."
+    }
+  },
+  {
+    "id": "ngrx-vs-shared-service",
+    "category": "Angular",
+    "question": "When would you choose NgRx over a shared service?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use NgRx for complex, large-scale state with many actors. Use a shared service for simpler, localized state.",
+      "explain": "NgRx introduces Redux patterns (actions, reducers, selectors), which adds boilerplate but provides predictability, time-travel debugging, and strict unidirectional data flow. Shared RxJS services are lighter but can become a tangled mess if state grows too complex.",
+      "example": "\"If I just need to share user authentication status or a simple cart count, I use a BehaviorSubject in a service. But if I'm building a complex dashboard where multiple components trigger cascading updates, fetch data, and modify shared filters simultaneously, I bring in NgRx to keep the state predictable and easily debuggable.\"",
+      "summary10s": "NgRx for complex/predictable state, RxJS Service for simple/lightweight state."
+    }
+  },
+  {
+    "id": "pure-vs-impure-pipes",
+    "category": "Angular",
+    "question": "Difference between pure and impure pipes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pure pipes only run when the input reference changes. Impure pipes run on every change detection cycle.",
+      "explain": "Angular optimizes pure pipes by caching results and ignoring internal mutations (like array pushes). Impure pipes execute constantly, making them useful for tracking mutable data but potentially terrible for performance.",
+      "example": "\"A pure pipe like 'uppercase' only recalculates when I pass a brand new string reference. An impure pipe like 'async' needs to fire on every cycle to check for new observable emissions. I always avoid writing custom impure pipes for heavy calculations because they will crash the app's performance.\"",
+      "summary10s": "Pure = runs on reference change (fast). Impure = runs on every cycle (slow)."
+    }
+  },
+  {
+    "id": "angular-lazy-loading",
+    "category": "Angular",
+    "question": "How do you implement lazy loading?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the `loadChildren` property in the routing configuration to dynamically import a module or component only when the route is visited.",
+      "explain": "Instead of importing everything into the main bundle, lazy loading splits the code into smaller chunks. In modern Angular (with standalone components), you use `loadComponent: () => import('./my.component').then(m => m.MyComponent)`.",
+      "example": "\"To speed up initial load time, I don't bundle the admin dashboard with the public app. In my routes array, I set the path to 'admin' and use `loadChildren` or `loadComponent` with a dynamic import. The browser only downloads the admin chunk when the user actually navigates there.\"",
+      "summary10s": "Use loadChildren or loadComponent in routes to split bundles and load on demand."
+    }
+  },
+  {
+    "id": "angular-secure-validate-input",
+    "category": "Angular",
+    "question": "How do you securely validate user input?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Reactive Forms with built-in or custom validators on the frontend, and strictly re-validate everything on the backend.",
+      "explain": "Frontend validation improves user experience by giving instant feedback using Angular's Validators class. However, frontend security can be bypassed, so the backend must treat all input as malicious and perform identical validations.",
+      "example": "\"I use Angular Reactive Forms with Validators.pattern for email and regex checks before the submit button even enables. But I know clients can intercept requests, so my Spring Boot backend uses @Valid and @Pattern to enforce the exact same rules securely before touching the database.\"",
+      "summary10s": "Reactive Forms for UX on frontend, strict @Valid annotations on backend for security."
+    }
+  },
+  {
+    "id": "angular-prevent-xss",
+    "category": "Angular",
+    "question": "How do you prevent XSS in Angular?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Can untrusted data be bound to innerHTML?"
+    ],
+    "answerSEE": {
+      "simple": "Angular automatically sanitizes most bound values, but you must avoid manually trusting user input for innerHTML.",
+      "explain": "Standard interpolation `{{ data }}` automatically encodes scripts, neutralizing XSS. However, if binding to `[innerHTML]`, Angular will sanitize dangerous tags like `<script>`. If you bypass security using `DomSanitizer.bypassSecurityTrustHtml()`, you open yourself to XSS.",
+      "example": "\"Angular is safe by default—if I put `<script>` in interpolation, it renders as text. If I bind to `[innerHTML]`, Angular sanitizes and removes the script tag. To truly prevent XSS, I never use `bypassSecurityTrustHtml` on user-submitted data, and I enforce Content Security Policy (CSP) headers on the server.\"",
+      "summary10s": "Angular auto-sanitizes. Never bypass DomSanitizer for user-provided innerHTML."
+    }
+  },
+  {
+    "id": "angular-interpolation-syntax",
+    "category": "Angular",
+    "question": "What is Angular interpolation syntax?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Interpolation uses double curly braces `{{ }}` to embed dynamic JavaScript expressions into HTML templates.",
+      "explain": "It evaluates the expression inside the braces and converts the result to a string, which is then rendered in the DOM. It automatically updates whenever the component's data changes.",
+      "example": "\"If I have a variable `userName = 'John'`, I write `Welcome {{ userName }}` in the HTML. Angular evaluates it and renders 'Welcome John'. I can also do simple logic inside, like `{{ items.length > 0 ? 'Full' : 'Empty' }}`.\"",
+      "summary10s": "{{ expression }} evaluates and renders a component property into the HTML text."
+    }
+  },
+  {
+    "id": "microservices-partial-failures",
+    "category": "Microservices",
+    "question": "How do you handle partial failures in microservices?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Circuit Breakers, Timeouts, Retries, and Fallbacks to prevent cascading failures.",
+      "explain": "If Service A calls Service B and B is slow or failing, A must not wait indefinitely. Timeouts stop the waiting. Circuit Breakers stop sending traffic to the broken service entirely, returning a Fallback response so the overall system remains partially functional.",
+      "example": "\"I wrap synchronous calls using Resilience4j. If the recommendation service is down, the Circuit Breaker trips, preventing thread exhaustion in my main service. Instead of an error page, I return a Fallback response of 'default recommendations', so the user experience is slightly degraded but not broken.\"",
+      "summary10s": "Timeouts, Circuit Breakers, and Fallbacks to isolate faults and keep the system alive."
+    }
+  },
+  {
+    "id": "spring-boot-sensitive-config",
+    "category": "Spring Boot",
+    "question": "How do you manage sensitive configuration in Spring Boot?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Never commit passwords to Git. Inject them via environment variables or use a secret manager like HashiCorp Vault.",
+      "explain": "Hardcoding credentials in `application.yml` is a severe security risk. By referencing `${DB_PASSWORD}` in the yaml, the real value is read from the OS environment during deployment. For enterprise apps, Spring Cloud Vault automatically fetches encrypted secrets at startup.",
+      "example": "\"In my application.yml, I map the datasource password to `${DB_PASSWORD}`. During local dev, I set it in my IDE's environment variables. In production, our CI/CD pipeline injects it directly into the Kubernetes container securely, so it never exists in the codebase.\"",
+      "summary10s": "Reference ${ENV_VAR} in YAML and inject via CI/CD, or use HashiCorp Vault."
+    }
+  },
+  {
+    "id": "spring-boot-externalized-properties",
+    "category": "Spring Boot",
+    "question": "How does Spring load externalized properties at runtime?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring merges properties from multiple sources in a strict order, letting external configs override internal ones.",
+      "explain": "The hierarchy goes: internal `application.yml` < Profile specific YAML < OS Environment Variables < Command Line Arguments. This allows building the app once and configuring it dynamically per environment.",
+      "example": "\"I package my app with a default `application.yml`. When deploying to prod, I pass `--server.port=8080` via command line, and set environment variables for DB connections. Because environment variables and command line args have higher priority, they override the defaults without me having to rebuild the jar.\"",
+      "summary10s": "Properties follow a strict override hierarchy: YAML < Env Vars < Command Line Args."
+    }
+  },
+  {
+    "id": "tomcat-rest-soap-together",
+    "category": "Spring Boot",
+    "question": "How can Tomcat support REST and SOAP together?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot maps REST to DispatcherServlet and SOAP to MessageDispatcherServlet on different URL paths.",
+      "explain": "Both servlets run within the same embedded Tomcat container. You simply configure SOAP to listen on a path like `/ws/*` while REST handles `/api/*`. Tomcat routes the incoming HTTP request to the appropriate servlet based on the URL.",
+      "example": "\"In a recent project, we were migrating an old app. I had standard @RestControllers handling JSON on `/api/v1/`. For SOAP, I added Spring Web Services and registered a MessageDispatcherServlet bean mapped to `/ws/`. Tomcat happily hosted both simultaneously on port 8080 by routing based on the URL context.\"",
+      "summary10s": "Map DispatcherServlet (REST) and MessageDispatcherServlet (SOAP) to different URL paths."
+    }
+  },
+  {
+    "id": "idempotency-fund-transfers",
+    "category": "Microservices",
+    "question": "How do you implement idempotency to prevent duplicate fund transfers?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Require an Idempotency-Key header from the client and store it in a database table with a unique constraint.",
+      "explain": "When a request arrives, check if the key exists. If it does, return the cached result of the previous transaction. If it doesn't, insert the key and process the payment. This prevents double-charging if a user clicks 'Submit' twice or a network retry occurs.",
+      "example": "\"The UI generates a unique UUID when the payment screen loads and sends it in the `Idempotency-Key` header. In my POST API, I try to insert this key into an `idempotency_keys` table. If it throws a UniqueConstraintViolation, I know it's a duplicate request, so I safely return a 200 OK with the original transaction details instead of transferring funds again.\"",
+      "summary10s": "Client sends UUID header. Server checks/inserts UUID in DB to guarantee exactly-once processing."
+    }
+  },
+  {
+    "id": "coding-post-account-transfer",
+    "category": "Java Coding",
+    "question": "Write a POST /account/transfer API with validation and response handling.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use @RestController, @PostMapping, and @Valid on the request body, and wrap the database operations in @Transactional.",
+      "explain": "The DTO must have validations like @NotNull and @Positive. The controller passes the request to a service layer. The service method must be @Transactional so that if the deposit fails after the withdrawal succeeds, the entire transfer rolls back.",
+      "example": "\"I'd write `@PostMapping(\"/transfer\") public ResponseEntity<?> transfer(@Valid @RequestBody TransferDTO dto)`. The DTO ensures the amount is strictly positive. The service method uses `@Transactional` to deduct from account A and add to account B. If account B is frozen and throws an exception, the deduction from A automatically rolls back.\"",
+      "summary10s": "@PostMapping with @Valid DTO, calling an @Transactional service method for atomicity."
+    }
+  },
+  {
+    "id": "validate-nested-json-requests",
+    "category": "Spring Boot",
+    "question": "How do you validate complex nested JSON requests?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use @Valid on the parent DTO and also place @Valid on the nested object fields inside the parent.",
+      "explain": "Spring's validation doesn't automatically cascade into child objects. You must explicitly annotate the child object field with @Valid within the parent class to trigger its internal @NotNull or @Size annotations.",
+      "example": "\"If I have an `OrderDTO` that contains an `AddressDTO`, placing `@Valid @RequestBody OrderDTO` in the controller only validates the top-level fields. To validate the nested address, I must go inside `OrderDTO` and put `@Valid` directly on the `private AddressDTO address;` field. This ensures full cascading validation.\"",
+      "summary10s": "Place @Valid on the Controller parameter AND on the nested object field inside the DTO."
+    }
+  },
+  {
+    "id": "interview-tell-me-about-yourself-project",
+    "category": "Other",
+    "question": "Tell me about yourself and your current project.",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "Explain your current/recent project",
+      "What are your roles and responsibilities in the project?"
+    ],
+    "answerSEE": {
+      "simple": "Give a brief summary of your experience, tech stack, and the business value of your current project.",
+      "explain": "This is an icebreaker. Keep it structured: past experience, current role, the architecture of your recent project, your specific responsibilities (e.g., building APIs, optimizing DB queries), and what value it brought to the business.",
+      "example": "\"I have 4 years of experience as a Full Stack Developer. In my current project at [Company], we are building a microservices-based banking application. My role involves developing REST APIs using Spring Boot, designing the frontend with React, and optimizing our PostgreSQL database queries. I recently led the migration of a legacy monolithic service into two independent microservices.\"",
+      "summary10s": "Brief past + current tech stack + business value + your specific role/impact."
+    }
+  },
+  {
+    "id": "interview-challenges-faced",
+    "category": "Other",
+    "question": "Explain some of the challenges you faced and how you handled them.",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the STAR method (Situation, Task, Action, Result) to explain a technical or architectural challenge.",
+      "explain": "Interviewers want to see your problem-solving skills. Pick a real technical issue—like an N+1 query problem, a memory leak, a tricky concurrency bug, or a slow API—and explain the steps you took to diagnose and fix it.",
+      "example": "\"One major challenge was an API taking over 5 seconds to load. I used APM tools and noticed an N+1 query issue in Hibernate. The task was to optimize it without breaking existing functionality. I replaced the lazy loading loop with a single JPQL JOIN FETCH query, which reduced the DB calls from 50 to 1 and brought the response time down to 200ms.\"",
+      "summary10s": "STAR method: Situation (slow API), Action (identified N+1, used JOIN FETCH), Result (fast API)."
+    }
+  },
+  {
+    "id": "react-error-boundaries",
+    "category": "JavaScript",
+    "question": "What are Error Boundaries in React?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "How do you implement global error handling?"
+    ],
+    "answerSEE": {
+      "simple": "Error Boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI.",
+      "explain": "Without them, an error in a component completely unmounts the whole React component tree, leaving a blank screen. They are implemented using class components with `static getDerivedStateFromError()` or `componentDidCatch()`.",
+      "example": "\"If a widget on my dashboard crashes, I don't want the whole page to go white. I wrap the widget in an `<ErrorBoundary>` component. If it throws an error, the boundary catches it and displays a friendly 'Something went wrong' message instead of crashing the entire app. It's essentially a try-catch for React rendering.\"",
+      "summary10s": "Catches rendering errors in child components and displays a fallback UI instead of crashing."
+    }
+  },
+  {
+    "id": "js-multiple-api-calls-promise-all",
+    "category": "JavaScript",
+    "question": "How do you handle multiple API calls at the same time?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "How would you handle multiple sets of API/data simultaneously?"
+    ],
+    "answerSEE": {
+      "simple": "Use `Promise.all()` to execute them concurrently and wait for all to finish.",
+      "explain": "If the API calls are independent, running them sequentially with `await` wastes time. `Promise.all([api1(), api2()])` fires them simultaneously. If one fails, the whole block rejects (unless you use `Promise.allSettled()`).",
+      "example": "\"If I need to fetch a user's profile and their orders, doing it sequentially takes twice as long. I map the fetch calls to an array of promises and use `const [profile, orders] = await Promise.all([fetchProfile(), fetchOrders()])`. They run in parallel, halving the load time.\"",
+      "summary10s": "Use Promise.all() for parallel execution of independent async tasks."
+    }
+  },
+  {
+    "id": "react-pass-values-between-routes",
+    "category": "JavaScript",
+    "question": "How do you pass values between route components?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Using URL parameters, query parameters, or the React Router `state` object.",
+      "explain": "For mandatory identifiers (like user ID), use URL params (`/user/:id`). For optional filters, use query params (`?sort=asc`). For hidden/complex data that shouldn't be in the URL, pass state through the `Link` or `navigate` function.",
+      "example": "\"If I need to pass a product ID, I put it in the URL so it's shareable: `navigate('/product/123')`. But if I have a complex form object that I want to pass to a summary page without polluting the URL, I use `navigate('/summary', { state: { formData } })` and read it with `useLocation().state`.\"",
+      "summary10s": "URL params for IDs, Query strings for filters, Router state for hidden complex objects."
+    }
+  },
+  {
+    "id": "react-context-api-global-data",
+    "category": "JavaScript",
+    "question": "How do you manage API-related data globally using Context API?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Create a Context, wrap the app in its Provider, and pass the fetched data and update functions down to consumers.",
+      "explain": "The Context API prevents prop drilling. You create a provider component that fetches the API data, stores it in state, and passes both the state and the setter function in the context value. Any deeply nested component can access it using `useContext`.",
+      "example": "\"For user authentication, I create an `AuthContext`. The `AuthProvider` component fetches the user data on mount and holds it in state. It wraps the entire app. Then, any component, like a Navbar or Profile page, just calls `useContext(AuthContext)` to get the current user details without passing props down 5 levels.\"",
+      "summary10s": "Create Context, fetch/store data in Provider, use useContext to read data anywhere."
+    }
+  },
+  {
+    "id": "js-async-await-work",
+    "category": "JavaScript",
+    "question": "How does async/await work?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It is syntactic sugar over Promises, making asynchronous code look and behave like synchronous code.",
+      "explain": "An `async` function always returns a Promise. The `await` keyword pauses the execution of that specific function until the Promise resolves or rejects, without blocking the main JavaScript thread.",
+      "example": "\"Instead of chaining `.then()` and `.catch()` which leads to callback hell, I use `async/await`. I mark the function `async`, and use `const data = await fetch('/api')`. The code pauses there locally, but the browser keeps running. It's much easier to read and allows using standard try/catch blocks for errors.\"",
+      "summary10s": "Syntactic sugar over Promises. Makes async code look synchronous and readable."
+    }
+  },
+  {
+    "id": "js-what-is-a-promise",
+    "category": "JavaScript",
+    "question": "What is a Promise?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Promise represents the eventual completion (or failure) of an asynchronous operation and its resulting value.",
+      "explain": "It has three states: Pending (ongoing), Fulfilled (success), and Rejected (failed). You use `.then()` for success and `.catch()` for errors to handle the outcome once the operation finishes.",
+      "example": "\"When I request data from an API, the browser doesn't give me the data instantly. It gives me a Promise—a 'receipt' saying 'I will get this for you soon'. I attach a `.then()` to this receipt so that when the data actually arrives, my code knows what to do with it.\"",
+      "summary10s": "An object representing future completion of an async task. Pending, Fulfilled, or Rejected."
+    }
+  },
+  {
+    "id": "js-debouncing-vs-throttling",
+    "category": "JavaScript",
+    "question": "Debouncing vs Throttling",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Debouncing waits until the user stops acting for a set time before firing. Throttling fires at a steady, fixed rate regardless of how fast the user acts.",
+      "explain": "Use debouncing for search bars (wait until typing stops). Use throttling for scroll/resize events (fire once every 100ms to avoid freezing the UI).",
+      "example": "\"For a search autocomplete, I use Debounce. If I type 'apple' fast, it only sends one API call after I stop typing for 300ms. For a window scroll listener that updates a progress bar, I use Throttle. Even if I scroll furiously, it only executes the update function once every 100 milliseconds.\"",
+      "summary10s": "Debounce: wait for pause (search bar). Throttle: fire at fixed intervals (scroll event)."
+    }
+  },
+  {
+    "id": "react-what-is-ref",
+    "category": "JavaScript",
+    "question": "What is ref in React and where would you use it?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A ref (reference) provides a way to directly access DOM nodes or keep mutable values that don't trigger re-renders.",
+      "explain": "While React prefers declarative state, sometimes you need imperative DOM access. `useRef` holds a `.current` property that persists across renders but doesn't cause a re-render when changed.",
+      "example": "\"I mostly use `useRef` to directly manipulate a DOM element, like automatically setting focus on an input field when a modal opens using `inputRef.current.focus()`. I also use it to store a timer ID so I can clear an interval later without causing unnecessary component re-renders.\"",
+      "summary10s": "Access DOM directly or store mutable data that persists without triggering re-renders."
+    }
+  },
+  {
+    "id": "react-usememo-vs-usecallback",
+    "category": "JavaScript",
+    "question": "Difference between useMemo and useCallback",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "useMemo caches a calculated value, while useCallback caches a function reference.",
+      "explain": "Both are for performance optimization. `useMemo` runs an expensive calculation and remembers the result unless dependencies change. `useCallback` remembers a function instance so it isn't recreated on every render, preventing unnecessary re-renders of child components.",
+      "example": "\"If I have a heavy data sorting algorithm, I wrap it in `useMemo` so it only recalculates when the data array changes. If I pass a `handleClick` function to a heavily optimized child component, I wrap it in `useCallback` so the child doesn't think it's a 'new' function on every parent render and re-render itself.\"",
+      "summary10s": "useMemo caches the RESULT of a function. useCallback caches the FUNCTION itself."
+    }
+  },
+  {
+    "id": "react-higher-order-component",
+    "category": "JavaScript",
+    "question": "What is a HOC (Higher-Order Component)?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A HOC is a function that takes a component and returns a new, enhanced component.",
+      "explain": "It's a pattern for reusing component logic. Instead of duplicating code across components, you wrap them in a HOC that injects the shared logic (like authentication checks) via props.",
+      "example": "\"To protect routes, I create a `withAuth` HOC. It checks if the user is logged in. If yes, it renders the passed component. If no, it redirects to login. Then I simply wrap my components like `export default withAuth(Dashboard)` and they automatically get authentication protection.\"",
+      "summary10s": "A function that takes a component and returns a new component with added logic/props."
+    }
+  },
+  {
+    "id": "js-coding-deep-copy-object",
+    "category": "JS Coding",
+    "question": "Create a copy of a nested object so that modifying the copy does not affect the original.",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "Given: const employee = { data: { name: \"John\", age: 25 } }; Create a deep copy."
+    ],
+    "answerSEE": {
+      "simple": "Use `structuredClone(employee)` or `JSON.parse(JSON.stringify(employee))` to create a deep copy.",
+      "explain": "A simple spread operator (`{ ...employee }`) only does a shallow copy, meaning the nested `data` object is still referenced by both. To sever all references, a deep copy is required.",
+      "example": "\"If I do `const copy = { ...employee }` and change `copy.data.name`, the original employee's name changes too because it's a shallow copy. To fix this safely in modern JS, I use `const copy = structuredClone(employee)`. The nested objects are entirely new in memory.\"",
+      "summary10s": "Spread operator is shallow. Use structuredClone() or JSON.parse(JSON.stringify()) for deep copying."
+    }
+  },
+  {
+    "id": "spring-boot-advantages",
+    "category": "Spring Boot",
+    "question": "Why do we use Spring Boot? What are its advantages?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "Why do we use Spring Boot?",
+      "What are the advantages of Spring Boot?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot simplifies Spring development by providing auto-configuration and embedded servers.",
+      "explain": "It eliminates the massive XML configuration required in traditional Spring. It provides 'starter' dependencies that bring in everything you need, and runs standalone with an embedded Tomcat server, so you just build a JAR and run it.",
+      "example": "\"With old Spring, I had to configure Tomcat separately and write hundreds of lines of XML beans. With Spring Boot, I just add `spring-boot-starter-web`, write a main method with `@SpringBootApplication`, and click run. It automatically spins up Tomcat on port 8080 and configures DispatcherServlet for me.\"",
+      "summary10s": "Auto-configuration, embedded servers (Tomcat), starter dependencies, no XML boilerplate."
+    }
+  },
+  {
+    "id": "spring-vs-spring-boot",
+    "category": "Spring Boot",
+    "question": "Difference between Spring and Spring Boot",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring is a framework for building Java applications; Spring Boot is an extension of Spring that makes it fast and easy to setup.",
+      "explain": "Spring focuses on Dependency Injection and modularity but requires heavy manual configuration. Spring Boot focuses on rapid application development by providing opinionated defaults (Auto-configuration) and embedded servers.",
+      "example": "\"If I build a REST API in Spring, I have to manually add Jackson dependencies, configure a web.xml, and deploy a WAR to an external Tomcat. With Spring Boot, I just add the web starter. It automatically includes Jackson, embeds Tomcat, and I just run the application as a standalone JAR.\"",
+      "summary10s": "Spring = Core framework with DI. Spring Boot = Spring + Auto-config + Embedded Server."
+    }
+  },
+  {
+    "id": "hibernate-what-and-why",
+    "category": "Spring Boot",
+    "question": "What is Hibernate and why is it used?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Hibernate is an ORM (Object-Relational Mapping) tool that maps Java classes to database tables.",
+      "explain": "It eliminates the need to write complex SQL queries manually. Instead of dealing with ResultSets and JDBC connections, you work with standard Java Objects, and Hibernate automatically generates the appropriate SQL behind the scenes.",
+      "example": "\"Without Hibernate, saving a user requires writing an `INSERT INTO` SQL string and setting parameters manually via JDBC. With Hibernate, I just annotate my `User` class with `@Entity`, and call `session.save(user)`. Hibernate handles all the SQL and database dialect differences automatically.\"",
+      "summary10s": "ORM framework that maps Java objects to DB tables, removing manual SQL/JDBC boilerplate."
+    }
+  },
+  {
+    "id": "transactional-vs-transient",
+    "category": "Java",
+    "question": "Difference between @Transactional and transient",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "@Transactional manages database transactions. The `transient` keyword prevents a variable from being serialized.",
+      "explain": "They are completely unrelated. `@Transactional` is a Spring annotation for DB operations (commit/rollback). `transient` is a core Java keyword used during object serialization to tell the JVM to ignore a specific field.",
+      "example": "\"I use `@Transactional` on my service method so that if a bank transfer fails halfway, the database rolls back the changes. I use the `transient` keyword on a field like `password` in my User class, so when the object is serialized to a file or sent over a network, the password is not included.\"",
+      "summary10s": "@Transactional = Spring DB commit/rollback. transient = Java keyword to skip serialization."
+    }
+  },
+  {
+    "id": "java-abstraction",
+    "category": "Java",
+    "question": "What is Abstraction?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Abstraction hides complex implementation details and only shows the essential features of an object.",
+      "explain": "In Java, it's achieved using abstract classes or interfaces. You define what an object should do without specifying exactly how it does it, separating the contract from the implementation.",
+      "example": "\"When you drive a car, you use the steering wheel and pedals. You don't need to know how the engine injects fuel. That's abstraction. In code, I create a `PaymentProcessor` interface with a `pay()` method. The calling code doesn't care if the implementation is Stripe or PayPal, it just calls `pay()`.\"",
+      "summary10s": "Hiding internal implementation details and exposing only the necessary functionality."
+    }
+  },
+  {
+    "id": "java-inheritance",
+    "category": "Java",
+    "question": "What is Inheritance?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Inheritance allows one class to acquire the properties and methods of another class.",
+      "explain": "It promotes code reusability and establishes an IS-A relationship. In Java, you use the `extends` keyword. A subclass inherits from a superclass, meaning you don't have to rewrite common logic.",
+      "example": "\"Instead of writing `name`, `age`, and `login()` separately in an `Admin` class and a `Customer` class, I create a base `User` class containing those fields. Both `Admin` and `Customer` extend `User`. Now they inherit the common behavior, and I only write it once.\"",
+      "summary10s": "A mechanism where a child class acquires fields/methods from a parent class for code reuse."
+    }
+  },
+  {
+    "id": "java-streams-practical-uses",
+    "category": "Java",
+    "question": "What are the practical uses of Java Streams?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Streams are used for filtering, mapping, and aggregating collections of data cleanly and functionally.",
+      "explain": "Instead of writing verbose `for` loops with multiple `if` conditions, Streams allow you to process data declaratively. It also makes parallel processing incredibly easy with `parallelStream()`.",
+      "example": "\"In real projects, I use streams constantly. For example, if I get a list of orders from the DB, I use `.filter()` to find only 'SHIPPED' orders, `.map()` to extract just the order totals, and `.reduce()` or `Collectors.summingDouble()` to calculate the total revenue in three readable lines of code.\"",
+      "summary10s": "Filtering, transforming (mapping), and grouping collections declaratively without verbose loops."
+    }
+  },
+  {
+    "id": "multithreading-vs-multiprocessing",
+    "category": "Java",
+    "question": "Multithreading vs Multiprocessing",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Multiprocessing runs multiple independent processes (programs) with separate memory. Multithreading runs multiple threads within a single process, sharing the same memory.",
+      "explain": "Multiprocessing is safer but heavier to start and communicate between (requires IPC). Multithreading is faster and lightweight since threads share memory, but requires careful synchronization to avoid data corruption.",
+      "example": "\"Opening multiple tabs in Google Chrome uses multiprocessing—if one tab crashes, the others survive because they have separate memory. Running a Java Spring Boot app uses multithreading—a single JVM process spins up a new thread for each incoming HTTP request, sharing the same cache and database connections.\"",
+      "summary10s": "Multiprocessing = heavy, isolated memory. Multithreading = lightweight, shared memory within one process."
+    }
+  },
+  {
+    "id": "java-17-latest-features",
+    "category": "Java",
+    "question": "What are Java 17 features? (or latest features)",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "What are the latest Java features?"
+    ],
+    "answerSEE": {
+      "simple": "Records, Sealed Classes, Pattern Matching for switch/instanceof, and Text Blocks.",
+      "explain": "Java 17 (LTS) modernized the language. Records reduce boilerplate for DTOs. Sealed classes restrict inheritance. Pattern matching removes the need for explicit casting after `instanceof`. Text blocks make multi-line strings (like SQL/JSON) readable.",
+      "example": "\"My favorite feature is Records. Instead of writing a DTO class with private fields, a constructor, getters, equals, and hashcode, I just write `public record UserDto(String name, int age) {}`. It generates everything automatically. I also use Text Blocks `\"\"\"` for writing readable SQL queries in my repositories.\"",
+      "summary10s": "Records for DTOs, Sealed Classes for strict inheritance, Text Blocks for multiline strings."
+    }
+  },
+  {
+    "id": "string-vs-stringbuffer-vs-stringbuilder",
+    "category": "Java",
+    "question": "Difference between String, StringBuffer, and StringBuilder",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "When would you use StringBuilder instead of StringBuffer?"
+    ],
+    "answerSEE": {
+      "simple": "String is immutable. StringBuffer is mutable and thread-safe (synchronized). StringBuilder is mutable but NOT thread-safe (fastest).",
+      "explain": "Since String cannot change, concatenating in a loop creates many garbage objects. StringBuffer solves this by being mutable, but its methods are synchronized, making it slow. StringBuilder removes the synchronization overhead.",
+      "example": "\"I always use String for basic text. If I'm building a large JSON payload or SQL query in a loop, String is too slow, so I use StringBuilder for maximum performance. I would only use StringBuffer if multiple threads were simultaneously appending to the exact same string, which almost never happens in modern web dev.\"",
+      "summary10s": "String=Immutable. StringBuffer=Mutable/Thread-Safe/Slow. StringBuilder=Mutable/Not Thread-Safe/Fast."
+    }
+  },
+  {
+    "id": "java-coding-sum-streams",
+    "category": "Java Coding",
+    "question": "Find the sum of all elements in a List using Streams.",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "Given: List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5); Find the sum of all elements, preferably using Streams."
+    ],
+    "answerSEE": {
+      "simple": "Use `numbers.stream().mapToInt(Integer::intValue).sum();` or use `reduce`.",
+      "explain": "The cleanest way is to map the stream of Integer objects into a primitive IntStream using `mapToInt`. The IntStream provides a built-in `.sum()` method.",
+      "example": "\"There are two main ways. The primitive stream way: `int sum = numbers.stream().mapToInt(n -> n).sum();`. Alternatively, using reduce: `int sum = numbers.stream().reduce(0, Integer::sum);`. Both are concise and avoid traditional for-loops.\"",
+      "summary10s": "numbers.stream().mapToInt(n -> n).sum();"
     }
   }
 ];
