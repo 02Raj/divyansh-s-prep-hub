@@ -20,7 +20,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "internal-working-of-hashmap",
     "category": "Java",
     "question": "Internal working of HashMap",
-    "frequency": 21,
+    "frequency": 23,
     "companies": [
       "Zensar Technologies",
       "Deloitte",
@@ -48,7 +48,9 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "What happens internally during put() and get()?",
       "Explain the internal working of HashMap",
       "What happens when two keys have the same hash code?",
-      "How does HashMap identify the correct value when hash collisions occur?"
+      "How does HashMap identify the correct value when hash collisions occur?",
+      "Explain HashMap internal working and how collisions are handled.",
+      "Explain HashMap internal working in detail."
     ],
     "answerSEE": {
       "simple": "HashMap stores key-value pairs in buckets based on the key's hashcode, using a linked list or tree for collisions.",
@@ -61,7 +63,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 18,
+    "frequency": 19,
     "companies": [
       "Deloitte",
       "EPAM",
@@ -78,7 +80,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Streams vs traditional loops — when would you prefer one over the other?",
       "Difference between map() vs flatMap()",
       "Diff between map() and flatmap()",
-      "Difference between map() and flatMap()"
+      "Difference between map() and flatMap()",
+      "map() vs flatMap()?"
     ],
     "answerSEE": {
       "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
@@ -185,6 +188,38 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-a-functional-interface",
+    "category": "Java",
+    "question": "What is a Functional Interface?",
+    "frequency": 15,
+    "companies": [
+      "EPAM",
+      "Deloitte",
+      "HCL",
+      "GDAS",
+      "Deloitte INDIA"
+    ],
+    "variations": [
+      "What is a Functional Interface? Can it have default and static methods?",
+      "What is a functional interface",
+      "Can it have default and static methods",
+      "Common examples (Runnable, Comparator, Callable)",
+      "\"Runnable\" vs \"Callable\" — when would you choose each?",
+      "What is a functional interface in Java8?",
+      "Functional interfaces and their methods",
+      "What is a Functional Interface? Why can it have only one abstract method? Why can't it have multiple abstract methods?",
+      "What is the difference between a Functional Interface and a Marker Interface? What are their uses? Give some examples.",
+      "Functional interface vs marker interface.",
+      "What is a Functional Interface?"
+    ],
+    "answerSEE": {
+      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
+      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
+      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
+      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
+    }
+  },
+  {
     "id": "what-is-executorservice",
     "category": "Java",
     "question": "What is ExecutorService?",
@@ -241,41 +276,10 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-a-functional-interface",
-    "category": "Java",
-    "question": "What is a Functional Interface?",
-    "frequency": 13,
-    "companies": [
-      "EPAM",
-      "Deloitte",
-      "HCL",
-      "GDAS",
-      "Deloitte INDIA"
-    ],
-    "variations": [
-      "What is a Functional Interface? Can it have default and static methods?",
-      "What is a functional interface",
-      "Can it have default and static methods",
-      "Common examples (Runnable, Comparator, Callable)",
-      "\"Runnable\" vs \"Callable\" — when would you choose each?",
-      "What is a functional interface in Java8?",
-      "Functional interfaces and their methods",
-      "What is a Functional Interface? Why can it have only one abstract method? Why can't it have multiple abstract methods?",
-      "What is the difference between a Functional Interface and a Marker Interface? What are their uses? Give some examples.",
-      "Functional interface vs marker interface."
-    ],
-    "answerSEE": {
-      "simple": "An interface that has exactly one abstract method. They are the basis for Lambda expressions.",
-      "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
-      "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
-      "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
-    }
-  },
-  {
     "id": "what-is-completablefuture",
     "category": "Java",
     "question": "What is CompletableFuture?",
-    "frequency": 12,
+    "frequency": 13,
     "companies": [],
     "variations": [
       "CompletableFuture use cases",
@@ -286,13 +290,43 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "What specific problem does \"CompletableFuture\" solve in asynchronous programming?",
       "What problem does \"CompletableFuture\" solve?",
       "CompletableFuture real-time scenario",
-      "How does CompletableFuture support asynchronous programming?"
+      "How does CompletableFuture support asynchronous programming?",
+      "What is CompletableFuture?"
     ],
     "answerSEE": {
       "simple": "CompletableFuture runs async tasks and chains, combines, and handles results cleanly.",
       "explain": "supplyAsync — run task on background thread, returns CompletableFuture with result\nthenApply — transform result when available\nthenAccept — consume result, no return\nallOf — wait for all futures to complete\nexceptionally — handle error in chain",
       "example": "\"supplyAsync runs a task asynchronously and returns a CompletableFuture. thenApply transforms the result like map. thenAccept consumes it without returning. For parallel calls I use allOf to fire multiple futures simultaneously and wait for all. exceptionally is my error handler — if any stage fails it catches the exception and returns a fallback.\"",
       "summary10s": "supplyAsync=run async, thenApply=transform, allOf=wait all, exceptionally=handle error."
+    }
+  },
+  {
+    "id": "explain-the-bean-lifecycle",
+    "category": "Spring Boot",
+    "question": "Explain the Bean Lifecycle.",
+    "frequency": 13,
+    "companies": [
+      "Deloitte",
+      "HCL",
+      "GDAS"
+    ],
+    "variations": [
+      "What is the complete lifecycle of a Spring bean?",
+      "Bean Lifecycle",
+      "Spring Bean Lifecycle",
+      "Explain Spring dependency injection and bean lifecycle.",
+      "Bean lifecycle?",
+      "Explain the Spring Boot bean lifecycle in detail?",
+      "Spring Bean lifecycle",
+      "Explain the Spring Bean Lifecycle.",
+      "Explain the Bean Lifecycle.",
+      "What is the complete lifecycle of a Spring Bean?"
+    ],
+    "answerSEE": {
+      "simple": "Instantiate, inject dependencies, PostConstruct, use, PreDestroy, destroy.",
+      "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
+      "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
+      "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
     }
   },
   {
@@ -397,33 +431,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "explain-the-bean-lifecycle",
-    "category": "Spring Boot",
-    "question": "Explain the Bean Lifecycle.",
-    "frequency": 11,
-    "companies": [
-      "Deloitte",
-      "HCL",
-      "GDAS"
-    ],
-    "variations": [
-      "What is the complete lifecycle of a Spring bean?",
-      "Bean Lifecycle",
-      "Spring Bean Lifecycle",
-      "Explain Spring dependency injection and bean lifecycle.",
-      "Bean lifecycle?",
-      "Explain the Spring Boot bean lifecycle in detail?",
-      "Spring Bean lifecycle",
-      "Explain the Spring Bean Lifecycle."
-    ],
-    "answerSEE": {
-      "simple": "Instantiate, inject dependencies, PostConstruct, use, PreDestroy, destroy.",
-      "explain": "Spring creates bean instance via constructor\nInjects all dependencies\nCalls @PostConstruct for initialization logic\nBean used throughout application\nOn shutdown @PreDestroy called for cleanup",
-      "example": "\"Bean lifecycle is straightforward. Spring instantiates the class, injects dependencies, then calls @PostConstruct where I put initialization code like loading config or opening connections. Bean is then in use. When Spring context closes, @PreDestroy fires for cleanup like closing resources. This gives me hooks at both ends of the lifecycle.\"",
-      "summary10s": "Create → Inject → PostConstruct → Use → PreDestroy → Destroy."
-    }
-  },
-  {
     "id": "why-is-string-immutable-in-java",
     "category": "Java",
     "question": "Why is String Immutable in Java?",
@@ -453,7 +460,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "synchronized-vs-reentrantlock",
     "category": "Java",
     "question": "synchronized vs ReentrantLock?",
-    "frequency": 10,
+    "frequency": 11,
     "companies": [],
     "variations": [
       "synchronized vs Lock",
@@ -464,7 +471,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "\"synchronized\" vs \"volatile\" — when would you use each?",
       "\"synchronized\" vs ReentrantLock.",
       "synchronized vs Lock — when would you choose each?",
-      "What is the difference between synchronized and ReentrantLock?"
+      "What is the difference between synchronized and ReentrantLock?",
+      "synchronized vs ReentrantLock?"
     ],
     "answerSEE": {
       "simple": "synchronized is simple and automatic, ReentrantLock gives more control and flexibility.",
@@ -498,6 +506,61 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "@RestControllerAdvice intercepts exceptions thrown globally across all controllers. Inside it, methods annotated with @ExceptionHandler specify which exception to catch (like CustomNotFoundException). We then return a standardized JSON error response.",
       "example": "I created a GlobalExceptionHandler class annotated with @RestControllerAdvice. Inside it, I wrote methods with @ExceptionHandler(ResourceNotFoundException.class) to catch specific exceptions. These methods return a custom ErrorResponse object containing the timestamp, error message, and HTTP status code, ensuring the client always gets a consistent JSON format instead of a messy stack trace.",
       "summary10s": "@RestControllerAdvice + @ExceptionHandler to return a consistent JSON error response."
+    }
+  },
+  {
+    "id": "how-do-you-secure-rest-apis",
+    "category": "Spring Boot",
+    "question": "How do you secure REST APIs?",
+    "frequency": 10,
+    "companies": [
+      "Accenture",
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "What type of security are you using in your current project?",
+      "How to secure REST APIs?",
+      "Spring Security Implementation in Projects",
+      "How do you secure REST APIs in Spring Boot?",
+      "How would you secure a REST API using JWT?",
+      "How would you secure a Spring Boot REST API?",
+      "How do you secure REST and SOAP APIs using JWT?",
+      "How do you secure REST APIs?"
+    ],
+    "answerSEE": {
+      "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
+      "explain": "SecurityFilterChain bean — configure which routes are public and which need auth\nAdd custom JWT filter before UsernamePasswordAuthenticationFilter\nJWT filter validates token, sets Authentication in SecurityContext\nUserDetailsService loads user details for validation",
+      "example": "\"I configure a SecurityFilterChain bean where I define public endpoints like login and protected ones requiring authentication. I add a custom JWT filter that intercepts every request, extracts and validates the token, and sets the authentication in SecurityContext. If token is invalid the filter rejects the request before it reaches any controller.\"",
+      "summary10s": "SecurityFilterChain defines routes, JWT filter validates token, sets SecurityContext."
+    }
+  },
+  {
+    "id": "what-is-spring-security",
+    "category": "Spring Boot",
+    "question": "What is Spring Security?",
+    "frequency": 10,
+    "companies": [
+      "JPMorganChase",
+      "Deloitte",
+      "Infosys"
+    ],
+    "variations": [
+      "Spring Security Fundamentals",
+      "How does Spring Security authenticate and authorize a REST request?",
+      "Spring Security?",
+      "What is Spring Security, and what have you used in your project?",
+      "What is Spring Security?",
+      "Have you worked with Spring Security?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
+      "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
+      "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
+      "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
     }
   },
   {
@@ -549,32 +612,104 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "how-do-you-secure-rest-apis",
-    "category": "Spring Boot",
-    "question": "How do you secure REST APIs?",
+    "id": "angular-onpush-change-detection",
+    "category": "Angular",
+    "question": "Default vs OnPush Change Detection",
     "frequency": 9,
     "companies": [
-      "Accenture",
       "Deloitte",
-      "Atyeti",
-      "Signify",
-      "Altimetrik",
-      "EPAM"
+      "GDAS"
     ],
     "variations": [
-      "What type of security are you using in your current project?",
-      "How to secure REST APIs?",
-      "Spring Security Implementation in Projects",
-      "How do you secure REST APIs in Spring Boot?",
-      "How would you secure a REST API using JWT?",
-      "How would you secure a Spring Boot REST API?",
-      "How do you secure REST and SOAP APIs using JWT?"
+      "What is Change Detection in Angular? Explain OnPush strategy.",
+      "How does ChangeDetectionStrategy.OnPush work?",
+      "Why did you choose ChangeDetectionStrategy.OnPush? What changes did you make to ensure the UI refreshed reliably without affecting performance?",
+      "If data in a dropdown changes while using OnPush, what exactly would you change in the code? Would you create a new reference or manually trigger change detection?",
+      "Why is \"String\" immutable in Java, and how does it impact memory?",
+      "why to use change detection ?",
+      "What is Angular Change Detection?"
     ],
     "answerSEE": {
-      "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
-      "explain": "SecurityFilterChain bean — configure which routes are public and which need auth\nAdd custom JWT filter before UsernamePasswordAuthenticationFilter\nJWT filter validates token, sets Authentication in SecurityContext\nUserDetailsService loads user details for validation",
-      "example": "\"I configure a SecurityFilterChain bean where I define public endpoints like login and protected ones requiring authentication. I add a custom JWT filter that intercepts every request, extracts and validates the token, and sets the authentication in SecurityContext. If token is invalid the filter rejects the request before it reaches any controller.\"",
-      "summary10s": "SecurityFilterChain defines routes, JWT filter validates token, sets SecurityContext."
+      "simple": "Default checks the entire component tree on every event; OnPush only checks when an Input reference changes or an event fires within it.",
+      "explain": "Default — Angular checks all components on every browser event, timer, or async operation (can be expensive)\nOnPush — only re-checks when @Input() reference changes, an event originates inside the component, or an Observable (via async pipe) emits\nOnPush requires immutable data patterns (new object reference, not mutation) to trigger detection",
+      "example": "\"Default change detection checks the entire component tree on every possible event, which can get expensive in large apps. OnPush only triggers a check when the Input reference actually changes, an event happens inside that component, or an observable through the async pipe emits. To use OnPush correctly, I make sure to treat data immutably — passing a new object reference instead of mutating the existing one — otherwise Angular won't detect the change.\"",
+      "summary10s": "Default = checks everything, OnPush = checks only on Input reference change/local event."
+    }
+  },
+  {
+    "id": "volatile-vs-atomic-classes",
+    "category": "Java",
+    "question": "volatile vs Atomic classes?",
+    "frequency": 9,
+    "companies": [],
+    "variations": [
+      "Atomic Classes",
+      "volatile vs Atomic Classes",
+      "What is a race condition?",
+      "Volatile vs Atomic",
+      "\"volatile\" vs AtomicInteger.",
+      "Why is volatile not enough for count++?",
+      "What is volatile?",
+      "volatile vs Atomic classes?"
+    ],
+    "answerSEE": {
+      "simple": "volatile gives visibility, Atomic gives visibility plus atomicity for compound operations.",
+      "explain": "volatile — read and write individually atomic, but increment is read-modify-write, not atomic\nAtomicInteger — incrementAndGet is single atomic operation using CPU compare-and-swap\nAtomic classes are faster than synchronized for single variable operations\nUse volatile for flags, Atomic for counters and state that needs atomic updates",
+      "example": "\"volatile ensures visibility but does not help with compound operations. Two threads both reading 5 and incrementing to 6 is a race condition even with volatile. AtomicInteger uses hardware compare-and-swap to make incrementAndGet a single unbreakable operation. For anything more than a simple boolean flag I use Atomic classes.\"",
+      "summary10s": "volatile=visibility only, Atomic=visibility plus atomic compound operations via CAS."
+    }
+  },
+  {
+    "id": "ioc-vs-dependency-injection",
+    "category": "Spring Boot",
+    "question": "IoC vs Dependency Injection?",
+    "frequency": 9,
+    "companies": [
+      "Deloitte",
+      "EPAM",
+      "Capgemini",
+      "BCT Consulting",
+      "Infosys"
+    ],
+    "variations": [
+      "IoC vs Dependency Injection",
+      "IoC Container (Inversion of Control)",
+      "How does Dependency Injection work internally in Spring?",
+      "Dependency Injection & IoC",
+      "What is IoC (Inversion of Control)?",
+      "IoC vs Dependency Injection?",
+      "What is Dependency Injection?"
+    ],
+    "answerSEE": {
+      "simple": "IoC is the principle, Dependency Injection is one way to implement it.",
+      "explain": "IoC — control of object creation is inverted from developer to framework\nTraditional code — you create dependencies with new keyword\nIoC — framework creates and manages objects for you\nDependency Injection is IoC implementation — framework injects dependencies into your class",
+      "example": "\"Using the new keyword is not wrong. IoC doesn't mean we completely stop creating objects manually. I still use new for simple objects like DTOs or helper classes. However, for core application components like services, repositories, and controllers, I rely on Spring's IoC container to create and manage them. So the control of important dependencies is still inverted to Spring, which means IoC is properly followed.\"",
+      "summary10s": "IoC=principle of inverted control, DI=technique to implement IoC by injecting dependencies."
+    }
+  },
+  {
+    "id": "how-does-transactional-work-internally",
+    "category": "Spring Boot",
+    "question": "How does @Transactional work internally?",
+    "frequency": 9,
+    "companies": [
+      "EPAM",
+      "Infosys",
+      "Capgemini"
+    ],
+    "variations": [
+      "How does @Transactional work?",
+      "How @Transactional Works",
+      "How does @Transactional work internally in Spring Boot?",
+      "What is @Transactional and where would you use it?",
+      "Have you used @Transactional? Where and why did you use it?",
+      "What happens internally when @Transactional is used?"
+    ],
+    "answerSEE": {
+      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
+      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
+      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
+      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
     }
   },
   {
@@ -597,28 +732,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Propagation REQUIRED (the default) joins an existing transaction, while REQUIRES_NEW suspends the current one and starts fresh. Isolation levels range from READ_COMMITTED (avoids dirty reads) to SERIALIZABLE (avoids all concurrency issues but is very slow).",
       "example": "\"Propagation defines transaction nesting. I use REQUIRES_NEW for things like audit logging that must save to the DB even if the main transaction rolls back. For isolation, READ_COMMITTED is the common default, while SERIALIZABLE is the strictest but hurts performance under high traffic.\"",
       "summary10s": "Propagation = transaction nesting behavior. Isolation = visibility between concurrent transactions."
-    }
-  },
-  {
-    "id": "what-is-spring-security",
-    "category": "Spring Boot",
-    "question": "What is Spring Security?",
-    "frequency": 8,
-    "companies": [
-      "JPMorganChase",
-      "Deloitte"
-    ],
-    "variations": [
-      "Spring Security Fundamentals",
-      "How does Spring Security authenticate and authorize a REST request?",
-      "Spring Security?",
-      "What is Spring Security, and what have you used in your project?"
-    ],
-    "answerSEE": {
-      "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
-      "explain": "Filter chain sits in front of all controllers\nAuthentication — verify who you are\nAuthorization — verify what you can do\nSecurityContext holds authenticated user for current request\nConfigured via SecurityFilterChain bean",
-      "example": "\"Spring Security works as a chain of filters that every request passes through before reaching the controller. Authentication verifies identity — usually by validating credentials or JWT. Authorization checks if authenticated user has permission for the requested resource. SecurityContext stores the authenticated user and is accessible anywhere in the request thread.\"",
-      "summary10s": "Filter chain intercepts every request, Authentication=who, Authorization=what allowed."
     }
   },
   {
@@ -645,48 +758,51 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-onpush-change-detection",
-    "category": "Angular",
-    "question": "Default vs OnPush Change Detection",
+    "id": "sql-find-second-highest-salary",
+    "category": "SQL",
+    "question": "Find the second-highest salary",
     "frequency": 8,
     "companies": [
+      "Zensar Technologies",
       "Deloitte",
-      "GDAS"
+      "Capgemini"
     ],
     "variations": [
-      "What is Change Detection in Angular? Explain OnPush strategy.",
-      "How does ChangeDetectionStrategy.OnPush work?",
-      "Why did you choose ChangeDetectionStrategy.OnPush? What changes did you make to ensure the UI refreshed reliably without affecting performance?",
-      "If data in a dropdown changes while using OnPush, what exactly would you change in the code? Would you create a new reference or manually trigger change detection?",
-      "Why is \"String\" immutable in Java, and how does it impact memory?",
-      "why to use change detection ?"
+      "Query to Find the 2nd Highest Salary",
+      "Find second-highest salary without \"LIMIT\".",
+      "For employee ID, name, and salary, write a query to fetch employee employees second highest salary; also find out the distinct employees and give the count of them.",
+      "Find 2nd highest salary",
+      "Find the second-highest salary."
     ],
     "answerSEE": {
-      "simple": "Default checks the entire component tree on every event; OnPush only checks when an Input reference changes or an event fires within it.",
-      "explain": "Default — Angular checks all components on every browser event, timer, or async operation (can be expensive)\nOnPush — only re-checks when @Input() reference changes, an event originates inside the component, or an Observable (via async pipe) emits\nOnPush requires immutable data patterns (new object reference, not mutation) to trigger detection",
-      "example": "\"Default change detection checks the entire component tree on every possible event, which can get expensive in large apps. OnPush only triggers a check when the Input reference actually changes, an event happens inside that component, or an observable through the async pipe emits. To use OnPush correctly, I make sure to treat data immutably — passing a new object reference instead of mutating the existing one — otherwise Angular won't detect the change.\"",
-      "summary10s": "Default = checks everything, OnPush = checks only on Input reference change/local event."
+      "simple": "Use LIMIT/OFFSET on a descending sorted distinct salary list, or a subquery with MAX() excluding the top value.",
+      "explain": "Sort distinct salaries descending, skip the first one, take the next.",
+      "example": "\"I'd select distinct salaries, sort them descending, and use LIMIT 1 OFFSET 1 to skip the highest and grab the next one — DISTINCT handles cases where multiple employees share the top salary. Alternatively, I could use a subquery that finds the max salary less than the overall max, which achieves the same result without OFFSET, useful for databases that don't support it well.\"",
+      "summary10s": "Distinct + ORDER BY DESC + LIMIT 1 OFFSET 1, or MAX() excluding the top value."
     }
   },
   {
-    "id": "volatile-vs-atomic-classes",
-    "category": "Java",
-    "question": "volatile vs Atomic classes?",
-    "frequency": 7,
-    "companies": [],
+    "id": "what-is-the-saga-pattern",
+    "category": "Microservices",
+    "question": "What is the Saga Pattern?",
+    "frequency": 8,
+    "companies": [
+      "Deloitte",
+      "Capgemini"
+    ],
     "variations": [
-      "Atomic Classes",
-      "volatile vs Atomic Classes",
-      "What is a race condition?",
-      "Volatile vs Atomic",
-      "\"volatile\" vs AtomicInteger.",
-      "Why is volatile not enough for count++?"
+      "Saga Design Pattern",
+      "Explain Saga pattern and when you would use it.",
+      "Saga?",
+      "Saga Pattern vs 2PC?",
+      "Why is Saga Pattern needed?",
+      "Explain Saga Pattern with a real-world example."
     ],
     "answerSEE": {
-      "simple": "volatile gives visibility, Atomic gives visibility plus atomicity for compound operations.",
-      "explain": "volatile — read and write individually atomic, but increment is read-modify-write, not atomic\nAtomicInteger — incrementAndGet is single atomic operation using CPU compare-and-swap\nAtomic classes are faster than synchronized for single variable operations\nUse volatile for flags, Atomic for counters and state that needs atomic updates",
-      "example": "\"volatile ensures visibility but does not help with compound operations. Two threads both reading 5 and incrementing to 6 is a race condition even with volatile. AtomicInteger uses hardware compare-and-swap to make incrementAndGet a single unbreakable operation. For anything more than a simple boolean flag I use Atomic classes.\"",
-      "summary10s": "volatile=visibility only, Atomic=visibility plus atomic compound operations via CAS."
+      "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
+      "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
+      "example": "\"Saga Pattern manages distributed transactions across microservices — since we can't have one transaction spanning multiple databases, each service does its own local transaction, and if something fails downstream, we run a compensating transaction to undo the earlier steps. I've used it to keep data consistent across order, payment, and inventory services, using the Orchestration style with a central coordinator.\"",
+      "summary10s": "Distributed transaction → local steps + rollback via compensation."
     }
   },
   {
@@ -710,54 +826,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "ArrayList — fast random access (O(1)), slow insert/delete in middle (O(n))\nLinkedList — fast insert/delete (O(1)) once position is known, slow random access (O(n))\nArrayList is used more often in practice; LinkedList mainly when frequent insert/delete needed\n\n       ArrayList → Fast random access (get()), slower insertion/deletion in the middle.\n       LinkedList → Fast insertion/deletion, slower random access.\n       ArrayList uses less memory; LinkedList uses more memory because each node stores previous and next references.\n     \n  Use ArrayList for frequent reads and LinkedList for frequent insertions/deletions.",
       "example": "\"ArrayList is backed by a dynamic array, so accessing an element by index is very fast, but inserting or deleting in the middle requires shifting elements. LinkedList is backed by nodes with pointers, so insertion and deletion are faster once you're at the right position, but random access is slower since it has to traverse. In practice, I use ArrayList most of the time unless there's heavy insertion/deletion.\"",
       "summary10s": "ArrayList = fast access, LinkedList = fast insert/delete, slow access."
-    }
-  },
-  {
-    "id": "sql-find-second-highest-salary",
-    "category": "SQL",
-    "question": "Find the second-highest salary",
-    "frequency": 7,
-    "companies": [
-      "Zensar Technologies",
-      "Deloitte",
-      "Capgemini"
-    ],
-    "variations": [
-      "Query to Find the 2nd Highest Salary",
-      "Find second-highest salary without \"LIMIT\".",
-      "For employee ID, name, and salary, write a query to fetch employee employees second highest salary; also find out the distinct employees and give the count of them.",
-      "Find 2nd highest salary"
-    ],
-    "answerSEE": {
-      "simple": "Use LIMIT/OFFSET on a descending sorted distinct salary list, or a subquery with MAX() excluding the top value.",
-      "explain": "Sort distinct salaries descending, skip the first one, take the next.",
-      "example": "\"I'd select distinct salaries, sort them descending, and use LIMIT 1 OFFSET 1 to skip the highest and grab the next one — DISTINCT handles cases where multiple employees share the top salary. Alternatively, I could use a subquery that finds the max salary less than the overall max, which achieves the same result without OFFSET, useful for databases that don't support it well.\"",
-      "summary10s": "Distinct + ORDER BY DESC + LIMIT 1 OFFSET 1, or MAX() excluding the top value."
-    }
-  },
-  {
-    "id": "ioc-vs-dependency-injection",
-    "category": "Spring Boot",
-    "question": "IoC vs Dependency Injection?",
-    "frequency": 7,
-    "companies": [
-      "Deloitte",
-      "EPAM",
-      "Capgemini",
-      "BCT Consulting"
-    ],
-    "variations": [
-      "IoC vs Dependency Injection",
-      "IoC Container (Inversion of Control)",
-      "How does Dependency Injection work internally in Spring?",
-      "Dependency Injection & IoC",
-      "What is IoC (Inversion of Control)?"
-    ],
-    "answerSEE": {
-      "simple": "IoC is the principle, Dependency Injection is one way to implement it.",
-      "explain": "IoC — control of object creation is inverted from developer to framework\nTraditional code — you create dependencies with new keyword\nIoC — framework creates and manages objects for you\nDependency Injection is IoC implementation — framework injects dependencies into your class",
-      "example": "\"Using the new keyword is not wrong. IoC doesn't mean we completely stop creating objects manually. I still use new for simple objects like DTOs or helper classes. However, for core application components like services, repositories, and controllers, I rely on Spring's IoC container to create and manage them. So the control of important dependencies is still inverted to Spring, which means IoC is properly followed.\"",
-      "summary10s": "IoC=principle of inverted control, DI=technique to implement IoC by injecting dependencies."
     }
   },
   {
@@ -838,20 +906,44 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "lazy-vs-eager-loading",
     "category": "Spring Boot",
     "question": "Lazy vs Eager Loading?",
-    "frequency": 6,
+    "frequency": 7,
     "companies": [],
     "variations": [
       "Lazy vs Eager Loading",
       "Lazy vs Eager",
       "Lazy vs Eager Loading.",
       "Explain JPA/Hibernate lazy vs eager loading.",
-      "Eager vs Lazy?"
+      "Eager vs Lazy?",
+      "Lazy vs Eager Loading?"
     ],
     "answerSEE": {
       "simple": "Eager loads related data immediately, Lazy loads only when you access it.",
       "explain": "Eager — loads everything in one query even if not needed\nLazy — loads related data on first access, default for collections\nLazy risk — LazyInitializationException if session closed before access\nFix — JOIN FETCH in query or keep method @Transactional",
       "example": "\"Lazy loading is the default for collections in Hibernate. Related entities load only when accessed which saves unnecessary DB calls. But if I access lazy data after session closes I get LazyInitializationException. I fix this with JOIN FETCH in my JPQL to load everything in one query when I know I will need it.\"",
       "summary10s": "Eager=load now always, Lazy=load on access, session must be open, fix with JOIN FETCH."
+    }
+  },
+  {
+    "id": "jwt-authentication-flow",
+    "category": "Microservices",
+    "question": "JWT Authentication Flow",
+    "frequency": 7,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "JWT Authentication Flow",
+      "Spring Security & JWT flow.",
+      "JWT?",
+      "How do you implement JWT authentication?",
+      "How does JWT authentication work?",
+      "Can you explain the basic JWT authentication flow?"
+    ],
+    "answerSEE": {
+      "simple": "Login generates signed token, client sends it every request, server validates signature.",
+      "explain": "User logs in with credentials, server validates, creates JWT with user details\nJWT signed with secret key — Header.Payload.Signature\nClient stores and sends in Authorization Bearer header\nServer validates signature on every request — no session needed\nStateless — scales perfectly across multiple instances",
+      "example": "\"Login generates a signed JWT, Angular stores it in localStorage and sends it via HTTP interceptor in Authorization header, server validates token using a filter—stateless so it scales horizontally.\"",
+      "summary10s": "Login creates signed JWT, client sends in header, filter validates signature, stateless scales horizontally."
     }
   },
   {
@@ -872,27 +964,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "If the API is slow, it is usually one of three things: 1. The JVM is constantly running Full GCs (\"Stop-the-world\" pauses) because the heap is 99% full. 2. Threads are deadlocked or blocked waiting for a database connection pool. 3. CPU is spiking due to infinite loops.",
       "example": "\"First, I look at Datadog/Prometheus for GC metrics. If time spent in GC is spiking, the app is starving for memory. Next, I pull a thread dump. If I see 200 threads in `BLOCKED` state waiting for a HikariCP database lock, I know the database is the bottleneck, not the JVM.\"",
       "summary10s": "1. GC Pause Times (Heap exhaustion). 2. Thread Dumps (Deadlocks/DB pool exhaustion)."
-    }
-  },
-  {
-    "id": "what-is-the-saga-pattern",
-    "category": "Microservices",
-    "question": "What is the Saga Pattern?",
-    "frequency": 6,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "Saga Design Pattern",
-      "Explain Saga pattern and when you would use it.",
-      "Saga?",
-      "Saga Pattern vs 2PC?"
-    ],
-    "answerSEE": {
-      "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
-      "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
-      "example": "\"Saga Pattern manages distributed transactions across microservices — since we can't have one transaction spanning multiple databases, each service does its own local transaction, and if something fails downstream, we run a compensating transaction to undo the earlier steps. I've used it to keep data consistent across order, payment, and inventory services, using the Orchestration style with a central coordinator.\"",
-      "summary10s": "Distributed transaction → local steps + rollback via compensation."
     }
   },
   {
@@ -1021,25 +1092,113 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "how-does-transactional-work-internally",
-    "category": "Spring Boot",
-    "question": "How does @Transactional work internally?",
+    "id": "reverse-a-string-without-built-in-methods",
+    "category": "Java Coding",
+    "question": "Reverse a String without built-in methods.",
     "frequency": 6,
     "companies": [
-      "EPAM",
-      "Infosys"
+      "Capgemini"
     ],
     "variations": [
-      "How does @Transactional work?",
-      "How @Transactional Works",
-      "How does @Transactional work internally in Spring Boot?",
-      "What is @Transactional and where would you use it?"
+      "Reverse String Without Predefined Methods",
+      "Reverse a String without using inbuilt methods",
+      "Reverse a String",
+      "Reverse a String without built-in methods."
     ],
     "answerSEE": {
-      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
-      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
-      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
-      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
+      "simple": "Use a loop from end to start, build reversed string character by character.",
+      "explain": "Loop from last index to 0\nAppend each character to a new string or StringBuilder\nStringBuilder approach is more efficient — no new String object each iteration\nTime O(n), Space O(n)",
+      "example": "\"I loop from the last index of the string down to zero and append each character to a StringBuilder. Finally I return the StringBuilder as a string. This avoids using reverse method and runs in O(n) time. Using StringBuilder instead of string concatenation avoids creating unnecessary intermediate string objects.\"",
+      "summary10s": "Loop from end to start, append each char to StringBuilder, return result."
+    }
+  },
+  {
+    "id": "what-is-optional-when-should-you-use-it",
+    "category": "Java",
+    "question": "What is Optional? When should you use it?",
+    "frequency": 6,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "What is the use of Optional?",
+      "Optional Class",
+      "What is Optional and where does it help?",
+      "How do you use Optional and what are its pitfalls?",
+      "What is Optional? When should you use it?"
+    ],
+    "answerSEE": {
+      "simple": "Optional is a container that may or may not hold a value — eliminates NullPointerException.",
+      "explain": "Wrap return value in Optional instead of returning null\nisPresent or isEmpty to check, get to retrieve value\norElse for default value, orElseThrow for exception\nmap and flatMap to transform value if present",
+      "example": "\"Optional forces the caller to handle the case where value may be absent instead of getting a surprise NullPointerException. I use it as return type from service methods when result may not exist. I chain orElseThrow to throw a meaningful exception or orElse to return a default. I avoid Optional.get without checking — defeats the purpose.\"",
+      "summary10s": "Optional=nullable wrapper, use orElse or orElseThrow, avoid get without check."
+    }
+  },
+  {
+    "id": "java-singleton-class",
+    "category": "Java Coding",
+    "question": "Write a Singleton class.",
+    "frequency": 6,
+    "companies": [
+      "JPMorganChase",
+      "Capgemini"
+    ],
+    "variations": [
+      "Thread-safe Singleton implementation",
+      "Write Singleton implementation in Java."
+    ],
+    "answerSEE": {
+      "simple": "A Singleton ensures only one instance exists by making the constructor private and providing a static method to get the instance.",
+      "explain": "The best thread-safe ways to create a Singleton are using an Enum (safest against serialization/reflection) or the Double-Checked Locking pattern with a volatile instance variable to ensure thread safety without synchronization overhead on every call.",
+      "example": "\"I prefer using an Enum for Singletons because Java guarantees it's instantiated only once and protects against reflection. If I must use a class, I use double-checked locking: a private constructor, a volatile static instance, and a getInstance() method that synchronizes only if the instance is null.\"",
+      "summary10s": "Private constructor + static getInstance(). Best implemented via Enum or Double-Checked Locking."
+    }
+  },
+  {
+    "id": "garbage-collection-in-java",
+    "category": "Java",
+    "question": "Garbage Collection in Java",
+    "frequency": 6,
+    "companies": [
+      "Accenture",
+      "Zensar Technologies",
+      "Infosys",
+      "Capgemini"
+    ],
+    "variations": [
+      "How does Garbage Collection work in Java?",
+      "What is garbage collection in Java?",
+      "How does garbage collection work in modern Java?",
+      "What is Garbage Collection and why is it required?",
+      "Explain the Garbage Collection lifecycle."
+    ],
+    "answerSEE": {
+      "simple": "GC automatically removes objects that no longer have any live references, freeing up heap memory.",
+      "explain": "- Heap split into Young Gen (Minor GC) and Old Gen (Major GC)\n- Modern default collector: G1, divides heap into regions, collects garbage-heavy regions first\n- Developer doesn't manually free memory — GC handles it based on reachability",
+      "example": "\"Garbage Collection automatically identifies and removes objects that no longer have any live references, so I don't have to manually free memory like in C++. The heap is split into Young and Old Generation for efficient collection — short-lived objects get cleaned quickly in Minor GC, while long-lived ones move to Old Gen and get cleaned less frequently in Major GC.\"",
+      "summary10s": "\"Auto-removes unreachable objects — Young Gen (Minor GC) + Old Gen (Major GC).\""
+    }
+  },
+  {
+    "id": "restcontroller-vs-controller",
+    "category": "Spring Boot",
+    "question": "@RestController vs @Controller",
+    "frequency": 6,
+    "companies": [
+      "Capgemini",
+      "BCT Consulting"
+    ],
+    "variations": [
+      "What is the difference between @Controller and @RestController?",
+      "Controller vs RestController?",
+      "@RestController",
+      "Difference between \"@RestController\" and \"@Controller\" internally?"
+    ],
+    "answerSEE": {
+      "simple": "@RestController returns data directly (like JSON); @Controller is used for returning views.",
+      "explain": "@Controller — typically returns a view name (used with Thymeleaf/JSP)\n@RestController = @Controller + @ResponseBody — returns data directly serialized as JSON/XML\nREST APIs almost always use @RestController",
+      "example": "\"@Controller is traditionally used when we're returning a view, like a Thymeleaf template. @RestController is a combination of @Controller and @ResponseBody, so every method's return value is directly serialized into the response body, usually as JSON. Since I mostly build REST APIs, I use @RestController almost everywhere.\"",
+      "summary10s": "@Controller = returns view, @RestController = @Controller + @ResponseBody (returns JSON)."
     }
   },
   {
@@ -1105,24 +1264,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-singleton-class",
-    "category": "Java Coding",
-    "question": "Write a Singleton class.",
-    "frequency": 5,
-    "companies": [
-      "JPMorganChase"
-    ],
-    "variations": [
-      "Thread-safe Singleton implementation"
-    ],
-    "answerSEE": {
-      "simple": "A Singleton ensures only one instance exists by making the constructor private and providing a static method to get the instance.",
-      "explain": "The best thread-safe ways to create a Singleton are using an Enum (safest against serialization/reflection) or the Double-Checked Locking pattern with a volatile instance variable to ensure thread safety without synchronization overhead on every call.",
-      "example": "\"I prefer using an Enum for Singletons because Java guarantees it's instantiated only once and protects against reflection. If I must use a class, I use double-checked locking: a private constructor, a volatile static instance, and a getInstance() method that synchronizes only if the instance is null.\"",
-      "summary10s": "Private constructor + static getInstance(). Best implemented via Enum or Double-Checked Locking."
-    }
-  },
-  {
     "id": "longest-substring-without-repe",
     "category": "Java Coding",
     "question": "Longest substring without repeating characters",
@@ -1145,26 +1286,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "reverse-a-string-without-built-in-methods",
-    "category": "Java Coding",
-    "question": "Reverse a String without built-in methods.",
-    "frequency": 5,
-    "companies": [
-      "Capgemini"
-    ],
-    "variations": [
-      "Reverse String Without Predefined Methods",
-      "Reverse a String without using inbuilt methods",
-      "Reverse a String"
-    ],
-    "answerSEE": {
-      "simple": "Use a loop from end to start, build reversed string character by character.",
-      "explain": "Loop from last index to 0\nAppend each character to a new string or StringBuilder\nStringBuilder approach is more efficient — no new String object each iteration\nTime O(n), Space O(n)",
-      "example": "\"I loop from the last index of the string down to zero and append each character to a StringBuilder. Finally I return the StringBuilder as a string. This avoids using reverse method and runs in O(n) time. Using StringBuilder instead of string concatenation avoids creating unnecessary intermediate string objects.\"",
-      "summary10s": "Loop from end to start, append each char to StringBuilder, return result."
-    }
-  },
-  {
     "id": "what-is-n-1-problem",
     "category": "Spring Boot",
     "question": "What is N+1 Problem",
@@ -1181,46 +1302,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Fetch 10 orders — 1 query. Access each order's items lazily — 10 more queries. Total 11\nSilently kills performance — 100 customers means 101 queries, 1000 means 1001\nLooks fine in tests with small data, catastrophic in production with real volume\nDetect with show_sql enabled in dev — count queries per request\nHibernate Batch Fetching can partially help but JOIN FETCH is the proper fix\n\nExample:\n// N+1 problem\nList<Order> orders = orderRepository.findAll();  // 1 query: SELECT * FROM orders\norders.forEach(order -> {\n    // EACH iteration fires a query: SELECT * FROM items WHERE order_id = ?\n    System.out.println(order.getItems().size()); // N queries!\n});\n// Total: 1 + N queries\n\n// Fix with JOIN FETCH\n@Query(\"SELECT o FROM Order o JOIN FETCH o.items\")\nList<Order> findAllWithItems(); // 1 query with JOIN: SELECT o.*, i.* FROM orders o JOIN items i",
       "example": "\"N+1 is when Hibernate fires one query for the list and then one additional query per element to load a lazy relationship. Loading 100 orders and accessing items for each fires 101 queries — unnoticed in development with 5 rows of test data but catastrophic in production with 10,000 orders. I always enable show_sql in development and count queries per API call. As soon as I see the same query pattern repeating I know there's an N+1 and fix it with JOIN FETCH.\"",
       "summary10s": "1 query for list + N queries for lazy child = N+1. Enable show_sql to detect, fix with JOIN FETCH or @EntityGraph."
-    }
-  },
-  {
-    "id": "jwt-authentication-flow",
-    "category": "Microservices",
-    "question": "JWT Authentication Flow",
-    "frequency": 5,
-    "companies": [],
-    "variations": [
-      "JWT Authentication Flow",
-      "Spring Security & JWT flow.",
-      "JWT?",
-      "How do you implement JWT authentication?"
-    ],
-    "answerSEE": {
-      "simple": "Login generates signed token, client sends it every request, server validates signature.",
-      "explain": "User logs in with credentials, server validates, creates JWT with user details\nJWT signed with secret key — Header.Payload.Signature\nClient stores and sends in Authorization Bearer header\nServer validates signature on every request — no session needed\nStateless — scales perfectly across multiple instances",
-      "example": "\"Login generates a signed JWT, Angular stores it in localStorage and sends it via HTTP interceptor in Authorization header, server validates token using a filter—stateless so it scales horizontally.\"",
-      "summary10s": "Login creates signed JWT, client sends in header, filter validates signature, stateless scales horizontally."
-    }
-  },
-  {
-    "id": "restcontroller-vs-controller",
-    "category": "Spring Boot",
-    "question": "@RestController vs @Controller",
-    "frequency": 5,
-    "companies": [
-      "Capgemini",
-      "BCT Consulting"
-    ],
-    "variations": [
-      "What is the difference between @Controller and @RestController?",
-      "Controller vs RestController?",
-      "@RestController"
-    ],
-    "answerSEE": {
-      "simple": "@RestController returns data directly (like JSON); @Controller is used for returning views.",
-      "explain": "@Controller — typically returns a view name (used with Thymeleaf/JSP)\n@RestController = @Controller + @ResponseBody — returns data directly serialized as JSON/XML\nREST APIs almost always use @RestController",
-      "example": "\"@Controller is traditionally used when we're returning a view, like a Thymeleaf template. @RestController is a combination of @Controller and @ResponseBody, so every method's return value is directly serialized into the response body, usually as JSON. Since I mostly build REST APIs, I use @RestController almost everywhere.\"",
-      "summary10s": "@Controller = returns view, @RestController = @Controller + @ResponseBody (returns JSON)."
     }
   },
   {
@@ -1264,66 +1345,247 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-optional-when-should-you-use-it",
-    "category": "Java",
-    "question": "What is Optional? When should you use it?",
+    "id": "angular-parent-child-comm",
+    "category": "Angular",
+    "question": "Parent-Child Communication in Angular",
     "frequency": 5,
     "companies": [
-      "Accenture"
+      "Deloitte",
+      "TCS"
     ],
     "variations": [
-      "What is the use of Optional?",
-      "Optional Class",
-      "What is Optional and where does it help?",
-      "How do you use Optional and what are its pitfalls?"
+      "How do you communicate between parent and child components?",
+      "Parent–Child & Sibling Communication",
+      "How would you implement parent-child communication?",
+      "How can you share data between Angular components?"
     ],
     "answerSEE": {
-      "simple": "Optional is a container that may or may not hold a value — eliminates NullPointerException.",
-      "explain": "Wrap return value in Optional instead of returning null\nisPresent or isEmpty to check, get to retrieve value\norElse for default value, orElseThrow for exception\nmap and flatMap to transform value if present",
-      "example": "\"Optional forces the caller to handle the case where value may be absent instead of getting a surprise NullPointerException. I use it as return type from service methods when result may not exist. I chain orElseThrow to throw a meaningful exception or orElse to return a default. I avoid Optional.get without checking — defeats the purpose.\"",
-      "summary10s": "Optional=nullable wrapper, use orElse or orElseThrow, avoid get without check."
+      "simple": "Besides @Input()/@Output(), components can communicate via a shared service, ViewChild, or template reference variables.",
+      "explain": "@Input()/@Output() — direct parent-child, most common\nShared Service with RxJS Subject/BehaviorSubject — for sibling or distant component communication\n@ViewChild() — parent directly accesses child component's properties/methods\nTemplate reference variables — parent template accesses child directly in HTML",
+      "example": "\"The most common way is @Input() for passing data down and @Output() with EventEmitter for sending data up. Beyond that, I use a shared service with a BehaviorSubject when components aren't directly related, like siblings. I've also used @ViewChild() when a parent needs to directly call a method on a child component instance, like triggering a reset.\"",
+      "summary10s": "@Input/@Output for direct, shared service for distant, @ViewChild for direct access."
     }
   },
   {
-    "id": "garbage-collection-in-java",
-    "category": "Java",
-    "question": "Garbage Collection in Java",
+    "id": "complete-order-of-angular-lifecycle-hooks",
+    "category": "Angular",
+    "question": "Complete Order of Angular Lifecycle Hooks",
     "frequency": 5,
     "companies": [
-      "Accenture",
-      "Zensar Technologies",
-      "Infosys"
+      "TCS",
+      "Deloitte"
     ],
     "variations": [
-      "How does Garbage Collection work in Java?",
-      "What is garbage collection in Java?",
-      "How does garbage collection work in modern Java?",
-      "What is Garbage Collection and why is it required?"
+      "Explain the different phases of the Angular component lifecycle.",
+      "Explain the Angular lifecycle hooks and their execution order.",
+      "Lifecycle hooks?",
+      "Explain Angular Component Lifecycle Hooks. In which lifecycle hook should you call an API, and why?"
     ],
     "answerSEE": {
-      "simple": "GC automatically removes objects that no longer have any live references, freeing up heap memory.",
-      "explain": "- Heap split into Young Gen (Minor GC) and Old Gen (Major GC)\n- Modern default collector: G1, divides heap into regions, collects garbage-heavy regions first\n- Developer doesn't manually free memory — GC handles it based on reachability",
-      "example": "\"Garbage Collection automatically identifies and removes objects that no longer have any live references, so I don't have to manually free memory like in C++. The heap is split into Young and Old Generation for efficient collection — short-lived objects get cleaned quickly in Minor GC, while long-lived ones move to Old Gen and get cleaned less frequently in Major GC.\"",
-      "summary10s": "\"Auto-removes unreachable objects — Young Gen (Minor GC) + Old Gen (Major GC).\""
+      "simple": "ngOnChanges → ngOnInit → ngDoCheck → ngAfterContentInit → ngAfterContentChecked → ngAfterViewInit → ngAfterViewChecked → ngOnDestroy.",
+      "explain": "ngOnChanges — fires first if @Input changes, receives SimpleChanges\nngOnInit — fires once after first change detection, setup logic here\nngAfterViewInit — view and children rendered, access ViewChild here\nngOnDestroy — cleanup subscriptions and timers",
+      "example": "\"The order starts with ngOnChanges if there are Input changes, then ngOnInit for setup. Content hooks fire next — ngAfterContentInit when projected content is ready. Then view hooks — ngAfterViewInit when the component view and all children are fully rendered, this is where I access ViewChild. ngOnDestroy is last — cleanup everything here.\"",
+      "summary10s": "Changes→Init→DoCheck→ContentInit→ContentChecked→ViewInit→ViewChecked→Destroy."
+    }
+  },
+  {
+    "id": "angular-switchmap-vs-mergemap-vs-concatmap-vs-exhaustmap",
+    "category": "Angular",
+    "question": "switchMap vs mergeMap vs concatMap vs exhaustMap",
+    "frequency": 5,
+    "companies": [
+      "TCS",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Explain RxJS operators like switchMap, mergeMap, concatMap and forkJoin.",
+      "What is the difference between switchMap, concatMap, mergeMap, and exhaustMap? What are their practical use cases?",
+      "Which RxJS operators have you used?"
+    ],
+    "answerSEE": {
+      "simple": "switch cancels old, merge runs all together, concat queues one by one, exhaust ignores new while busy.",
+      "explain": "switchMap — cancel previous, use latest. Search autocomplete\nmergeMap — all run in parallel, results as they arrive. Parallel API calls\nconcatMap — one at a time in order. Sequential saves or uploads\nexhaustMap — ignore new while current running. Login button, form submit",
+      "example": "\"I choose based on what should happen when a new emission arrives before the previous completes. For search I use switchMap to cancel old requests. For parallel independent calls I use mergeMap. For ordered sequential operations like saving steps I use concatMap. For preventing double submit on a login button I use exhaustMap.\"",
+      "summary10s": "switch=cancel, merge=parallel, concat=queue, exhaust=ignore while busy."
+    }
+  },
+  {
+    "id": "js-promises-vs-observables",
+    "category": "Angular",
+    "question": "Promises vs Observables",
+    "frequency": 5,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "What is the difference between Observable and Promise?",
+      "Observable vs Promise?",
+      "explain Observable vs Promise difference."
+    ],
+    "answerSEE": {
+      "simple": "Promises handle a single async value and execute eagerly; Observables handle multiple values over time and are lazy.",
+      "explain": "Promise — resolves once, executes immediately upon creation, not cancellable\nObservable — can emit multiple values over time, lazy (doesn't run until subscribed), cancellable via unsubscribe\nObservables support powerful operators (map, filter, switchMap) for transforming streams",
+      "example": "\"A Promise handles a single asynchronous value and starts executing immediately when created, and it can't be cancelled. An Observable can emit multiple values over time, it's lazy — meaning it doesn't execute until something subscribes to it — and it's cancellable via unsubscribe. In Angular, I prefer Observables for HTTP calls because I get access to powerful operators like switchMap for cancelling a previous in-flight request when a new one comes in, like in a search-as-you-type feature.\"",
+      "summary10s": "Promise = single value, eager, not cancellable. Observable = multiple values, lazy, cancellable."
+    }
+  },
+  {
+    "id": "angular-reactive-vs-template-forms",
+    "category": "Angular",
+    "question": "Reactive Forms vs Template-driven Forms",
+    "frequency": 5,
+    "companies": [
+      "Virtusa",
+      "TCS",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "What is the difference between Template-driven and Reactive Forms?",
+      "What are the different types of forms in Angular? How would you achieve two-way data binding using Reactive Forms?",
+      "Reactive Forms?",
+      "Template-driven vs Reactive Forms."
+    ],
+    "answerSEE": {
+      "simple": "Reactive Forms are defined in code and are more scalable; Template-driven Forms are defined in the HTML template and are simpler for basic forms.",
+      "explain": "Reactive — explicit, synchronous, form model in TypeScript, better for complex/dynamic forms\nTemplate-driven — uses ngModel, form model created implicitly by Angular, simpler for basic use cases\nReactive Forms are generally preferred in larger, enterprise-scale applications",
+      "example": "\"Reactive Forms define the form model explicitly in the component using FormGroup, giving me more control and making it easier to handle complex validation or dynamic fields. Template-driven Forms use ngModel directly in the template, and Angular creates the form model implicitly behind the scenes, which is simpler for basic forms but harder to scale. In most of my projects, especially anything enterprise-level, I default to Reactive Forms.\"",
+      "summary10s": "Reactive = explicit/code-based, scalable. Template-driven = implicit/ngModel, simple forms only."
     }
   },
   {
     "id": "java-hashmap-mutability",
     "category": "Java",
     "question": "What happens if you modify a key after inserting it into a HashMap?",
-    "frequency": 4,
+    "frequency": 5,
     "companies": [
       "Goldman Sachs",
       "JP Morgan"
     ],
     "variations": [
-      "Can we use mutable objects as HashMap keys?"
+      "Can we use mutable objects as HashMap keys?",
+      "Can HashMap keys be mutable? Why?"
     ],
     "answerSEE": {
       "simple": "If a key's fields change after insertion, its hashCode changes, making it \"lost\" in the wrong bucket.",
       "explain": "When you insert a key, HashMap places it in a bucket based on its hashCode at that exact moment. If you mutate the key later, the object is still sitting in the old bucket, but future get() calls will compute a new hashCode and look in a different bucket.",
       "example": "\"This is a subtle bug. If we mutate a field that's part of the hashCode calculation, the object's hashCode changes but it remains in the old bucket. When we call get(), it looks in the new bucket and simply can't find the entry. That's exactly why I always use immutable objects (like String) as HashMap keys.\"",
       "summary10s": "Mutating key fields after insert breaks lookup. Always use immutable keys."
+    }
+  },
+  {
+    "id": "primary-vs-qualifier",
+    "category": "Spring Boot",
+    "question": "@Primary vs @Qualifier?",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "What happens when two beans of the same type are available?",
+      "How do @Primary and @Qualifier resolve bean conflicts?",
+      "@Primary vs @Qualifier",
+      "@Primary vs @Qualifier?"
+    ],
+    "answerSEE": {
+      "simple": "@Primary sets default bean, @Qualifier explicitly names which bean to inject.",
+      "explain": "When multiple beans of same type exist, Spring does not know which to inject\n@Primary on one bean — Spring uses it by default when no qualifier specified\n@Qualifier on injection point — explicitly names which bean to use\n@Qualifier overrides @Primary — more specific wins",
+      "example": "\"If I have two DataSource beans, Spring gets confused which to inject. I mark one with @Primary to be the default choice. When a specific component needs the other DataSource, I use @Qualifier with the bean name at the injection point. @Qualifier always wins over @Primary — explicit beats default.\"",
+      "summary10s": "@Primary=default when multiple beans, @Qualifier=explicit by name, Qualifier overrides Primary."
+    }
+  },
+  {
+    "id": "java-interface-default-conflict",
+    "category": "Java",
+    "question": "What happens when a class implements two interfaces with conflicting default methods?",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "Can a class implement two interfaces that contain the same default method? How does Java resolve it?",
+      "What if two interface have same method how will you will resolve this when a class implement both.",
+      "Diamond problem caused by multiple inheritance ,how can we resolve it.",
+      "What is the difference between method overloading and method overriding?",
+      "Same default method in two interfaces how to resolve?"
+    ],
+    "answerSEE": {
+      "simple": "The compiler throws an error, and you must explicitly resolve the conflict by overriding the method.",
+      "explain": "If interfaces A and B both provide a default method doWork(), Java prevents the Diamond Problem by forcing the implementing class to override doWork(). Inside the overridden method, you can provide your own logic or explicitly call one of the interface methods using A.super.doWork().",
+      "example": "\"If both Flyable and Swimmable have a default move() method, my Duck class won't compile until I override move(). Inside my move() method, I can decide to call Flyable.super.move() or write entirely new logic.\"",
+      "summary10s": "Compiler error. You must override the method and optionally call SuperInterface.super.methodName()."
+    }
+  },
+  {
+    "id": "how-does-the-spring-container-work",
+    "category": "Spring Boot",
+    "question": "How does the Spring Container work?",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "Internal Working of Spring Container",
+      "Spring annotations: @Component, @Bean, @Qualifier, @Value",
+      "What is the difference between @Component, @Bean, and @Configuration beyond simply “creating beans”?",
+      "How does the Spring Container work?"
+    ],
+    "answerSEE": {
+      "simple": "Spring scans classes, creates beans, injects dependencies, and manages their lifecycle.",
+      "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
+      "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
+      "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
+    }
+  },
+  {
+    "id": "what-is-the-liskov-substitution-principle",
+    "category": "System Design",
+    "question": "What is the Liskov Substitution Principle?",
+    "frequency": 5,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Liskov Substitution Principle",
+      "Liskov Substitution Principle (LSP)",
+      "Liskov Substitution Principle (SOLID)",
+      "What is the Liskov Substitution Principle?"
+    ],
+    "answerSEE": {
+      "simple": "Subclass should be usable wherever parent is used without breaking the program.",
+      "explain": "If Bird is parent and Penguin extends Bird but cannot fly — LSP violated\nSubclass should not remove or weaken behavior of parent\nInheritance is needed even with LSP for code reuse and polymorphism\nLSP ensures the substitution is correct — not that inheritance is unnecessary",
+      "example": "\"LSP says I should be able to replace a parent class with any subclass without breaking functionality. If I have a method accepting Animal, passing any subclass should work correctly. Inheritance is still needed for code reuse and polymorphism — LSP just guides how to do it correctly. Violating LSP means the subclass is not a true is-a relationship.\"",
+      "summary10s": "Subclass replaces parent without breaking behavior. Inheritance for reuse, LSP for correctness."
+    }
+  },
+  {
+    "id": "what-is-controlleradvice",
+    "category": "Spring Boot",
+    "question": "What is @ControllerAdvice?",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "Exception Handling and Controller Advisor",
+      "ControllerAdvice & global exception handling.",
+      "What is @ControllerAdvice?"
+    ],
+    "answerSEE": {
+      "simple": "Exception handling manages errors gracefully, ControllerAdvice centralizes it for all controllers.",
+      "explain": "@ControllerAdvice — global exception handler class\n@ExceptionHandler inside it handles specific exception types\nReturns consistent error response with proper HTTP status\nNo try-catch needed in individual controllers",
+      "example": "\"Instead of try-catch in every controller, I create one class with @ControllerAdvice. Inside it @ExceptionHandler methods each handle a specific exception type and return a structured error response with the right HTTP status code. This keeps controllers clean and ensures consistent error format across all APIs.\"",
+      "summary10s": "@ControllerAdvice + @ExceptionHandler = central error handling, consistent response format."
+    }
+  },
+  {
+    "id": "stream-vs-parallel-stream",
+    "category": "Java",
+    "question": "Stream vs Parallel Stream?",
+    "frequency": 5,
+    "companies": [],
+    "variations": [
+      "Why does using parallelStream() sometimes make performance worse?",
+      "Stream vs Parallel Stream",
+      "Stream vs Parallel Stream?"
+    ],
+    "answerSEE": {
+      "simple": "Stream processes sequentially, Parallel Stream splits work across multiple CPU cores.",
+      "explain": "Parallel stream uses ForkJoinPool to split and process in parallel\nFaster for large datasets with CPU-intensive operations\nNot always faster — small lists, I/O tasks, or stateful operations can be slower\nOrder not guaranteed in parallel stream — use forEachOrdered if needed",
+      "example": "\"Parallel stream splits the data into chunks and processes them on multiple cores using ForkJoinPool. For large CPU-intensive operations it can be significantly faster. But I use it carefully — for small collections or I/O operations overhead outweighs benefit. In production I used parallel stream for processing large batch data transformations where order did not matter.\"",
+      "summary10s": "Parallel stream=ForkJoinPool multi-core, faster for large CPU work, not for small or I/O tasks."
     }
   },
   {
@@ -1346,24 +1608,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "primary-vs-qualifier",
-    "category": "Spring Boot",
-    "question": "@Primary vs @Qualifier?",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "What happens when two beans of the same type are available?",
-      "How do @Primary and @Qualifier resolve bean conflicts?",
-      "@Primary vs @Qualifier"
-    ],
-    "answerSEE": {
-      "simple": "@Primary sets default bean, @Qualifier explicitly names which bean to inject.",
-      "explain": "When multiple beans of same type exist, Spring does not know which to inject\n@Primary on one bean — Spring uses it by default when no qualifier specified\n@Qualifier on injection point — explicitly names which bean to use\n@Qualifier overrides @Primary — more specific wins",
-      "example": "\"If I have two DataSource beans, Spring gets confused which to inject. I mark one with @Primary to be the default choice. When a specific component needs the other DataSource, I use @Qualifier with the bean name at the injection point. @Qualifier always wins over @Primary — explicit beats default.\"",
-      "summary10s": "@Primary=default when multiple beans, @Qualifier=explicit by name, Qualifier overrides Primary."
-    }
-  },
-  {
     "id": "spring-data-jpa-vs-jpa-vs-hibernate",
     "category": "Spring Boot",
     "question": "Spring Data JPA vs JPA vs Hibernate",
@@ -1382,25 +1626,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-interface-default-conflict",
-    "category": "Java",
-    "question": "What happens when a class implements two interfaces with conflicting default methods?",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "Can a class implement two interfaces that contain the same default method? How does Java resolve it?",
-      "What if two interface have same method how will you will resolve this when a class implement both.",
-      "Diamond problem caused by multiple inheritance ,how can we resolve it.",
-      "What is the difference between method overloading and method overriding?"
-    ],
-    "answerSEE": {
-      "simple": "The compiler throws an error, and you must explicitly resolve the conflict by overriding the method.",
-      "explain": "If interfaces A and B both provide a default method doWork(), Java prevents the Diamond Problem by forcing the implementing class to override doWork(). Inside the overridden method, you can provide your own logic or explicitly call one of the interface methods using A.super.doWork().",
-      "example": "\"If both Flyable and Swimmable have a default move() method, my Duck class won't compile until I override move(). Inside my move() method, I can decide to call Flyable.super.move() or write entirely new logic.\"",
-      "summary10s": "Compiler error. You must override the method and optionally call SuperInterface.super.methodName()."
-    }
-  },
-  {
     "id": "spring-oauth-basics",
     "category": "Spring Boot",
     "question": "OAuth basics and role-based access",
@@ -1416,24 +1641,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "In Spring Security, you can act as a Resource Server that accepts JWTs issued by an Authorization Server (like Keycloak). Once the token is validated, Spring extracts the \"roles\" or \"scopes\" from the token and uses `@PreAuthorize(\"hasRole('ADMIN')\")` to restrict endpoint access.",
       "example": "\"In my project, the UI gets a JWT from Auth0. It sends the JWT in the Authorization header to my Spring Boot API. Spring Security intercepts it, validates the signature, and reads the claims. If the claims contain `role: admin`, my `@PreAuthorize` allows them into the delete endpoint.\"",
       "summary10s": "Auth server issues tokens. Spring validates token signatures and maps token claims to Roles for endpoint security."
-    }
-  },
-  {
-    "id": "how-does-the-spring-container-work",
-    "category": "Spring Boot",
-    "question": "How does the Spring Container work?",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "Internal Working of Spring Container",
-      "Spring annotations: @Component, @Bean, @Qualifier, @Value",
-      "What is the difference between @Component, @Bean, and @Configuration beyond simply “creating beans”?"
-    ],
-    "answerSEE": {
-      "simple": "Spring scans classes, creates beans, injects dependencies, and manages their lifecycle.",
-      "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
-      "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
-      "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
     }
   },
   {
@@ -1471,83 +1678,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "No sharing between threads — each thread has private copy\nUsed for storing user context, transaction context, request ID per thread\nSpring uses ThreadLocal internally for SecurityContext and transaction management\nMust call remove() after use to prevent memory leaks in thread pools",
       "example": "\"ThreadLocal is useful when I need per-thread state like storing the current logged-in user or request correlation ID without passing it everywhere. Each thread gets its own copy so there is no sharing or synchronization needed. I always call remove in a finally block because thread pools reuse threads — stale data from previous request would otherwise bleed into next request.\"",
       "summary10s": "Each thread owns its copy, no sharing, always remove after use in thread pools."
-    }
-  },
-  {
-    "id": "what-is-the-liskov-substitution-principle",
-    "category": "System Design",
-    "question": "What is the Liskov Substitution Principle?",
-    "frequency": 4,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "Liskov Substitution Principle",
-      "Liskov Substitution Principle (LSP)",
-      "Liskov Substitution Principle (SOLID)"
-    ],
-    "answerSEE": {
-      "simple": "Subclass should be usable wherever parent is used without breaking the program.",
-      "explain": "If Bird is parent and Penguin extends Bird but cannot fly — LSP violated\nSubclass should not remove or weaken behavior of parent\nInheritance is needed even with LSP for code reuse and polymorphism\nLSP ensures the substitution is correct — not that inheritance is unnecessary",
-      "example": "\"LSP says I should be able to replace a parent class with any subclass without breaking functionality. If I have a method accepting Animal, passing any subclass should work correctly. Inheritance is still needed for code reuse and polymorphism — LSP just guides how to do it correctly. Violating LSP means the subclass is not a true is-a relationship.\"",
-      "summary10s": "Subclass replaces parent without breaking behavior. Inheritance for reuse, LSP for correctness."
-    }
-  },
-  {
-    "id": "angular-switchmap-vs-mergemap-vs-concatmap-vs-exhaustmap",
-    "category": "Angular",
-    "question": "switchMap vs mergeMap vs concatMap vs exhaustMap",
-    "frequency": 4,
-    "companies": [
-      "TCS"
-    ],
-    "variations": [
-      "Explain RxJS operators like switchMap, mergeMap, concatMap and forkJoin.",
-      "What is the difference between switchMap, concatMap, mergeMap, and exhaustMap? What are their practical use cases?"
-    ],
-    "answerSEE": {
-      "simple": "switch cancels old, merge runs all together, concat queues one by one, exhaust ignores new while busy.",
-      "explain": "switchMap — cancel previous, use latest. Search autocomplete\nmergeMap — all run in parallel, results as they arrive. Parallel API calls\nconcatMap — one at a time in order. Sequential saves or uploads\nexhaustMap — ignore new while current running. Login button, form submit",
-      "example": "\"I choose based on what should happen when a new emission arrives before the previous completes. For search I use switchMap to cancel old requests. For parallel independent calls I use mergeMap. For ordered sequential operations like saving steps I use concatMap. For preventing double submit on a login button I use exhaustMap.\"",
-      "summary10s": "switch=cancel, merge=parallel, concat=queue, exhaust=ignore while busy."
-    }
-  },
-  {
-    "id": "angular-parent-child-comm",
-    "category": "Angular",
-    "question": "Parent-Child Communication in Angular",
-    "frequency": 4,
-    "companies": [
-      "Deloitte",
-      "TCS"
-    ],
-    "variations": [
-      "How do you communicate between parent and child components?",
-      "Parent–Child & Sibling Communication",
-      "How would you implement parent-child communication?"
-    ],
-    "answerSEE": {
-      "simple": "Besides @Input()/@Output(), components can communicate via a shared service, ViewChild, or template reference variables.",
-      "explain": "@Input()/@Output() — direct parent-child, most common\nShared Service with RxJS Subject/BehaviorSubject — for sibling or distant component communication\n@ViewChild() — parent directly accesses child component's properties/methods\nTemplate reference variables — parent template accesses child directly in HTML",
-      "example": "\"The most common way is @Input() for passing data down and @Output() with EventEmitter for sending data up. Beyond that, I use a shared service with a BehaviorSubject when components aren't directly related, like siblings. I've also used @ViewChild() when a parent needs to directly call a method on a child component instance, like triggering a reset.\"",
-      "summary10s": "@Input/@Output for direct, shared service for distant, @ViewChild for direct access."
-    }
-  },
-  {
-    "id": "what-is-controlleradvice",
-    "category": "Spring Boot",
-    "question": "What is @ControllerAdvice?",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "Exception Handling and Controller Advisor",
-      "ControllerAdvice & global exception handling."
-    ],
-    "answerSEE": {
-      "simple": "Exception handling manages errors gracefully, ControllerAdvice centralizes it for all controllers.",
-      "explain": "@ControllerAdvice — global exception handler class\n@ExceptionHandler inside it handles specific exception types\nReturns consistent error response with proper HTTP status\nNo try-catch needed in individual controllers",
-      "example": "\"Instead of try-catch in every controller, I create one class with @ControllerAdvice. Inside it @ExceptionHandler methods each handle a specific exception type and return a structured error response with the right HTTP status code. This keeps controllers clean and ensures consistent error format across all APIs.\"",
-      "summary10s": "@ControllerAdvice + @ExceptionHandler = central error handling, consistent response format."
     }
   },
   {
@@ -1604,83 +1734,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "When `public void test()` executes, a stack frame is created. The primitive `int x = 10` is stored in the Stack. `Employee e` (the reference) is also in the Stack, but the actual `new Employee()` object is created in the Heap.",
       "example": "In that method, the primitive `x` and the reference variable `e` are both stored in the thread's Stack memory inside the method's frame. The actual `Employee` object instance is allocated in the Heap. Once the method finishes execution, the stack frame is popped off, destroying `x` and `e`. Since there are no more references pointing to the `Employee` object in the Heap, it becomes eligible for Garbage Collection.",
       "summary10s": "Primitives & references on Stack. Objects on Heap. Object is GCed when method ends."
-    }
-  },
-  {
-    "id": "js-promises-vs-observables",
-    "category": "Angular",
-    "question": "Promises vs Observables",
-    "frequency": 4,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "What is the difference between Observable and Promise?",
-      "Observable vs Promise?"
-    ],
-    "answerSEE": {
-      "simple": "Promises handle a single async value and execute eagerly; Observables handle multiple values over time and are lazy.",
-      "explain": "Promise — resolves once, executes immediately upon creation, not cancellable\nObservable — can emit multiple values over time, lazy (doesn't run until subscribed), cancellable via unsubscribe\nObservables support powerful operators (map, filter, switchMap) for transforming streams",
-      "example": "\"A Promise handles a single asynchronous value and starts executing immediately when created, and it can't be cancelled. An Observable can emit multiple values over time, it's lazy — meaning it doesn't execute until something subscribes to it — and it's cancellable via unsubscribe. In Angular, I prefer Observables for HTTP calls because I get access to powerful operators like switchMap for cancelling a previous in-flight request when a new one comes in, like in a search-as-you-type feature.\"",
-      "summary10s": "Promise = single value, eager, not cancellable. Observable = multiple values, lazy, cancellable."
-    }
-  },
-  {
-    "id": "stream-vs-parallel-stream",
-    "category": "Java",
-    "question": "Stream vs Parallel Stream?",
-    "frequency": 4,
-    "companies": [],
-    "variations": [
-      "Why does using parallelStream() sometimes make performance worse?",
-      "Stream vs Parallel Stream"
-    ],
-    "answerSEE": {
-      "simple": "Stream processes sequentially, Parallel Stream splits work across multiple CPU cores.",
-      "explain": "Parallel stream uses ForkJoinPool to split and process in parallel\nFaster for large datasets with CPU-intensive operations\nNot always faster — small lists, I/O tasks, or stateful operations can be slower\nOrder not guaranteed in parallel stream — use forEachOrdered if needed",
-      "example": "\"Parallel stream splits the data into chunks and processes them on multiple cores using ForkJoinPool. For large CPU-intensive operations it can be significantly faster. But I use it carefully — for small collections or I/O operations overhead outweighs benefit. In production I used parallel stream for processing large batch data transformations where order did not matter.\"",
-      "summary10s": "Parallel stream=ForkJoinPool multi-core, faster for large CPU work, not for small or I/O tasks."
-    }
-  },
-  {
-    "id": "angular-reactive-vs-template-forms",
-    "category": "Angular",
-    "question": "Reactive Forms vs Template-driven Forms",
-    "frequency": 4,
-    "companies": [
-      "Virtusa",
-      "TCS"
-    ],
-    "variations": [
-      "What is the difference between Template-driven and Reactive Forms?",
-      "What are the different types of forms in Angular? How would you achieve two-way data binding using Reactive Forms?",
-      "Reactive Forms?"
-    ],
-    "answerSEE": {
-      "simple": "Reactive Forms are defined in code and are more scalable; Template-driven Forms are defined in the HTML template and are simpler for basic forms.",
-      "explain": "Reactive — explicit, synchronous, form model in TypeScript, better for complex/dynamic forms\nTemplate-driven — uses ngModel, form model created implicitly by Angular, simpler for basic use cases\nReactive Forms are generally preferred in larger, enterprise-scale applications",
-      "example": "\"Reactive Forms define the form model explicitly in the component using FormGroup, giving me more control and making it easier to handle complex validation or dynamic fields. Template-driven Forms use ngModel directly in the template, and Angular creates the form model implicitly behind the scenes, which is simpler for basic forms but harder to scale. In most of my projects, especially anything enterprise-level, I default to Reactive Forms.\"",
-      "summary10s": "Reactive = explicit/code-based, scalable. Template-driven = implicit/ngModel, simple forms only."
-    }
-  },
-  {
-    "id": "complete-order-of-angular-lifecycle-hooks",
-    "category": "Angular",
-    "question": "Complete Order of Angular Lifecycle Hooks",
-    "frequency": 4,
-    "companies": [
-      "TCS"
-    ],
-    "variations": [
-      "Explain the different phases of the Angular component lifecycle.",
-      "Explain the Angular lifecycle hooks and their execution order.",
-      "Lifecycle hooks?"
-    ],
-    "answerSEE": {
-      "simple": "ngOnChanges → ngOnInit → ngDoCheck → ngAfterContentInit → ngAfterContentChecked → ngAfterViewInit → ngAfterViewChecked → ngOnDestroy.",
-      "explain": "ngOnChanges — fires first if @Input changes, receives SimpleChanges\nngOnInit — fires once after first change detection, setup logic here\nngAfterViewInit — view and children rendered, access ViewChild here\nngOnDestroy — cleanup subscriptions and timers",
-      "example": "\"The order starts with ngOnChanges if there are Input changes, then ngOnInit for setup. Content hooks fire next — ngAfterContentInit when projected content is ready. Then view hooks — ngAfterViewInit when the component view and all children are fully rendered, this is where I access ViewChild. ngOnDestroy is last — cleanup everything here.\"",
-      "summary10s": "Changes→Init→DoCheck→ContentInit→ContentChecked→ViewInit→ViewChecked→Destroy."
     }
   },
   {
@@ -1846,18 +1899,61 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "angular-route-guards",
     "category": "Angular",
     "question": "Route Guards",
-    "frequency": 3,
+    "frequency": 4,
     "companies": [
-      "Deloitte"
+      "Deloitte",
+      "Tech Mahindra"
     ],
     "variations": [
-      "What is a Route Guard? How do you protect authenticated routes?"
+      "What is a Route Guard? How do you protect authenticated routes?",
+      "What are Route Guards and their types?"
     ],
     "answerSEE": {
       "simple": "Route Guards control whether a user is allowed to navigate to, away from, or load a specific route.",
       "explain": "CanActivate — controls if a route can be entered (e.g., auth check)\nCanDeactivate — controls if user can leave a route (e.g., unsaved changes warning)\nCanLoad/CanMatch — controls if a lazy module is loaded/matched at all (blocks even downloading the chunk)\nResolve — pre-fetches data before the route activates, so the component loads with data ready",
       "example": "\"Route Guards control navigation behavior. CanActivate is the most common — I use it to check if a user is authenticated before entering a route. CanDeactivate is useful for warning users about unsaved changes when they try to leave a form. CanMatch, which replaced CanLoad, prevents even downloading the lazy-loaded chunk if the guard fails. And Resolve is different — it pre-fetches data before the route activates, so my component doesn't render with a loading state.\"",
       "summary10s": "CanActivate=entry, CanDeactivate=exit, CanMatch=blocks lazy load, Resolve=prefetch data."
+    }
+  },
+  {
+    "id": "spring-vs-spring-boot",
+    "category": "Spring Boot",
+    "question": "Spring vs Spring Boot.",
+    "frequency": 4,
+    "companies": [
+      "JPMorganChase",
+      "Wissen Technology",
+      "Infosys"
+    ],
+    "variations": [
+      "Spring vs Spring Boot",
+      "What are the advantages of using Spring Boot over traditional Spring?"
+    ],
+    "answerSEE": {
+      "simple": "Spring is the core framework that requires manual configuration. Spring Boot is built on top of Spring and provides auto-configuration and embedded servers.",
+      "explain": "Spring requires complex XML or Java configuration and deploying WAR files to a Tomcat server. Spring Boot uses 'opinionated defaults'—if it sees a web dependency, it automatically configures a web app and embeds Tomcat, allowing you to run it as a simple JAR.",
+      "example": "\"Spring Boot takes the headache out of Spring setup. With plain Spring, I had to configure DispatcherServlets and Hibernate dialects manually. With Spring Boot, I just add the 'spring-boot-starter-web' dependency and an embedded Tomcat server is auto-configured and ready to run immediately.\"",
+      "summary10s": "Spring = manual config. Spring Boot = Auto-configuration, Starter POMs, Embedded Servers."
+    }
+  },
+  {
+    "id": "explain-transactional-annotation-in-spring",
+    "category": "Spring Boot",
+    "question": "Explain @Transactional annotation in Spring",
+    "frequency": 4,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Explain @Transactional.",
+      "@Transactional?",
+      "Explain @Transactional annotation."
+    ],
+    "answerSEE": {
+      "simple": "The @Transactional annotation makes a method run inside a transaction. It treats multiple database operations as one unit, so either all succeed or all fail. If an exception occurs, the transaction is rolled back and the changes are not saved. This helps maintain data consistency.",
+      "explain": "",
+      "example": "",
+      "summary10s": ""
     }
   },
   {
@@ -2456,23 +2552,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "explain-transactional-annotation-in-spring",
-    "category": "Spring Boot",
-    "question": "Explain @Transactional annotation in Spring",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "Explain @Transactional.",
-      "@Transactional?"
-    ],
-    "answerSEE": {
-      "simple": "The @Transactional annotation makes a method run inside a transaction. It treats multiple database operations as one unit, so either all succeed or all fail. If an exception occurs, the transaction is rolled back and the changes are not saved. This helps maintain data consistency.",
-      "explain": "",
-      "example": "",
-      "summary10s": ""
-    }
-  },
-  {
     "id": "change-detection-how-it-works",
     "category": "Angular",
     "question": "Change Detection — How It Works",
@@ -2678,25 +2757,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-vs-spring-boot",
-    "category": "Spring Boot",
-    "question": "Spring vs Spring Boot.",
-    "frequency": 3,
-    "companies": [
-      "JPMorganChase",
-      "Wissen Technology"
-    ],
-    "variations": [
-      "Spring vs Spring Boot"
-    ],
-    "answerSEE": {
-      "simple": "Spring is the core framework that requires manual configuration. Spring Boot is built on top of Spring and provides auto-configuration and embedded servers.",
-      "explain": "Spring requires complex XML or Java configuration and deploying WAR files to a Tomcat server. Spring Boot uses 'opinionated defaults'—if it sees a web dependency, it automatically configures a web app and embeds Tomcat, allowing you to run it as a simple JAR.",
-      "example": "\"Spring Boot takes the headache out of Spring setup. With plain Spring, I had to configure DispatcherServlets and Hibernate dialects manually. With Spring Boot, I just add the 'spring-boot-starter-web' dependency and an embedded Tomcat server is auto-configured and ready to run immediately.\"",
-      "summary10s": "Spring = manual config. Spring Boot = Auto-configuration, Starter POMs, Embedded Servers."
-    }
-  },
-  {
     "id": "multithreading-basics",
     "category": "Java",
     "question": "Multithreading",
@@ -2792,6 +2852,103 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "First, isolate the scope (who is affected, since when). Check centralized logs using the trace ID. Look at monitoring dashboards (Grafana/Datadog) for CPU/Memory/DB spikes. Check Git history for recent deployments. Once identified, write a failing test to reproduce it, then fix it.",
       "example": "\"My approach is: First, I check Datadog for any obvious metric spikes (like DB CPU at 100%). Then I pull the logs using the specific Trace ID of the failed request. If it's a NullPointerException in the PaymentService, I check the recent commits for that service. Then I try to replicate the exact payload locally before pushing a fix.\"",
       "summary10s": "1. Check Metrics/Alerts. 2. Search Logs via Trace ID. 3. Check recent Git commits. 4. Reproduce locally."
+    }
+  },
+  {
+    "id": "ts-interface-class-type",
+    "category": "JavaScript",
+    "question": "Explain interface, class, and type in TypeScript. Which do you prefer and when would you use extends?",
+    "frequency": 3,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "What does extends do in TypeScript?",
+      "Difference between Class, Interface, and Type."
+    ],
+    "answerSEE": {
+      "simple": "`type` is for creating aliases and unions. `interface` defines object shapes and supports declaration merging. `class` is an actual JS constructor used for implementation.",
+      "explain": "Interfaces and types disappear after compiling to JS; they are purely for static typing. Classes remain in the compiled JS. `interface` can be extended (using `extends`), whereas `type` uses intersection (`&`).",
+      "example": "\"I prefer `interface` for defining the shape of API responses or objects because it's slightly faster for the TS compiler and supports `extends`. I use `type` when I need a union (like `type Status = 'success' | 'error'`). I only use `class` when I actually need to instantiate an object with methods and logic using `new`.\"",
+      "summary10s": "type=unions/aliases. interface=object shapes (can extend). class=actual JS objects with logic."
+    }
+  },
+  {
+    "id": "angular-routing-params",
+    "category": "Angular",
+    "question": "Explain Angular Routing. How do you navigate with route parameters and read query parameters?",
+    "frequency": 3,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "How do you navigate between components?",
+      "How do you pass data during navigation?"
+    ],
+    "answerSEE": {
+      "simple": "Angular Routing maps URLs to components. You pass route params in the path and query params in the URL string, reading them via `ActivatedRoute`.",
+      "explain": "You define routes in `app-routing.module.ts`. Route parameters are part of the path (e.g., `path: 'user/:id'`). Query parameters are optional appendages (`?tab=profile`). You inject `ActivatedRoute` in the component to subscribe to these parameters.",
+      "example": "\"To navigate, I inject the `Router` and call `this.router.navigate(['/user', 123], { queryParams: { tab: 'profile' } })`. Inside the UserComponent, I inject `ActivatedRoute`. I read the ID using `this.route.snapshot.paramMap.get('id')` and the tab using `this.route.snapshot.queryParamMap.get('tab')`.\"",
+      "summary10s": "Define paths. Use Router.navigate() to move. Use ActivatedRoute.snapshot to read params/queryParams."
+    }
+  },
+  {
+    "id": "angular-deployment-environments",
+    "category": "Other",
+    "question": "Do you know how an Angular application is deployed to a server? How many environments does your application have?",
+    "frequency": 3,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Who handles deployment in your project?",
+      "Where do you test your application?"
+    ],
+    "answerSEE": {
+      "simple": "Angular is built into static HTML/JS/CSS files using `ng build`. These files are then hosted on a web server like Nginx, S3, or Apache.",
+      "explain": "Angular is a client-side framework, so deployment just means serving static files. We typically use CI/CD pipelines to build the app with different configuration files based on the target environment.",
+      "example": "\"In my project, we run `ng build --configuration=production`. This creates an optimized `dist/` folder. Our Jenkins pipeline copies this folder to an Nginx server. We have three environments: DEV (for testing raw features), UAT (for client approval), and PROD (live environment). Each uses a different `environment.ts` file for API URLs.\"",
+      "summary10s": "`ng build` creates static files hosted on Nginx/S3. Usually 3+ environments (Dev, UAT, Prod)."
+    }
+  },
+  {
+    "id": "singleton-design-pattern",
+    "category": "System Design",
+    "question": "Singleton Design Pattern",
+    "frequency": 3,
+    "companies": [
+      "EPAM",
+      "Capgemini"
+    ],
+    "variations": [
+      "Implement a thread-safe Singleton using double-checked locking.",
+      "Explain Singleton Design Pattern."
+    ],
+    "answerSEE": {
+      "simple": "Singleton ensures only one instance of a class exists throughout the application.",
+      "explain": "Private constructor + static instance + static access method\nCommon uses: config managers, logging, connection pools\nNeeds thread-safety handling (double-checked locking, enum) in multi-threaded apps",
+      "example": "\"Singleton restricts a class to just one instance, typically implemented with a private constructor and a static getInstance() method. I've used it for things like a configuration manager that should be shared across the app. In multi-threaded environments, I'd make sure it's thread-safe using double-checked locking or an enum-based implementation.\"",
+      "summary10s": "One instance only — private constructor + static access, thread-safe if needed."
+    }
+  },
+  {
+    "id": "spring-boot-externalized-properties",
+    "category": "Spring Boot",
+    "question": "How does Spring load externalized properties at runtime?",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot load \"application.properties\"?",
+      "How does Spring Boot handle externalized configuration?"
+    ],
+    "answerSEE": {
+      "simple": "Spring merges properties from multiple sources in a strict order, letting external configs override internal ones.",
+      "explain": "The hierarchy goes: internal `application.yml` < Profile specific YAML < OS Environment Variables < Command Line Arguments. This allows building the app once and configuring it dynamically per environment.",
+      "example": "\"I package my app with a default `application.yml`. When deploying to prod, I pass `--server.port=8080` via command line, and set environment variables for DB connections. Because environment variables and command line args have higher priority, they override the defaults without me having to rebuild the jar.\"",
+      "summary10s": "Properties follow a strict override hierarchy: YAML < Env Vars < Command Line Args."
     }
   },
   {
@@ -3116,24 +3273,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "All external requests go through API Gateway\nGateway validates JWT signature before forwarding\nGateway passes user info in request header to downstream services\nService-to-service calls use internal service tokens or mutual TLS",
       "example": "\"In microservices I validate JWT at the API Gateway so each service does not need to repeat auth logic. Gateway extracts user information from token and passes it as headers to downstream services. For internal service-to-service calls I use service-specific tokens. No microservice is exposed directly to the outside world — everything goes through the gateway.\"",
       "summary10s": "Gateway validates JWT, passes user in headers, internal calls use service tokens."
-    }
-  },
-  {
-    "id": "singleton-design-pattern",
-    "category": "System Design",
-    "question": "Singleton Design Pattern",
-    "frequency": 2,
-    "companies": [
-      "EPAM"
-    ],
-    "variations": [
-      "Implement a thread-safe Singleton using double-checked locking."
-    ],
-    "answerSEE": {
-      "simple": "Singleton ensures only one instance of a class exists throughout the application.",
-      "explain": "Private constructor + static instance + static access method\nCommon uses: config managers, logging, connection pools\nNeeds thread-safety handling (double-checked locking, enum) in multi-threaded apps",
-      "example": "\"Singleton restricts a class to just one instance, typically implemented with a private constructor and a static getInstance() method. I've used it for things like a configuration manager that should be shared across the app. In multi-threaded environments, I'd make sure it's thread-safe using double-checked locking or an enum-based implementation.\"",
-      "summary10s": "One instance only — private constructor + static access, thread-safe if needed."
     }
   },
   {
@@ -5797,6 +5936,380 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Requires equals() and hashCode() to be properly overridden in the object.",
       "example": "\"To get a unique list of departments from employees, I use map(Employee::getDepartment).distinct().collect(Collectors.toList()).\"",
       "summary10s": "Use stream.distinct()."
+    }
+  },
+  {
+    "id": "angular-secure-validate-input",
+    "category": "Angular",
+    "question": "How do you securely validate user input?",
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "How do you add validation to a Reactive Form?"
+    ],
+    "answerSEE": {
+      "simple": "Use Reactive Forms with built-in or custom validators on the frontend, and strictly re-validate everything on the backend.",
+      "explain": "Frontend validation improves user experience by giving instant feedback using Angular's Validators class. However, frontend security can be bypassed, so the backend must treat all input as malicious and perform identical validations.",
+      "example": "\"I use Angular Reactive Forms with Validators.pattern for email and regex checks before the submit button even enables. But I know clients can intercept requests, so my Spring Boot backend uses @Valid and @Pattern to enforce the exact same rules securely before touching the database.\"",
+      "summary10s": "Reactive Forms for UX on frontend, strict @Valid annotations on backend for security."
+    }
+  },
+  {
+    "id": "interview-tell-me-about-yourself-project",
+    "category": "Other",
+    "question": "Tell me about yourself and your current project.",
+    "frequency": 2,
+    "companies": [
+      "Infosys",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Explain your current/recent project",
+      "What are your roles and responsibilities in the project?",
+      "Give a 2–3 minute walkthrough of your recent project and the modules you owned."
+    ],
+    "answerSEE": {
+      "simple": "Give a brief summary of your experience, tech stack, and the business value of your current project.",
+      "explain": "This is an icebreaker. Keep it structured: past experience, current role, the architecture of your recent project, your specific responsibilities (e.g., building APIs, optimizing DB queries), and what value it brought to the business.",
+      "example": "\"I have 4 years of experience as a Full Stack Developer. In my current project at [Company], we are building a microservices-based banking application. My role involves developing REST APIs using Spring Boot, designing the frontend with React, and optimizing our PostgreSQL database queries. I recently led the migration of a legacy monolithic service into two independent microservices.\"",
+      "summary10s": "Brief past + current tech stack + business value + your specific role/impact."
+    }
+  },
+  {
+    "id": "js-callback-functions",
+    "category": "JavaScript",
+    "question": "What are Callback Functions?",
+    "frequency": 2,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Explain Callback Functions."
+    ],
+    "answerSEE": {
+      "simple": "A callback is a function passed as an argument to another function, to be executed later.",
+      "explain": "Callbacks are essential for handling asynchronous operations in JavaScript before Promises existed. They ensure that certain code doesn't execute until another task has completed.",
+      "example": "\"When I use `setTimeout(myFunction, 1000)`, `myFunction` is the callback. It's handed over to the browser and called after the delay. Too many nested callbacks lead to 'Callback Hell', which is why we use Promises and async/await today.\"",
+      "summary10s": "A function passed as an argument to be called when an asynchronous task completes."
+    }
+  },
+  {
+    "id": "js-var-let-const",
+    "category": "JavaScript",
+    "question": "Difference between var, let, and const.",
+    "frequency": 2,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Practical difference between let, const, and var."
+    ],
+    "answerSEE": {
+      "simple": "`var` is function-scoped and hoisted with undefined. `let` and `const` are block-scoped. `const` cannot be reassigned.",
+      "explain": "Because `var` is function-scoped, it can leak out of `if` blocks or `for` loops, causing bugs. `let` and `const` are strictly confined to the block `{}` they are defined in. Additionally, `const` guarantees the reference won't change, though nested object properties can still be mutated.",
+      "example": "\"I always use `const` by default. If I know a primitive value needs to change in a loop, I use `let`. I never use `var` anymore because its scoping rules are unpredictable and lead to scoping bugs inside `if` statements.\"",
+      "summary10s": "`var`=function-scoped, `let`=block-scoped, `const`=block-scoped & cannot be reassigned."
+    }
+  },
+  {
+    "id": "angular-signals-intro",
+    "category": "Angular",
+    "question": "Have you used Angular Signals? How do you change the value of a Signal?",
+    "frequency": 2,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Explain Signals."
+    ],
+    "answerSEE": {
+      "simple": "Signals are a reactive primitive in modern Angular holding a value. You change them using `.set()` or `.update()`.",
+      "explain": "Signals notify Angular immediately when they change, enabling fine-grained reactivity without Zone.js. `.set()` replaces the entire value. `.update()` provides the current value so you can compute the next one.",
+      "example": "\"I define a signal: `count = signal(0)`. To completely overwrite it, I use `this.count.set(5)`. To increment it based on the old value, I use `this.count.update(c => c + 1)`. Angular instantly knows exactly which part of the UI to re-render without doing a full component tree check.\"",
+      "summary10s": "Signals are reactive values. Modify using .set(newValue) or .update(old => new)."
+    }
+  },
+  {
+    "id": "angular-custom-pipes",
+    "category": "Angular",
+    "question": "Have you created any Custom Pipes?",
+    "frequency": 2,
+    "companies": [
+      "Deloitte",
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Have you created Custom Pipes?"
+    ],
+    "answerSEE": {
+      "simple": "Yes, you implement the `PipeTransform` interface and its `transform` method to create custom logic.",
+      "explain": "You annotate a class with `@Pipe({ name: 'myPipe' })`. The `transform` method takes the input value and optional arguments, returning the formatted string.",
+      "example": "\"In a recent project, we needed to truncate long descriptions. I created a custom `SummaryPipe`. It took the string and a length argument. If the string was longer than the limit, it sliced the text and appended '...'. I used it in HTML like `{{ product.desc | summary:50 }}`.\"",
+      "summary10s": "Create a class with @Pipe, implement PipeTransform interface, write logic in the transform() method."
+    }
+  },
+  {
+    "id": "java-17-latest-features",
+    "category": "Java",
+    "question": "What are Java 17 features? (or latest features)",
+    "frequency": 2,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "What are the latest Java features?",
+      "Key features of Java 17?"
+    ],
+    "answerSEE": {
+      "simple": "Records, Sealed Classes, Pattern Matching for switch/instanceof, and Text Blocks.",
+      "explain": "Java 17 (LTS) modernized the language. Records reduce boilerplate for DTOs. Sealed classes restrict inheritance. Pattern matching removes the need for explicit casting after `instanceof`. Text blocks make multi-line strings (like SQL/JSON) readable.",
+      "example": "\"My favorite feature is Records. Instead of writing a DTO class with private fields, a constructor, getters, equals, and hashcode, I just write `public record UserDto(String name, int age) {}`. It generates everything automatically. I also use Text Blocks `\"\"\"` for writing readable SQL queries in my repositories.\"",
+      "summary10s": "Records for DTOs, Sealed Classes for strict inheritance, Text Blocks for multiline strings."
+    }
+  },
+  {
+    "id": "auth-vs-authz",
+    "category": "Other",
+    "question": "Can you explain Authentication vs Authorization.",
+    "frequency": 2,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Authentication vs Authorization?"
+    ],
+    "answerSEE": {
+      "simple": "Authentication verifies WHO you are (login). Authorization verifies WHAT you are allowed to do (permissions).",
+      "explain": "Authentication happens first, usually checking credentials against a database and issuing a token. Authorization happens later on every request, checking if the authenticated user's roles allow them to access a specific resource or perform an action.",
+      "example": "\"When I log in with my username and password, the system authenticates me and gives me a JWT. That's Authentication. When I try to hit the `/deleteUser` API, the system checks my JWT claims. If I only have a 'USER' role and not 'ADMIN', it throws a 403 Forbidden. That's Authorization.\"",
+      "summary10s": "Authentication = Who are you? (Login). Authorization = What can you do? (Roles/Permissions)."
+    }
+  },
+  {
+    "id": "java-thread-vs-runnable",
+    "category": "Java",
+    "question": "What is the difference between Thread and Runnable?",
+    "frequency": 2,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Thread is a class you extend, while Runnable is an interface you implement.",
+      "explain": "Because Java only supports single class inheritance, implementing Runnable is preferred because it frees up your class to extend another class. Extending Thread tightly couples your task to the thread lifecycle.",
+      "example": "\"I always implement Runnable. If my Worker class extends Thread, it can't extend any other class. By implementing Runnable, my Worker can still extend a BaseWorker class, and I can pass it to an ExecutorService easily.\"",
+      "summary10s": "Implement Runnable to save your single inheritance. Extend Thread only if you are overriding thread behavior."
+    }
+  },
+  {
+    "id": "spring-boot-advantages",
+    "category": "Spring Boot",
+    "question": "Why do we use Spring Boot? What are its advantages?",
+    "frequency": 2,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "Why do we use Spring Boot?",
+      "What are the advantages of Spring Boot?",
+      "What is Spring Boot, and why is it important?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot simplifies Spring development by providing auto-configuration and embedded servers.",
+      "explain": "It eliminates the massive XML configuration required in traditional Spring. It provides 'starter' dependencies that bring in everything you need, and runs standalone with an embedded Tomcat server, so you just build a JAR and run it.",
+      "example": "\"With old Spring, I had to configure Tomcat separately and write hundreds of lines of XML beans. With Spring Boot, I just add `spring-boot-starter-web`, write a main method with `@SpringBootApplication`, and click run. It automatically spins up Tomcat on port 8080 and configures DispatcherServlet for me.\"",
+      "summary10s": "Auto-configuration, embedded servers (Tomcat), starter dependencies, no XML boilerplate."
+    }
+  },
+  {
+    "id": "java-inheritance",
+    "category": "Java",
+    "question": "What is Inheritance?",
+    "frequency": 2,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "What is inheritance in Java? Explain with a real-time example."
+    ],
+    "answerSEE": {
+      "simple": "Inheritance allows one class to acquire the properties and methods of another class.",
+      "explain": "It promotes code reusability and establishes an IS-A relationship. In Java, you use the `extends` keyword. A subclass inherits from a superclass, meaning you don't have to rewrite common logic.",
+      "example": "\"Instead of writing `name`, `age`, and `login()` separately in an `Admin` class and a `Customer` class, I create a base `User` class containing those fields. Both `Admin` and `Customer` extend `User`. Now they inherit the common behavior, and I only write it once.\"",
+      "summary10s": "A mechanism where a child class acquires fields/methods from a parent class for code reuse."
+    }
+  },
+  {
+    "id": "spring-boot-di-types",
+    "category": "Spring Boot",
+    "question": "What are the types of Dependency Injection?",
+    "frequency": 2,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "What are the different types of Dependency Injection?"
+    ],
+    "answerSEE": {
+      "simple": "The main types are Constructor Injection, Setter Injection, and Field Injection.",
+      "explain": "Constructor injection requires dependencies when the object is created (best practice). Setter injection allows optional dependencies. Field injection uses `@Autowired` directly on fields (discouraged because it makes unit testing hard without Spring).",
+      "example": "\"I always use Constructor Injection. I declare my dependencies as `private final` and let Spring inject them via the constructor (or Lombok's `@RequiredArgsConstructor`). It ensures the bean can't be instantiated without its dependencies and makes mocking extremely easy in JUnit.\"",
+      "summary10s": "Constructor (recommended/mandatory), Setter (optional), Field (@Autowired directly, discouraged)."
+    }
+  },
+  {
+    "id": "spring-boot-profiles",
+    "category": "Spring Boot",
+    "question": "Explain Spring Boot profiles and configuration management.",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot load profile-specific configurations?"
+    ],
+    "answerSEE": {
+      "simple": "Profiles allow you to segregate application configuration and make it available only in certain environments.",
+      "explain": "You can have application-dev.yml and application-prod.yml. By setting the active profile to 'prod', Spring Boot only loads the production properties (like the live DB URL).",
+      "example": "\"I use profiles to separate environment configs. application-local.yml connects to my H2 database, while application-prod.yml connects to AWS RDS. I activate the correct one via a startup argument: -Dspring.profiles.active=prod.\"",
+      "summary10s": "Segregates properties per environment (dev, QA, prod) using application-{profile}.yml."
+    }
+  },
+  {
+    "id": "configuration-bean-annotations",
+    "category": "Spring Boot",
+    "question": "What is the role of @Configuration and @Bean annotations?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Difference between a \"@Configuration\" class and a normal class?"
+    ],
+    "answerSEE": {
+      "simple": "@Configuration marks a class as a source of bean definitions, and @Bean tells Spring to manage the object returned by the method.",
+      "explain": "We use these when we cannot use `@Component` on a class (e.g., third-party library classes). Spring intercepts calls to `@Bean` methods inside a `@Configuration` class using CGLIB proxies to ensure singleton behavior.",
+      "example": "\"If I need to configure a custom `RestTemplate` or third-party `AmazonS3` client, I can't put `@Component` on their source code. Instead, I create a `AppConfig` class annotated with `@Configuration`, write a method that configures and returns the S3 client, and annotate it with `@Bean` so Spring manages it.\"",
+      "summary10s": "@Configuration marks a config class. @Bean tells Spring to manage the returned third-party object."
+    }
+  },
+  {
+    "id": "spring-boot-embedded-servers",
+    "category": "Spring Boot",
+    "question": "Explain how Spring Boot manages embedded servers like Tomcat/Jetty.",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot detect and configure embedded Tomcat?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot bundles Tomcat directly in the fat JAR and programmatically starts it via Java code.",
+      "explain": "Instead of deploying a WAR file to an external Tomcat server, Spring Boot includes Tomcat as a Maven dependency. When `SpringApplication.run()` is called, it creates the application context, configures the embedded Tomcat programmatically, maps the Servlets, and starts the server on port 8080.",
+      "example": "\"When I run my JAR file, the `EmbeddedWebServerFactoryCustomizer` starts Tomcat internally. This makes deployment incredibly easy because my application is entirely self-contained. If I want to use Undertow or Jetty instead, I just exclude the `spring-boot-starter-tomcat` dependency and add the Jetty starter.\"",
+      "summary10s": "Tomcat is a library inside the JAR. Spring Boot starts it programmatically via Java code."
+    }
+  },
+  {
+    "id": "spring-boot-actuator-monitoring",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot Actuator help with monitoring and metrics?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot integrate with Actuator?"
+    ],
+    "answerSEE": {
+      "simple": "Actuator provides built-in REST endpoints to check health, metrics, and application environment details.",
+      "explain": "By just adding the dependency, you get endpoints like `/actuator/health` and `/actuator/metrics`. It automatically integrates with Micrometer to expose metrics to systems like Prometheus, making production observability trivial.",
+      "example": "\"We heavily rely on Actuator in production. Our Kubernetes liveness probes hit `/actuator/health`. We expose the `/actuator/prometheus` endpoint, which Grafana scrapes to show dashboards of our memory usage, Hikari DB connection pool stats, and API response times—all without writing any custom code.\"",
+      "summary10s": "Provides out-of-the-box endpoints for health checks and metrics. Integrates easily with Prometheus."
+    }
+  },
+  {
+    "id": "spring-boot-startup-process",
+    "category": "Spring Boot",
+    "question": "What happens when a Spring Boot application starts?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What is the startup flow of a Spring Boot application?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot creates the application context, scans components, applies auto-configuration, creates beans, and starts the embedded server.",
+      "explain": "When you run a Spring Boot application, it sets up the default configuration, creates the appropriate ApplicationContext, performs component scanning to find beans, applies auto-configuration based on classpath dependencies, initializes all the beans, and finally starts the embedded web server (like Tomcat).",
+      "example": "\"When a Spring Boot application starts, it creates the Spring ApplicationContext. Then it scans for @Component, @Service, and other beans. It applies auto-configuration based on what is in the classpath. Finally, it starts the embedded Tomcat server and maps the endpoints.\"",
+      "summary10s": "Context created → Component Scan → Auto-configuration → Beans initialized → Embedded Server started."
+    }
+  },
+  {
+    "id": "multiple-beans-same-type",
+    "category": "Spring Boot",
+    "question": "What happens when multiple beans of the same type exist?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "What happens when two beans of the same type exist without \"@Qualifier\"?"
+    ],
+    "answerSEE": {
+      "simple": "Spring throws a NoUniqueBeanDefinitionException. You fix it by using @Qualifier or @Primary.",
+      "explain": "When you autowire an interface that has multiple implementations, Spring doesn't know which one to inject. It throws NoUniqueBeanDefinitionException. To resolve this, you can mark one implementation as @Primary (the default choice), or use @Qualifier(\"beanName\") at the injection point to specify exactly which one you want.",
+      "example": "\"If I have a PaymentService interface with UPIPayment and CardPayment implementations, autowiring PaymentService will fail. I resolve this by either marking UPIPayment with @Primary so it's the default, or by using @Qualifier('cardPayment') where I inject it to explicitly ask for the card implementation.\"",
+      "summary10s": "Throws NoUniqueBeanDefinitionException. Fix using @Qualifier to specify or @Primary for default."
+    }
+  },
+  {
+    "id": "change-default-tomcat-port",
+    "category": "Spring Boot",
+    "question": "Where and how can you change the default Tomcat port in Spring Boot?",
+    "frequency": 2,
+    "companies": [
+      "GDAS"
+    ],
+    "variations": [
+      "How is the server port configured and overridden?"
+    ],
+    "answerSEE": {
+      "simple": "In application.properties or application.yml, set server.port.",
+      "explain": "server.port=8081 in application.properties. It can also be set via command line arguments or environment variables.",
+      "example": "\"I usually change the port in application.yml by setting server.port to the desired port number, or by passing --server.port as a command line argument when starting the jar.\"",
+      "summary10s": "server.port=8081 in application.properties/yml."
+    }
+  },
+  {
+    "id": "request-flow-spring-boot",
+    "category": "Spring Boot",
+    "question": "What happens when a request reaches a Spring Boot application?",
+    "frequency": 2,
+    "companies": [
+      "Wissen Technology"
+    ],
+    "variations": [
+      "What happens when a request reaches a Spring Boot application?",
+      "What happens internally when a REST endpoint is called?"
+    ],
+    "answerSEE": {
+      "simple": "The request goes to the embedded Tomcat, then to the DispatcherServlet, which routes it to the correct Controller, Service, and Repository.",
+      "explain": "1. Tomcat receives the HTTP request. 2. It passes through any configured Filters (like Spring Security). 3. It reaches the DispatcherServlet (the front controller). 4. DispatcherServlet uses HandlerMapping to find the right @RestController. 5. The controller calls the @Service layer for business logic, which may call a @Repository. 6. The response is converted to JSON via HttpMessageConverter and sent back.",
+      "example": "\"When a client hits `/api/users`, Tomcat picks it up and hands it to the DispatcherServlet. The DispatcherServlet checks its maps and says 'Ah, UserController handles /api/users'. It passes the JSON body to the controller, which I process using a UserService, save via UserRepository, and return a ResponseEntity that Spring converts back to JSON.\"",
+      "summary10s": "Tomcat -> Filters -> DispatcherServlet -> Controller -> Service -> Repository -> Response."
+    }
+  },
+  {
+    "id": "spring-boot-starters-auto-configuration",
+    "category": "Spring Boot",
+    "question": "How do Spring Boot Starters and Auto-Configuration work together?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How do Spring Boot Starters and Auto-Configuration work together?",
+      "What happens internally when you add \"spring-boot-starter-web\"?"
+    ],
+    "answerSEE": {
+      "simple": "Starters bring in the required dependencies, and Auto-Configuration uses those dependencies to automatically configure the application.",
+      "explain": "A Starter is just a pom that groups dependencies (e.g., spring-boot-starter-web brings Tomcat and Spring MVC). Once these are in the classpath, Auto-Configuration detects them and configures the necessary beans (like DispatcherServlet).",
+      "example": "\"They work hand-in-hand. I add 'spring-boot-starter-web' to get all web dependencies. Then Auto-Configuration sees these classes on the classpath and automatically sets up a DispatcherServlet and an embedded Tomcat server.\"",
+      "summary10s": "Starters provide dependencies; Auto-Configuration reads the classpath and creates beans."
     }
   },
   {
@@ -11032,20 +11545,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-thread-vs-runnable",
-    "category": "Java",
-    "question": "What is the difference between Thread and Runnable?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Thread is a class you extend, while Runnable is an interface you implement.",
-      "explain": "Because Java only supports single class inheritance, implementing Runnable is preferred because it frees up your class to extend another class. Extending Thread tightly couples your task to the thread lifecycle.",
-      "example": "\"I always implement Runnable. If my Worker class extends Thread, it can't extend any other class. By implementing Runnable, my Worker can still extend a BaseWorker class, and I can pass it to an ExecutorService easily.\"",
-      "summary10s": "Implement Runnable to save your single inheritance. Extend Thread only if you are overriding thread behavior."
-    }
-  },
-  {
     "id": "java-runnable-vs-callable",
     "category": "Java",
     "question": "What is the difference between Runnable and Callable?",
@@ -13869,20 +14368,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-boot-profiles",
-    "category": "Spring Boot",
-    "question": "Explain Spring Boot profiles and configuration management.",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Profiles allow you to segregate application configuration and make it available only in certain environments.",
-      "explain": "You can have application-dev.yml and application-prod.yml. By setting the active profile to 'prod', Spring Boot only loads the production properties (like the live DB URL).",
-      "example": "\"I use profiles to separate environment configs. application-local.yml connects to my H2 database, while application-prod.yml connects to AWS RDS. I activate the correct one via a startup argument: -Dspring.profiles.active=prod.\"",
-      "summary10s": "Segregates properties per environment (dev, QA, prod) using application-{profile}.yml."
-    }
-  },
-  {
     "id": "api-pagination-filtering",
     "category": "System Design",
     "question": "How would you design pagination, filtering, and sorting for a high-volume API?",
@@ -15423,20 +15908,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "configuration-bean-annotations",
-    "category": "Spring Boot",
-    "question": "What is the role of @Configuration and @Bean annotations?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "@Configuration marks a class as a source of bean definitions, and @Bean tells Spring to manage the object returned by the method.",
-      "explain": "We use these when we cannot use `@Component` on a class (e.g., third-party library classes). Spring intercepts calls to `@Bean` methods inside a `@Configuration` class using CGLIB proxies to ensure singleton behavior.",
-      "example": "\"If I need to configure a custom `RestTemplate` or third-party `AmazonS3` client, I can't put `@Component` on their source code. Instead, I create a `AppConfig` class annotated with `@Configuration`, write a method that configures and returns the S3 client, and annotate it with `@Bean` so Spring manages it.\"",
-      "summary10s": "@Configuration marks a config class. @Bean tells Spring to manage the returned third-party object."
-    }
-  },
-  {
     "id": "application-properties-multiple-environments",
     "category": "Spring Boot",
     "question": "How do you configure application properties for multiple environments in Spring Boot?",
@@ -15462,34 +15933,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "You disable sessions/CSRF, define a `SecurityFilterChain` bean to protect endpoints, and write a `OncePerRequestFilter`. The filter extracts the JWT from the Authorization header, validates the signature using the secret key, and saves the user in the `SecurityContext`.",
       "example": "\"I start by setting session management to STATELESS. I write a `JwtAuthFilter` that runs before the UsernamePasswordAuthenticationFilter. It grabs the Bearer token, verifies the signature, and extracts the roles. If valid, I populate the `SecurityContextHolder`, allowing Spring to authorize the request based on `@PreAuthorize` rules.\"",
       "summary10s": "Disable sessions, add a custom filter to validate token signature, and populate SecurityContext."
-    }
-  },
-  {
-    "id": "spring-boot-embedded-servers",
-    "category": "Spring Boot",
-    "question": "Explain how Spring Boot manages embedded servers like Tomcat/Jetty.",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Spring Boot bundles Tomcat directly in the fat JAR and programmatically starts it via Java code.",
-      "explain": "Instead of deploying a WAR file to an external Tomcat server, Spring Boot includes Tomcat as a Maven dependency. When `SpringApplication.run()` is called, it creates the application context, configures the embedded Tomcat programmatically, maps the Servlets, and starts the server on port 8080.",
-      "example": "\"When I run my JAR file, the `EmbeddedWebServerFactoryCustomizer` starts Tomcat internally. This makes deployment incredibly easy because my application is entirely self-contained. If I want to use Undertow or Jetty instead, I just exclude the `spring-boot-starter-tomcat` dependency and add the Jetty starter.\"",
-      "summary10s": "Tomcat is a library inside the JAR. Spring Boot starts it programmatically via Java code."
-    }
-  },
-  {
-    "id": "spring-boot-actuator-monitoring",
-    "category": "Spring Boot",
-    "question": "How does Spring Boot Actuator help with monitoring and metrics?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Actuator provides built-in REST endpoints to check health, metrics, and application environment details.",
-      "explain": "By just adding the dependency, you get endpoints like `/actuator/health` and `/actuator/metrics`. It automatically integrates with Micrometer to expose metrics to systems like Prometheus, making production observability trivial.",
-      "example": "\"We heavily rely on Actuator in production. Our Kubernetes liveness probes hit `/actuator/health`. We expose the `/actuator/prometheus` endpoint, which Grafana scrapes to show dashboards of our memory usage, Hikari DB connection pool stats, and API response times—all without writing any custom code.\"",
-      "summary10s": "Provides out-of-the-box endpoints for health checks and metrics. Integrates easily with Prometheus."
     }
   },
   {
@@ -15731,20 +16174,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-boot-startup-process",
-    "category": "Spring Boot",
-    "question": "What happens when a Spring Boot application starts?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Spring Boot creates the application context, scans components, applies auto-configuration, creates beans, and starts the embedded server.",
-      "explain": "When you run a Spring Boot application, it sets up the default configuration, creates the appropriate ApplicationContext, performs component scanning to find beans, applies auto-configuration based on classpath dependencies, initializes all the beans, and finally starts the embedded web server (like Tomcat).",
-      "example": "\"When a Spring Boot application starts, it creates the Spring ApplicationContext. Then it scans for @Component, @Service, and other beans. It applies auto-configuration based on what is in the classpath. Finally, it starts the embedded Tomcat server and maps the endpoints.\"",
-      "summary10s": "Context created → Component Scan → Auto-configuration → Beans initialized → Embedded Server started."
-    }
-  },
-  {
     "id": "component-vs-service-vs-repository",
     "category": "Spring Boot",
     "question": "@Component vs @Service vs @Repository?",
@@ -15756,20 +16185,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "@Component is the generic stereotype. @Service is meant for the business logic layer. @Repository is for the data access layer and has a special feature: it automatically catches vendor-specific database exceptions (like SQLException) and translates them into Spring's unified DataAccessException hierarchy.",
       "example": "\"I use @Component for generic utilities. I use @Service for my business logic classes to clarify their role. But I must use @Repository for my DAO classes because apart from making it a bean, Spring uses it to translate specific SQL exceptions into a standard Spring DataAccessException, making error handling consistent.\"",
       "summary10s": "All make beans. @Service = business logic. @Repository = DB access + automatic exception translation."
-    }
-  },
-  {
-    "id": "multiple-beans-same-type",
-    "category": "Spring Boot",
-    "question": "What happens when multiple beans of the same type exist?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Spring throws a NoUniqueBeanDefinitionException. You fix it by using @Qualifier or @Primary.",
-      "explain": "When you autowire an interface that has multiple implementations, Spring doesn't know which one to inject. It throws NoUniqueBeanDefinitionException. To resolve this, you can mark one implementation as @Primary (the default choice), or use @Qualifier(\"beanName\") at the injection point to specify exactly which one you want.",
-      "example": "\"If I have a PaymentService interface with UPIPayment and CardPayment implementations, autowiring PaymentService will fail. I resolve this by either marking UPIPayment with @Primary so it's the default, or by using @Qualifier('cardPayment') where I inject it to explicitly ask for the card implementation.\"",
-      "summary10s": "Throws NoUniqueBeanDefinitionException. Fix using @Qualifier to specify or @Primary for default."
     }
   },
   {
@@ -17369,22 +17784,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "change-default-tomcat-port",
-    "category": "Spring Boot",
-    "question": "Where and how can you change the default Tomcat port in Spring Boot?",
-    "frequency": 1,
-    "companies": [
-      "GDAS"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "In application.properties or application.yml, set server.port.",
-      "explain": "server.port=8081 in application.properties. It can also be set via command line arguments or environment variables.",
-      "example": "\"I usually change the port in application.yml by setting server.port to the desired port number, or by passing --server.port as a command line argument when starting the jar.\"",
-      "summary10s": "server.port=8081 in application.properties/yml."
-    }
-  },
-  {
     "id": "what-is-rest-api",
     "category": "Spring Boot",
     "question": "What is REST? What is a REST API?",
@@ -18521,24 +18920,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "request-flow-spring-boot",
-    "category": "Spring Boot",
-    "question": "What happens when a request reaches a Spring Boot application?",
-    "frequency": 1,
-    "companies": [
-      "Wissen Technology"
-    ],
-    "variations": [
-      "What happens when a request reaches a Spring Boot application?"
-    ],
-    "answerSEE": {
-      "simple": "The request goes to the embedded Tomcat, then to the DispatcherServlet, which routes it to the correct Controller, Service, and Repository.",
-      "explain": "1. Tomcat receives the HTTP request. 2. It passes through any configured Filters (like Spring Security). 3. It reaches the DispatcherServlet (the front controller). 4. DispatcherServlet uses HandlerMapping to find the right @RestController. 5. The controller calls the @Service layer for business logic, which may call a @Repository. 6. The response is converted to JSON via HttpMessageConverter and sent back.",
-      "example": "\"When a client hits `/api/users`, Tomcat picks it up and hands it to the DispatcherServlet. The DispatcherServlet checks its maps and says 'Ah, UserController handles /api/users'. It passes the JSON body to the controller, which I process using a UserService, save via UserRepository, and return a ResponseEntity that Spring converts back to JSON.\"",
-      "summary10s": "Tomcat -> Filters -> DispatcherServlet -> Controller -> Service -> Repository -> Response."
-    }
-  },
-  {
     "id": "what-is-stored-procedure",
     "category": "SQL",
     "question": "What is a Stored Procedure? How do you create one?",
@@ -18694,20 +19075,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-secure-validate-input",
-    "category": "Angular",
-    "question": "How do you securely validate user input?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use Reactive Forms with built-in or custom validators on the frontend, and strictly re-validate everything on the backend.",
-      "explain": "Frontend validation improves user experience by giving instant feedback using Angular's Validators class. However, frontend security can be bypassed, so the backend must treat all input as malicious and perform identical validations.",
-      "example": "\"I use Angular Reactive Forms with Validators.pattern for email and regex checks before the submit button even enables. But I know clients can intercept requests, so my Spring Boot backend uses @Valid and @Pattern to enforce the exact same rules securely before touching the database.\"",
-      "summary10s": "Reactive Forms for UX on frontend, strict @Valid annotations on backend for security."
-    }
-  },
-  {
     "id": "angular-prevent-xss",
     "category": "Angular",
     "question": "How do you prevent XSS in Angular?",
@@ -18766,20 +19133,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-boot-externalized-properties",
-    "category": "Spring Boot",
-    "question": "How does Spring load externalized properties at runtime?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Spring merges properties from multiple sources in a strict order, letting external configs override internal ones.",
-      "explain": "The hierarchy goes: internal `application.yml` < Profile specific YAML < OS Environment Variables < Command Line Arguments. This allows building the app once and configuring it dynamically per environment.",
-      "example": "\"I package my app with a default `application.yml`. When deploying to prod, I pass `--server.port=8080` via command line, and set environment variables for DB connections. Because environment variables and command line args have higher priority, they override the defaults without me having to rebuild the jar.\"",
-      "summary10s": "Properties follow a strict override hierarchy: YAML < Env Vars < Command Line Args."
-    }
-  },
-  {
     "id": "tomcat-rest-soap-together",
     "category": "Spring Boot",
     "question": "How can Tomcat support REST and SOAP together?",
@@ -18833,25 +19186,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Spring's validation doesn't automatically cascade into child objects. You must explicitly annotate the child object field with @Valid within the parent class to trigger its internal @NotNull or @Size annotations.",
       "example": "\"If I have an `OrderDTO` that contains an `AddressDTO`, placing `@Valid @RequestBody OrderDTO` in the controller only validates the top-level fields. To validate the nested address, I must go inside `OrderDTO` and put `@Valid` directly on the `private AddressDTO address;` field. This ensures full cascading validation.\"",
       "summary10s": "Place @Valid on the Controller parameter AND on the nested object field inside the DTO."
-    }
-  },
-  {
-    "id": "interview-tell-me-about-yourself-project",
-    "category": "Other",
-    "question": "Tell me about yourself and your current project.",
-    "frequency": 1,
-    "companies": [
-      "Infosys"
-    ],
-    "variations": [
-      "Explain your current/recent project",
-      "What are your roles and responsibilities in the project?"
-    ],
-    "answerSEE": {
-      "simple": "Give a brief summary of your experience, tech stack, and the business value of your current project.",
-      "explain": "This is an icebreaker. Keep it structured: past experience, current role, the architecture of your recent project, your specific responsibilities (e.g., building APIs, optimizing DB queries), and what value it brought to the business.",
-      "example": "\"I have 4 years of experience as a Full Stack Developer. In my current project at [Company], we are building a microservices-based banking application. My role involves developing REST APIs using Spring Boot, designing the frontend with React, and optimizing our PostgreSQL database queries. I recently led the migration of a legacy monolithic service into two independent microservices.\"",
-      "summary10s": "Brief past + current tech stack + business value + your specific role/impact."
     }
   },
   {
@@ -19053,25 +19387,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-boot-advantages",
-    "category": "Spring Boot",
-    "question": "Why do we use Spring Boot? What are its advantages?",
-    "frequency": 1,
-    "companies": [
-      "Infosys"
-    ],
-    "variations": [
-      "Why do we use Spring Boot?",
-      "What are the advantages of Spring Boot?"
-    ],
-    "answerSEE": {
-      "simple": "Spring Boot simplifies Spring development by providing auto-configuration and embedded servers.",
-      "explain": "It eliminates the massive XML configuration required in traditional Spring. It provides 'starter' dependencies that bring in everything you need, and runs standalone with an embedded Tomcat server, so you just build a JAR and run it.",
-      "example": "\"With old Spring, I had to configure Tomcat separately and write hundreds of lines of XML beans. With Spring Boot, I just add `spring-boot-starter-web`, write a main method with `@SpringBootApplication`, and click run. It automatically spins up Tomcat on port 8080 and configures DispatcherServlet for me.\"",
-      "summary10s": "Auto-configuration, embedded servers (Tomcat), starter dependencies, no XML boilerplate."
-    }
-  },
-  {
     "id": "spring-vs-spring-boot",
     "category": "Spring Boot",
     "question": "Difference between Spring and Spring Boot",
@@ -19136,22 +19451,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-inheritance",
-    "category": "Java",
-    "question": "What is Inheritance?",
-    "frequency": 1,
-    "companies": [
-      "Infosys"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Inheritance allows one class to acquire the properties and methods of another class.",
-      "explain": "It promotes code reusability and establishes an IS-A relationship. In Java, you use the `extends` keyword. A subclass inherits from a superclass, meaning you don't have to rewrite common logic.",
-      "example": "\"Instead of writing `name`, `age`, and `login()` separately in an `Admin` class and a `Customer` class, I create a base `User` class containing those fields. Both `Admin` and `Customer` extend `User`. Now they inherit the common behavior, and I only write it once.\"",
-      "summary10s": "A mechanism where a child class acquires fields/methods from a parent class for code reuse."
-    }
-  },
-  {
     "id": "java-streams-practical-uses",
     "category": "Java",
     "question": "What are the practical uses of Java Streams?",
@@ -19181,24 +19480,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Multiprocessing is safer but heavier to start and communicate between (requires IPC). Multithreading is faster and lightweight since threads share memory, but requires careful synchronization to avoid data corruption.",
       "example": "\"Opening multiple tabs in Google Chrome uses multiprocessing—if one tab crashes, the others survive because they have separate memory. Running a Java Spring Boot app uses multithreading—a single JVM process spins up a new thread for each incoming HTTP request, sharing the same cache and database connections.\"",
       "summary10s": "Multiprocessing = heavy, isolated memory. Multithreading = lightweight, shared memory within one process."
-    }
-  },
-  {
-    "id": "java-17-latest-features",
-    "category": "Java",
-    "question": "What are Java 17 features? (or latest features)",
-    "frequency": 1,
-    "companies": [
-      "Infosys"
-    ],
-    "variations": [
-      "What are the latest Java features?"
-    ],
-    "answerSEE": {
-      "simple": "Records, Sealed Classes, Pattern Matching for switch/instanceof, and Text Blocks.",
-      "explain": "Java 17 (LTS) modernized the language. Records reduce boilerplate for DTOs. Sealed classes restrict inheritance. Pattern matching removes the need for explicit casting after `instanceof`. Text blocks make multi-line strings (like SQL/JSON) readable.",
-      "example": "\"My favorite feature is Records. Instead of writing a DTO class with private fields, a constructor, getters, equals, and hashcode, I just write `public record UserDto(String name, int age) {}`. It generates everything automatically. I also use Text Blocks `\"\"\"` for writing readable SQL queries in my repositories.\"",
-      "summary10s": "Records for DTOs, Sealed Classes for strict inheritance, Text Blocks for multiline strings."
     }
   },
   {
@@ -19235,6 +19516,1615 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "The cleanest way is to map the stream of Integer objects into a primitive IntStream using `mapToInt`. The IntStream provides a built-in `.sum()` method.",
       "example": "\"There are two main ways. The primitive stream way: `int sum = numbers.stream().mapToInt(n -> n).sum();`. Alternatively, using reduce: `int sum = numbers.stream().reduce(0, Integer::sum);`. Both are concise and avoid traditional for-loops.\"",
       "summary10s": "numbers.stream().mapToInt(n -> n).sum();"
+    }
+  },
+  {
+    "id": "js-arrow-functions-vs-traditional",
+    "category": "JavaScript",
+    "question": "Why were Arrow Functions introduced when traditional functions already existed?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Arrow functions provide a shorter syntax and don't bind their own `this` context, inheriting it from the parent scope.",
+      "explain": "In traditional functions, `this` is dynamically scoped based on how the function is called. In callbacks (like `setTimeout`), `this` often points to the global object or is undefined, leading to bugs. Arrow functions use lexical scoping for `this`, meaning they behave predictably inside classes or methods.",
+      "example": "\"If I have a class method with a `setTimeout`, a traditional callback function loses the class's `this` context. I used to fix it with `.bind(this)`. With arrow functions, I don't need to bind anything because the arrow function automatically inherits `this` from the surrounding method.\"",
+      "summary10s": "Shorter syntax and lexical scoping for `this` (no need for `.bind(this)` in callbacks)."
+    }
+  },
+  {
+    "id": "js-event-loop",
+    "category": "JavaScript",
+    "question": "Explain how the JavaScript Event Loop works.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The Event Loop continuously checks the Call Stack and the Task Queues, pushing pending callbacks into the stack when it's empty.",
+      "explain": "JS is single-threaded. Async operations (like fetch or setTimeout) are handled by Web APIs. Once finished, their callbacks go to a queue (Microtask queue for Promises, Macrotask queue for setTimeout). The Event Loop waits for the Call Stack to be completely empty, then executes Microtasks first, followed by Macrotasks.",
+      "example": "\"If I have a `console.log`, a `setTimeout`, and a `Promise.resolve().then()`, the synchronous log runs first. Then the stack empties. The Event Loop sees the Promise in the microtask queue and runs it next. Finally, it pulls the setTimeout callback from the macrotask queue.\"",
+      "summary10s": "It moves async callbacks from task queues to the call stack only when the stack is empty."
+    }
+  },
+  {
+    "id": "js-hoisting",
+    "category": "JavaScript",
+    "question": "Explain Hoisting in JavaScript.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Hoisting is JavaScript's default behavior of moving variable and function declarations to the top of their scope before code execution.",
+      "explain": "Only the declarations are hoisted, not the initializations. `var` declarations are hoisted and initialized with `undefined`. `let` and `const` are also hoisted but placed in a 'Temporal Dead Zone', meaning accessing them before declaration throws an error. Function declarations are fully hoisted.",
+      "example": "\"If I call `myFunc()` before writing `function myFunc() { }`, it works perfectly because the function declaration is fully hoisted. But if I try to use `console.log(x)` before `var x = 5;`, it prints `undefined` because only the declaration `var x;` was hoisted, not the assignment.\"",
+      "summary10s": "Declarations (not assignments) are moved to the top. `var` gets undefined, `let/const` get Temporal Dead Zone."
+    }
+  },
+  {
+    "id": "js-array-methods",
+    "category": "JavaScript",
+    "question": "Difference between map(), filter(), reduce(), and forEach().",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`forEach` just loops. `map` transforms and returns a new array. `filter` returns a filtered array. `reduce` aggregates the array into a single value.",
+      "explain": "`forEach` doesn't return anything (undefined) and mutates external state. `map` creates a new array of the exact same length. `filter` creates a new array of equal or smaller length. `reduce` loops through and accumulates a single output (like a sum or an object).",
+      "example": "\"If I want to log every name, I use `forEach`. If I need an array of just the IDs, I use `map`. If I want only active users, I use `filter`. If I need to calculate the total price of all items in a cart, I use `reduce`.\"",
+      "summary10s": "forEach (loop), map (transform), filter (remove items), reduce (aggregate to one value)."
+    }
+  },
+  {
+    "id": "js-localstorage-vs-sessionstorage",
+    "category": "JavaScript",
+    "question": "What is localStorage? How is it different from sessionStorage?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Both store key-value strings in the browser. `localStorage` persists until manually cleared, while `sessionStorage` clears when the tab is closed.",
+      "explain": "They have the exact same API (`setItem`, `getItem`). The only difference is lifespan. Data in `localStorage` survives browser restarts. Data in `sessionStorage` is strictly tied to the specific browser tab and is destroyed when that tab is closed.",
+      "example": "\"I use `localStorage` to save user preferences like 'dark mode', so it remembers their choice when they return tomorrow. I use `sessionStorage` for temporary multi-step form data, so if they close the tab, the sensitive form data is completely wiped out.\"",
+      "summary10s": "localStorage survives restarts. sessionStorage dies when the tab closes."
+    }
+  },
+  {
+    "id": "js-prototype",
+    "category": "JavaScript",
+    "question": "Explain Prototype in JavaScript.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Prototype is an internal object that another object inherits its properties and methods from.",
+      "explain": "JavaScript uses prototypal inheritance. Every object has a hidden `[[Prototype]]` property. When you try to access a method that an object doesn't have, JavaScript looks up the prototype chain until it finds the method or reaches `null`.",
+      "example": "\"When I create an array and call `myArray.push()`, my array doesn't actually contain the `push` method. JavaScript looks at my array, doesn't find `push`, so it looks at `Array.prototype`, finds the method there, and executes it. This saves memory because methods are shared.\"",
+      "summary10s": "The mechanism by which JavaScript objects inherit features from one another via the prototype chain."
+    }
+  },
+  {
+    "id": "css-positioning",
+    "category": "Other",
+    "question": "Difference between relative, absolute, fixed, and sticky positioning.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Relative is offset from its normal position. Absolute is removed from document flow and offset from its positioned parent. Fixed is relative to the viewport. Sticky switches from relative to fixed as you scroll.",
+      "explain": "Relative leaves a 'ghost' space where the element originally was. Absolute takes it out of the flow entirely, positioning it relative to the closest non-static parent. Fixed stays pinned to the screen even when scrolling. Sticky acts like relative until a scroll threshold is hit, then it sticks.",
+      "example": "\"I use `relative` mostly as a container for an `absolute` child. I use `absolute` for dropdown menus so they overlay other content. I use `fixed` for a floating 'Back to Top' button. I use `sticky` for table headers so they stay visible when scrolling down a long list of data.\"",
+      "summary10s": "Relative=normal flow offset. Absolute=parent offset. Fixed=screen offset. Sticky=scroll threshold."
+    }
+  },
+  {
+    "id": "html-semantic-elements",
+    "category": "Other",
+    "question": "What are Semantic and Non-Semantic HTML elements?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Semantic elements clearly describe their meaning to both the browser and the developer. Non-semantic elements tell nothing about their content.",
+      "explain": "Tags like `<article>`, `<nav>`, `<header>`, and `<footer>` are semantic. They improve SEO and accessibility for screen readers. Tags like `<div>` and `<span>` are non-semantic; they are just generic containers.",
+      "example": "\"Instead of making my top navigation a `<div class='nav'>`, I use the semantic `<nav>` tag. This explicitly tells Google's crawlers and screen readers that this block contains navigation links, improving both accessibility and SEO.\"",
+      "summary10s": "Semantic (<nav>, <header>) describes meaning for SEO/Accessibility. Non-semantic (<div>, <span>) are generic containers."
+    }
+  },
+  {
+    "id": "angular-signals-types",
+    "category": "Angular",
+    "question": "What are the different types of Signals?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "There are Writable Signals, Computed Signals, and Effects.",
+      "explain": "Writable Signals (`signal()`) can be directly modified. Computed Signals (`computed()`) derive their value from other signals and are read-only. Effects (`effect()`) run side-effects (like logging or API calls) whenever their tracked signals change.",
+      "example": "\"I create a Writable signal `price = signal(10)`. I create a Computed signal `tax = computed(() => this.price() * 0.2)`. It updates automatically when `price` changes. I use an Effect to log to the console `effect(() => console.log('Price changed to', this.price()))`.\"",
+      "summary10s": "Writable (can be changed), Computed (derived, read-only), Effect (triggers side-effects)."
+    }
+  },
+  {
+    "id": "angular-pipes",
+    "category": "Angular",
+    "question": "What are Pipes used for?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Pipes take in data as input and transform it to a desired output format directly in the HTML template.",
+      "explain": "They are used for formatting UI data without altering the underlying component property. Common built-in pipes include `date`, `uppercase`, `currency`, and `async`.",
+      "example": "\"If my component has a raw date string, instead of writing a formatting function in TypeScript, I just use `{{ today | date:'shortDate' }}` in the HTML. It transforms the display format instantly while leaving my component logic clean.\"",
+      "summary10s": "Used in HTML templates to transform and format data for display."
+    }
+  },
+  {
+    "id": "angular-hostlistener",
+    "category": "Angular",
+    "question": "What is @HostListener?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It is a decorator that listens to DOM events on the host element of a directive or component.",
+      "explain": "Instead of manually writing `document.addEventListener()` and remembering to remove it on destroy, `@HostListener` automatically binds an event to a component method and cleans it up when the component is destroyed.",
+      "example": "\"I built a custom tooltip directive. To make it show when the user hovers, I used `@HostListener('mouseenter')`. When the mouse enters the host element, the decorated method fires automatically. It's clean and prevents memory leaks.\"",
+      "summary10s": "A decorator to bind DOM events (like click or scroll) to a component/directive method safely."
+    }
+  },
+  {
+    "id": "angular-api-calls-location",
+    "category": "Angular",
+    "question": "Where do you write API call methods in an Angular application?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "API calls are written in dedicated Services, not in Components.",
+      "explain": "Components should only handle UI logic and data binding. Services, injected via Dependency Injection, abstract the `HttpClient` logic. This makes the API calls reusable across multiple components and easily mockable for unit testing.",
+      "example": "\"I never inject `HttpClient` directly into a component. Instead, I create a `UserService` that contains methods like `getUsers()`. The component injects `UserService` and subscribes to it. This separates concerns and keeps my components lean.\"",
+      "summary10s": "Always in Injectable Services using HttpClient, keeping components focused on UI."
+    }
+  },
+  {
+    "id": "angular-utility-functions",
+    "category": "Angular",
+    "question": "Where should utility functions be kept?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Utility functions should be kept in separate pure TypeScript files (e.g., `utils.ts`) or dedicated utility services if they require dependency injection.",
+      "explain": "Pure functions (like date formatting or deep copying) don't need Angular's DI and shouldn't bloat components. They go in a shared folder as exported functions.",
+      "example": "\"For a math calculation or regex validation used across the app, I create a `src/shared/utils/math.utils.ts` file and export pure functions. Any component can just import them. This makes them extremely easy to unit test because they have no dependencies.\"",
+      "summary10s": "In pure TypeScript files inside a shared folder, unless they require Angular injections."
+    }
+  },
+  {
+    "id": "angular-route-guards",
+    "category": "Angular",
+    "question": "Suppose some pages of your website should only be accessible to logged-in users. How would you implement this?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "I would implement an Angular Route Guard (specifically `CanActivate`).",
+      "explain": "A Route Guard is a script that runs before a route is loaded. It injects the Authentication service, checks if a valid token exists, and returns a boolean. If true, navigation proceeds; if false, it redirects to the login page.",
+      "example": "\"I write an `AuthGuard` implementing `CanActivate`. In my routing module, I add `canActivate: [AuthGuard]` to the dashboard route. When a user tries to access the dashboard, the guard checks my `AuthService`. If they aren't logged in, the guard triggers a redirect to `/login` and returns false.\"",
+      "summary10s": "Use a CanActivate Route Guard to check authentication status before loading the route."
+    }
+  },
+  {
+    "id": "testing-why-write-test-cases",
+    "category": "Other",
+    "question": "Are you writing test cases? Why should we write test cases?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Test cases act as a safety net ensuring that new code doesn't break existing functionality.",
+      "explain": "While they take time upfront, unit tests prevent regressions, act as living documentation for how a function should behave, and force developers to write more modular, decoupled code.",
+      "example": "\"Yes, I write tests using Jasmine/Karma or Jest. Recently, we refactored a massive payment calculation service. Because we had 80% test coverage, we were confident deploying the changes immediately. If any test failed, we knew exactly which line of code broke the logic before it reached production.\"",
+      "summary10s": "Prevents regressions, enforces modular code, and gives confidence during refactoring/deployments."
+    }
+  },
+  {
+    "id": "js-coding-filter-products",
+    "category": "JS Coding",
+    "question": "Provided an array of products, filter them using different conditions. Explain find, filter, includes, and map.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`find` returns the first matching object. `filter` returns all matching objects. `includes` checks if a primitive exists in an array. `map` transforms the objects.",
+      "explain": "These are the core array methods. They all take a callback function (except `includes`) and do not mutate the original array.",
+      "example": "\"If I have an array of products: \n`products.find(p => p.id === 1)` gives me the exact product object.\n`products.filter(p => p.price > 50)` gives me a sub-array of expensive products.\n`products.map(p => p.name)` extracts just the names into an array of strings.\n`categories.includes('Electronics')` just returns true or false.\"",
+      "summary10s": "find=first match, filter=all matches, map=transform data, includes=boolean existence."
+    }
+  },
+  {
+    "id": "js-coding-flatten-array",
+    "category": "JS Coding",
+    "question": "Flatten a nested array using a recursive function.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Iterate through the array, and if an element is an array, recursively call the flatten function on it.",
+      "explain": "You create a result array. Loop over the input. Use `Array.isArray()` to check the item. If true, spread the recursive result into your result array. If false, push the item directly.",
+      "example": "\"```javascript\nfunction flattenArray(arr) {\n  let result = [];\n  for (let item of arr) {\n    if (Array.isArray(item)) {\n      result.push(...flattenArray(item));\n    } else {\n      result.push(item);\n    }\n  }\n  return result;\n}\n```\nWhile modern JS has `arr.flat(Infinity)`, writing it recursively proves algorithmic understanding.\"",
+      "summary10s": "Loop through items. If Array.isArray(item) is true, recursively flatten it; else push to result."
+    }
+  },
+  {
+    "id": "js-closures",
+    "category": "JavaScript",
+    "question": "Explain Closures.",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A closure is a function that remembers the variables from its outer scope even after that outer function has finished executing.",
+      "explain": "In JavaScript, functions are lexically scoped. When a function returns an inner function, the inner function retains a reference to the environment in which it was created. This allows for data privacy and state preservation.",
+      "example": "\"If I write a `createCounter` function that initializes `let count = 0` and returns an increment function, `createCounter` finishes running. But the returned function still remembers `count` and can increment it. The `count` variable is now private and can't be accessed from the outside, which is a perfect closure.\"",
+      "summary10s": "An inner function that retains access to its outer function's variables, even after the outer function has returned."
+    }
+  },
+  {
+    "id": "js-double-vs-triple-equals",
+    "category": "JavaScript",
+    "question": "Difference between == and ===.",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`==` checks for value equality with type coercion, while `===` checks for both value and type equality without coercion.",
+      "explain": "The loose equality operator (`==`) tries to convert the operands to the same type before comparing them. The strict equality operator (`===`) strictly compares them as they are, which is much safer and prevents unexpected bugs.",
+      "example": "\"If I do `'5' == 5`, it returns `true` because JavaScript coerces the string to a number first. But `'5' === 5` returns `false` because a string is not a number. I always use `===` strictly in my projects to avoid coercion bugs.\"",
+      "summary10s": "== coerces types before comparing. === checks value and type strictly (always use this)."
+    }
+  },
+  {
+    "id": "js-promise-all-reject",
+    "category": "JavaScript",
+    "question": "What happens if one Promise inside Promise.all() rejects?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The entire `Promise.all()` immediately rejects with the reason of the first rejected promise.",
+      "explain": "It implements 'fail-fast' behavior. It does not wait for the other pending promises to complete. If you need all of them to finish regardless of success or failure, you should use `Promise.allSettled()` instead.",
+      "example": "\"If I use `Promise.all` to fetch user details and recent orders, and the orders API returns a 500 error and rejects, the entire `Promise.all` throws an error instantly. The user details won't be returned, even if that call succeeded. That's why I use `.catch()` blocks carefully or switch to `allSettled`.\"",
+      "summary10s": "Fails fast. The whole Promise.all rejects immediately. Use allSettled() to wait for all regardless of failure."
+    }
+  },
+  {
+    "id": "js-coding-reduce-transactions",
+    "category": "JS Coding",
+    "question": "Compute total spend per category from an array of transactions.",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the `reduce` method to aggregate the transactions into a summary object.",
+      "explain": "You initialize an empty object `{}` as the accumulator. You loop over the array, checking if the category exists in the object. If yes, add the amount; if no, initialize it. Finally, return the accumulator.",
+      "example": "\"```javascript\nconst spendPerCategory = transactions.reduce((acc, curr) => {\n  acc[curr.category] = (acc[curr.category] || 0) + curr.amount;\n  return acc;\n}, {});\n```\nThis elegantly loops through the array exactly once, giving me a clean dictionary mapping categories to their total totals.\"",
+      "summary10s": "Use arr.reduce() with an empty object {} to accumulate totals grouped by category."
+    }
+  },
+  {
+    "id": "js-pure-functions",
+    "category": "JavaScript",
+    "question": "What are Pure Functions?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A pure function always returns the same output for the same input and has no side effects.",
+      "explain": "It does not rely on or modify variables outside its scope, does not mutate its arguments, and doesn't do things like API calls or DOM manipulation. This makes them incredibly predictable and easy to test.",
+      "example": "\"A function like `function add(a, b) { return a + b; }` is pure. It will always return 4 if I pass 2 and 2. A function that relies on `let globalTax = 0.2;` to calculate totals is impure, because if someone changes `globalTax` elsewhere, the function's output changes even with the same inputs.\"",
+      "summary10s": "Always returns same output for same input. No side effects. No external state reliance."
+    }
+  },
+  {
+    "id": "js-coding-recursive-function",
+    "category": "JS Coding",
+    "question": "Can you write a Recursive Function?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A recursive function is a function that calls itself until it reaches a base condition to stop.",
+      "explain": "It requires two parts: the base case (to prevent an infinite loop / stack overflow) and the recursive step (where it calls itself with a smaller piece of data).",
+      "example": "\"```javascript\nfunction factorial(n) {\n  if (n <= 1) return 1; // Base case\n  return n * factorial(n - 1); // Recursive step\n}\n```\nI use recursion for traversing deeply nested structures, like a folder tree or flattening a complex array.\"",
+      "summary10s": "A function calling itself. Must have a base case to stop infinite loops."
+    }
+  },
+  {
+    "id": "angular-fundamentals",
+    "category": "Angular",
+    "question": "What are the fundamentals of Angular?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Angular is built around Components, Modules, Templates, Services, and Dependency Injection.",
+      "explain": "Components define the UI and logic. Templates define the HTML with data binding. Services contain business logic and API calls. Dependency Injection provides those services to components efficiently. Historically, NgModules grouped everything, though standalone components are now the standard.",
+      "example": "\"The core architecture separates the view from the logic. I write the view in the template using interpolation and directives. I write the logic in the Component class. When the component needs data from an API, I inject a Service using Angular's Dependency Injection system. That's the fundamental flow of Angular.\"",
+      "summary10s": "Components (UI), Templates (HTML), Services (Logic), and Dependency Injection (providing services)."
+    }
+  },
+  {
+    "id": "angular-directives-vs-control-flow",
+    "category": "Angular",
+    "question": "What are Directives? Do Control Flow statements replace them?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Directives add behavior to elements. The new `@if` / `@for` control flow replaces structural directives like `*ngIf`, but attribute directives and custom directives are still used.",
+      "explain": "Angular has three types of directives: Components, Structural (DOM manipulation), and Attribute (changing appearance/behavior). In Angular 17+, the new built-in control flow (`@if`, `@for`) functionally replaces structural directives (`*ngIf`, `*ngFor`), offering better performance and syntax. But you still use Attribute directives (like `ngClass`) and can build custom ones.",
+      "example": "\"Directives attach behavior to the DOM. If I want a tooltip on hover, I create an attribute directive `myTooltip`. For structural logic, I used to use `*ngIf`, which is technically a structural directive, but now I use the `@if` control flow because it's baked into the compiler and faster, not requiring imports.\"",
+      "summary10s": "Directives attach behavior. @if/@for replace structural directives (*ngIf/*ngFor), but attribute/custom directives remain."
+    }
+  },
+  {
+    "id": "angular-computed-vs-linkedsignal",
+    "category": "Angular",
+    "question": "Difference between computed() and linkedSignal().",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`computed()` creates a read-only signal derived from other signals. `linkedSignal()` (new in v19) creates a writable signal that resets its value when a source signal changes.",
+      "explain": "You cannot manually `.set()` a `computed` signal. It strictly derives state. `linkedSignal`, introduced in Angular 19, allows you to create a local writable state that is bound to a parent signal, automatically resetting itself when the parent changes.",
+      "example": "\"I use `computed` for a shopping cart total: `total = computed(() => this.price() + this.tax())`. I can't overwrite `total`. But if I have a user form, and the selected user ID changes, I can use `linkedSignal` for the draft name. I can edit the draft name (`.set()`), but if the user ID signal changes, the draft automatically resets to the new user's name.\"",
+      "summary10s": "computed() is read-only derived state. linkedSignal() is writable state that resets when its parent signal changes."
+    }
+  },
+  {
+    "id": "angular-decorators",
+    "category": "Angular",
+    "question": "What are Decorators?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Decorators are functions that modify JavaScript classes, properties, or methods, providing metadata to Angular.",
+      "explain": "Angular relies heavily on decorators to know how to process a class. Without a decorator, a class is just a plain TypeScript class. `@Component` tells Angular it's a UI component, `@Injectable` tells it it's a service, and `@Input` configures property bindings.",
+      "example": "\"When I write a `class HeaderComponent`, Angular doesn't know it's a component until I place the `@Component` decorator above it. This decorator passes a metadata object containing the `selector`, `templateUrl`, and `standalone: true` flag, giving the class its Angular superpowers.\"",
+      "summary10s": "Functions (like @Component, @Input) that attach metadata to classes so Angular knows how to use them."
+    }
+  },
+  {
+    "id": "angular-input-output",
+    "category": "Angular",
+    "question": "Explain @Input() and @Output().",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`@Input()` lets a child component receive data from a parent. `@Output()` lets a child component send events back to the parent.",
+      "explain": "They form the basis of component communication. The parent binds data to the child's `@Input()` property using property binding `[prop]`. The child emits an `EventEmitter` decorated with `@Output()`, and the parent listens using event binding `(event)`.",
+      "example": "\"I have a `ProductCardComponent`. I pass the product details down into it using `@Input() product`. Inside the card, when the user clicks 'Buy', I use `@Output() buy = new EventEmitter()` and call `this.buy.emit(this.product.id)`. The parent list component listens to `(buy)=\"addToCart($event)\"`.\"",
+      "summary10s": "@Input = receives data from parent. @Output = emits custom events to parent via EventEmitter."
+    }
+  },
+  {
+    "id": "agile-bug-tracking-code-review",
+    "category": "DevOps",
+    "question": "How do you receive bugs, and who reviews your code?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Bugs are received as tickets in Jira from QA or production monitoring. Code is reviewed by peers or senior developers via Pull Requests.",
+      "explain": "In a standard agile setup, QA logs bugs with reproduction steps in Jira. A developer fixes it on a branch, commits, and creates a Pull Request (PR) in Bitbucket/GitHub. Another developer reviews the logic and approvals are required before merging into the main branch.",
+      "example": "\"When QA finds an issue in UAT, they create a Jira bug ticket. I pick it up, create a feature branch, and fix the code. I then open a Pull Request. My tech lead and at least one peer review the PR. Once they approve and the CI pipeline passes, I merge it to the develop branch.\"",
+      "summary10s": "Bugs tracked in Jira. Code reviewed by peers/leads through Pull Requests before merging."
+    }
+  },
+  {
+    "id": "agile-sprint-planning",
+    "category": "DevOps",
+    "question": "Do you actively participate in Sprint Planning?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, developers participate to understand requirements, break down stories into sub-tasks, and estimate effort (story points).",
+      "explain": "Sprint Planning involves the Scrum Master, Product Owner, and the Dev team. The PO explains what needs to be done. The Dev team determines how to do it technically, discusses dependencies, and assigns story points based on complexity.",
+      "example": "\"Yes, every two weeks we have Sprint Planning. The Product Owner presents the prioritized backlog. As a developer, I ask clarifying questions about edge cases. Then, we play planning poker to estimate the effort. I usually break down my assigned stories into smaller technical sub-tasks before the sprint starts.\"",
+      "summary10s": "Yes, developers clarify requirements, break down tasks, and estimate complexity using story points."
+    }
+  },
+  {
+    "id": "java-var-generics",
+    "category": "Java",
+    "question": "What is var? Can it be used with generics?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`var` is used for local variable type inference in Java 10+. Yes, it can be used with generics, but the diamond operator cannot be entirely empty if type inference fails.",
+      "explain": "The Java compiler infers the type of `var` at compile time based on the assigned value. When using generics like `var list = new ArrayList<String>();`, it works perfectly. However, if you do `var list = new ArrayList<>();`, Java infers it as `ArrayList<Object>` because there's no type on the right side.",
+      "example": "\"I use `var` to reduce verbosity. Instead of writing `Map<String, List<Integer>> map = new HashMap<>();`, I just write `var map = new HashMap<String, List<Integer>>();`. It makes the code cleaner without losing static typing.\"",
+      "summary10s": "Local variable type inference. Works with generics but requires the generic type on the right side."
+    }
+  },
+  {
+    "id": "java-effectively-final",
+    "category": "Java",
+    "question": "What is an effectively final variable?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A variable that is never modified after being initialized, even if it lacks the `final` keyword.",
+      "explain": "Introduced in Java 8, if you declare a local variable and never reassign it, the compiler treats it as 'effectively final'. This allows you to use it inside lambdas and anonymous inner classes without explicitly writing `final`.",
+      "example": "\"If I have `int limit = 10;` and then write a stream like `list.stream().filter(x -> x < limit)`, it works perfectly. I didn't write `final int limit`, but because I never change `limit`, Java considers it effectively final and allows it inside the lambda.\"",
+      "summary10s": "A local variable not marked 'final' but never reassigned. Can be used in lambdas safely."
+    }
+  },
+  {
+    "id": "java-records",
+    "category": "Java",
+    "question": "What are Java Records? How do you fetch the first record?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Records are a concise way to create immutable data carrier classes (DTOs) without writing boilerplate code.",
+      "explain": "Introduced in Java 14, `record User(String name, int age) {}` automatically generates private final fields, a constructor, getters (named `name()` instead of `getName()`), `equals`, `hashCode`, and `toString`.",
+      "example": "\"Instead of a 50-line class for a UserDTO, I just write `public record UserDto(String name) {}`. To fetch a field from a record instance `user`, I don't use `user.getName()`; the getter is just the field name, so I use `user.name()`.\"",
+      "summary10s": "Immutable data classes without boilerplate. Getters do not use the 'get' prefix (e.g., user.name())."
+    }
+  },
+  {
+    "id": "java-checked-vs-unchecked",
+    "category": "Java",
+    "question": "Checked vs Unchecked Exceptions?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Checked exceptions are checked by the compiler at compile-time. Unchecked exceptions occur at runtime.",
+      "explain": "Checked exceptions (like `IOException`) extend `Exception` and force you to handle them using `try-catch` or `throws`. Unchecked exceptions (like `NullPointerException`) extend `RuntimeException` and are usually programming errors that don't force handling.",
+      "example": "\"If I open a file, Java forces me to catch `IOException` because it's a checked exception (the file might be missing, which is out of my control). But if I divide by zero, it throws an `ArithmeticException` (unchecked), which is my fault as a developer and isn't checked at compile-time.\"",
+      "summary10s": "Checked = Compile-time forced handling (IOException). Unchecked = Runtime errors (NullPointerException)."
+    }
+  },
+  {
+    "id": "java-interfaces-private-methods",
+    "category": "Java",
+    "question": "Can interfaces have private methods?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, starting from Java 9, interfaces can have private methods.",
+      "explain": "Private methods are used to share common code between multiple `default` or `static` methods within the same interface, preventing code duplication without exposing internal logic to implementing classes.",
+      "example": "\"If I have two `default` methods in an interface that both need to validate a token, instead of copying the validation logic into both, I write a `private boolean validate(String token)` method. The implementing classes never see it, but my default methods can reuse it.\"",
+      "summary10s": "Yes (Java 9+). Used to share helper logic between default/static methods safely."
+    }
+  },
+  {
+    "id": "java-interfaces-methods",
+    "category": "Java",
+    "question": "What types of methods can interfaces contain?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Interfaces can contain abstract, default, static, and private methods.",
+      "explain": "Before Java 8, they only had abstract methods. Java 8 added `default` (methods with a body) and `static` methods. Java 9 added `private` methods to act as helpers for default/static methods.",
+      "example": "\"In a modern Java interface, I can define `void doWork()` (abstract), `default void log()` for backward compatibility, `static void printVersion()` for utility, and `private void helper()` to share logic between my default methods.\"",
+      "summary10s": "Abstract (no body), Default (body, inheritable), Static (class-level), Private (helpers)."
+    }
+  },
+  {
+    "id": "solid-principles",
+    "category": "System Design",
+    "question": "What are the SOLID principles?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "SOLID is an acronym for 5 design principles that make software more maintainable: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion.",
+      "explain": "They prevent spaghetti code. Single Responsibility means one class = one job. Open/Closed means open for extension (inheritance/interfaces) but closed for modification. Interface Segregation means keeping interfaces small. Dependency Inversion means depending on abstractions (interfaces), not concretions.",
+      "example": "\"I follow Single Responsibility by splitting a massive `UserService` into `UserRegistrationService` and `UserEmailService`. I follow Dependency Inversion by injecting a `PaymentProcessor` interface rather than a hardcoded `StripeProcessor` class, making it easy to swap later.\"",
+      "summary10s": "Five object-oriented design principles to keep code modular, testable, and maintainable."
+    }
+  },
+  {
+    "id": "factory-design-pattern",
+    "category": "System Design",
+    "question": "Explain the Factory Design Pattern.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The Factory Pattern provides a method to create objects without exposing the instantiation logic to the client.",
+      "explain": "Instead of calling `new Object()` directly, you pass a string or enum to a Factory class, which decides which specific subclass to instantiate and returns it as a common interface.",
+      "example": "\"If my app supports multiple notifications, I don't write `new EmailNotification()` in my service. I create a `NotificationFactory.getNotification('EMAIL')`. The factory handles the `new` keyword and returns a generic `Notification` interface. If I add 'SMS' later, I only modify the factory, not the core business logic.\"",
+      "summary10s": "A class that handles object creation based on input, returning a common interface."
+    }
+  },
+  {
+    "id": "java-race-condition",
+    "category": "Java",
+    "question": "What is a Race Condition? How do you prevent it?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A race condition occurs when multiple threads access and modify shared data concurrently, leading to unpredictable results.",
+      "explain": "If two threads read a variable (like `count = 5`) at the exact same time, both increment it to 6, and both write it back. The result is 6 instead of 7. You prevent this using synchronization, ReentrantLocks, or Atomic classes.",
+      "example": "\"If two users buy the last ticket at the exact same millisecond, the DB might sell it to both. I prevent this in Java by using `AtomicInteger` for simple counters, or `synchronized` blocks/ReentrantLocks to ensure only one thread executes the critical section at a time.\"",
+      "summary10s": "Concurrent threads corrupting shared data. Prevent with Locks, synchronized blocks, or Atomic classes."
+    }
+  },
+  {
+    "id": "java-streams-intermediate-terminal",
+    "category": "Java",
+    "question": "What are intermediate and terminal operations?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Intermediate operations return a new Stream and are lazy. Terminal operations produce a final result and trigger the stream execution.",
+      "explain": "Intermediate ops (like `filter`, `map`, `sorted`) don't actually do any work until a terminal operation is called. Terminal ops (like `collect`, `forEach`, `count`) consume the stream and close it.",
+      "example": "\"If I write `list.stream().filter(x -> x > 10)`, nothing happens. It's lazy. But as soon as I append `.collect(Collectors.toList())`, which is a terminal operation, the stream fires up, runs the filter, and collects the result into a new list.\"",
+      "summary10s": "Intermediate (filter/map) chain lazily. Terminal (collect/count) trigger execution and return results."
+    }
+  },
+  {
+    "id": "java-streams-filter-vs-map",
+    "category": "Java",
+    "question": "What is the difference between filter() and map()?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`filter` removes elements that don't match a condition. `map` transforms every element into something else.",
+      "explain": "Both are intermediate operations. `filter` takes a Predicate (returns boolean) and output size is <= input size. `map` takes a Function (returns a new value) and output size is exactly equal to input size.",
+      "example": "\"If I have a list of strings, I use `.filter(s -> s.startsWith(\"A\"))` to drop strings not starting with A. I use `.map(String::toUpperCase)` to transform every single string in the stream into uppercase letters.\"",
+      "summary10s": "Filter removes items (changes size). Map transforms items one-to-one (keeps same size)."
+    }
+  },
+  {
+    "id": "spring-boot-enableautoconfiguration",
+    "category": "Spring Boot",
+    "question": "What does @EnableAutoConfiguration do?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It tells Spring Boot to automatically configure beans based on the dependencies present in the classpath.",
+      "explain": "This is the magic behind Spring Boot. If it sees `spring-webmvc` on the classpath, it automatically configures a DispatcherServlet. If it sees a database driver, it automatically creates a DataSource bean, saving you from writing boilerplate XML or Java configs.",
+      "example": "\"I rarely use `@EnableAutoConfiguration` directly because it's bundled inside `@SpringBootApplication`. But its job is why my app connects to Postgres automatically just by having the driver in `pom.xml` and the URL in `application.yml`—Spring Boot auto-configures the connection pool for me.\"",
+      "summary10s": "Auto-configures beans (like DataSources or Web servers) based on the jars in your classpath."
+    }
+  },
+  {
+    "id": "spring-boot-profiles",
+    "category": "Spring Boot",
+    "question": "What are Spring Profiles?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Profiles allow you to segregate parts of your application configuration and make them available only in certain environments.",
+      "explain": "You can have `application-dev.yml` for local testing and `application-prod.yml` for live. You can also use `@Profile(\"dev\")` on a bean so it's only created in the dev environment.",
+      "example": "\"In my project, we use an in-memory H2 database for local development and PostgreSQL for production. I created two profiles. By simply passing `--spring.profiles.active=prod` on the server, Spring Boot automatically loads the production credentials and beans without changing the code.\"",
+      "summary10s": "Isolates config and beans for different environments (dev, test, prod)."
+    }
+  },
+  {
+    "id": "spring-boot-pathvariable-vs-requestparam",
+    "category": "Spring Boot",
+    "question": "@PathVariable vs @RequestParam?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`@PathVariable` extracts values from the URL path. `@RequestParam` extracts values from the query string.",
+      "explain": "Use PathVariable for mandatory identifiers pointing to a specific resource (e.g., `/users/123`). Use RequestParam for optional filters, sorting, or pagination (e.g., `/users?role=admin`).",
+      "example": "\"If a user clicks on their profile, my endpoint is `@GetMapping(\"/users/{id}\")` and I extract the ID with `@PathVariable`. If they search the user list, my endpoint is `/users` and I extract their search query with `@RequestParam(name = \"search\", required = false)`.\"",
+      "summary10s": "PathVariable = mandatory URL path segments (/id). RequestParam = optional query strings (?id=x)."
+    }
+  },
+  {
+    "id": "microservices-security",
+    "category": "Microservices",
+    "question": "How do you implement security across microservices?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use an API Gateway to handle authentication, and pass JWTs to downstream services for authorization.",
+      "explain": "The API Gateway acts as a single point of entry. It validates the user's credentials against an Auth/Identity Provider (like Keycloak). Once validated, it forwards a JWT containing the user's roles to the internal microservices, which verify the token signature and enforce role-based access.",
+      "example": "\"In our architecture, the API Gateway intercepts the request and verifies the token signature. If valid, it forwards the request to the Order Service, including the JWT in the header. The Order Service doesn't contact the Auth server; it just decodes the JWT locally, checks if the user has the 'CREATE_ORDER' role, and processes it.\"",
+      "summary10s": "API Gateway handles Authentication. Internal microservices decode JWTs for Authorization."
+    }
+  },
+  {
+    "id": "what-is-java",
+    "category": "Java",
+    "question": "What is Java?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Java is a high-level, class-based, object-oriented programming language designed to have as few implementation dependencies as possible.",
+      "explain": "It's known for its 'Write Once, Run Anywhere' (WORA) capability, achieved by compiling Java code into bytecode which is then run on the Java Virtual Machine (JVM), regardless of the underlying operating system.",
+      "example": "\"If I write a Java application on my Windows machine, compile it, and send the `.class` file to a Linux server, it runs perfectly without modification because the JVM on the Linux server interprets the bytecode identically.\"",
+      "summary10s": "High-level, Object-Oriented, Platform-Independent (WORA) language running on the JVM."
+    }
+  },
+  {
+    "id": "java-inheritance-logical-relation",
+    "category": "Java",
+    "question": "If Class B inherits Class A, but Class B is not logically related to Class A, what problems can occur?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It violates the Liskov Substitution Principle and leads to fragile, confusing code with inappropriate methods exposed.",
+      "explain": "Inheritance models an 'IS-A' relationship. If B is not truly an A (e.g., `Stack` inheriting from `Vector` in early Java), B inherits methods that don't make sense for its domain. This breaks encapsulation and allows clients to misuse the class.",
+      "example": "\"If a `Bird` class has a `fly()` method, and `Penguin` inherits from `Bird` just to reuse some feather logic, it also inherits `fly()`. If a system tries to make all birds fly, the `Penguin` throws an error. It's better to use composition ('HAS-A') if there's no strict logical IS-A relationship.\"",
+      "summary10s": "Violates Liskov Substitution, breaks encapsulation, and exposes irrelevant methods. Prefer Composition over Inheritance."
+    }
+  },
+  {
+    "id": "what-is-polymorphism",
+    "category": "Java",
+    "question": "What is polymorphism? Explain compile-time and runtime polymorphism.",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Polymorphism means 'many forms'. Compile-time polymorphism is method overloading, while runtime polymorphism is method overriding.",
+      "explain": "Method overloading happens in the same class (same method name, different parameters) and is resolved by the compiler. Method overriding happens between super/subclasses (same method name, same parameters) and the exact method to run is decided by the JVM at runtime based on the actual object type.",
+      "example": "\"Compile-time: `add(int a, int b)` vs `add(int a, int b, int c)`. Runtime: A `Shape` class has `draw()`. A `Circle` subclass overrides `draw()`. If I do `Shape s = new Circle(); s.draw();`, the JVM dynamically runs the Circle's `draw()` method at runtime.\"",
+      "summary10s": "Compile-time = Method Overloading (same name, different params). Runtime = Method Overriding (subclass redefining parent method)."
+    }
+  },
+  {
+    "id": "what-are-threads-in-java",
+    "category": "Java",
+    "question": "What are threads in Java?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A thread is the smallest unit of execution within a process, allowing a program to operate more efficiently by doing multiple things at the same time.",
+      "explain": "In Java, the JVM creates the main thread to run the `main` method. You can spawn additional threads to perform background tasks (like reading a file or making an API call) concurrently, maximizing CPU utilization.",
+      "example": "\"In a Spring Boot web app, every incoming HTTP request is assigned its own thread from the Tomcat thread pool. This allows 100 users to hit the API at the exact same time without waiting for each other.\"",
+      "summary10s": "The smallest unit of execution. Allows concurrent background processing to maximize CPU efficiency."
+    }
+  },
+  {
+    "id": "java-collections-framework",
+    "category": "Java",
+    "question": "What is the Java Collections Framework?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "It is a unified architecture representing and manipulating groups of objects (collections).",
+      "explain": "It provides ready-to-use data structures (like ArrayList, HashSet, HashMap) and algorithms (like sorting and searching). It reduces programming effort by providing high-performance, thoroughly tested implementations of standard data structures.",
+      "example": "\"Instead of writing a custom dynamic array from scratch and handling array resizing manually, I just use `List<String> list = new ArrayList<>();`. The framework handles all the memory management and provides utility methods like `.add()` and `.contains()`.\"",
+      "summary10s": "A standardized set of interfaces and classes (List, Set, Map) for storing and manipulating data."
+    }
+  },
+  {
+    "id": "java-list-set-map-difference",
+    "category": "Java",
+    "question": "What is the difference between List, Set, and Map?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "List is ordered and allows duplicates. Set is unordered and rejects duplicates. Map stores key-value pairs.",
+      "explain": "Use a List (like ArrayList) when order matters and you access by index. Use a Set (like HashSet) when you need unique items and fast lookups. Use a Map (like HashMap) when you need to associate a unique key with a specific value.",
+      "example": "\"I use a `List` to store the chronological history of a user's logins. I use a `Set` to store a collection of unique email addresses so I don't send duplicate newsletters. I use a `Map` to cache user profiles, using their UserID as the key and the Profile object as the value.\"",
+      "summary10s": "List = duplicates allowed, ordered. Set = unique items, unordered. Map = key-value pairs."
+    }
+  },
+  {
+    "id": "final-finally-and-finalize",
+    "category": "Java",
+    "question": "What is the difference between final, finally, and finalize()?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "`final` is a keyword to restrict modification. `finally` is a block for cleanup in try-catch. `finalize()` is a deprecated method used by the Garbage Collector.",
+      "explain": "`final` on a variable makes it a constant, on a method prevents overriding, and on a class prevents inheritance. `finally` always executes after a try-catch block to close resources. `finalize()` is called by the GC before object destruction, but is unpredictable and deprecated in modern Java.",
+      "example": "\"I declare a constant as `public static final int MAX = 10;`. When dealing with database connections, I put `connection.close()` inside a `finally` block to guarantee it runs. I pretend `finalize()` doesn't exist because try-with-resources handles cleanup much better.\"",
+      "summary10s": "final = constant/no-override. finally = guaranteed execution block. finalize = deprecated GC cleanup method."
+    }
+  },
+  {
+    "id": "java-coding-reverse-string-streams",
+    "category": "Java Coding",
+    "question": "How can you reverse a String using Java Streams?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You can map the characters to objects, collect them into a collection, reverse it, and join.",
+      "explain": "Streams aren't natively designed for string manipulation or reversal. The standard and most efficient way is `new StringBuilder(str).reverse().toString()`. However, if forced to use Streams, you can stream the indices in reverse order or use `reduce`.",
+      "example": "\"If forced to use Streams, I would do: `String rev = IntStream.range(0, str.length()).mapToObj(i -> str.charAt(str.length() - 1 - i)).map(String::valueOf).collect(Collectors.joining());`. But in reality, `StringBuilder.reverse()` is vastly superior.\"",
+      "summary10s": "IntStream mapping from end to start, then Collectors.joining(). (Though StringBuilder is preferred)."
+    }
+  },
+  {
+    "id": "what-is-a-spring-bean",
+    "category": "Spring Boot",
+    "question": "What is a Spring Bean?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A Spring Bean is a Java object that is instantiated, assembled, and managed by the Spring IoC container.",
+      "explain": "Instead of you using the `new` keyword to create objects, Spring creates them for you at startup (based on annotations like `@Component` or `@Service`), stores them in its Application Context, and injects them wherever they are needed.",
+      "example": "\"When I write `@Service public class UserService {}`, I don't instantiate it. Spring creates a Singleton instance of `UserService` (the Bean) at startup. When my `UserController` requests it via the constructor, Spring hands it the exact same instance.\"",
+      "summary10s": "An object created and managed entirely by the Spring IoC Container, not by the 'new' keyword."
+    }
+  },
+  {
+    "id": "spring-boot-annotations-intro",
+    "category": "Spring Boot",
+    "question": "What are annotations in Spring Boot? Why are they used?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Annotations are metadata tags (like `@RestController`) that tell the Spring framework how to treat a class, method, or field.",
+      "explain": "They replace the massive XML configuration files used in traditional Spring. They provide hints to the Spring container for Bean creation (`@Component`), Dependency Injection (`@Autowired`), web routing (`@GetMapping`), and transaction management (`@Transactional`).",
+      "example": "\"Instead of writing an XML file to map a URL to a class, I just write `@GetMapping(\"/users\")` above a method. Spring reads this metadata at startup and automatically routes HTTP GET requests to that specific method.\"",
+      "summary10s": "Metadata tags that replace XML configuration, telling Spring how to handle beans, routing, and logic."
+    }
+  },
+  {
+    "id": "how-does-spring-boot-work-internally",
+    "category": "Spring Boot",
+    "question": "Can you explain more about Spring Boot and how it works?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Spring Boot works through Auto-Configuration, Starter Dependencies, and an Embedded Server.",
+      "explain": "When the app starts, `@SpringBootApplication` triggers `@EnableAutoConfiguration`. Spring Boot scans your `pom.xml` classpath. If it sees `spring-boot-starter-web`, it automatically configures a Tomcat server and DispatcherServlet. It then scans your packages for annotations to build the IoC container.",
+      "example": "\"I just declare a dependency and run the `main` method. Behind the scenes, `SpringApplication.run()` spins up an embedded Tomcat on port 8080, registers all my `@RestController` beans in the ApplicationContext, and begins serving HTTP traffic with zero manual XML setup.\"",
+      "summary10s": "Scans classpath jars -> Auto-configures defaults -> Scans your annotations -> Starts embedded server."
+    }
+  },
+  {
+    "id": "explain-immutable-class",
+    "category": "Java",
+    "question": "Explain Immutable Class.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Explain Immutable Class."
+    ],
+    "answerSEE": {
+      "simple": "An immutable class is a class whose state cannot be changed once it is created.",
+      "explain": "To make a class immutable, declare the class as final, make all fields private and final, provide no setter methods, and perform deep copies for mutable objects in constructors and getters.",
+      "example": "\"When I create an immutable class, I make it final so it can't be extended. All fields are private final. If I have a mutable field like a Date or List, I pass a deep copy in the constructor and return a deep copy in the getter to prevent external modification.\"",
+      "summary10s": "Final class, private final fields, no setters, deep copy for mutable fields."
+    }
+  },
+  {
+    "id": "java-8-streams-group-employees",
+    "category": "Java Coding",
+    "question": "Java 8 Streams - Group employees by department.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Java 8 Streams - Group employees by department."
+    ],
+    "answerSEE": {
+      "simple": "Use the Collectors.groupingBy() method with a Stream of employees.",
+      "explain": "Call stream() on the employee list, then use collect(Collectors.groupingBy(Employee::getDepartment)). This returns a Map where the key is the department and the value is a List of employees in that department.",
+      "example": "\"To group employees by department, I take the employee list, call .stream(), and then .collect(Collectors.groupingBy(Employee::getDepartment)). This efficiently creates a Map<String, List<Employee>> without needing manual loops.\"",
+      "summary10s": "employees.stream().collect(Collectors.groupingBy(Employee::getDepartment));"
+    }
+  },
+  {
+    "id": "what-is-auto-configuration",
+    "category": "Spring Boot",
+    "question": "What is Auto-Configuration in Spring Boot?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is Auto-Configuration in Spring Boot?"
+    ],
+    "answerSEE": {
+      "simple": "Auto-Configuration automatically configures Spring beans based on the dependencies present in the classpath.",
+      "explain": "Spring Boot looks at the JARs in the classpath (e.g., if Tomcat and Spring MVC are present, it auto-configures a web server). It uses @EnableAutoConfiguration to scan and apply these configurations automatically, saving manual XML or Java config.",
+      "example": "\"Auto-Configuration is Spring Boot's magic. If I include H2 database in my pom.xml, Spring Boot automatically creates a DataSource bean and an in-memory database instance without me writing any boilerplate configuration.\"",
+      "summary10s": "Configures beans automatically based on classpath dependencies using @EnableAutoConfiguration."
+    }
+  },
+  {
+    "id": "request-flow-spring-boot",
+    "category": "Spring Boot",
+    "question": "Explain the request flow in a Spring Boot application.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Explain the request flow in a Spring Boot application."
+    ],
+    "answerSEE": {
+      "simple": "Request -> Filter -> DispatcherServlet -> Controller -> Service -> Repository -> Database.",
+      "explain": "The client sends a request. Filters/Security intercept it. DispatcherServlet routes it to the correct Controller. The Controller delegates business logic to the Service. The Service calls the Repository for database access. The response flows back out.",
+      "example": "\"When an HTTP request arrives, Spring Security filters check authentication. Then DispatcherServlet maps it to the right @RestController. The controller parses the input and calls a @Service method. The service executes business logic and uses a @Repository to fetch data from the DB, and finally, the controller returns a JSON response.\"",
+      "summary10s": "Filter -> DispatcherServlet -> Controller -> Service -> Repository -> DB."
+    }
+  },
+  {
+    "id": "design-controller-service-repository",
+    "category": "Spring Boot",
+    "question": "How would you design Controller -> Service -> Repository layers?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How would you design Controller -> Service -> Repository layers?"
+    ],
+    "answerSEE": {
+      "simple": "Controller handles HTTP, Service handles business logic, Repository handles database access.",
+      "explain": "Keep Controllers thin-only for request/response mapping and validation. Services should contain all the complex business rules and transactions (@Transactional). Repositories should only contain data access logic (Spring Data JPA interfaces).",
+      "example": "\"I keep my layers strictly separated. The Controller only validates input and calls the Service. The Service is the heart of the app-it has the @Transactional annotation and contains all business logic. The Service calls the Repository, which is usually just a Spring Data interface for DB queries.\"",
+      "summary10s": "Thin Controller for HTTP, heavy Service for business logic, simple Repository for DB."
+    }
+  },
+  {
+    "id": "sql-top-3-highest-salaries",
+    "category": "SQL",
+    "question": "Find the top 3 highest salaries from an Employee table.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Find the top 3 highest salaries from an Employee table."
+    ],
+    "answerSEE": {
+      "simple": "Use ORDER BY salary DESC with a LIMIT 3 clause.",
+      "explain": "To find the top 3 distinct salaries, query the distinct salaries, order them in descending order, and restrict the result to 3 rows using LIMIT or TOP depending on the SQL dialect.",
+      "example": "\"I would write: SELECT DISTINCT salary FROM Employee ORDER BY salary DESC LIMIT 3. If the database is SQL Server, I'd use SELECT DISTINCT TOP 3 salary instead. Using DISTINCT ensures we don't just get three employees with the same top salary.\"",
+      "summary10s": "SELECT DISTINCT salary FROM Employee ORDER BY salary DESC LIMIT 3;"
+    }
+  },
+  {
+    "id": "aws-knowledge-certifications",
+    "category": "DevOps",
+    "question": "Questions around AWS knowledge and certifications.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Questions around AWS knowledge and certifications."
+    ],
+    "answerSEE": {
+      "simple": "Highlight your certifications (if any) and practical experience with core AWS services.",
+      "explain": "Discuss the specific certifications you hold (like AWS Certified Developer or Solutions Architect) and tie them to hands-on experience designing, deploying, and maintaining applications on AWS.",
+      "example": "\"I hold the AWS Certified Developer Associate certification. In my recent project, I applied this knowledge by designing serverless APIs using API Gateway and Lambda, and managing our CI/CD pipeline with CodeBuild and CodePipeline.\"",
+      "summary10s": "Mention certifications and back them up with real project experience."
+    }
+  },
+  {
+    "id": "aws-services-use-cases",
+    "category": "DevOps",
+    "question": "AWS services and their use cases.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "AWS services and their use cases."
+    ],
+    "answerSEE": {
+      "simple": "EC2 for computing, S3 for storage, RDS for databases, and Lambda for serverless functions.",
+      "explain": "EC2 provides virtual servers. S3 is object storage for files and backups. RDS is a managed relational database service for MySQL/PostgreSQL. Lambda allows running code without provisioning servers in response to events.",
+      "example": "\"For a typical web app, I use EC2 or ECS to host the application backend, RDS for the relational database, and S3 to store user-uploaded images. For background tasks like image resizing, I use serverless Lambda functions triggered by S3 events.\"",
+      "summary10s": "EC2=servers, S3=files, RDS=relational DBs, Lambda=serverless functions."
+    }
+  },
+  {
+    "id": "how-can-singleton-pattern-be-broken",
+    "category": "Java",
+    "question": "How can Singleton Pattern be broken?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "How can Singleton Pattern be broken?"
+    ],
+    "answerSEE": {
+      "simple": "Singleton can be broken via Reflection, Serialization, Cloning, or Multiple Class Loaders.",
+      "explain": "Reflection can change the private constructor to accessible. Serialization creates a new instance upon deserialization. Cloning bypasses the constructor to create a copy. Different ClassLoaders can load the same class multiple times, resulting in multiple instances.",
+      "example": "\"In a typical Singleton, if a malicious user uses the Reflection API to make the constructor accessible, they can create a second instance. Similarly, if the Singleton implements Serializable, deserializing it will bypass the private constructor and yield a new instance.\"",
+      "summary10s": "Reflection, Serialization, Cloning, Multiple ClassLoaders break Singleton."
+    }
+  },
+  {
+    "id": "prevent-singleton-break",
+    "category": "Java",
+    "question": "How can you prevent Singleton from being broken?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "How can you prevent Singleton from being broken?"
+    ],
+    "answerSEE": {
+      "simple": "Throw an exception in the constructor, implement readResolve(), override clone(), or just use an Enum.",
+      "explain": "To stop Reflection, throw an IllegalStateException in the private constructor if an instance already exists. For Serialization, implement readResolve() to return the existing instance. For Cloning, throw CloneNotSupportedException. Alternatively, using an Enum intrinsically prevents all these issues.",
+      "example": "\"To make my Singleton bulletproof, I throw an exception in the private constructor to block reflection. I also provide a readResolve method to ensure deserialization returns the same instance. However, the simplest and safest way is just to define the Singleton as a Java Enum, which handles all this automatically.\"",
+      "summary10s": "Throw exception in constructor, use readResolve, block cloning, or use Enum."
+    }
+  },
+  {
+    "id": "why-is-hashcode-important-in-hashmap",
+    "category": "Java",
+    "question": "Why is hashCode() important in HashMap?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Why is hashCode() important in HashMap?"
+    ],
+    "answerSEE": {
+      "simple": "It determines which bucket the key-value pair will be stored in.",
+      "explain": "HashMap uses the hash code of the key to calculate the array index (bucket) where the entry should be placed. A good hashCode() distributes keys evenly across buckets, ensuring O(1) performance.",
+      "example": "\"When I put an object into a HashMap, it calls hashCode() on the key to find the correct bucket. If hashCode() is poorly implemented and returns the same value for many objects, they all end up in the same bucket, degrading performance from O(1) to O(N).\"",
+      "summary10s": "hashCode calculates the bucket index for O(1) lookups."
+    }
+  },
+  {
+    "id": "same-hashcode-collision",
+    "category": "Java",
+    "question": "What happens when two objects have the same hashCode?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "What happens when two objects have the same hashCode?"
+    ],
+    "answerSEE": {
+      "simple": "A hash collision occurs, and HashMap stores both objects in the same bucket using a linked list or a tree.",
+      "explain": "When hash codes are identical, HashMap calculates the same bucket index. It will then check equality using the equals() method. If equals() returns true, the value is updated. If false, it's a collision and the new entry is appended to the linked list in that bucket.",
+      "example": "\"If two different keys produce the same hashCode, HashMap encounters a collision. It places the new entry in the same bucket as a linked list node. When I try to retrieve it, HashMap will iterate through that list and use the equals() method to find the exact match.\"",
+      "summary10s": "Hash collision: objects go into the same bucket via linked list/tree."
+    }
+  },
+  {
+    "id": "hashmap-default-capacity-load-factor",
+    "category": "Java",
+    "question": "What is the default initial capacity and load factor?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "What is the default initial capacity and load factor?"
+    ],
+    "answerSEE": {
+      "simple": "Default initial capacity is 16, and default load factor is 0.75.",
+      "explain": "HashMap starts with 16 buckets. The load factor of 0.75 means that when the HashMap is 75% full (e.g., reaches 12 elements), it will trigger a resize operation to double the capacity to 32.",
+      "example": "\"By default, a HashMap allocates an array of size 16 and has a load factor of 0.75. This is a good tradeoff between time and space cost. Once I add the 13th element, it crosses the threshold and resizes to 32 to maintain fast lookups.\"",
+      "summary10s": "Capacity = 16. Load factor = 0.75 (resizes when 75% full)."
+    }
+  },
+  {
+    "id": "hashmap-resizing",
+    "category": "Java",
+    "question": "What happens during HashMap resizing?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "What happens during HashMap resizing?"
+    ],
+    "answerSEE": {
+      "simple": "The capacity is doubled and all existing entries are rehashed into the new buckets.",
+      "explain": "When the threshold is reached, HashMap creates a new array that is twice the size of the old one. It then iterates through all existing entries and recalculates their bucket index (rehashing) to distribute them across the new array.",
+      "example": "\"When resizing occurs, HashMap essentially stops the world, creates a new array with double the capacity, and rehashes every single element from the old array into the new one. This is an expensive O(N) operation, which is why I set an initial capacity if I know the expected size beforehand.\"",
+      "summary10s": "Doubles the array size and rehashes all elements."
+    }
+  },
+  {
+    "id": "hashmap-linkedlist-vs-redblacktree",
+    "category": "Java",
+    "question": "Why was LinkedList replaced with Red-Black Tree in Java 8?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Why was LinkedList replaced with Red-Black Tree in Java 8?"
+    ],
+    "answerSEE": {
+      "simple": "To improve worst-case performance from O(N) to O(log N) during severe hash collisions.",
+      "explain": "Before Java 8, multiple collisions resulted in a long linked list, making lookups O(N). In Java 8, if a bucket's linked list exceeds 8 elements (TREEIFY_THRESHOLD), it converts into a Red-Black Tree, ensuring O(log N) lookup time.",
+      "example": "\"If I have a poorly written hashCode method, all objects might end up in one bucket. In Java 7, finding an item would require traversing a massive linked list, taking O(N) time. Java 8 fixed this by converting large lists into Red-Black Trees, keeping lookups fast at O(log N).\"",
+      "summary10s": "Prevents O(N) degradation during collisions, replacing lists with O(log N) trees."
+    }
+  },
+  {
+    "id": "query-optimization-techniques",
+    "category": "SQL",
+    "question": "Query Optimization Techniques.",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Query Optimization Techniques."
+    ],
+    "answerSEE": {
+      "simple": "Use indexes, avoid SELECT *, avoid functions on indexed columns, and analyze execution plans.",
+      "explain": "Optimization involves adding proper indexes, limiting returned rows/columns, avoiding wildcards at the start of LIKE clauses, replacing subqueries with JOINs, and using EXPLAIN to understand query execution.",
+      "example": "\"When optimizing, I first run an EXPLAIN plan to find full table scans. I ensure the right composite indexes exist, avoid SELECT *, and never wrap an indexed column in a function like YEAR(date_col) in the WHERE clause, as it breaks index usage.\"",
+      "summary10s": "Use Indexes, EXPLAIN plans, avoid SELECT *, and optimize JOINs."
+    }
+  },
+  {
+    "id": "identify-slow-sql-queries",
+    "category": "SQL",
+    "question": "How do you identify slow SQL queries?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "How do you identify slow SQL queries?"
+    ],
+    "answerSEE": {
+      "simple": "By checking the slow query log, using APM tools, and analyzing execution plans.",
+      "explain": "Databases have a slow query log that records queries taking longer than a threshold. APM tools like New Relic or Datadog also track slow DB calls. Once identified, we use the EXPLAIN command to analyze them.",
+      "example": "\"In production, I monitor slow queries using Datadog APM and the database's native slow query log. If an endpoint is slow, I extract the exact SQL and run it with EXPLAIN to see if it's doing a full table scan or missing an index.\"",
+      "summary10s": "Slow query logs, APM tools (Datadog), and EXPLAIN analysis."
+    }
+  },
+  {
+    "id": "avoid-select-star",
+    "category": "SQL",
+    "question": "Why should SELECT * be avoided in production queries?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Why should SELECT * be avoided in production queries?"
+    ],
+    "answerSEE": {
+      "simple": "It fetches unnecessary data, increasing memory, network, and I/O overhead.",
+      "explain": "Fetching all columns wastes database I/O and network bandwidth. It also prevents the database from using covering indexes (where all requested columns are stored in the index itself), forcing it to read the actual table rows.",
+      "example": "\"I always explicitly name columns instead of SELECT *. If I only need the user's ID and Email, fetching 50 other columns like their profile picture blob wastes network and memory. Plus, explicit columns allow the query to be fulfilled entirely from an index without touching the table.\"",
+      "summary10s": "Wastes network/memory and prevents the use of covering indexes."
+    }
+  },
+  {
+    "id": "beanfactory-vs-applicationcontext",
+    "category": "Spring Boot",
+    "question": "Difference between BeanFactory and ApplicationContext.",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Difference between BeanFactory and ApplicationContext."
+    ],
+    "answerSEE": {
+      "simple": "BeanFactory uses lazy loading and is basic; ApplicationContext uses eager loading and has enterprise features.",
+      "explain": "BeanFactory only instantiates a bean when getBean() is called (Lazy). ApplicationContext instantiates all singleton beans at startup (Eager). ApplicationContext is a sub-interface of BeanFactory and adds features like Event Publishing, AOP, and i18n.",
+      "example": "\"BeanFactory is the fundamental IoC container, but it's rarely used directly. ApplicationContext builds on top of it. I prefer ApplicationContext because it eager-loads singleton beans, meaning I catch configuration errors immediately at startup rather than during runtime.\"",
+      "summary10s": "BeanFactory = Lazy, basic. ApplicationContext = Eager, enterprise features."
+    }
+  },
+  {
+    "id": "why-applicationcontext-preferred",
+    "category": "Spring Boot",
+    "question": "Why is ApplicationContext preferred in Spring Boot?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Why is ApplicationContext preferred in Spring Boot?"
+    ],
+    "answerSEE": {
+      "simple": "It provides eager loading to catch errors early and includes advanced enterprise features out of the box.",
+      "explain": "Spring Boot relies heavily on ApplicationContext because it supports Auto-Configuration, aspect-oriented programming (AOP), event publishing, and eager initialization of singleton beans, ensuring the application is fully validated before serving requests.",
+      "example": "\"ApplicationContext is preferred because it eager-loads beans. If I have a typo in my database URL, the ApplicationContext will fail to start immediately. If I used BeanFactory, the app would start fine, but crash later when a user makes a request.\"",
+      "summary10s": "Eager-loads beans to fail fast, and supports AOP and Events."
+    }
+  },
+  {
+    "id": "saga-vs-distributed-transactions",
+    "category": "Microservices",
+    "question": "When would you choose Saga over distributed transactions?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "When would you choose Saga over distributed transactions?"
+    ],
+    "answerSEE": {
+      "simple": "When you are building loosely coupled microservices where a blocking Two-Phase Commit (2PC) would hurt performance and availability.",
+      "explain": "Distributed transactions (like 2PC) lock resources across multiple databases until the transaction completes, causing performance bottlenecks. Saga relies on local transactions and asynchronous events, making it highly scalable and resilient.",
+      "example": "\"I choose Saga for microservices because 2PC creates tight coupling and severe performance bottlenecks. If the payment service locks the database while waiting for the inventory service, the whole system slows down. Saga avoids this by using local commits and compensating events on failure.\"",
+      "summary10s": "Choose Saga for performance and decoupling; 2PC blocks and doesn't scale."
+    }
+  },
+  {
+    "id": "object-eligible-for-gc",
+    "category": "Java",
+    "question": "How does an object become eligible for Garbage Collection?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "How does an object become eligible for Garbage Collection?"
+    ],
+    "answerSEE": {
+      "simple": "When it becomes unreachable from any live thread or static reference.",
+      "explain": "An object is eligible for GC if there is no active reference pointing to it. This happens when references are set to null, when local variables go out of scope, or when objects only reference each other in an isolated 'Island of Isolation'.",
+      "example": "\"An object becomes eligible when it loses all active roots. For example, if I create a local object inside a method, once the method returns, the reference goes out of scope, making the object unreachable and ready for garbage collection.\"",
+      "summary10s": "When it has no active references pointing to it from a GC Root."
+    }
+  },
+  {
+    "id": "minor-gc-vs-major-gc",
+    "category": "Java",
+    "question": "Difference between Minor GC and Major GC.",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Difference between Minor GC and Major GC."
+    ],
+    "answerSEE": {
+      "simple": "Minor GC cleans the Young Generation, while Major GC cleans the Old Generation.",
+      "explain": "Minor GC runs frequently to collect short-lived objects in the Eden/Survivor spaces. It is very fast. Major GC (Full GC) cleans the Old/Tenured space, is much slower, and often causes a noticeable 'Stop The World' pause.",
+      "example": "\"Minor GC handles the quick cleanup of freshly created objects in the Young Generation. It's so fast I rarely notice it. Major GC kicks in when the Old Generation fills up with long-lived objects. I try to avoid Major GCs because they pause the entire application for much longer.\"",
+      "summary10s": "Minor GC = Young Gen (fast). Major GC = Old Gen (slow, pauses app)."
+    }
+  },
+  {
+    "id": "blue-green-deployment",
+    "category": "DevOps",
+    "question": "What is Blue-Green Deployment?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "What is Blue-Green Deployment?"
+    ],
+    "answerSEE": {
+      "simple": "Running two identical production environments to enable zero-downtime releases and quick rollbacks.",
+      "explain": "Blue is the current live environment, and Green is the new version. Once Green is deployed and tested, the router switches live traffic from Blue to Green instantly. If an issue occurs, traffic is routed back to Blue immediately.",
+      "example": "\"With Blue-Green deployment, I deploy the new version to a separate 'Green' environment while users continue using the live 'Blue' environment. Once Green is fully tested, I flip the load balancer switch. If a critical bug is found, rolling back is as simple as flipping the switch back to Blue.\"",
+      "summary10s": "Two identical environments; switch traffic instantly for zero-downtime deployments."
+    }
+  },
+  {
+    "id": "docker-environment-consistency",
+    "category": "DevOps",
+    "question": "How does Docker help with environment consistency?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "How does Docker help with environment consistency?"
+    ],
+    "answerSEE": {
+      "simple": "It packages the application and all its dependencies into a single immutable image.",
+      "explain": "Docker ensures that the exact same OS, libraries, and binaries used in development are shipped to production. This eliminates the 'it works on my machine' problem.",
+      "example": "\"Docker guarantees that the exact environment I developed on locally is replicated in production. The Dockerfile locks down the OS version, Node version, and libraries. I just build an image and deploy it anywhere, eliminating the 'it works on my machine' problem.\"",
+      "summary10s": "Packages app + dependencies into an image, eliminating 'works on my machine'."
+    }
+  },
+  {
+    "id": "containerization-benefits-microservices",
+    "category": "DevOps",
+    "question": "What are the benefits of containerization in Microservices architecture?",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "What are the benefits of containerization in Microservices architecture?"
+    ],
+    "answerSEE": {
+      "simple": "Isolation, portability, fast scaling, and consistent deployments.",
+      "explain": "Containerization isolates each microservice so they don't share underlying libraries and can be written in different languages. They start up in milliseconds, making them perfect for dynamic scaling in environments like Kubernetes.",
+      "example": "\"In a microservices architecture, containers ensure that my Java service and my Python service don't conflict over OS libraries. Because containers are lightweight, Kubernetes can spin up new instances of a heavy-load service in milliseconds, allowing rapid auto-scaling.\"",
+      "summary10s": "Isolates dependencies, ensures portability, and enables rapid scaling via Kubernetes."
+    }
+  },
+  {
+    "id": "rotate-array-k-steps",
+    "category": "Java Coding",
+    "question": "Rotate Array by k steps",
+    "frequency": 1,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Rotate Array",
+      "Rotate Array by k steps"
+    ],
+    "answerSEE": {
+      "simple": "Use the reversal algorithm: Reverse the entire array, reverse the first k elements, then reverse the rest.",
+      "explain": "To achieve O(1) space and O(N) time, first normalize k = k % n. Then reverse the whole array. Reverse the first k elements. Finally, reverse the remaining n - k elements.",
+      "example": "\"To rotate an array by K without extra space, I use the Reversal Algorithm. First, I do k = k % length to avoid useless rotations. I reverse the entire array. Then, I reverse the subarray from 0 to k-1. Finally, I reverse the subarray from k to the end. Time complexity is O(N) and space is O(1).\"",
+      "summary10s": "Reversal Algorithm: Reverse all, reverse 0 to k-1, reverse k to end. O(N) time, O(1) space."
+    }
+  },
+  {
+    "id": "how-does-spring-boot-decide-auto-configuration",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot decide which auto-configuration to apply?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot decide which auto-configuration to apply?"
+    ],
+    "answerSEE": {
+      "simple": "By using @Conditional annotations to check the classpath, beans, and properties.",
+      "explain": "Auto-configuration classes in spring.factories use @ConditionalOnClass, @ConditionalOnMissingBean, and @ConditionalOnProperty. If the conditions are met (e.g., Tomcat class is present), Spring instantiates the configuration.",
+      "example": "\"Spring Boot decides by checking conditions. If I add H2 to the pom.xml, Spring sees the H2 classes on the classpath. The DataSourceAutoConfiguration class uses @ConditionalOnClass(DataSource.class), so it activates and creates a DataSource bean for me automatically.\"",
+      "summary10s": "Uses @Conditional annotations to inspect classpath and existing beans."
+    }
+  },
+  {
+    "id": "why-convention-over-configuration",
+    "category": "Spring Boot",
+    "question": "Why does Spring Boot follow Convention over Configuration?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Why does Spring Boot follow Convention over Configuration?"
+    ],
+    "answerSEE": {
+      "simple": "To reduce boilerplate code by assuming sensible defaults.",
+      "explain": "Instead of requiring developers to explicitly specify every configuration (like defining a DispatcherServlet in XML), Spring Boot assumes standard defaults (like Tomcat on port 8080). You only write configuration when you need to override the default convention.",
+      "example": "\"It saves me time. I don't need to configure a web server or a dispatcher servlet. The convention is that if I'm building a web app, I probably want Tomcat on port 8080. I only configure it if I want something unconventional, like port 8081.\"",
+      "summary10s": "Assumes sensible defaults to eliminate boilerplate XML/Java config."
+    }
+  },
+  {
+    "id": "componentscan-vs-springbootapplication",
+    "category": "Spring Boot",
+    "question": "Difference between @ComponentScan and @SpringBootApplication?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Difference between @ComponentScan and @SpringBootApplication?"
+    ],
+    "answerSEE": {
+      "simple": "@SpringBootApplication is a meta-annotation that includes @ComponentScan along with @EnableAutoConfiguration and @Configuration.",
+      "explain": "@ComponentScan simply tells Spring to scan the current package and sub-packages for components (@Service, @Controller). @SpringBootApplication does that, plus it triggers Spring Boot's auto-configuration mechanism and marks the class as a configuration source.",
+      "example": "\"@ComponentScan is just one part of the puzzle. When I use @SpringBootApplication on my main class, it automatically gives me @ComponentScan for the current package, but it also fires up @EnableAutoConfiguration to set up Tomcat and other dependencies.\"",
+      "summary10s": "@SpringBootApplication = @ComponentScan + @EnableAutoConfiguration + @Configuration."
+    }
+  },
+  {
+    "id": "role-of-springfactoriesloader",
+    "category": "Spring Boot",
+    "question": "What is the role of SpringFactoriesLoader?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is the role of SpringFactoriesLoader?"
+    ],
+    "answerSEE": {
+      "simple": "It loads factory classes and auto-configurations from META-INF/spring.factories files.",
+      "explain": "When Spring Boot starts, it needs to find all auto-configuration classes across all JARs. SpringFactoriesLoader reads the META-INF/spring.factories (or the new imports file in Boot 2.7+) and instantiates the classes listed under EnableAutoConfiguration.",
+      "example": "\"SpringFactoriesLoader is the engine behind auto-configuration discovery. It scans all my dependency JARs for a META-INF/spring.factories file, reads the list of AutoConfiguration classes, and loads them into the ApplicationContext.\"",
+      "summary10s": "Reads META-INF/spring.factories to discover auto-configuration classes across JARs."
+    }
+  },
+  {
+    "id": "reduce-xml-configuration",
+    "category": "Spring Boot",
+    "question": "How did Spring Boot reduce the need for XML configuration?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How did Spring Boot reduce the need for XML configuration?"
+    ],
+    "answerSEE": {
+      "simple": "By using annotation-based Java Config and Auto-Configuration.",
+      "explain": "Older Spring relied heavily on web.xml and applicationContext.xml. Spring Boot replaced this with Java classes annotated with @Configuration, and eliminated boilerplate completely using @EnableAutoConfiguration and opinionated starters.",
+      "example": "\"In the past, I had to write an XML file just to map the DispatcherServlet. Spring Boot eliminated this. Now, I just add the web starter, and Auto-Configuration uses Java code and annotations internally to set it all up without a single XML file.\"",
+      "summary10s": "Replaced XML with @Configuration classes and @EnableAutoConfiguration."
+    }
+  },
+  {
+    "id": "spring-boot-dependency-management",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot manage dependency versions?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot manage dependency versions?"
+    ],
+    "answerSEE": {
+      "simple": "Using the spring-boot-dependencies BOM (Bill of Materials).",
+      "explain": "When you inherit from spring-boot-starter-parent, it provides a curated, tested list of dependency versions (the BOM). You don't need to specify the <version> tag for dependencies like Jackson or Hibernate, ensuring compatibility and avoiding version conflicts.",
+      "example": "\"I never specify versions for standard libraries anymore. Because my project inherits from the Spring Boot starter parent, it automatically pulls compatible versions of Hibernate, Jackson, and Tomcat from the Spring Boot BOM, preventing dependency hell.\"",
+      "summary10s": "Uses a curated BOM (starter-parent) so you don't need to specify <version> tags."
+    }
+  },
+  {
+    "id": "application-yml-vs-properties",
+    "category": "Spring Boot",
+    "question": "What happens when both application.yml and application.properties exist?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What happens when both application.yml and application.properties exist?"
+    ],
+    "answerSEE": {
+      "simple": "Both are loaded, but application.properties has higher precedence and will override application.yml.",
+      "explain": "Spring Boot loads properties from multiple sources. If the same key is defined in both application.properties and application.yml in the same location, the value in application.properties wins.",
+      "example": "\"If I accidentally have both files in my resources folder, Spring loads both. However, if I set server.port=8080 in the YAML and server.port=9090 in the properties, the app will start on 9090 because application.properties takes precedence.\"",
+      "summary10s": "Both load, but application.properties overrides application.yml."
+    }
+  },
+  {
+    "id": "autoconfigure-datasource",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot auto-configure a DataSource?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot auto-configure a DataSource?"
+    ],
+    "answerSEE": {
+      "simple": "DataSourceAutoConfiguration checks the classpath for a DB driver and reads properties to create a HikariCP bean.",
+      "explain": "If a driver like MySQL or H2 is on the classpath, and no custom DataSource bean exists, Spring reads spring.datasource.* properties (URL, username, password) and automatically initializes a connection pool, defaulting to HikariCP.",
+      "example": "\"When I add the MySQL driver and Spring Data JPA to my pom, DataSourceAutoConfiguration kicks in. It sees I haven't defined my own DataSource bean, so it reads the database URL from my properties file and creates a Hikari connection pool bean automatically.\"",
+      "summary10s": "Checks classpath for driver, reads URL/credentials, and creates HikariCP bean."
+    }
+  },
+  {
+    "id": "commandlinerunner-use",
+    "category": "Spring Boot",
+    "question": "What is the practical use of CommandLineRunner?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is the practical use of CommandLineRunner?"
+    ],
+    "answerSEE": {
+      "simple": "To execute code exactly once right after the Spring Boot application starts up.",
+      "explain": "Any bean implementing CommandLineRunner (or ApplicationRunner) will have its run() method called after the application context is fully loaded but before the application starts accepting traffic. It's useful for initial data seeding or startup scripts.",
+      "example": "\"I use CommandLineRunner to insert mock data into my database at startup. Once the Spring context is fully initialized, my runner executes, saves 10 default admin users to the database using the Repository, and then the app is ready for requests.\"",
+      "summary10s": "Executes one-time startup logic (like data seeding) right after context loads."
+    }
+  },
+  {
+    "id": "exception-translation-spring",
+    "category": "Spring Boot",
+    "question": "How does Spring handle exception translation?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How does Spring handle exception translation?"
+    ],
+    "answerSEE": {
+      "simple": "It converts vendor-specific database exceptions (like SQLException) into Spring's unified DataAccessException hierarchy.",
+      "explain": "Spring uses @Repository and exception translation post-processors to catch checked exceptions from underlying technologies (Hibernate, JDBC) and wrap them into runtime DataAccessExceptions, keeping business logic decoupled from specific DB implementations.",
+      "example": "\"If I switch from Oracle to PostgreSQL, the exact SQLExceptions thrown will change. But because I annotate my DAO with @Repository, Spring intercepts the errors and translates them into a generic DataAccessException. My service layer just catches that generic exception, completely unaware of the underlying DB.\"",
+      "summary10s": "Converts DB-specific SQLExceptions into unified, unchecked DataAccessExceptions."
+    }
+  },
+  {
+    "id": "enableautoconfiguration-vs-import",
+    "category": "Spring Boot",
+    "question": "Difference between @EnableAutoConfiguration and @Import?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Difference between @EnableAutoConfiguration and @Import?"
+    ],
+    "answerSEE": {
+      "simple": "@EnableAutoConfiguration guesses and configures beans dynamically, while @Import explicitly loads specific configuration classes.",
+      "explain": "@EnableAutoConfiguration is broad and dynamic—it looks at the classpath to decide what to configure. @Import is manual and explicit—you tell Spring exactly which @Configuration class to load, regardless of classpath conditions.",
+      "example": "\"I use @EnableAutoConfiguration to let Spring Boot do the heavy lifting, like setting up Tomcat automatically. But if I have a specific security configuration class from a separate shared library, I use @Import(SharedSecurityConfig.class) to explicitly wire it in.\"",
+      "summary10s": "@EnableAutoConfiguration is automatic and conditional. @Import is explicit and manual."
+    }
+  },
+  {
+    "id": "exclude-autoconfiguration",
+    "category": "Spring Boot",
+    "question": "What happens when an auto-configuration class is excluded?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What happens when an auto-configuration class is excluded?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot skips that specific auto-configuration, leaving you to configure that feature manually (or not at all).",
+      "explain": "Using the 'exclude' attribute on @SpringBootApplication (e.g., exclude=DataSourceAutoConfiguration.class) tells Spring to ignore that class during the auto-configuration phase, preventing it from creating default beans for that feature.",
+      "example": "\"In one project, we didn't use a relational database, but a dependency transitively pulled in a DB driver. Spring Boot kept trying to auto-configure a DataSource and failing. I added exclude = DataSourceAutoConfiguration.class, which completely disabled the DB setup.\"",
+      "summary10s": "Disables specific auto-configuration, stopping Spring from creating those default beans."
+    }
+  },
+  {
+    "id": "spring-boot-for-microservices",
+    "category": "Spring Boot",
+    "question": "Why is Spring Boot widely used for microservices?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Why is Spring Boot widely used for microservices?"
+    ],
+    "answerSEE": {
+      "simple": "Because it creates standalone, self-contained applications with embedded servers.",
+      "explain": "Microservices need to be independently deployable. Spring Boot embeds Tomcat/Undertow directly into a single fat JAR. Combined with auto-configuration and the Spring Cloud ecosystem, it allows rapid development of independent services.",
+      "example": "\"Before Spring Boot, deploying a service meant installing Tomcat on a server and copying a WAR file. Now, Spring Boot bundles Tomcat inside the JAR. I just run 'java -jar app.jar' and it works. This makes it incredibly easy to containerize and deploy microservices.\"",
+      "summary10s": "Embedded servers, fat JARs, and rapid auto-configuration make it perfect for independent services."
+    }
+  },
+  {
+    "id": "fat-jar-vs-normal-jar",
+    "category": "Spring Boot",
+    "question": "Difference between a fat JAR and a normal JAR?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Difference between a fat JAR and a normal JAR?"
+    ],
+    "answerSEE": {
+      "simple": "A normal JAR contains only your code; a fat JAR contains your code, all dependency JARs, and an embedded server.",
+      "explain": "A standard JAR requires you to manually provide the classpath of dependencies to run it. A Spring Boot Fat (or Uber) JAR packages all external libraries (like Hibernate) and an embedded Tomcat server inside it, making it executable on its own.",
+      "example": "\"A normal JAR is just a zip of my classes. If I run it, it throws ClassNotFoundException unless I provide a classpath. A Spring Boot fat JAR includes every dependency inside a BOOT-INF/lib folder. I can run it anywhere with 'java -jar' without worrying about external libraries.\"",
+      "summary10s": "Fat JAR includes all dependencies and an embedded server, making it fully standalone."
+    }
+  },
+  {
+    "id": "spring-boot-default-logging",
+    "category": "Spring Boot",
+    "question": "How does Spring Boot handle logging by default?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "How does Spring Boot handle logging by default?"
+    ],
+    "answerSEE": {
+      "simple": "It uses Logback as the default implementation, routed through SLF4J.",
+      "explain": "Spring Boot starters automatically include spring-boot-starter-logging. It configures Logback for output, but uses the SLF4J facade, meaning you can easily swap Logback for Log4j2 by excluding the default starter and including the Log4j2 starter.",
+      "example": "\"By default, I just get INFO-level console logs via Logback. I don't need to configure anything. If I want to change log levels, I simply add 'logging.level.org.springframework=DEBUG' in application.properties. It's fully functional out of the box.\"",
+      "summary10s": "Uses Logback via SLF4J, providing console output out of the box."
+    }
+  },
+  {
+    "id": "spring-boot-cloud-native",
+    "category": "Spring Boot",
+    "question": "Why is Spring Boot commonly used for cloud-native applications?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Why is Spring Boot commonly used for cloud-native applications?"
+    ],
+    "answerSEE": {
+      "simple": "Because it perfectly aligns with 12-factor app principles like externalized configuration, statelessness, and containerization.",
+      "explain": "Cloud-native apps need to be scalable, observable, and environment-agnostic. Spring Boot provides externalized properties (application.yml), health checks and metrics via Actuator, and builds standalone fat JARs that easily drop into Docker containers.",
+      "example": "\"In a Kubernetes environment, Spring Boot is ideal. Actuator provides the /health endpoint for Kubernetes liveness probes. Externalized config allows me to inject environment variables for different stages, keeping the application image immutable as per cloud-native principles.\"",
+      "summary10s": "Fat JARs, external config, and Actuator metrics perfectly match cloud-native/12-factor principles."
+    }
+  },
+  {
+    "id": "spring-boot-performance-mistakes",
+    "category": "Spring Boot",
+    "question": "What are some common Spring Boot performance mistakes?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What are some common Spring Boot performance mistakes?"
+    ],
+    "answerSEE": {
+      "simple": "N+1 query problems, doing heavy work in main thread, fat payloads, and missing indexes.",
+      "explain": "Common issues include unoptimized JPA queries (N+1), large HTTP payloads without pagination, synchronous blocking calls in controllers, failing to use connection pooling properly, and enabling full Actuator metrics in high-throughput paths.",
+      "example": "\"The most common mistake I see is the JPA N+1 problem, where fetching a list of entities fires hundreds of separate queries for their children. Another big one is doing slow I/O (like sending emails) directly in the @RestController thread instead of using @Async or a message queue.\"",
+      "summary10s": "JPA N+1 queries, blocking the HTTP thread, and lack of pagination/caching."
     }
   }
 ];
