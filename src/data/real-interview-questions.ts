@@ -66,7 +66,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 20,
+    "frequency": 21,
     "companies": [
       "Deloitte",
       "EPAM",
@@ -84,7 +84,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Difference between map() vs flatMap()",
       "Diff between map() and flatmap()",
       "Difference between map() and flatMap()",
-      "map() vs flatMap()?"
+      "map() vs flatMap()?",
+      "Explain 'map()' vs 'flatMap()' with an example."
     ],
     "answerSEE": {
       "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
@@ -135,6 +136,39 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "java-equals-hashcode",
+    "category": "Java",
+    "question": "Why do we need to override equals() and hashCode() together?",
+    "frequency": 19,
+    "companies": [
+      "Amazon",
+      "Walmart",
+      "Morgan Stanley",
+      "Capgemini"
+    ],
+    "variations": [
+      "What happens if you only override equals() in HashMap?",
+      "equals() and hashCode()",
+      "Why must \"equals()\" and \"hashCode()\" always follow a strict contract?",
+      "How can \"HashSet\" fail to detect duplicates if that contract is broken?",
+      "\"equals()\" & \"hashCode()\" contract.",
+      "Why must \"equals()\" and \"hashCode()\" follow a contract?",
+      "Why can \"HashSet\" detect duplicate objects incorrectly if \"equals()\" and \"hashCode()\" are implemented badly?",
+      "equals() & hashCode()",
+      "What is the difference between equals() and hashCode()?",
+      "Why are equals() and hashCode() so important?",
+      "What happens if a key is modified after being inserted?",
+      "Two objects have the same 'name'. Why can a 'HashSet' still contain both objects? Explain 'equals()' and 'hashCode()'",
+      "What happens if 'equals()' is overridden but 'hashCode()' is not?"
+    ],
+    "answerSEE": {
+      "simple": "HashMap uses hashCode() to find the correct bucket, and equals() to find the exact object in that bucket. Both must be consistent.",
+      "explain": "In simple terms, equal objects MUST have equal hashCodes. If you only override equals(), two equal objects might get different hashCodes and land in different buckets. If you only override hashCode(), they land in the same bucket but equals() will say they are different objects.",
+      "example": "\"hashCode() decides which bucket an object goes into, and equals() confirms if it's truly the same object within that bucket. If I only override equals(), a HashSet would treat equal objects as distinct, and HashMap.get() would fail to find an existing key. That's why we always override both together.\"",
+      "summary10s": "Override only one → broken lookups or duplicates. Always override both together."
+    }
+  },
+  {
     "id": "what-is-a-functional-interface",
     "category": "Java",
     "question": "What is a Functional Interface?",
@@ -164,37 +198,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "It can have multiple default or static methods, but only one abstract method. The @FunctionalInterface annotation is optional but recommended to prevent others from accidentally adding a second abstract method.",
       "example": "The standard `Runnable` or `Comparator` interfaces are functional interfaces. If I want to pass a block of code as a parameter to a method, the method must accept a Functional Interface. I can then pass a lambda expression like `(a, b) -> a.compareTo(b)`.",
       "summary10s": "Interface with exactly one abstract method. Used as target types for lambda expressions."
-    }
-  },
-  {
-    "id": "java-equals-hashcode",
-    "category": "Java",
-    "question": "Why do we need to override equals() and hashCode() together?",
-    "frequency": 17,
-    "companies": [
-      "Amazon",
-      "Walmart",
-      "Morgan Stanley",
-      "Capgemini"
-    ],
-    "variations": [
-      "What happens if you only override equals() in HashMap?",
-      "equals() and hashCode()",
-      "Why must \"equals()\" and \"hashCode()\" always follow a strict contract?",
-      "How can \"HashSet\" fail to detect duplicates if that contract is broken?",
-      "\"equals()\" & \"hashCode()\" contract.",
-      "Why must \"equals()\" and \"hashCode()\" follow a contract?",
-      "Why can \"HashSet\" detect duplicate objects incorrectly if \"equals()\" and \"hashCode()\" are implemented badly?",
-      "equals() & hashCode()",
-      "What is the difference between equals() and hashCode()?",
-      "Why are equals() and hashCode() so important?",
-      "What happens if a key is modified after being inserted?"
-    ],
-    "answerSEE": {
-      "simple": "HashMap uses hashCode() to find the correct bucket, and equals() to find the exact object in that bucket. Both must be consistent.",
-      "explain": "In simple terms, equal objects MUST have equal hashCodes. If you only override equals(), two equal objects might get different hashCodes and land in different buckets. If you only override hashCode(), they land in the same bucket but equals() will say they are different objects.",
-      "example": "\"hashCode() decides which bucket an object goes into, and equals() confirms if it's truly the same object within that bucket. If I only override equals(), a HashSet would treat equal objects as distinct, and HashMap.get() would fail to find an existing key. That's why we always override both together.\"",
-      "summary10s": "Override only one → broken lookups or duplicates. Always override both together."
     }
   },
   {
@@ -229,6 +232,37 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "circuit-breaker",
+    "category": "Microservices",
+    "question": "Circuit Breaker",
+    "frequency": 15,
+    "companies": [
+      "EPAM",
+      "Deloitte",
+      "Accenture",
+      "Capgemini",
+      "HCL Technologies"
+    ],
+    "variations": [
+      "Explain Circuit Breaker, Retry and Timeout patterns.",
+      "How do you prevent cascading failures in microservices?",
+      "How would you technically implement the Circuit Breaker pattern?",
+      "Circuit Breaker & why retries can worsen an outage.",
+      "What is circuit breaker pattern and why is it important?",
+      "An external API takes 20 seconds to respond. How would you protect your service?",
+      "Circuit Breaker?",
+      "What is the circuit breaker design pattern in Java?",
+      "Can you explain the circuit breaker pattern? When have you used it?",
+      "Explain the Circuit Breaker pattern."
+    ],
+    "answerSEE": {
+      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
+      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
+      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
+      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
+    }
+  },
+  {
     "id": "what-is-executorservice",
     "category": "Java",
     "question": "What is ExecutorService?",
@@ -255,37 +289,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Maintains a thread pool + task queue, reuses threads\nDifferent types: FixedThreadPool, CachedThreadPool, ScheduledThreadPool\nAvoids the overhead of constant thread creation/destruction",
       "example": "\"ExecutorService manages a pool of worker threads and a queue of tasks internally. When I submit a task, an available thread picks it up, or it waits in the queue if all threads are busy. This avoids the overhead of creating a new thread for every task. I usually use Executors.newFixedThreadPool() for predictable workloads.\"",
       "summary10s": "Thread pool + task queue — reuses threads instead of creating new ones."
-    }
-  },
-  {
-    "id": "circuit-breaker",
-    "category": "Microservices",
-    "question": "Circuit Breaker",
-    "frequency": 14,
-    "companies": [
-      "EPAM",
-      "Deloitte",
-      "Accenture",
-      "Capgemini",
-      "HCL Technologies"
-    ],
-    "variations": [
-      "Explain Circuit Breaker, Retry and Timeout patterns.",
-      "How do you prevent cascading failures in microservices?",
-      "How would you technically implement the Circuit Breaker pattern?",
-      "Circuit Breaker & why retries can worsen an outage.",
-      "What is circuit breaker pattern and why is it important?",
-      "An external API takes 20 seconds to respond. How would you protect your service?",
-      "Circuit Breaker?",
-      "What is the circuit breaker design pattern in Java?",
-      "Can you explain the circuit breaker pattern? When have you used it?",
-      "Explain the Circuit Breaker pattern."
-    ],
-    "answerSEE": {
-      "simple": "Monitors failures, opens circuit after threshold, returns fallback — prevents cascade failure.",
-      "explain": "Closed state — normal operation, requests pass through\nOpen state — failure threshold crossed, requests blocked, fallback returned immediately\nHalf-Open state — after cooldown, test request sent to check if service recovered\nIf test succeeds — circuit closes again. If fails — stays open\nResilience4j with @CircuitBreaker annotation",
-      "example": "\"\"Circuit Breaker is like an electrical circuit breaker. Normally closed — requests flow through. When downstream service fails repeatedly and crosses failure rate threshold, circuit opens — all requests immediately return fallback without hitting the failing service. After cooldown period it \ngoes half-open and sends one test request. This prevents one slow service from blocking all threads and cascading failure to the entire system.\"\"",
-      "summary10s": "Closed=normal, Open=block+fallback after threshold, Half-Open=test recovery, prevents cascade failure."
     }
   },
   {
@@ -644,6 +647,32 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "how-does-transactional-work-internally",
+    "category": "Spring Boot",
+    "question": "How does @Transactional work internally?",
+    "frequency": 10,
+    "companies": [
+      "EPAM",
+      "Infosys",
+      "Capgemini"
+    ],
+    "variations": [
+      "How does @Transactional work?",
+      "How @Transactional Works",
+      "How does @Transactional work internally in Spring Boot?",
+      "What is @Transactional and where would you use it?",
+      "Have you used @Transactional? Where and why did you use it?",
+      "What happens internally when @Transactional is used?",
+      "How does '@Transactional' work internally?"
+    ],
+    "answerSEE": {
+      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
+      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
+      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
+      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
+    }
+  },
+  {
     "id": "system-design-put-vs-patch",
     "category": "System Design",
     "question": "Difference between PUT and PATCH? How to make PATCH idempotent?",
@@ -714,31 +743,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Default — Angular checks all components on every browser event, timer, or async operation (can be expensive)\nOnPush — only re-checks when @Input() reference changes, an event originates inside the component, or an Observable (via async pipe) emits\nOnPush requires immutable data patterns (new object reference, not mutation) to trigger detection",
       "example": "\"Default change detection checks the entire component tree on every possible event, which can get expensive in large apps. OnPush only triggers a check when the Input reference actually changes, an event happens inside that component, or an observable through the async pipe emits. To use OnPush correctly, I make sure to treat data immutably — passing a new object reference instead of mutating the existing one — otherwise Angular won't detect the change.\"",
       "summary10s": "Default = checks everything, OnPush = checks only on Input reference change/local event."
-    }
-  },
-  {
-    "id": "how-does-transactional-work-internally",
-    "category": "Spring Boot",
-    "question": "How does @Transactional work internally?",
-    "frequency": 9,
-    "companies": [
-      "EPAM",
-      "Infosys",
-      "Capgemini"
-    ],
-    "variations": [
-      "How does @Transactional work?",
-      "How @Transactional Works",
-      "How does @Transactional work internally in Spring Boot?",
-      "What is @Transactional and where would you use it?",
-      "Have you used @Transactional? Where and why did you use it?",
-      "What happens internally when @Transactional is used?"
-    ],
-    "answerSEE": {
-      "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
-      "explain": "Spring wraps bean in proxy using AOP\nProxy opens DB transaction before method executes\nMethod runs, if success proxy commits\nIf RuntimeException thrown, proxy rolls back\nSelf-invocation bypasses proxy — transaction does not apply",
-      "example": "\"@Transactional works through a Spring AOP proxy. When I call a transactional method, the proxy intercepts, opens a database transaction, runs my method, and commits on success or rolls back on RuntimeException. The critical thing I always remember is self-invocation — calling @Transactional method from same class bypasses proxy so transaction never starts.\"",
-      "summary10s": "AOP proxy opens transaction, commit on success, rollback on exception, self-invocation bypasses proxy."
     }
   },
   {
@@ -815,6 +819,31 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "what-is-the-saga-pattern",
+    "category": "Microservices",
+    "question": "What is the Saga Pattern?",
+    "frequency": 9,
+    "companies": [
+      "Deloitte",
+      "Capgemini"
+    ],
+    "variations": [
+      "Saga Design Pattern",
+      "Explain Saga pattern and when you would use it.",
+      "Saga?",
+      "Saga Pattern vs 2PC?",
+      "Why is Saga Pattern needed?",
+      "Explain Saga Pattern with a real-world example.",
+      "How would you handle distributed transactions?"
+    ],
+    "answerSEE": {
+      "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
+      "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
+      "example": "\"Saga Pattern manages distributed transactions across microservices — since we can't have one transaction spanning multiple databases, each service does its own local transaction, and if something fails downstream, we run a compensating transaction to undo the earlier steps. I've used it to keep data consistent across order, payment, and inventory services, using the Orchestration style with a central coordinator.\"",
+      "summary10s": "Distributed transaction → local steps + rollback via compensation."
+    }
+  },
+  {
     "id": "spring-kafka-exactly-once",
     "category": "Microservices",
     "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
@@ -835,30 +864,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "On the producer side, we enable Kafka's transactional API to avoid duplicate publishes. On the consumer side, we store a unique idempotency key (like a transaction ID) in the database with a UNIQUE constraint to prevent double processing.",
       "example": "\"Since true exactly-once is very hard end-to-end, I design for effectively-once. On the producer, I enable the idempotent producer flag. On the consumer, I store a unique transaction ID in the DB. Even if a message is redelivered, the duplicate DB insert fails safely. I usually combine this with the Outbox pattern.\"",
       "summary10s": "Idempotent producer + unique transaction ID DB check + Outbox pattern = effectively-once."
-    }
-  },
-  {
-    "id": "what-is-the-saga-pattern",
-    "category": "Microservices",
-    "question": "What is the Saga Pattern?",
-    "frequency": 8,
-    "companies": [
-      "Deloitte",
-      "Capgemini"
-    ],
-    "variations": [
-      "Saga Design Pattern",
-      "Explain Saga pattern and when you would use it.",
-      "Saga?",
-      "Saga Pattern vs 2PC?",
-      "Why is Saga Pattern needed?",
-      "Explain Saga Pattern with a real-world example."
-    ],
-    "answerSEE": {
-      "simple": "Saga Pattern manages transactions across multiple microservices using local transactions plus compensating actions.",
-      "explain": "Each service does its own local transaction; failure triggers a compensating (undo) transaction\nTwo types: Choreography (event-based) and Orchestration (central controller)\nEnsures eventual consistency, not immediate consistency",
-      "example": "\"Saga Pattern manages distributed transactions across microservices — since we can't have one transaction spanning multiple databases, each service does its own local transaction, and if something fails downstream, we run a compensating transaction to undo the earlier steps. I've used it to keep data consistent across order, payment, and inventory services, using the Orchestration style with a central coordinator.\"",
-      "summary10s": "Distributed transaction → local steps + rollback via compensation."
     }
   },
   {
@@ -963,6 +968,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "how-do-microservices-communicate-with-each-other",
+    "category": "Microservices",
+    "question": "How do microservices communicate with each other?",
+    "frequency": 8,
+    "companies": [
+      "Flipkart",
+      "Capgemini",
+      "HCL Technologies"
+    ],
+    "variations": [
+      "How do microservices communicate?",
+      "Microservices Communication",
+      "Inter-service communication",
+      "How do microservices communicate? REST vs Kafka",
+      "How would you handle communication between two microservices?"
+    ],
+    "answerSEE": {
+      "simple": "Synchronously via REST/gRPC or asynchronously via Message Brokers like Kafka/RabbitMQ.",
+      "explain": "Synchronous communication blocks the caller until a response is received, which is good for querying data but creates tight coupling. Asynchronous communication uses events/messages, which is fire-and-forget, leading to loose coupling and better fault tolerance.",
+      "example": "We use two main approaches. For real-time data fetching, like the Order service asking the User service for a profile, we use REST APIs via Feign Client. For state changes, like sending an email after an order is placed, we use asynchronous events via Kafka so the Order service doesn't have to wait for the email to send.",
+      "summary10s": "REST/gRPC for synchronous reads. Kafka/RabbitMQ for asynchronous events."
+    }
+  },
+  {
     "id": "fail-fast-vs-fail-safe-iterator",
     "category": "Java",
     "question": "Fail-Fast vs Fail-Safe Iterator",
@@ -1029,29 +1058,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "how-do-microservices-communicate-with-each-other",
-    "category": "Microservices",
-    "question": "How do microservices communicate with each other?",
-    "frequency": 7,
-    "companies": [
-      "Flipkart",
-      "Capgemini",
-      "HCL Technologies"
-    ],
-    "variations": [
-      "How do microservices communicate?",
-      "Microservices Communication",
-      "Inter-service communication",
-      "How do microservices communicate? REST vs Kafka"
-    ],
-    "answerSEE": {
-      "simple": "Synchronously via REST/gRPC or asynchronously via Message Brokers like Kafka/RabbitMQ.",
-      "explain": "Synchronous communication blocks the caller until a response is received, which is good for querying data but creates tight coupling. Asynchronous communication uses events/messages, which is fire-and-forget, leading to loose coupling and better fault tolerance.",
-      "example": "We use two main approaches. For real-time data fetching, like the Order service asking the User service for a profile, we use REST APIs via Feign Client. For state changes, like sending an email after an order is placed, we use asynchronous events via Kafka so the Order service doesn't have to wait for the email to send.",
-      "summary10s": "REST/gRPC for synchronous reads. Kafka/RabbitMQ for asynchronous events."
-    }
-  },
-  {
     "id": "how-to-optimize-slow-queries",
     "category": "Java",
     "question": "How to optimize slow queries?",
@@ -1093,6 +1099,72 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Loop from last index to 0\nAppend each character to a new string or StringBuilder\nStringBuilder approach is more efficient — no new String object each iteration\nTime O(n), Space O(n)",
       "example": "\"I loop from the last index of the string down to zero and append each character to a StringBuilder. Finally I return the StringBuilder as a string. This avoids using reverse method and runs in O(n) time. Using StringBuilder instead of string concatenation avoids creating unnecessary intermediate string objects.\"",
       "summary10s": "Loop from end to start, append each char to StringBuilder, return result."
+    }
+  },
+  {
+    "id": "how-does-the-spring-container-work",
+    "category": "Spring Boot",
+    "question": "How does the Spring Container work?",
+    "frequency": 7,
+    "companies": [],
+    "variations": [
+      "Internal Working of Spring Container",
+      "Spring annotations: @Component, @Bean, @Qualifier, @Value",
+      "What is the difference between @Component, @Bean, and @Configuration beyond simply “creating beans”?",
+      "How does the Spring Container work?",
+      "How does Dependency Injection work internally in Spring?"
+    ],
+    "answerSEE": {
+      "simple": "Spring scans classes, creates beans, injects dependencies, and manages their lifecycle.",
+      "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
+      "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
+      "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
+    }
+  },
+  {
+    "id": "coding-first-non-repeating-character-stream",
+    "category": "Java Coding",
+    "question": "Find the first non-repeating character using Java 8 Streams",
+    "frequency": 7,
+    "companies": [
+      "EPAM",
+      "Wissen Technology",
+      "HCL Technologies"
+    ],
+    "variations": [
+      "Find the first non-repeating character in a string.",
+      "Find first non-repeated character in String",
+      "Coding: Given a string, find the first non-repeating character using Java 8 Stream API.",
+      "Find the First Non-Repeating Character",
+      "Find the first non-repeated character in a String."
+    ],
+    "answerSEE": {
+      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
+      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
+      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
+      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
+    }
+  },
+  {
+    "id": "what-is-controlleradvice",
+    "category": "Spring Boot",
+    "question": "What is @ControllerAdvice?",
+    "frequency": 7,
+    "companies": [
+      "HCL Technologies"
+    ],
+    "variations": [
+      "Exception Handling and Controller Advisor",
+      "ControllerAdvice & global exception handling.",
+      "What is @ControllerAdvice?",
+      "How do you implement global exception handling using @ControllerAdvice?",
+      "How would you implement Global Exception Handling in a REST API?"
+    ],
+    "answerSEE": {
+      "simple": "Exception handling manages errors gracefully, ControllerAdvice centralizes it for all controllers.",
+      "explain": "@ControllerAdvice — global exception handler class\n@ExceptionHandler inside it handles specific exception types\nReturns consistent error response with proper HTTP status\nNo try-catch needed in individual controllers",
+      "example": "\"Instead of try-catch in every controller, I create one class with @ControllerAdvice. Inside it @ExceptionHandler methods each handle a specific exception type and return a structured error response with the right HTTP status code. This keeps controllers clean and ensures consistent error format across all APIs.\"",
+      "summary10s": "@ControllerAdvice + @ExceptionHandler = central error handling, consistent response format."
     }
   },
   {
@@ -1270,25 +1342,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "how-does-the-spring-container-work",
-    "category": "Spring Boot",
-    "question": "How does the Spring Container work?",
-    "frequency": 6,
-    "companies": [],
-    "variations": [
-      "Internal Working of Spring Container",
-      "Spring annotations: @Component, @Bean, @Qualifier, @Value",
-      "What is the difference between @Component, @Bean, and @Configuration beyond simply “creating beans”?",
-      "How does the Spring Container work?"
-    ],
-    "answerSEE": {
-      "simple": "Spring scans classes, creates beans, injects dependencies, and manages their lifecycle.",
-      "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
-      "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
-      "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
-    }
-  },
-  {
     "id": "what-is-n-1-problem",
     "category": "Spring Boot",
     "question": "What is N+1 Problem",
@@ -1308,29 +1361,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Fetch 10 orders — 1 query. Access each order's items lazily — 10 more queries. Total 11\nSilently kills performance — 100 customers means 101 queries, 1000 means 1001\nLooks fine in tests with small data, catastrophic in production with real volume\nDetect with show_sql enabled in dev — count queries per request\nHibernate Batch Fetching can partially help but JOIN FETCH is the proper fix\n\nExample:\n// N+1 problem\nList<Order> orders = orderRepository.findAll();  // 1 query: SELECT * FROM orders\norders.forEach(order -> {\n    // EACH iteration fires a query: SELECT * FROM items WHERE order_id = ?\n    System.out.println(order.getItems().size()); // N queries!\n});\n// Total: 1 + N queries\n\n// Fix with JOIN FETCH\n@Query(\"SELECT o FROM Order o JOIN FETCH o.items\")\nList<Order> findAllWithItems(); // 1 query with JOIN: SELECT o.*, i.* FROM orders o JOIN items i",
       "example": "\"N+1 is when Hibernate fires one query for the list and then one additional query per element to load a lazy relationship. Loading 100 orders and accessing items for each fires 101 queries — unnoticed in development with 5 rows of test data but catastrophic in production with 10,000 orders. I always enable show_sql in development and count queries per API call. As soon as I see the same query pattern repeating I know there's an N+1 and fix it with JOIN FETCH.\"",
       "summary10s": "1 query for list + N queries for lazy child = N+1. Enable show_sql to detect, fix with JOIN FETCH or @EntityGraph."
-    }
-  },
-  {
-    "id": "coding-first-non-repeating-character-stream",
-    "category": "Java Coding",
-    "question": "Find the first non-repeating character using Java 8 Streams",
-    "frequency": 6,
-    "companies": [
-      "EPAM",
-      "Wissen Technology",
-      "HCL Technologies"
-    ],
-    "variations": [
-      "Find the first non-repeating character in a string.",
-      "Find first non-repeated character in String",
-      "Coding: Given a string, find the first non-repeating character using Java 8 Stream API.",
-      "Find the First Non-Repeating Character"
-    ],
-    "answerSEE": {
-      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
-      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
-      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
-      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
     }
   },
   {
@@ -1356,27 +1386,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-is-controlleradvice",
-    "category": "Spring Boot",
-    "question": "What is @ControllerAdvice?",
-    "frequency": 6,
-    "companies": [
-      "HCL Technologies"
-    ],
-    "variations": [
-      "Exception Handling and Controller Advisor",
-      "ControllerAdvice & global exception handling.",
-      "What is @ControllerAdvice?",
-      "How do you implement global exception handling using @ControllerAdvice?"
-    ],
-    "answerSEE": {
-      "simple": "Exception handling manages errors gracefully, ControllerAdvice centralizes it for all controllers.",
-      "explain": "@ControllerAdvice — global exception handler class\n@ExceptionHandler inside it handles specific exception types\nReturns consistent error response with proper HTTP status\nNo try-catch needed in individual controllers",
-      "example": "\"Instead of try-catch in every controller, I create one class with @ControllerAdvice. Inside it @ExceptionHandler methods each handle a specific exception type and return a structured error response with the right HTTP status code. This keeps controllers clean and ensures consistent error format across all APIs.\"",
-      "summary10s": "@ControllerAdvice + @ExceptionHandler = central error handling, consistent response format."
-    }
-  },
-  {
     "id": "explain-transactional-annotation-in-spring",
     "category": "Spring Boot",
     "question": "Explain @Transactional annotation in Spring",
@@ -1398,6 +1407,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "",
       "example": "",
       "summary10s": ""
+    }
+  },
+  {
+    "id": "given-a-list-of-integers-find-print-duplicate-values-using-java-8-streams",
+    "category": "Java Coding",
+    "question": "Given a list of integers, find/print duplicate values using Java 8 Streams.",
+    "frequency": 6,
+    "companies": [
+      "Accenture",
+      "Capgemini",
+      "HCL Technologies"
+    ],
+    "variations": [
+      "Find duplicate elements using Streams",
+      "Find duplicate elements",
+      "Find duplicate elements in an array",
+      "Find Duplicate Elements in an Array",
+      "Find duplicate elements from an array."
+    ],
+    "answerSEE": {
+      "simple": "Use a Set to track seen items, and filter the stream based on whether adding the item to the Set fails.",
+      "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
+      "example": "I would initialize a `Set<Integer> seen = new HashSet<>();`. Then I'd create the stream from the list and use `list.stream().filter(n -> !seen.add(n)).forEach(System.out::println);`. It runs in O(N) time and requires O(N) space for the Set.",
+      "summary10s": "Create an external Set. Use `.filter(n -> !set.add(n))` inside the stream."
     }
   },
   {
@@ -1733,29 +1766,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "given-a-list-of-integers-find-print-duplicate-values-using-java-8-streams",
-    "category": "Java Coding",
-    "question": "Given a list of integers, find/print duplicate values using Java 8 Streams.",
-    "frequency": 5,
-    "companies": [
-      "Accenture",
-      "Capgemini",
-      "HCL Technologies"
-    ],
-    "variations": [
-      "Find duplicate elements using Streams",
-      "Find duplicate elements",
-      "Find duplicate elements in an array",
-      "Find Duplicate Elements in an Array"
-    ],
-    "answerSEE": {
-      "simple": "Use a Set to track seen items, and filter the stream based on whether adding the item to the Set fails.",
-      "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
-      "example": "I would initialize a `Set<Integer> seen = new HashSet<>();`. Then I'd create the stream from the list and use `list.stream().filter(n -> !seen.add(n)).forEach(System.out::println);`. It runs in O(N) time and requires O(N) space for the Set.",
-      "summary10s": "Create an external Set. Use `.filter(n -> !set.add(n))` inside the stream."
-    }
-  },
-  {
     "id": "java-concurrenthashmap-internals",
     "category": "Java",
     "question": "ConcurrentHashMap internals.",
@@ -1794,6 +1804,50 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "A robust microservices architecture needs an API Gateway as the entry point, a Service Registry (like Eureka) for discovery, a centralized Config Server, Load Balancers to distribute traffic, and Circuit Breakers to prevent cascading failures.",
       "example": "\"In my architecture, the client hits the API Gateway. The Gateway talks to the Service Registry to find the IP of the target service. The services pull their configurations from a Config Server. And we wrap inter-service calls with Circuit Breakers to handle downtime gracefully.\"",
       "summary10s": "API Gateway (entry), Registry (discovery), Config Server (settings), Circuit Breaker (resilience)."
+    }
+  },
+  {
+    "id": "what-are-intermediate-and-terminal-operations",
+    "category": "Java",
+    "question": "What are intermediate and terminal operations?",
+    "frequency": 5,
+    "companies": [
+      "Deloitte INDIA"
+    ],
+    "variations": [
+      "Intermediate operation?",
+      "Streams , intermediate and terminal operations.",
+      "Intermediate vs terminal operations",
+      "Explain 'filter()', 'map()', 'sorted()', 'distinct()' and 'collect()'"
+    ],
+    "answerSEE": {
+      "simple": "Intermediate operations return a new stream and are lazy. Terminal operations produce a final result and trigger the execution of the stream.",
+      "explain": "Methods like filter(), map(), and sorted() are intermediate. They do nothing until a terminal operation is called. Methods like collect(), count(), and forEach() are terminal and close the stream.",
+      "example": "If I write `list.stream().filter(x -> x > 10)`, absolutely nothing happens because it's lazy. The filtering only actually executes when I append a terminal operation like `.collect(Collectors.toList())` at the end.",
+      "summary10s": "Intermediate (map, filter) = lazy, returns stream. Terminal (collect, count) = triggers execution, returns result."
+    }
+  },
+  {
+    "id": "spring-boot-auto-config",
+    "category": "Spring Boot",
+    "question": "How does Auto-Configuration work?",
+    "frequency": 5,
+    "companies": [
+      "Accolite",
+      "Bounteous India",
+      "HCL Technologies"
+    ],
+    "variations": [
+      "Explain Spring Boot auto-configuration internally.",
+      "Explain the exact differences between @AutoConfiguration and @EnableAutoConfiguration.",
+      "How does Spring Boot Auto Configuration work?",
+      "How does Spring Boot Auto Configuration work internally?"
+    ],
+    "answerSEE": {
+      "simple": "Spring Boot automatically configures beans based on the JARs on your classpath and the properties defined.",
+      "explain": "@EnableAutoConfiguration reads the spring.factories (or org.springframework.boot.autoconfigure.AutoConfiguration.imports in newer versions) and uses @Conditional annotations to decide which configurations to load.",
+      "example": "\"When I add spring-boot-starter-data-jpa, Auto-Configuration kicks in. It sees Hibernate and JPA on the classpath, checks if I provided database properties, and automatically creates a DataSource, EntityManager, and TransactionManager using @ConditionalOnClass and @ConditionalOnMissingBean.\"",
+      "summary10s": "Scans classpath and properties, uses @Conditional annotations to create necessary beans automatically."
     }
   },
   {
@@ -2124,26 +2178,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "what-are-intermediate-and-terminal-operations",
-    "category": "Java",
-    "question": "What are intermediate and terminal operations?",
-    "frequency": 4,
-    "companies": [
-      "Deloitte INDIA"
-    ],
-    "variations": [
-      "Intermediate operation?",
-      "Streams , intermediate and terminal operations.",
-      "Intermediate vs terminal operations"
-    ],
-    "answerSEE": {
-      "simple": "Intermediate operations return a new stream and are lazy. Terminal operations produce a final result and trigger the execution of the stream.",
-      "explain": "Methods like filter(), map(), and sorted() are intermediate. They do nothing until a terminal operation is called. Methods like collect(), count(), and forEach() are terminal and close the stream.",
-      "example": "If I write `list.stream().filter(x -> x > 10)`, absolutely nothing happens because it's lazy. The filtering only actually executes when I append a terminal operation like `.collect(Collectors.toList())` at the end.",
-      "summary10s": "Intermediate (map, filter) = lazy, returns stream. Terminal (collect, count) = triggers execution, returns result."
-    }
-  },
-  {
     "id": "spring-boot-externalized-properties",
     "category": "Spring Boot",
     "question": "How does Spring load externalized properties at runtime?",
@@ -2200,25 +2234,59 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "spring-boot-auto-config",
-    "category": "Spring Boot",
-    "question": "How does Auto-Configuration work?",
+    "id": "microservices-retry-vs-timeout",
+    "category": "Microservices",
+    "question": "How do Retry and Socket Timeout work? If both Retry and Circuit Breaker are implemented, which one executes first?",
+    "frequency": 4,
+    "companies": [],
+    "variations": [
+      "If both Retry and Circuit Breaker are implemented, which one executes first?",
+      "Explain Circuit Breaker, Retry and Timeout patterns."
+    ],
+    "answerSEE": {
+      "simple": "Timeout aborts a hanging call. Retry attempts the call again. Retry executes BEFORE the Circuit Breaker opens.",
+      "explain": "A Socket Timeout kills the connection if the server doesn't respond in X seconds. A Retry will then try the call again. The Circuit Breaker wraps the Retry. If the call fails 3 times (due to Retry exhaustion), the Circuit Breaker records a failure. Once failures cross a threshold, the Circuit Breaker opens.",
+      "example": "\"If I have `@Retry` and `@CircuitBreaker` on a method, Resilience4j executes the Retry first. If my service is down, it retries 3 times. All 3 fail. The Circuit Breaker counts that as 1 failed execution. If the next few requests also fail, the Circuit Breaker opens, and subsequent requests bypass the Retry entirely and go straight to the fallback.\"",
+      "summary10s": "Timeout kills hanging calls. Retry tries again. Circuit Breaker wraps Retry and opens after consecutive failures."
+    }
+  },
+  {
+    "id": "is-get-idempotent-what-does-id",
+    "category": "System Design",
+    "question": "Is GET idempotent? What does idempotency mean?",
     "frequency": 4,
     "companies": [
-      "Accolite",
-      "Bounteous India",
       "HCL Technologies"
     ],
     "variations": [
-      "Explain Spring Boot auto-configuration internally.",
-      "Explain the exact differences between @AutoConfiguration and @EnableAutoConfiguration.",
-      "How does Spring Boot Auto Configuration work?"
+      "Explain idempotency in REST APIs.",
+      "What is an Idempotent API?",
+      "How would you make a REST API idempotent?"
     ],
     "answerSEE": {
-      "simple": "Spring Boot automatically configures beans based on the JARs on your classpath and the properties defined.",
-      "explain": "@EnableAutoConfiguration reads the spring.factories (or org.springframework.boot.autoconfigure.AutoConfiguration.imports in newer versions) and uses @Conditional annotations to decide which configurations to load.",
-      "example": "\"When I add spring-boot-starter-data-jpa, Auto-Configuration kicks in. It sees Hibernate and JPA on the classpath, checks if I provided database properties, and automatically creates a DataSource, EntityManager, and TransactionManager using @ConditionalOnClass and @ConditionalOnMissingBean.\"",
-      "summary10s": "Scans classpath and properties, uses @Conditional annotations to create necessary beans automatically."
+      "simple": "Yes, GET is idempotent. Idempotency means making the same request multiple times yields the same result on the server.",
+      "explain": "An operation is idempotent if executing it once has the same effect as executing it multiple times. GET just reads data without changing the server's state, so calling it 100 times leaves the server in the exact same state as calling it once.",
+      "example": "\"Idempotency means repeating a request doesn't change the outcome on the server. GET is definitely idempotent because it only retrieves data. If I call GET /users/1 five times, the database state remains exactly the same. This makes it safe for clients to retry GET requests if a network timeout occurs.\"",
+      "summary10s": "Idempotent = repeating request gives same server state. GET is idempotent (read-only)."
+    }
+  },
+  {
+    "id": "sql-inner-join-vs-left-join",
+    "category": "SQL",
+    "question": "INNER JOIN vs LEFT JOIN",
+    "frequency": 4,
+    "companies": [
+      "HCL Technologies"
+    ],
+    "variations": [
+      "INNER JOIN vs LEFT JOIN",
+      "Explain INNER JOIN vs LEFT JOIN using the given tables."
+    ],
+    "answerSEE": {
+      "simple": "INNER JOIN returns only matching rows from both tables; LEFT JOIN returns all rows from the left table, with nulls for unmatched right-side data.",
+      "explain": "INNER JOIN — only rows with a match in both tables\nLEFT JOIN — all rows from left table + matched data from right, NULL if no match\nChoose LEFT JOIN when you need to keep records even without a related match (e.g., customers with no orders)",
+      "example": "\"INNER JOIN only returns rows where there's a match in both tables. LEFT JOIN returns every row from the left table regardless of whether there's a match, filling in NULLs for the right table's columns when there isn't one. I use LEFT JOIN when I need to preserve records that might not have a related row, like listing all customers even those with zero orders.\"",
+      "summary10s": "INNER = only matches, LEFT = all from left table + matches, NULL if none."
     }
   },
   {
@@ -2603,22 +2671,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "You don't apply `@CircuitBreaker` on the controller that receives the request. You apply it on the Service or FeignClient method that *calls* the external microservice. This ensures that if the external service fails, the circuit opens exactly where the call is being made, immediately triggering the fallback method.",
       "example": "\"I apply `@CircuitBreaker(name = \"inventoryService\", fallbackMethod = \"defaultInventory\")` directly on the `getInventory()` method inside my service class, which uses `RestTemplate` to call the Inventory Microservice.\"",
       "summary10s": "Apply it on the method that executes the outbound external network call."
-    }
-  },
-  {
-    "id": "microservices-retry-vs-timeout",
-    "category": "Microservices",
-    "question": "How do Retry and Socket Timeout work? If both Retry and Circuit Breaker are implemented, which one executes first?",
-    "frequency": 3,
-    "companies": [],
-    "variations": [
-      "If both Retry and Circuit Breaker are implemented, which one executes first?"
-    ],
-    "answerSEE": {
-      "simple": "Timeout aborts a hanging call. Retry attempts the call again. Retry executes BEFORE the Circuit Breaker opens.",
-      "explain": "A Socket Timeout kills the connection if the server doesn't respond in X seconds. A Retry will then try the call again. The Circuit Breaker wraps the Retry. If the call fails 3 times (due to Retry exhaustion), the Circuit Breaker records a failure. Once failures cross a threshold, the Circuit Breaker opens.",
-      "example": "\"If I have `@Retry` and `@CircuitBreaker` on a method, Resilience4j executes the Retry first. If my service is down, it retries 3 times. All 3 fail. The Circuit Breaker counts that as 1 failed execution. If the next few requests also fail, the Circuit Breaker opens, and subsequent requests bypass the Retry entirely and go straight to the fallback.\"",
-      "summary10s": "Timeout kills hanging calls. Retry tries again. Circuit Breaker wraps Retry and opens after consecutive failures."
     }
   },
   {
@@ -3161,25 +3213,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "is-get-idempotent-what-does-id",
-    "category": "System Design",
-    "question": "Is GET idempotent? What does idempotency mean?",
-    "frequency": 3,
-    "companies": [
-      "HCL Technologies"
-    ],
-    "variations": [
-      "Explain idempotency in REST APIs.",
-      "What is an Idempotent API?"
-    ],
-    "answerSEE": {
-      "simple": "Yes, GET is idempotent. Idempotency means making the same request multiple times yields the same result on the server.",
-      "explain": "An operation is idempotent if executing it once has the same effect as executing it multiple times. GET just reads data without changing the server's state, so calling it 100 times leaves the server in the exact same state as calling it once.",
-      "example": "\"Idempotency means repeating a request doesn't change the outcome on the server. GET is definitely idempotent because it only retrieves data. If I call GET /users/1 five times, the database state remains exactly the same. This makes it safe for clients to retry GET requests if a network timeout occurs.\"",
-      "summary10s": "Idempotent = repeating request gives same server state. GET is idempotent (read-only)."
-    }
-  },
-  {
     "id": "microservices-architecture",
     "category": "Microservices",
     "question": "Monolithic vs Microservices Architecture. How do you manage microservices?",
@@ -3215,24 +3248,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Thread.sleep() simply pauses execution. Object.wait() is used in inter-thread communication inside synchronized blocks—it releases the lock so other threads can work. thread.join() blocks the current thread until the target thread completes.",
       "example": "\"If I want my main thread to wait until a worker thread is done, I use `worker.join()`. If I want a thread to pause for 1 second, I use `sleep(1000)`. If a consumer thread needs to wait for a producer to add items to a queue, it uses `wait()`, releasing the queue lock so the producer can actually add the item.\"",
       "summary10s": "sleep = pause (keeps lock). wait = wait for signal (releases lock). join = wait for thread to die."
-    }
-  },
-  {
-    "id": "sql-inner-join-vs-left-join",
-    "category": "SQL",
-    "question": "INNER JOIN vs LEFT JOIN",
-    "frequency": 3,
-    "companies": [
-      "HCL Technologies"
-    ],
-    "variations": [
-      "INNER JOIN vs LEFT JOIN"
-    ],
-    "answerSEE": {
-      "simple": "INNER JOIN returns only matching rows from both tables; LEFT JOIN returns all rows from the left table, with nulls for unmatched right-side data.",
-      "explain": "INNER JOIN — only rows with a match in both tables\nLEFT JOIN — all rows from left table + matched data from right, NULL if no match\nChoose LEFT JOIN when you need to keep records even without a related match (e.g., customers with no orders)",
-      "example": "\"INNER JOIN only returns rows where there's a match in both tables. LEFT JOIN returns every row from the left table regardless of whether there's a match, filling in NULLs for the right table's columns when there isn't one. I use LEFT JOIN when I need to preserve records that might not have a related row, like listing all customers even those with zero orders.\"",
-      "summary10s": "INNER = only matches, LEFT = all from left table + matches, NULL if none."
     }
   },
   {
@@ -3333,6 +3348,78 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "To make a class immutable, declare the class as final, make all fields private and final, provide no setter methods, and perform deep copies for mutable objects in constructors and getters.",
       "example": "\"When I create an immutable class, I make it final so it can't be extended. All fields are private final. If I have a mutable field like a Date or List, I pass a deep copy in the constructor and return a deep copy in the getter to prevent external modification.\"",
       "summary10s": "Final class, private final fields, no setters, deep copy for mutable fields."
+    }
+  },
+  {
+    "id": "java-overloading-vs-overriding",
+    "category": "Java",
+    "question": "Overloading vs Overriding",
+    "frequency": 3,
+    "companies": [
+      "Zensar Technologies"
+    ],
+    "variations": [
+      "Overloading vs Overriding in Automation Frameworks",
+      "Explain method overloading vs method overriding."
+    ],
+    "answerSEE": {
+      "simple": "Overloading is same method name with different parameters in the same class; Overriding is redefining a parent's method in a subclass with the same signature.",
+      "explain": "Overloading — compile-time (static) polymorphism, resolved by parameter types/count\nOverriding — runtime (dynamic) polymorphism, resolved based on actual object type at runtime\nOverriding requires inheritance; overloading doesn't",
+      "example": "\"Overloading is having multiple methods with the same name but different parameters in the same class — it's resolved at compile time. Overriding is when a subclass provides its own implementation of a method already defined in its parent, with the exact same signature — this is resolved at runtime based on the actual object type, which is what enables polymorphism.\"",
+      "summary10s": "Overloading = same name, different params, compile-time. Overriding = same signature, subclass, runtime."
+    }
+  },
+  {
+    "id": "java-equals-vs-equals-method",
+    "category": "Java",
+    "question": "== vs equals()",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "== vs .equals()?",
+      "Difference between '==' and 'equals()' in Java."
+    ],
+    "answerSEE": {
+      "simple": "== compares object references (memory address); equals() compares logical/content equality.",
+      "explain": "== — true only if both variables point to the exact same object\nequals() — default is same as ==, but classes like String override it to compare actual content\nCustom classes must override equals() to define what \"equal\" means for them",
+      "example": "\"== checks if two references point to the exact same object in memory. equals() is meant for logical equality — String overrides it to compare actual character content instead of memory address. For my own custom classes, I override equals() when I need two different objects to be considered equal based on their field values, like two Employee objects with the same ID.\"",
+      "summary10s": "== compares references, equals() compares content (if overridden)."
+    }
+  },
+  {
+    "id": "component-vs-service-vs-repository",
+    "category": "Spring Boot",
+    "question": "@Component vs @Service vs @Repository?",
+    "frequency": 3,
+    "companies": [
+      "HCL Technologies"
+    ],
+    "variations": [
+      "@Component vs @Service vs @Repository",
+      "Difference between '@Component', '@Service', '@Repository' and '@Controller'."
+    ],
+    "answerSEE": {
+      "simple": "All register Spring beans, but @Service and @Repository indicate specific layers, and @Repository translates database exceptions.",
+      "explain": "@Component is the generic stereotype. @Service is meant for the business logic layer. @Repository is for the data access layer and has a special feature: it automatically catches vendor-specific database exceptions (like SQLException) and translates them into Spring's unified DataAccessException hierarchy.",
+      "example": "\"I use @Component for generic utilities. I use @Service for my business logic classes to clarify their role. But I must use @Repository for my DAO classes because apart from making it a bean, Spring uses it to translate specific SQL exceptions into a standard Spring DataAccessException, making error handling consistent.\"",
+      "summary10s": "All make beans. @Service = business logic. @Repository = DB access + automatic exception translation."
+    }
+  },
+  {
+    "id": "top-n-highest-salaries",
+    "category": "Java Coding",
+    "question": "Find Top N highest salaries using Streams",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "Find the top 3 highest-paid employees using Java 8 Streams.",
+      "Find the top 3 salaries from an Employee collection."
+    ],
+    "answerSEE": {
+      "simple": "Sort descending by salary and use limit(N).",
+      "explain": "employees.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).limit(N).collect(Collectors.toList())",
+      "example": "\"For top 3 highest salaries, I map to salary, sort in reverse order, and use limit(3) before collecting.\"",
+      "summary10s": "stream().sorted(reversed).limit(N)."
     }
   },
   {
@@ -3721,24 +3808,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "",
       "example": "",
       "summary10s": ""
-    }
-  },
-  {
-    "id": "java-overloading-vs-overriding",
-    "category": "Java",
-    "question": "Overloading vs Overriding",
-    "frequency": 2,
-    "companies": [
-      "Zensar Technologies"
-    ],
-    "variations": [
-      "Overloading vs Overriding in Automation Frameworks"
-    ],
-    "answerSEE": {
-      "simple": "Overloading is same method name with different parameters in the same class; Overriding is redefining a parent's method in a subclass with the same signature.",
-      "explain": "Overloading — compile-time (static) polymorphism, resolved by parameter types/count\nOverriding — runtime (dynamic) polymorphism, resolved based on actual object type at runtime\nOverriding requires inheritance; overloading doesn't",
-      "example": "\"Overloading is having multiple methods with the same name but different parameters in the same class — it's resolved at compile time. Overriding is when a subclass provides its own implementation of a method already defined in its parent, with the exact same signature — this is resolved at runtime based on the actual object type, which is what enables polymorphism.\"",
-      "summary10s": "Overloading = same name, different params, compile-time. Overriding = same signature, subclass, runtime."
     }
   },
   {
@@ -5021,22 +5090,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "@RestControllerAdvice class with @ExceptionHandler per exception type\nEach handler maps exception to appropriate HTTP status and structured error body\nAlways include a catch-all Exception handler as final fallback\nStructured error response — timestamp, status code, error message, request path\n\nCode:\n@RestControllerAdvice\npublic class GlobalExceptionHandler {\n    \n    @ExceptionHandler(ResourceNotFoundException.class)\n    public ResponseEntity<ErrorResponse> handleNotFound(\n            ResourceNotFoundException ex, HttpServletRequest request) {\n        ErrorResponse error = new ErrorResponse(\n            HttpStatus.NOT_FOUND.value(),\n            ex.getMessage(),\n            request.getRequestURI(),\n            LocalDateTime.now()\n        );\n        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);\n    }\n    \n    @ExceptionHandler(MethodArgumentNotValidException.class)\n    public ResponseEntity<ErrorResponse> handleValidation(\n            MethodArgumentNotValidException ex) {\n        Map<String, String> errors = ex.getBindingResult()\n            .getFieldErrors().stream()\n            .collect(Collectors.toMap(\n                FieldError::getField,\n                FieldError::getDefaultMessage));\n        return ResponseEntity.badRequest().body(new ValidationErrorResponse(errors));\n    }\n    \n    @ExceptionHandler(Exception.class) // catch-all fallback\n    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {\n        return ResponseEntity.internalServerError()\n            .body(new ErrorResponse(500, \"Internal server error\", null, LocalDateTime.now()));\n    }\n}",
       "example": "\"Global exception handling means one place handles all exceptions. I create a @RestControllerAdvice class with specific @ExceptionHandler methods — ResourceNotFoundException returns 404 with error details, validation exceptions return 400 with field-level errors, and a catch-all Exception handler returns 500. Controllers stay completely clean with no try-catch. All API errors return the same structured JSON format which makes it predictable for API consumers.\"",
       "summary10s": "@RestControllerAdvice with @ExceptionHandler per type, specific handlers plus catch-all Exception fallback, consistent structured JSON error response."
-    }
-  },
-  {
-    "id": "java-equals-vs-equals-method",
-    "category": "Java",
-    "question": "== vs equals()",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "== vs .equals()?"
-    ],
-    "answerSEE": {
-      "simple": "== compares object references (memory address); equals() compares logical/content equality.",
-      "explain": "== — true only if both variables point to the exact same object\nequals() — default is same as ==, but classes like String override it to compare actual content\nCustom classes must override equals() to define what \"equal\" means for them",
-      "example": "\"== checks if two references point to the exact same object in memory. equals() is meant for logical equality — String overrides it to compare actual character content instead of memory address. For my own custom classes, I override equals() when I need two different objects to be considered equal based on their field values, like two Employee objects with the same ID.\"",
-      "summary10s": "== compares references, equals() compares content (if overridden)."
     }
   },
   {
@@ -7077,24 +7130,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "component-vs-service-vs-repository",
-    "category": "Spring Boot",
-    "question": "@Component vs @Service vs @Repository?",
-    "frequency": 2,
-    "companies": [
-      "HCL Technologies"
-    ],
-    "variations": [
-      "@Component vs @Service vs @Repository"
-    ],
-    "answerSEE": {
-      "simple": "All register Spring beans, but @Service and @Repository indicate specific layers, and @Repository translates database exceptions.",
-      "explain": "@Component is the generic stereotype. @Service is meant for the business logic layer. @Repository is for the data access layer and has a special feature: it automatically catches vendor-specific database exceptions (like SQLException) and translates them into Spring's unified DataAccessException hierarchy.",
-      "example": "\"I use @Component for generic utilities. I use @Service for my business logic classes to clarify their role. But I must use @Repository for my DAO classes because apart from making it a bean, Spring uses it to translate specific SQL exceptions into a standard Spring DataAccessException, making error handling consistent.\"",
-      "summary10s": "All make beans. @Service = business logic. @Repository = DB access + automatic exception translation."
-    }
-  },
-  {
     "id": "jvm-class-loading",
     "category": "Java",
     "question": "What happens inside the JVM during class loading?",
@@ -7258,6 +7293,148 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Continuous Integration (CI): Developer pushes code to Git. Jenkins/GitHub Actions triggers a build (Maven/Gradle), runs unit tests, and performs code quality checks (SonarQube). Continuous Deployment (CD): The pipeline builds a Docker image, pushes it to an artifact registry (like ECR/Nexus), and updates the Kubernetes manifests to deploy the new image.",
       "example": "\"When I push code to GitHub, Jenkins automatically triggers the pipeline. It compiles the Java code, runs JUnit tests, and checks SonarQube for bugs. If successful, it runs 'docker build', tags the image, and pushes it to our Docker Registry. Finally, it updates the Kubernetes deployment using Helm to roll out the new version.\"",
       "summary10s": "Commit -> Build/Test -> SonarQube -> Docker Image -> Push to Registry -> Deploy to K8s."
+    }
+  },
+  {
+    "id": "setter-injection-vs-constructor-injection",
+    "category": "Spring Boot",
+    "question": "Setter Injection vs Constructor Injection",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Why is constructor injection preferred over field injection?"
+    ],
+    "answerSEE": {
+      "simple": "Constructor injection is for mandatory dependencies, Setter injection is for optional ones.",
+      "explain": "Constructor injection — dependencies passed at object creation, object cannot exist without them, immutable\nSetter injection — dependencies set after object creation, object can exist without them initially\nConstructor injection prevents NullPointerException — dependency always present\nSpring team recommends Constructor injection for all mandatory dependencies",
+      "example": "\"Constructor injection passes dependencies when object is created — the class literally cannot be instantiated without them. This guarantees no NPE from uninjected dependency. Setter injection sets dependencies after creation — object exists but dependency might be null until setter is called. For testing, constructor injection is also cleaner — I pass mocks directly without needing Spring context.\"",
+      "summary10s": "Constructor=mandatory immutable no NPE, Setter=optional set after creation, Constructor preferred."
+    }
+  },
+  {
+    "id": "find-second-highest-salary-streams",
+    "category": "Java Coding",
+    "question": "Find second-highest salary using Streams",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Find the highest and second-highest salary using Streams. How will you handle duplicate salaries?"
+    ],
+    "answerSEE": {
+      "simple": "Sort in descending order, skip the first, and get the next one.",
+      "explain": "Use distinct() to handle possible duplicate top salaries, then sort descending, skip one, and take the first.",
+      "example": "\"I'd extract just the salaries, apply distinct() to handle duplicate top salaries correctly, sort them in descending order, skip the first one, and take the next — that gives me the second-highest. Using distinct() is important, otherwise two employees with the same highest salary would break the logic.\"",
+      "summary10s": "distinct() + sorted(reverseOrder) + skip(1) + findFirst() = second-highest."
+    }
+  },
+  {
+    "id": "when-to-use-left-join",
+    "category": "SQL",
+    "question": "When to use LEFT JOIN?",
+    "frequency": 2,
+    "companies": [
+      "Accenture"
+    ],
+    "variations": [
+      "Find employees who don't belong to any department."
+    ],
+    "answerSEE": {
+      "simple": "Use LEFT JOIN when you need to keep all records from the primary table, even if there's no matching related record.",
+      "explain": "- Example: listing all customers, including those who've placed zero orders\n- Unmatched rows show NULL for the joined table's columns\n- Useful for reporting \"what's missing\" — like finding records with no related entry",
+      "example": "\"I use LEFT JOIN whenever I need to preserve every record from my main table regardless of whether there's a related match — like listing all customers even if some haven't placed any orders yet. It's also the standard way to find 'orphan' records, by joining and then filtering for where the right table's key is NULL.\"",
+      "summary10s": "\"When you need to keep all rows from the main table, even those without a match.\""
+    }
+  },
+  {
+    "id": "system-design-api-suddenly-slow",
+    "category": "System Design",
+    "question": "Your API suddenly becomes slow. What do you check?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "How would you troubleshoot a slow API in production?"
+    ],
+    "answerSEE": {
+      "simple": "I would check application metrics, database queries, external API calls, and resource utilization like CPU or memory.",
+      "explain": "Slow APIs are often caused by external bottlenecks rather than code. You should check if database queries are missing indexes or taking too long, if third-party services are timing out, if the connection pool is exhausted, or if the JVM is spending too much time in Garbage Collection.",
+      "example": "\"First, I'd check our APM tools like Datadog or New Relic to find where the time is being spent. If it's a database issue, I'll look for slow queries or lock contention. If it's an external service, I'll check its response times. If both are fine, I'd look at the server's CPU, memory, GC logs, and thread pools to see if the application itself is starved for resources.\"",
+      "summary10s": "Check APM for bottlenecks: slow DB queries, external API timeouts, thread pool exhaustion, or high GC pauses."
+    }
+  },
+  {
+    "id": "java-overridable-method-in-constructor",
+    "category": "Java",
+    "question": "Why is calling an overridable method from a constructor considered dangerous?",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "If a parent class constructor calls an overridable method, what potential problem can occur?",
+      "What happens when an overridden method is called from a parent class constructor? Predict the output."
+    ],
+    "answerSEE": {
+      "simple": "The overridden method in the child class will execute before the child's constructor has finished initializing its fields.",
+      "explain": "When a parent constructor runs, the child constructor hasn't started yet. If the parent constructor calls a method that the child overrides, the child's overridden method executes immediately. If that method relies on fields initialized in the child's constructor, they will still be null or zero, causing NullPointerExceptions or logical errors.",
+      "example": "\"I once spent hours debugging an issue where a parent constructor called init(). The child class overrode init() to use a config object it initializes in its own constructor. But because the parent constructor ran first, it called the child's init() before config was set, throwing a NullPointerException.\"",
+      "summary10s": "The child's method runs before the child's constructor. Any uninitialized child fields will be null/zero."
+    }
+  },
+  {
+    "id": "failure-downstream-microservice",
+    "category": "Microservices",
+    "question": "How do you handle failure of a downstream microservice?",
+    "frequency": 2,
+    "companies": [
+      "Deloitte",
+      "Atyeti",
+      "Signify",
+      "Altimetrik",
+      "EPAM"
+    ],
+    "variations": [
+      "Timeout, retry, circuit breaker, fallback, etc.",
+      "What happens when a downstream service becomes unavailable?"
+    ],
+    "answerSEE": {
+      "simple": "Use Circuit Breakers, Retries, Timeouts, and Fallbacks to prevent cascading failures.",
+      "explain": "Set a Timeout so requests don't hang. Implement Retries for transient errors. Use a Circuit Breaker (like Resilience4j) to stop calling the service if it consistently fails, and return a Fallback response (like cached data or a default value).",
+      "example": "\"I use Resilience4j. I configure a short timeout and 3 retries for transient network glitches. If the downstream service is completely down, the Circuit Breaker opens to prevent thread exhaustion, and I provide a fallback method that returns cached data or a friendly error message.\"",
+      "summary10s": "Timeout -> Retry -> Circuit Breaker -> Fallback."
+    }
+  },
+  {
+    "id": "super-and-this-keyword",
+    "category": "Java",
+    "question": "Difference between super() and this() keywords?",
+    "frequency": 2,
+    "companies": [
+      "Deloitte INDIA"
+    ],
+    "variations": [
+      "Super() and this keyword",
+      "Explain constructor chaining using 'this()' and 'super()'"
+    ],
+    "answerSEE": {
+      "simple": "this() calls another constructor in the same class, while super() calls a constructor in the parent class.",
+      "explain": "Both must be the very first statement in a constructor. this() is used for constructor chaining within the same class to avoid code duplication. super() is used to invoke the parent class's constructor, which is necessary when the parent doesn't have a default no-arg constructor.",
+      "example": "\"If I have an Employee class with multiple constructors, I use this() in the default constructor to call the parameterized one with default values. I use super() when Employee extends Person, to make sure the Person properties are initialized properly before the Employee properties.\"",
+      "summary10s": "this() = calls same class constructor. super() = calls parent class constructor. Both must be first line."
+    }
+  },
+  {
+    "id": "coding-two-sum-hashmap",
+    "category": "Java Coding",
+    "question": "Two Sum — return indexes using HashMap",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Given an array and a target, solve Two Sum and return the indexes.",
+      "Solve Two Sum using 'HashMap' and explain the time complexity."
+    ],
+    "answerSEE": {
+      "simple": "One pass: for each value, check if (target - value) exists in a map; else store value → index.",
+      "explain": "Time O(n), space O(n). For each nums[i], if map contains target - nums[i], return [map.get(complement), i]. Else put nums[i], i. Handle duplicate values by storing latest index or pair logic as stated.",
+      "example": "\"I loop once with a HashMap from value to index. At each index I look for complement = target - nums[i]. If found, I return both indexes immediately. Otherwise I put the current number and index into the map.\"",
+      "summary10s": "Single pass HashMap: complement lookup → O(n) time."
     }
   },
   {
@@ -9375,20 +9552,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "setter-injection-vs-constructor-injection",
-    "category": "Spring Boot",
-    "question": "Setter Injection vs Constructor Injection",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Constructor injection is for mandatory dependencies, Setter injection is for optional ones.",
-      "explain": "Constructor injection — dependencies passed at object creation, object cannot exist without them, immutable\nSetter injection — dependencies set after object creation, object can exist without them initially\nConstructor injection prevents NullPointerException — dependency always present\nSpring team recommends Constructor injection for all mandatory dependencies",
-      "example": "\"Constructor injection passes dependencies when object is created — the class literally cannot be instantiated without them. This guarantees no NPE from uninjected dependency. Setter injection sets dependencies after creation — object exists but dependency might be null until setter is called. For testing, constructor injection is also cleaner — I pass mocks directly without needing Spring context.\"",
-      "summary10s": "Constructor=mandatory immutable no NPE, Setter=optional set after creation, Constructor preferred."
-    }
-  },
-  {
     "id": "how-constructor-injection-avoids-nullpointerexception",
     "category": "Spring Boot",
     "question": "How Constructor Injection Avoids NullPointerException",
@@ -10327,20 +10490,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "find-second-highest-salary-streams",
-    "category": "Java Coding",
-    "question": "Find second-highest salary using Streams",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Sort in descending order, skip the first, and get the next one.",
-      "explain": "Use distinct() to handle possible duplicate top salaries, then sort descending, skip one, and take the first.",
-      "example": "\"I'd extract just the salaries, apply distinct() to handle duplicate top salaries correctly, sort them in descending order, skip the first one, and take the next — that gives me the second-highest. Using distinct() is important, otherwise two employees with the same highest salary would break the logic.\"",
-      "summary10s": "distinct() + sorted(reverseOrder) + skip(1) + findFirst() = second-highest."
-    }
-  },
-  {
     "id": "java-hashset-vs-treeset",
     "category": "Java",
     "question": "HashSet vs TreeSet",
@@ -10876,22 +11025,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "- LEFT JOIN — all rows from left table, matched data (or NULL) from right\n- RIGHT JOIN — all rows from right table, matched data (or NULL) from left\n- RIGHT JOIN is rarely used in practice — same result achievable by swapping table order with LEFT JOIN",
       "example": "\"LEFT JOIN returns every row from the left table, filling in NULLs for the right table's columns if there's no match. RIGHT JOIN does the opposite — keeps all rows from the right table. In practice, I almost always use LEFT JOIN, since I can just swap the table order to achieve the same result as a RIGHT JOIN, and it's more readable and consistent for a team to stick to one convention.\"",
       "summary10s": "\"LEFT = keep all left table rows, RIGHT = keep all right table rows. Most teams stick to LEFT JOIN only.\""
-    }
-  },
-  {
-    "id": "when-to-use-left-join",
-    "category": "SQL",
-    "question": "When to use LEFT JOIN?",
-    "frequency": 1,
-    "companies": [
-      "Accenture"
-    ],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use LEFT JOIN when you need to keep all records from the primary table, even if there's no matching related record.",
-      "explain": "- Example: listing all customers, including those who've placed zero orders\n- Unmatched rows show NULL for the joined table's columns\n- Useful for reporting \"what's missing\" — like finding records with no related entry",
-      "example": "\"I use LEFT JOIN whenever I need to preserve every record from my main table regardless of whether there's a related match — like listing all customers even if some haven't placed any orders yet. It's also the standard way to find 'orphan' records, by joining and then filtering for where the right table's key is NULL.\"",
-      "summary10s": "\"When you need to keep all rows from the main table, even those without a match.\""
     }
   },
   {
@@ -11829,20 +11962,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "system-design-api-suddenly-slow",
-    "category": "System Design",
-    "question": "Your API suddenly becomes slow. What do you check?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "I would check application metrics, database queries, external API calls, and resource utilization like CPU or memory.",
-      "explain": "Slow APIs are often caused by external bottlenecks rather than code. You should check if database queries are missing indexes or taking too long, if third-party services are timing out, if the connection pool is exhausted, or if the JVM is spending too much time in Garbage Collection.",
-      "example": "\"First, I'd check our APM tools like Datadog or New Relic to find where the time is being spent. If it's a database issue, I'll look for slow queries or lock contention. If it's an external service, I'll check its response times. If both are fine, I'd look at the server's CPU, memory, GC logs, and thread pools to see if the application itself is starved for resources.\"",
-      "summary10s": "Check APM for bottlenecks: slow DB queries, external API timeouts, thread pool exhaustion, or high GC pauses."
-    }
-  },
-  {
     "id": "system-design-blindly-increase-timeouts",
     "category": "System Design",
     "question": "Why shouldn't you blindly increase API timeouts?",
@@ -12182,22 +12301,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Before Java 5, overriding methods had to return the exact same type. Covariant return types allow a child class to return a narrower, more specific type. This is useful because it removes the need for clients to explicitly cast the returned object when they know they are working with the child class.",
       "example": "\"If Animal has a method Animal clone(), the Dog class can override it as Dog clone(). This is incredibly useful because if I call dog.clone(), I get a Dog directly without having to cast the result from Animal to Dog.\"",
       "summary10s": "Overriding methods can return a narrower subtype. Saves you from writing explicit type casts."
-    }
-  },
-  {
-    "id": "java-overridable-method-in-constructor",
-    "category": "Java",
-    "question": "Why is calling an overridable method from a constructor considered dangerous?",
-    "frequency": 1,
-    "companies": [],
-    "variations": [
-      "If a parent class constructor calls an overridable method, what potential problem can occur?"
-    ],
-    "answerSEE": {
-      "simple": "The overridden method in the child class will execute before the child's constructor has finished initializing its fields.",
-      "explain": "When a parent constructor runs, the child constructor hasn't started yet. If the parent constructor calls a method that the child overrides, the child's overridden method executes immediately. If that method relies on fields initialized in the child's constructor, they will still be null or zero, causing NullPointerExceptions or logical errors.",
-      "example": "\"I once spent hours debugging an issue where a parent constructor called init(). The child class overrode init() to use a config object it initializes in its own constructor. But because the parent constructor ran first, it called the child's init() before config was set, throwing a NullPointerException.\"",
-      "summary10s": "The child's method runs before the child's constructor. Any uninitialized child fields will be null/zero."
     }
   },
   {
@@ -15988,28 +16091,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "failure-downstream-microservice",
-    "category": "Microservices",
-    "question": "How do you handle failure of a downstream microservice?",
-    "frequency": 1,
-    "companies": [
-      "Deloitte",
-      "Atyeti",
-      "Signify",
-      "Altimetrik",
-      "EPAM"
-    ],
-    "variations": [
-      "Timeout, retry, circuit breaker, fallback, etc."
-    ],
-    "answerSEE": {
-      "simple": "Use Circuit Breakers, Retries, Timeouts, and Fallbacks to prevent cascading failures.",
-      "explain": "Set a Timeout so requests don't hang. Implement Retries for transient errors. Use a Circuit Breaker (like Resilience4j) to stop calling the service if it consistently fails, and return a Fallback response (like cached data or a default value).",
-      "example": "\"I use Resilience4j. I configure a short timeout and 3 retries for transient network glitches. If the downstream service is completely down, the Circuit Breaker opens to prevent thread exhaustion, and I provide a fallback method that returns cached data or a friendly error message.\"",
-      "summary10s": "Timeout -> Retry -> Circuit Breaker -> Fallback."
-    }
-  },
-  {
     "id": "implement-rate-limiting-throttling",
     "category": "Microservices",
     "question": "How would you implement Rate Limiting and Throttling?",
@@ -17556,20 +17637,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "top-n-highest-salaries",
-    "category": "Java Coding",
-    "question": "Find Top N highest salaries using Streams",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Sort descending by salary and use limit(N).",
-      "explain": "employees.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).limit(N).collect(Collectors.toList())",
-      "example": "\"For top 3 highest salaries, I map to salary, sort in reverse order, and use limit(3) before collecting.\"",
-      "summary10s": "stream().sorted(reversed).limit(N)."
-    }
-  },
-  {
     "id": "group-employees-department",
     "category": "Java Coding",
     "question": "Group Employees by Department using Streams",
@@ -19031,24 +19098,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "To implement a custom exception, you define a class extending either Exception or RuntimeException. You typically override the constructors to pass custom error messages or cause throwables to the superclass. In Spring Boot, this is often paired with @RestControllerAdvice to handle these custom exceptions globally.",
       "example": "\"I usually create custom exceptions by extending RuntimeException, like 'UserNotFoundException'. I provide a constructor that takes a message and calls super(message). Then I throw this exception in my service layer and catch it in a @RestControllerAdvice class to return a structured 404 JSON response.\"",
       "summary10s": "Extend RuntimeException, add a constructor calling super(msg), handle it globally."
-    }
-  },
-  {
-    "id": "super-and-this-keyword",
-    "category": "Java",
-    "question": "Difference between super() and this() keywords?",
-    "frequency": 1,
-    "companies": [
-      "Deloitte INDIA"
-    ],
-    "variations": [
-      "Super() and this keyword"
-    ],
-    "answerSEE": {
-      "simple": "this() calls another constructor in the same class, while super() calls a constructor in the parent class.",
-      "explain": "Both must be the very first statement in a constructor. this() is used for constructor chaining within the same class to avoid code duplication. super() is used to invoke the parent class's constructor, which is necessary when the parent doesn't have a default no-arg constructor.",
-      "example": "\"If I have an Employee class with multiple constructors, I use this() in the default constructor to call the parameterized one with default values. I use super() when Employee extends Person, to make sure the Person properties are initialized properly before the Employee properties.\"",
-      "summary10s": "this() = calls same class constructor. super() = calls parent class constructor. Both must be first line."
     }
   },
   {
@@ -21909,6 +21958,86 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "volatile guarantees visibility and ordered reads/writes for one field — great for shutdown flags or double-checked locking after Java 5. synchronized (or locks) provides mutual exclusion for compound actions like check-then-act or counter updates. volatile does not make i++ atomic.",
       "example": "\"I use volatile boolean running for a graceful shutdown signal all threads see immediately. For updating a shared balance I use synchronized or AtomicInteger because volatile alone would not fix lost updates on increment.\"",
       "summary10s": "volatile=visibility on one field; synchronized/Atomic=atomic compound updates."
+    }
+  },
+  {
+    "id": "java-stream-filter-percentage-above-80",
+    "category": "Java",
+    "question": "Filter users with percentage > 80 using Java 8 Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Given 'User(id, name, percentage)', filter users with percentage > 80"
+    ],
+    "answerSEE": {
+      "simple": "Use stream().filter() with a predicate on percentage, then collect to a list.",
+      "explain": "users.stream().filter(u -> u.getPercentage() > 80).collect(Collectors.toList()). Filter is lazy until a terminal operation like collect runs.",
+      "example": "\"Given List<User> users, I write users.stream().filter(u -> u.getPercentage() > 80).collect(Collectors.toList()) and return that for the API response or further mapping.\"",
+      "summary10s": "stream → filter(>80) → collect(toList)."
+    }
+  },
+  {
+    "id": "java-stream-group-salary-brackets",
+    "category": "Java",
+    "question": "Group employees into salary brackets using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Group employees into salary brackets: <50K, 50K-100K, ≥100K"
+    ],
+    "answerSEE": {
+      "simple": "Use groupingBy with a classifier function that maps salary to bracket labels.",
+      "explain": "Collectors.groupingBy(e -> bracketFor(e.getSalary())) where bracketFor returns \"<50K\", \"50K-100K\", or \">=100K\". Alternative: custom Collector or three filter+count passes for interviews.",
+      "example": "\"I use groupingBy with a small helper: if salary < 50000 return UNDER_50K, else if salary < 100000 return MID, else HIGH. One stream pass gives Map<Bracket, List<Employee>>.\"",
+      "summary10s": "groupingBy(salary → bracket label)."
+    }
+  },
+  {
+    "id": "sql-users-with-highest-salary",
+    "category": "SQL",
+    "question": "Find all users whose salary equals the highest salary",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Find all users whose salary is equal to the highest salary"
+    ],
+    "answerSEE": {
+      "simple": "WHERE salary = (SELECT MAX(salary) FROM USER) or join to a max subquery.",
+      "explain": "Subquery finds global max; outer query filters rows matching it. If ties exist, all top earners return. Index on salary helps the aggregate.",
+      "example": "\"SELECT * FROM USER WHERE salary = (SELECT MAX(salary) FROM USER); — if two people share the top salary, both rows appear.\"",
+      "summary10s": "Filter WHERE salary = (SELECT MAX(salary) …)."
+    }
+  },
+  {
+    "id": "sql-user-details-with-department-name",
+    "category": "SQL",
+    "question": "Fetch user details with department name (JOIN)",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Fetch all user details along with their department name."
+    ],
+    "answerSEE": {
+      "simple": "INNER JOIN USER to DEPARTMENT on dep_id = DEPARTMENT.id and select user columns plus department name.",
+      "explain": "SELECT u.*, d.name AS department_name FROM USER u INNER JOIN DEPARTMENT d ON u.dep_id = d.id. Users without valid dep_id are excluded unless you use LEFT JOIN.",
+      "example": "\"I alias USER as u and DEPARTMENT as d, join on u.dep_id = d.id, and project id, name, salary from user plus d.name as departmentName for the report.\"",
+      "summary10s": "INNER JOIN USER.dep_id = DEPARTMENT.id → select dept name."
+    }
+  },
+  {
+    "id": "sql-highest-salary-per-department",
+    "category": "SQL",
+    "question": "Find the highest salary in each department",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Find the highest salary in each department."
+    ],
+    "answerSEE": {
+      "simple": "GROUP BY dep_id (or department) with MAX(salary), optionally join back for employee names.",
+      "explain": "SELECT dep_id, MAX(salary) FROM USER GROUP BY dep_id. For full rows: join USER to (dep_id, max_sal) subquery on both dep_id and salary = max_sal.",
+      "example": "\"First SELECT dep_id, MAX(salary) FROM USER GROUP BY dep_id. If they want who earns it, I join USER u to that result on u.dep_id and u.salary = max_sal.\"",
+      "summary10s": "GROUP BY department + MAX(salary); join back for names if needed."
     }
   }
 ];
