@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function LLD05ConcurrencyAndAsync() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>LLD-05: Concurrency & Async Programming</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>LLD Step 5 — Threads & async</SDTitle>
+
+      <PlainEnglish>
+        Many users = many threads handling requests. Use <strong>@Async</strong> and thread pools for slow work (email, files).
+        Never share mutable fields on singleton @Service beans without synchronization or atomic types.
+      </PlainEnglish>
       
       <SDParagraph>
         Modern web applications handle thousands of users at once. If your code is strictly synchronous, one slow API call can block the entire server. Low-Level Design requires understanding how to make things fast and concurrent without causing race conditions.
@@ -74,6 +80,7 @@ export default function LLD05ConcurrencyAndAsync() {
         Calling an `@Async` method from <strong>within the same class</strong>. Due to how Spring AOP Proxies work, if `methodA()` calls `methodB()` in the exact same class, the `@Async` annotation on `methodB` is completely ignored, and it runs synchronously! Always put `@Async` methods in a separate Service class.
       </CommonMistake>
 
+      <NextLesson title="LLD Step 6 — Class design (parking lot)" />
     </div>
   );
 }

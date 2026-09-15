@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function HLD03ClientBackendFlow() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>HLD-03: Client → Backend Flow</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>HLD Step 3 — Client → backend flow</SDTitle>
+
+      <PlainEnglish>
+        When a user clicks a button, the request travels through DNS, load balancer, your Spring app, and maybe cache/DB.
+        Learn this path once — you will draw it in almost every interview.
+      </PlainEnglish>
       
       <SDParagraph>
         How does a request actually travel from a user's browser down to the database in a modern web application? Understanding this flow from DNS down to SQL is the absolute core of High-Level Design.
@@ -87,6 +93,7 @@ export default function HLD03ClientBackendFlow() {
         }
       />
 
+      <NextLesson title="HLD Step 4 — API design" />
     </div>
   );
 }

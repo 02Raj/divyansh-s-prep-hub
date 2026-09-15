@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function LLD04DatabaseIntegration() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>LLD-04: Database Integration & JPA Best Practices</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>LLD Step 4 — JPA & repositories</SDTitle>
+
+      <PlainEnglish>
+        JPA/Hibernate maps Java objects to database tables. Watch for the <strong>N+1 problem</strong> (too many small queries),
+        use connection pools, and put <strong>@Transactional</strong> on service methods, not controllers.
+      </PlainEnglish>
       
       <SDParagraph>
         Connecting a Spring Boot app to a database is easy. Doing it efficiently at scale is hard. Low-Level Database Design focuses on Connection Pooling, the N+1 problem, and correct Transaction management.
@@ -66,6 +72,7 @@ export default function LLD04DatabaseIntegration() {
         Setting Hikari maximum-pool-size to 500 thinking it will make the app faster. CPU cores can only process a few threads at a time. A massive connection pool just causes context-switching overhead on the database server. A smaller pool (20-30) often yields higher throughput.
       </CommonMistake>
 
+      <NextLesson title="LLD Step 5 — Threads & async" />
     </div>
   );
 }

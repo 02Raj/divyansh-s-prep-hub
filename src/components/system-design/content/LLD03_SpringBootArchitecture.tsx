@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function LLD03SpringBootArchitecture() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>LLD-03: Spring Boot Architecture (Layered Design)</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>LLD Step 3 — Spring Boot layers</SDTitle>
+
+      <PlainEnglish>
+        Standard Java backend = <strong>Controller → Service → Repository → Database</strong>. Controller talks HTTP, Service
+        has business rules, Repository runs SQL/JPA.
+      </PlainEnglish>
       
       <SDParagraph>
         Spring Boot enforces a very specific, highly-structured way of writing backend code. The industry standard is the <strong>3-Tier Layered Architecture</strong>. Understanding this is mandatory for any Java developer.
@@ -91,6 +97,7 @@ export default function LLD03SpringBootArchitecture() {
         }
       />
 
+      <NextLesson title="LLD Step 4 — JPA & repositories" />
     </div>
   );
 }

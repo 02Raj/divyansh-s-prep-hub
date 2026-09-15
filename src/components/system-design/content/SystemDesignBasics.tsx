@@ -1,108 +1,126 @@
-import { SDTitle, SDHeading2, SDHeading3, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake } from '../ui/SystemDesignUI';
+import {
+  SDTitle,
+  SDHeading2,
+  SDHeading3,
+  SDParagraph,
+  SDList,
+  PlainEnglish,
+  HLDvsLLD,
+  RememberBlock,
+  InterviewQuestion,
+  CommonMistake,
+  LevelBadge,
+  NextLesson,
+} from '../ui/SystemDesignUI';
 
 export default function SystemDesignBasics() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>1. System Design Basics</SDTitle>
-      
-      <SDParagraph>
-        System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to satisfy specific requirements. It's about making choices that balance trade-offs.
-      </SDParagraph>
+      <LevelBadge level="Beginner" />
+      <SDTitle>Core ideas in simple English</SDTitle>
+
+      <PlainEnglish>
+        System design = <strong>plan how your application works</strong> when real users show up — not just on your laptop.
+        You decide what features you need, how fast it must be, and what happens when something breaks.
+      </PlainEnglish>
+
+      <HLDvsLLD />
 
       <RememberBlock>
-        System Design is never about finding the "perfect" solution. It is about finding the "best trade-off" for your specific problem.
+        There is no single perfect design. There is only the <strong>best trade-off</strong> for your users, team, and budget.
       </RememberBlock>
 
-      <SDHeading2>Why System Design Matters</SDHeading2>
-      <SDParagraph>
-        When you build a small app, you don't need complex design. But when your app has millions of users, it can crash, become slow, or cost too much money. System Design prevents these failures by planning for scale before writing code.
-      </SDParagraph>
+      <SDHeading2>Words you must know (easy definitions)</SDHeading2>
 
-      <SDHeading2>Core Concepts Explained Simply</SDHeading2>
-      
       <div className="space-y-8 mt-6">
         <div>
-          <SDHeading3>1. Functional Requirements</SDHeading3>
+          <SDHeading3>Functional requirements</SDHeading3>
           <SDParagraph>
-            <strong>Simple meaning:</strong> What the system MUST do. The core features.
-          </SDParagraph>
-          <SDParagraph>
-            <strong>Real application example:</strong> "Users must be able to log in", "Users must be able to upload a profile picture."
+            <strong>What the app must do.</strong> Example: “User can sign in”, “User can place an order”.
           </SDParagraph>
         </div>
 
         <div>
-          <SDHeading3>2. Non-functional Requirements</SDHeading3>
+          <SDHeading3>Non-functional requirements</SDHeading3>
           <SDParagraph>
-            <strong>Simple meaning:</strong> How WELL the system must do it. The quality of the system.
-          </SDParagraph>
-          <SDParagraph>
-            <strong>Real application example:</strong> "The login API must respond in under 200 milliseconds", "The system must be highly available (99.99% uptime)."
+            <strong>How well it must work.</strong> Example: “Page loads in under 2 seconds”, “Works 99.9% of the time”.
           </SDParagraph>
         </div>
 
         <div>
-          <SDHeading3>3. Scalability</SDHeading3>
+          <SDHeading3>Scalability</SDHeading3>
           <SDParagraph>
-            <strong>Simple meaning:</strong> Can the system handle more users without slowing down?
-          </SDParagraph>
-          <SDParagraph>
-            <strong>Real application example:</strong> If Flipkart gets 10x more traffic during a Big Billion Days sale, the servers should automatically add more capacity instead of crashing.
+            Can you handle <strong>more users</strong> without the app dying? Usually by adding more servers (horizontal scale),
+            not one giant server.
           </SDParagraph>
         </div>
 
         <div>
-          <SDHeading3>4. Availability</SDHeading3>
+          <SDHeading3>Availability</SDHeading3>
           <SDParagraph>
-            <strong>Simple meaning:</strong> Is the system online right now? 
-          </SDParagraph>
-          <SDParagraph>
-            <strong>Why we need it:</strong> If a payment gateway goes down, the company loses money every second.
+            Is the app <strong>online</strong> when users need it? If one server crashes, others should still serve traffic.
           </SDParagraph>
         </div>
 
         <div>
-          <SDHeading3>5. Reliability</SDHeading3>
+          <SDHeading3>Reliability</SDHeading3>
           <SDParagraph>
-            <strong>Simple meaning:</strong> Does the system do the right thing consistently?
-          </SDParagraph>
-          <SDParagraph>
-            <strong>Real application example:</strong> If you transfer $100, the money should exactly leave your account and arrive in the other account. It should never randomly fail halfway.
+            Does the app do the <strong>right thing every time</strong>? Pay ₹100 once → money moves once, not twice or zero.
           </SDParagraph>
         </div>
       </div>
 
-      <SDHeading2>How to Think About a System</SDHeading2>
-      <SDParagraph>
-        Never jump straight to "Let's use Kafka and Microservices". Always follow this step-by-step thinking process:
-      </SDParagraph>
+      <SDHeading2>7-step habit (use in every interview)</SDHeading2>
+      <SDParagraph>Do not jump to “Let’s use Kafka.” Walk through this list:</SDParagraph>
 
       <div className="bg-muted/30 p-6 rounded-lg font-mono text-sm border border-border my-6">
         <ol className="space-y-3 list-decimal list-inside text-muted-foreground">
-          <li><strong className="text-foreground">Requirement:</strong> What are we building? (e.g., A food delivery app)</li>
-          <li><strong className="text-foreground">Users / Actors:</strong> Who is using it? (Customer, Restaurant, Delivery Agent)</li>
-          <li><strong className="text-foreground">Use Cases:</strong> What can they do? (Order food, Accept order, Update location)</li>
-          <li><strong className="text-foreground">API / Interface:</strong> How do they communicate? (REST API for mobile app)</li>
-          <li><strong className="text-foreground">Components:</strong> What backend parts do we need? (Order Service, Payment Service)</li>
-          <li><strong className="text-foreground">Data:</strong> Where do we store it? (PostgreSQL for orders, Redis for active carts)</li>
-          <li><strong className="text-foreground">Scale / Failure:</strong> What if a database crashes? (Add replicas)</li>
+          <li>
+            <strong className="text-foreground">Problem:</strong> What are we building?
+          </li>
+          <li>
+            <strong className="text-foreground">Users:</strong> Who uses it?
+          </li>
+          <li>
+            <strong className="text-foreground">Use cases:</strong> Top 3–4 actions
+          </li>
+          <li>
+            <strong className="text-foreground">API:</strong> How client talks to server (REST, etc.)
+          </li>
+          <li>
+            <strong className="text-foreground">Services:</strong> Which backend parts (order, payment…)
+          </li>
+          <li>
+            <strong className="text-foreground">Data:</strong> Where data lives (SQL, cache…)
+          </li>
+          <li>
+            <strong className="text-foreground">Failure & scale:</strong> Replicas, cache, queues
+          </li>
         </ol>
       </div>
 
-      <InterviewQuestion 
+      <InterviewQuestion
         question="What is the difference between Scalability and Availability?"
         answer={
           <div>
-            <p><strong>Scalability</strong> is about handling increased load. If traffic doubles, can you add more servers to handle it?</p>
-            <p className="mt-2"><strong>Availability</strong> is about uptime. If a server crashes, does the system stay online for users?</p>
-            <p className="mt-2 text-primary">"A system can be highly scalable but not highly available if it crashes frequently despite having lots of resources."</p>
+            <p>
+              <strong>Scalability</strong> = handling more load (more users, more requests).
+            </p>
+            <p className="mt-2">
+              <strong>Availability</strong> = staying up when parts fail.
+            </p>
+            <p className="mt-2 text-primary">
+              You can scale huge but still go down if you have no backup servers — so you need both.
+            </p>
           </div>
         }
       />
 
       <CommonMistake>
-        Starting a design by picking technologies (like MongoDB or Kafka) before fully understanding the Functional and Non-functional requirements. Always define the problem first, then pick the technology that solves it.
+        Picking MongoDB, Kafka, or microservices before you write requirements. Understand the problem first; then pick tools.
       </CommonMistake>
+
+      <NextLesson title="HLD Step 1 — What are we building?" />
     </div>
   );
 }

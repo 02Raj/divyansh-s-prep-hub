@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function LLD01DesignPrinciples() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>LLD-01: Low-Level Design Principles (SOLID, DRY, KISS)</SDTitle>
+      <LevelBadge level="Beginner" />
+      <SDTitle>LLD Step 1 — SOLID & clean code</SDTitle>
+
+      <PlainEnglish>
+        Low-level design (LLD) is how you <strong>structure Java classes</strong> so the code is easy to change. SOLID is five
+        rules interviewers expect you to explain with a simple example.
+      </PlainEnglish>
       
       <SDParagraph>
         Low-Level Design (LLD) is about translating your High-Level architecture into clean, maintainable, and readable code. Before we talk about classes and databases, we must understand the core principles of writing good code.
@@ -78,6 +84,7 @@ export default function LLD01DesignPrinciples() {
         Following DRY so blindly that you couple two unrelated parts of the system. For example, using the exact same Database Entity class as your API Response DTO. Yes, it saves you typing one class, but when the database schema changes, your API instantly breaks for all mobile clients!
       </CommonMistake>
 
+      <NextLesson title="LLD Step 2 — Design patterns" />
     </div>
   );
 }

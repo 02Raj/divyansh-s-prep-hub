@@ -1,13 +1,15 @@
-import { SDTitle, SDHeading2, SDHeading3, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDHeading3, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function HLD01Requirements() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>HLD-01: Requirements & Capacity</SDTitle>
-      
-      <SDParagraph>
-        Before you draw a single box on a whiteboard or write a single line of code, you must understand exactly what you are building. The first step of High-Level Design (HLD) is breaking down the problem statement into concrete requirements and estimating the scale.
-      </SDParagraph>
+      <LevelBadge level="Beginner" />
+      <SDTitle>HLD Step 1 — What are we building?</SDTitle>
+
+      <PlainEnglish>
+        Before any diagram, write <strong>what the product must do</strong> (features) and <strong>how good it must be</strong>{' '}
+        (speed, uptime). Then do simple math: roughly how many users and requests per second?
+      </PlainEnglish>
 
       <SDHeading2>1. Functional Requirements</SDHeading2>
       <SDParagraph>
@@ -83,6 +85,7 @@ export default function HLD01Requirements() {
         Jumping straight into designing the database schema or picking AWS services before clearly listing out the 3-4 core use cases and doing basic math. If you don't define the scope, you will try to design everything and fail to design anything well.
       </CommonMistake>
 
+      <NextLesson title="HLD Step 2 — Architecture & gateways" />
     </div>
   );
 }

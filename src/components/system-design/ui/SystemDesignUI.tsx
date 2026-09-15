@@ -1,6 +1,80 @@
 import React from 'react';
-import { Lightbulb, Code2, AlertTriangle, MonitorPlay } from 'lucide-react';
+import { Lightbulb, Code2, AlertTriangle, MonitorPlay, BookOpen, Layers, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+/** One-line “explain like I’m new” summary */
+export const PlainEnglish = ({ children }: { children: React.ReactNode }) => (
+  <div className="my-6 rounded-xl border-2 border-primary/20 bg-primary/5 p-5">
+    <div className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-primary">
+      <BookOpen className="h-4 w-4" />
+      In plain English
+    </div>
+    <div className="text-base leading-relaxed text-foreground">{children}</div>
+  </div>
+);
+
+export type StepItem = { title: string; body: React.ReactNode };
+
+export const StepByStep = ({ steps }: { steps: StepItem[] }) => (
+  <div className="my-8 space-y-4">
+    {steps.map((step, i) => (
+      <div key={i} className="flex gap-4 rounded-lg border border-border bg-card p-4 shadow-sm">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+          {i + 1}
+        </div>
+        <div>
+          <h4 className="font-semibold text-foreground">{step.title}</h4>
+          <div className="mt-1 text-sm leading-relaxed text-muted-foreground">{step.body}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
+export const LevelBadge = ({ level }: { level: 'Beginner' | 'Intermediate' | 'Advanced' }) => {
+  const styles = {
+    Beginner: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300',
+    Intermediate: 'bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300',
+    Advanced: 'bg-violet-100 text-violet-800 dark:bg-violet-950/40 dark:text-violet-300',
+  };
+  return (
+    <span className={cn('inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide', styles[level])}>
+      {level}
+    </span>
+  );
+};
+
+export const HLDvsLLD = () => (
+  <div className="my-6 grid gap-4 sm:grid-cols-2">
+    <div className="rounded-lg border border-border bg-card p-4">
+      <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
+        <Layers className="h-4 w-4 text-blue-500" />
+        HLD (High-Level Design)
+      </div>
+      <p className="text-sm text-muted-foreground">
+        The <strong className="text-foreground">big picture</strong>: users, servers, databases, queues, and how traffic flows.
+        You draw boxes and arrows — not class names.
+      </p>
+    </div>
+    <div className="rounded-lg border border-border bg-card p-4">
+      <div className="mb-2 flex items-center gap-2 font-semibold text-foreground">
+        <Code2 className="h-4 w-4 text-green-500" />
+        LLD (Low-Level Design)
+      </div>
+      <p className="text-sm text-muted-foreground">
+        The <strong className="text-foreground">code picture</strong>: classes, interfaces, methods, and how Spring layers talk to
+        the database.
+      </p>
+    </div>
+  </div>
+);
+
+export const NextLesson = ({ title }: { title: string }) => (
+  <p className="mt-10 flex items-center gap-2 text-sm text-muted-foreground">
+    <ArrowRight className="h-4 w-4 text-primary" />
+    Next in the course: <strong className="text-foreground">{title}</strong> (use the left menu)
+  </p>
+);
 
 export const RememberBlock = ({ children }: { children: React.ReactNode }) => (
   <div className="my-6 flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-950/20">

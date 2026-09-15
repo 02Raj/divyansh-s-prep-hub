@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, CommonMistake, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function HLD04APIDesign() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>HLD-04: API Design (REST, GraphQL, gRPC)</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>HLD Step 4 — API design (REST, gRPC)</SDTitle>
+
+      <PlainEnglish>
+        An API is the <strong>contract</strong> between mobile/web and your server. Most Java backends use REST (JSON over HTTP).
+        Use clear URLs, correct HTTP verbs, and stable error codes.
+      </PlainEnglish>
       
       <SDParagraph>
         An API (Application Programming Interface) is how different parts of a system talk to each other. During a system design interview, designing a clean, scalable API is a critical step. 
@@ -90,6 +96,7 @@ export default function HLD04APIDesign() {
         Using `GET` requests to modify data. `GET` should ONLY read data and must be "safe" to call multiple times. Never design an API like `GET /api/deleteUser?id=5`. Use `DELETE /api/users/5`.
       </CommonMistake>
 
+      <NextLesson title="HLD Step 5 — Database design" />
     </div>
   );
 }

@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function LLD02DesignPatterns() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>LLD-02: Top Design Patterns in Practice</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>LLD Step 2 — Design patterns</SDTitle>
+
+      <PlainEnglish>
+        Patterns are <strong>reusable recipes</strong> for common problems — not magic. In interviews, name the pattern, say
+        where you used it (Factory for payments, Strategy for pricing), and keep it simple.
+      </PlainEnglish>
       
       <SDParagraph>
         Design Patterns are proven solutions to common problems in software design. In Spring Boot, many of these patterns are built directly into the framework. You need to know the top 5.
@@ -69,6 +75,7 @@ export default function LLD02DesignPatterns() {
         }
       />
 
+      <NextLesson title="LLD Step 3 — Spring Boot layers" />
     </div>
   );
 }

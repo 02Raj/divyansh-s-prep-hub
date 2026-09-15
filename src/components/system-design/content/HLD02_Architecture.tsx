@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function HLD02Architecture() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>HLD-02: Architecture & Gateways</SDTitle>
+      <LevelBadge level="Beginner" />
+      <SDTitle>HLD Step 2 — Architecture & gateways</SDTitle>
+
+      <PlainEnglish>
+        Architecture = <strong>how you split the backend</strong> and <strong>how traffic enters</strong>. Start with one app
+        (monolith) unless you have a clear reason to split. Load balancers and API gateways sit in front of your code.
+      </PlainEnglish>
       
       <SDParagraph>
         Architecture is about how we organize our code, deploy it, and route traffic to it. In modern development, you must understand how requests enter your system and how your backend is structured.
@@ -100,6 +106,7 @@ export default function HLD02Architecture() {
           </div>
         }
       />
+      <NextLesson title="HLD Step 3 — Client → backend flow" />
     </div>
   );
 }

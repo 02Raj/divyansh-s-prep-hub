@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function HLD05DatabaseDesign() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>HLD-05: Database Design & Scaling</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>HLD Step 5 — Database design & scaling</SDTitle>
+
+      <PlainEnglish>
+        The database is often the <strong>slowest part</strong>. Pick SQL when data must be correct and linked (orders, users).
+        Add indexes, replicas, and only then think about sharding.
+      </PlainEnglish>
       
       <SDParagraph>
         Choosing the right database and knowing how to scale it is often the most important decision in a System Design interview. Databases are usually the first thing to become a bottleneck.
@@ -96,6 +102,7 @@ export default function HLD05DatabaseDesign() {
           </div>
         }
       />
+      <NextLesson title="HLD Step 6 — Cache & queues" />
     </div>
   );
 }

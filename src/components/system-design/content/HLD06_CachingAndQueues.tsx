@@ -1,9 +1,15 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function HLD06CachingAndQueues() {
   return (
     <div className="max-w-4xl">
-      <SDTitle>HLD-06: Caching & Message Queues</SDTitle>
+      <LevelBadge level="Intermediate" />
+      <SDTitle>HLD Step 6 — Cache & message queues</SDTitle>
+
+      <PlainEnglish>
+        <strong>Cache (Redis)</strong> = remember hot data in memory so the DB is not hit every time.{' '}
+        <strong>Queue (Kafka/RabbitMQ)</strong> = “do this later” for emails, reports, or heavy work so users get a fast response.
+      </PlainEnglish>
       
       <SDParagraph>
         To make a system truly fast and resilient, databases aren't enough. You need Caching to speed up reads, and Message Queues to handle heavy writes asynchronously.
@@ -72,6 +78,7 @@ export default function HLD06CachingAndQueues() {
         }
       />
 
+      <NextLesson title="HLD Step 7 — Reliability & CAP" />
     </div>
   );
 }

@@ -28,10 +28,13 @@ export default function SystemDesignPage() {
         <aside className="w-full md:w-64 lg:w-72 border-r border-border bg-muted/20 flex-shrink-0">
           <ScrollArea className="h-[calc(100vh-4rem)]">
             <div className="p-4 md:p-6">
-              <div className="flex items-center gap-2 mb-6 text-foreground font-semibold">
+              <div className="flex items-center gap-2 mb-2 text-foreground font-semibold">
                 <BookOpen className="h-5 w-5 text-primary" />
                 <span>System Design Course</span>
               </div>
+              <p className="text-xs text-muted-foreground mb-6 leading-relaxed">
+                Simple English · HLD + LLD · Beginner to advanced. Read the roadmap first, then follow the steps in order.
+              </p>
               
               <div className="space-y-6">
                 {systemDesignNav.map((section, idx) => (
