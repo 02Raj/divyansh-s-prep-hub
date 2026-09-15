@@ -844,6 +844,32 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "coding-first-non-repeating-character-stream",
+    "category": "Java Coding",
+    "question": "Find the first non-repeating character using Java 8 Streams",
+    "frequency": 9,
+    "companies": [
+      "EPAM",
+      "Wissen Technology",
+      "HCL Technologies"
+    ],
+    "variations": [
+      "Find the first non-repeating character in a string.",
+      "Find first non-repeated character in String",
+      "Coding: Given a string, find the first non-repeating character using Java 8 Stream API.",
+      "Find the First Non-Repeating Character",
+      "Find the first non-repeated character in a String.",
+      "Find First Non-Repeating Character",
+      "Find First Non-Repeating Character using Streams"
+    ],
+    "answerSEE": {
+      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
+      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
+      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
+      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
+    }
+  },
+  {
     "id": "spring-kafka-exactly-once",
     "category": "Microservices",
     "question": "How do you achieve exactly-once payment processing with Kafka and Spring Boot?",
@@ -992,6 +1018,32 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "given-a-list-of-integers-find-print-duplicate-values-using-java-8-streams",
+    "category": "Java Coding",
+    "question": "Given a list of integers, find/print duplicate values using Java 8 Streams.",
+    "frequency": 8,
+    "companies": [
+      "Accenture",
+      "Capgemini",
+      "HCL Technologies"
+    ],
+    "variations": [
+      "Find duplicate elements using Streams",
+      "Find duplicate elements",
+      "Find duplicate elements in an array",
+      "Find Duplicate Elements in an Array",
+      "Find duplicate elements from an array.",
+      "Find Duplicate Elements in a List",
+      "Find Duplicate Elements using Streams"
+    ],
+    "answerSEE": {
+      "simple": "Use a Set to track seen items, and filter the stream based on whether adding the item to the Set fails.",
+      "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
+      "example": "I would initialize a `Set<Integer> seen = new HashSet<>();`. Then I'd create the stream from the list and use `list.stream().filter(n -> !seen.add(n)).forEach(System.out::println);`. It runs in O(N) time and requires O(N) space for the Set.",
+      "summary10s": "Create an external Set. Use `.filter(n -> !set.add(n))` inside the stream."
+    }
+  },
+  {
     "id": "fail-fast-vs-fail-safe-iterator",
     "category": "Java",
     "question": "Fail-Fast vs Fail-Safe Iterator",
@@ -1119,30 +1171,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Reads configuration — annotations or XML\nCreates BeanDefinition for each bean\nInstantiates beans respecting dependencies order\nInjects dependencies via constructor or setter\nCalls PostConstruct, makes bean available, calls PreDestroy on shutdown",
       "example": "\"Spring Container starts by scanning all @Component annotated classes and creating BeanDefinition metadata. Then it instantiates beans in dependency order — dependency first, then dependent. After injection it calls @PostConstruct for initialization. ApplicationContext holds all beans ready for use. On shutdown @PreDestroy is called for cleanup.\"",
       "summary10s": "Scan classes, create BeanDefinitions, instantiate in order, inject, PostConstruct, ready."
-    }
-  },
-  {
-    "id": "coding-first-non-repeating-character-stream",
-    "category": "Java Coding",
-    "question": "Find the first non-repeating character using Java 8 Streams",
-    "frequency": 7,
-    "companies": [
-      "EPAM",
-      "Wissen Technology",
-      "HCL Technologies"
-    ],
-    "variations": [
-      "Find the first non-repeating character in a string.",
-      "Find first non-repeated character in String",
-      "Coding: Given a string, find the first non-repeating character using Java 8 Stream API.",
-      "Find the First Non-Repeating Character",
-      "Find the first non-repeated character in a String."
-    ],
-    "answerSEE": {
-      "simple": "Convert string to chars, group by character counting occurrences using LinkedHashMap, then find the first entry with a count of 1.",
-      "explain": "Use str.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())). LinkedHashMap maintains insertion order. Then stream the map entries to find the first one with value == 1.",
-      "example": "\"I'd first convert the string to a Stream of Characters. Then I'd use groupingBy to count the occurrences of each character, explicitly providing a LinkedHashMap supplier so the original string order is preserved. Finally, I'd stream that LinkedHashMap's entry set, filter for a value of 1, and return the first match using findFirst().\"",
-      "summary10s": "groupingBy into LinkedHashMap to keep order, filter count == 1, findFirst()."
     }
   },
   {
@@ -1407,30 +1435,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "",
       "example": "",
       "summary10s": ""
-    }
-  },
-  {
-    "id": "given-a-list-of-integers-find-print-duplicate-values-using-java-8-streams",
-    "category": "Java Coding",
-    "question": "Given a list of integers, find/print duplicate values using Java 8 Streams.",
-    "frequency": 6,
-    "companies": [
-      "Accenture",
-      "Capgemini",
-      "HCL Technologies"
-    ],
-    "variations": [
-      "Find duplicate elements using Streams",
-      "Find duplicate elements",
-      "Find duplicate elements in an array",
-      "Find Duplicate Elements in an Array",
-      "Find duplicate elements from an array."
-    ],
-    "answerSEE": {
-      "simple": "Use a Set to track seen items, and filter the stream based on whether adding the item to the Set fails.",
-      "explain": "A `HashSet.add()` returns false if the item already exists in the set. By putting this check inside a `filter()` operation on the stream, we easily isolate the duplicates without writing nested loops.",
-      "example": "I would initialize a `Set<Integer> seen = new HashSet<>();`. Then I'd create the stream from the list and use `list.stream().filter(n -> !seen.add(n)).forEach(System.out::println);`. It runs in O(N) time and requires O(N) space for the Set.",
-      "summary10s": "Create an external Set. Use `.filter(n -> !set.add(n))` inside the stream."
     }
   },
   {
@@ -2367,6 +2371,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Attribute directive example: highlight-on-hover, auto-focus, restrict input to numbers only\nUses @Directive decorator with a selector, injects ElementRef/Renderer2 to manipulate the DOM\nEncapsulates reusable behavior across multiple components without duplicating code",
       "example": "\"Yes, I've created custom attribute directives — one example was a numeric-only input directive that restricted a text field to accept only digits, which I reused across multiple forms instead of duplicating the validation logic. I used the @Directive decorator with a selector, and injected ElementRef and Renderer2 to safely manipulate the DOM element's behavior.\"",
       "summary10s": "Custom @Directive using ElementRef/Renderer2 for reusable DOM behavior."
+    }
+  },
+  {
+    "id": "count-char-frequency",
+    "category": "Java Coding",
+    "question": "Count character frequency",
+    "frequency": 4,
+    "companies": [
+      "Capgemini"
+    ],
+    "variations": [
+      "Count frequency of characters using HashMap",
+      "Character Frequency Count",
+      "Count Character Frequency using Streams"
+    ],
+    "answerSEE": {
+      "simple": "Loop through the string and use a HashMap or Java 8 Streams (Collectors.groupingBy) to count occurrences.",
+      "explain": "In Java 8: s.chars().mapToObj(c -> (char)c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).",
+      "example": "\"To count characters, I prefer the Java 8 approach with Collectors.groupingBy. It elegantly groups by the character itself and counts them into a Map in one readable line.\"",
+      "summary10s": "Use a HashMap to store chars as keys and increments as values, or Java 8 groupingBy."
     }
   },
   {
@@ -3500,6 +3524,22 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "`ngOnChanges` fires whenever an `@Input` reference changes. `ngOnInit` fires once after initial inputs are set (ideal for API calls). `ngAfterViewInit` fires when the component's template and child views are fully initialized. `ngOnDestroy` fires before the component is destroyed (essential for unsubscribing).",
       "example": "\"In a reusable chart component, I use `ngOnChanges` to redraw the chart when new data is passed in. I use `ngOnInit` for the initial setup. If I need to manipulate the canvas element directly, I have to wait for `ngAfterViewInit`. Finally, I unsubscribe from any RxJS streams in `ngOnDestroy`.\"",
       "summary10s": "Changes (Inputs updated) -> Init (API calls) -> AfterViewInit (DOM ready) -> Destroy (Cleanup)."
+    }
+  },
+  {
+    "id": "group-employees-by-department",
+    "category": "Java Coding",
+    "question": "Group Employees by Department",
+    "frequency": 3,
+    "companies": [],
+    "variations": [
+      "Group employees by department using Streams."
+    ],
+    "answerSEE": {
+      "simple": "Collectors.groupingBy with department getter — returns Map of department to list of employees.",
+      "explain": "Map result = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment))\nCount per department: Map countByDept = employees.stream().collect(groupingBy(Employee::getDepartment, counting()))\nAverage salary per department: Map avgSalary = employees.stream().collect(groupingBy(Employee::getDepartment, averagingDouble(Employee::getSalary)))",
+      "example": "\"groupingBy is the key operator here. It groups stream elements by the classifier function and puts them in a Map. Value is a List by default. I can change the downstream collector — counting() for count per group, averagingDouble for average salary, mapping to extract just names. Very flexible. This single operator replaces what would be a complex loop with a Map and multiple list operations.\"",
+      "summary10s": "collect(groupingBy(Employee::getDepartment)) returns Map<String,List<Employee>>, downstream collectors for aggregation."
     }
   },
   {
@@ -5477,24 +5517,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "count-char-frequency",
-    "category": "Java Coding",
-    "question": "Count character frequency",
-    "frequency": 2,
-    "companies": [
-      "Capgemini"
-    ],
-    "variations": [
-      "Count frequency of characters using HashMap"
-    ],
-    "answerSEE": {
-      "simple": "Loop through the string and use a HashMap or Java 8 Streams (Collectors.groupingBy) to count occurrences.",
-      "explain": "In Java 8: s.chars().mapToObj(c -> (char)c).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).",
-      "example": "\"To count characters, I prefer the Java 8 approach with Collectors.groupingBy. It elegantly groups by the character itself and counts them into a Map in one readable line.\"",
-      "summary10s": "Use a HashMap to store chars as keys and increments as values, or Java 8 groupingBy."
-    }
-  },
-  {
     "id": "java-8-stream-programs",
     "category": "Java Coding",
     "question": "Java 8 Stream programs",
@@ -5713,22 +5735,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Approach: Filter with filter() on experience and salary thresholds, then sort with sorted() using Comparator.comparing(), reversing for descending order.\nimport java.util.*;\nimport java.util.stream.*;\n\nrecord Employee(String name, int id, double salary, int experience) {}\n\npublic class EmployeeFilter {\n    public static void main(String[] args) {\n        List<Employee> employees = List.of(\n            new Employee(\"A\", 1, 50000, 3),\n            new Employee(\"B\", 2, 80000, 6),\n            new Employee(\"C\", 3, 60000, 5)\n        );\n\n        List<Employee> result = employees.stream()\n            .filter(e -> e.experience() >= 5 && e.salary() >= 55000)\n            .sorted(Comparator.comparing(Employee::salary).reversed()) // descending\n            .collect(Collectors.toList());\n\n        result.forEach(e -> System.out.println(e.name() + \" - \" + e.salary()));\n    }\n}",
       "example": "\"I'd use Java Streams — filter the list based on the experience and salary conditions using filter(), then sort with sorted() and a Comparator on salary. For descending order, I just chain .reversed() on the Comparator, or swap to Comparator.comparing(...).reversed() — it's a clean one-liner instead of writing custom sorting logic.\"",
       "summary10s": "filter() for conditions + sorted(Comparator...reversed()) for order."
-    }
-  },
-  {
-    "id": "group-employees-by-department",
-    "category": "Java Coding",
-    "question": "Group Employees by Department",
-    "frequency": 2,
-    "companies": [],
-    "variations": [
-      "Group employees by department using Streams."
-    ],
-    "answerSEE": {
-      "simple": "Collectors.groupingBy with department getter — returns Map of department to list of employees.",
-      "explain": "Map result = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment))\nCount per department: Map countByDept = employees.stream().collect(groupingBy(Employee::getDepartment, counting()))\nAverage salary per department: Map avgSalary = employees.stream().collect(groupingBy(Employee::getDepartment, averagingDouble(Employee::getSalary)))",
-      "example": "\"groupingBy is the key operator here. It groups stream elements by the classifier function and puts them in a Map. Value is a List by default. I can change the downstream collector — counting() for count per group, averagingDouble for average salary, mapping to extract just names. Very flexible. This single operator replaces what would be a complex loop with a Map and multiple list operations.\"",
-      "summary10s": "collect(groupingBy(Employee::getDepartment)) returns Map<String,List<Employee>>, downstream collectors for aggregation."
     }
   },
   {
@@ -7654,6 +7660,22 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "The CI/CD pipeline (e.g., GitHub Actions, Azure DevOps) triggers on code push. The YAML script runs `npm install`, runs tests, and executes `npm run build --prod`. The resulting `dist` folder contains pure static files, which are then copied to AWS S3, Azure Blob Storage, or NGINX, fronted by a CDN.",
       "example": "\"In our GitHub Actions YAML file, when we merge to main, the pipeline installs dependencies, runs Jest tests, and builds the Angular app using AOT compilation. It then syncs the `dist` folder to an AWS S3 bucket and invalidates the CloudFront CDN cache. The server doesn't need Node.js because Angular builds output purely static assets.\"",
       "summary10s": "Pipeline runs tests -> `ng build` -> outputs static HTML/JS/CSS -> deploys to AWS S3/Azure Blob -> served via CDN."
+    }
+  },
+  {
+    "id": "count-emp-dept-wise",
+    "category": "SQL",
+    "question": "Count employees department-wise",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Count Employees by Department"
+    ],
+    "answerSEE": {
+      "simple": "Use GROUP BY department and COUNT(*).",
+      "explain": "SELECT department_id, COUNT(*) FROM employees GROUP BY department_id.",
+      "example": "\"I use SELECT dept, COUNT(id) FROM employees GROUP BY dept. If I want departments with 0 employees, I do a LEFT JOIN from the department table.\"",
+      "summary10s": "GROUP BY dept with COUNT(*)."
     }
   },
   {
@@ -17842,20 +17864,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "count-emp-dept-wise",
-    "category": "SQL",
-    "question": "Count employees department-wise",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use GROUP BY department and COUNT(*).",
-      "explain": "SELECT department_id, COUNT(*) FROM employees GROUP BY department_id.",
-      "example": "\"I use SELECT dept, COUNT(id) FROM employees GROUP BY dept. If I want departments with 0 employees, I do a LEFT JOIN from the department table.\"",
-      "summary10s": "GROUP BY dept with COUNT(*)."
-    }
-  },
-  {
     "id": "rest-api-best-practices",
     "category": "Microservices",
     "question": "REST API Best Practices",
@@ -22061,6 +22069,216 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Detailed concept for RxJS → Subject vs BehaviorSubject | RxJS Operators: switchMap | concatMap | mergeMap | forkJoin | map | tap | retry | take | takeUntil | Debouncing",
       "example": "\"In my project, I implemented this by...\"",
       "summary10s": "Key takeaway for RxJS"
+    }
+  },
+  {
+    "id": "java-coding-remove-duplicate-characters-from-a-strin",
+    "category": "Java Coding",
+    "question": "Remove Duplicate Characters from a String",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Remove Duplicate Characters from a String",
+      "explain": "Detailed approach and time complexity for solving Remove Duplicate Characters from a String",
+      "example": "```java\n// Code snippet for Remove Duplicate Characters from a String\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Remove Duplicate Characters from a String"
+    }
+  },
+  {
+    "id": "java-coding-find-second-non-repeating-character",
+    "category": "Java Coding",
+    "question": "Find Second Non-Repeating Character",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find Second Non-Repeating Character",
+      "explain": "Detailed approach and time complexity for solving Find Second Non-Repeating Character",
+      "example": "```java\n// Code snippet for Find Second Non-Repeating Character\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Second Non-Repeating Character"
+    }
+  },
+  {
+    "id": "java-coding-find-first-repeating-character",
+    "category": "Java Coding",
+    "question": "Find First Repeating Character",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find First Repeating Character",
+      "explain": "Detailed approach and time complexity for solving Find First Repeating Character",
+      "example": "```java\n// Code snippet for Find First Repeating Character\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find First Repeating Character"
+    }
+  },
+  {
+    "id": "java-coding-reverse-words-in-a-sentence",
+    "category": "Java Coding",
+    "question": "Reverse Words in a Sentence",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Reverse Words in a Sentence",
+      "explain": "Detailed approach and time complexity for solving Reverse Words in a Sentence",
+      "example": "```java\n// Code snippet for Reverse Words in a Sentence\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Reverse Words in a Sentence"
+    }
+  },
+  {
+    "id": "java-coding-string-rotation-ajith-thaji",
+    "category": "Java Coding",
+    "question": "String Rotation (ajith - thaji)",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: String Rotation (ajith - thaji)",
+      "explain": "Detailed approach and time complexity for solving String Rotation (ajith - thaji)",
+      "example": "```java\n// Code snippet for String Rotation (ajith - thaji)\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve String Rotation (ajith - thaji)"
+    }
+  },
+  {
+    "id": "java-coding-remove-duplicates-from-a-list",
+    "category": "Java Coding",
+    "question": "Remove Duplicates from a List",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Remove Duplicates from a List",
+      "explain": "Detailed approach and time complexity for solving Remove Duplicates from a List",
+      "example": "```java\n// Code snippet for Remove Duplicates from a List\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Remove Duplicates from a List"
+    }
+  },
+  {
+    "id": "java-coding-find-the-highest-number-in-a-list",
+    "category": "Java Coding",
+    "question": "Find the Highest Number in a List",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find the Highest Number in a List",
+      "explain": "Detailed approach and time complexity for solving Find the Highest Number in a List",
+      "example": "```java\n// Code snippet for Find the Highest Number in a List\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find the Highest Number in a List"
+    }
+  },
+  {
+    "id": "java-coding-find-the-second-highest-number-in-a-list",
+    "category": "Java Coding",
+    "question": "Find the Second Highest Number in a List",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find the Second Highest Number in a List",
+      "explain": "Detailed approach and time complexity for solving Find the Second Highest Number in a List",
+      "example": "```java\n// Code snippet for Find the Second Highest Number in a List\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find the Second Highest Number in a List"
+    }
+  },
+  {
+    "id": "java-coding-find-second-non-repeating-character-usin",
+    "category": "Java Coding",
+    "question": "Find Second Non-Repeating Character usingStreams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find Second Non-Repeating Character usingStreams",
+      "explain": "Detailed approach and time complexity for solving Find Second Non-Repeating Character usingStreams",
+      "example": "```java\n// Code snippet for Find Second Non-Repeating Character usingStreams\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Second Non-Repeating Character usingStreams"
+    }
+  },
+  {
+    "id": "java-coding-find-highest-number-in-a-list-using-stre",
+    "category": "Java Coding",
+    "question": "Find Highest Number in a List using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find Highest Number in a List using Streams",
+      "explain": "Detailed approach and time complexity for solving Find Highest Number in a List using Streams",
+      "example": "```java\n// Code snippet for Find Highest Number in a List using Streams\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Highest Number in a List using Streams"
+    }
+  },
+  {
+    "id": "java-coding-find-second-highest-number-in-a-list-usi",
+    "category": "Java Coding",
+    "question": "Find Second Highest Number in a List using Streams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find Second Highest Number in a List using Streams",
+      "explain": "Detailed approach and time complexity for solving Find Second Highest Number in a List using Streams",
+      "example": "```java\n// Code snippet for Find Second Highest Number in a List using Streams\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Second Highest Number in a List using Streams"
+    }
+  },
+  {
+    "id": "java-coding-find-employee-with-highest-salary",
+    "category": "Java Coding",
+    "question": "Find Employee with Highest Salary",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find Employee with Highest Salary",
+      "explain": "Detailed approach and time complexity for solving Find Employee with Highest Salary",
+      "example": "```java\n// Code snippet for Find Employee with Highest Salary\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Employee with Highest Salary"
+    }
+  },
+  {
+    "id": "java-coding-find-employee-with-second-highest-salary",
+    "category": "Java Coding",
+    "question": "Find Employee with Second Highest Salary",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find Employee with Second Highest Salary",
+      "explain": "Detailed approach and time complexity for solving Find Employee with Second Highest Salary",
+      "example": "```java\n// Code snippet for Find Employee with Second Highest Salary\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Employee with Second Highest Salary"
+    }
+  },
+  {
+    "id": "java-coding-sort-employees-by-salary",
+    "category": "Java Coding",
+    "question": "Sort Employees by Salary",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Sort Employees by Salary",
+      "explain": "Detailed approach and time complexity for solving Sort Employees by Salary",
+      "example": "```java\n// Code snippet for Sort Employees by Salary\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Sort Employees by Salary"
+    }
+  },
+  {
+    "id": "java-coding-find-employees-joining-after-a-given-yea",
+    "category": "Java Coding",
+    "question": "Find Employees Joining After a Given Year",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of how to solve: Find Employees Joining After a Given Year",
+      "explain": "Detailed approach and time complexity for solving Find Employees Joining After a Given Year",
+      "example": "```java\n// Code snippet for Find Employees Joining After a Given Year\n```",
+      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Employees Joining After a Given Year"
     }
   }
 ];
