@@ -1851,6 +1851,25 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "angular-standalone-components",
+    "category": "Angular",
+    "question": "Standalone Components",
+    "frequency": 5,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "What is the difference between Standalone Components and NgModules?",
+      "Standalone Components vs Module-Based Structure"
+    ],
+    "answerSEE": {
+      "simple": "Standalone components don't need to be declared in an NgModule — they manage their own dependencies directly.",
+      "explain": "Set standalone: true, import dependencies directly in the component's imports array\nReduces boilerplate — no need for NgModules for every feature\nSimplifies lazy loading — can lazy-load a component directly, not just a module",
+      "example": "\"Standalone components let us skip NgModules entirely — the component declares its own dependencies directly in its imports array. This reduces a lot of boilerplate we used to write with NgModules for every small feature. I've used this for lazy-loading individual components directly via the router, which simplifies the module structure a lot in newer Angular projects.\"",
+      "summary10s": "No NgModule needed — component manages its own imports directly."
+    }
+  },
+  {
     "id": "system-design-422-vs-500",
     "category": "System Design",
     "question": "When should you return 422 vs 500, and how does it affect retries?",
@@ -1867,24 +1886,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "A 422 means the client sent valid JSON but it failed a business rule (like end date before start date). A 500 means the server crashed unexpectedly. Clients should only retry 500s, and they must use an idempotency key to prevent duplicate actions.",
       "example": "\"I return a 422 when the request is syntactically correct but fails a business rule, because retrying it will just fail again. 500 is reserved for unexpected server crashes. To make retrying a 500 safe, especially for POST requests, I require the client to send an idempotency key header.\"",
       "summary10s": "422 = bad request/don't retry. 500 = server error/safe to retry with idempotency key."
-    }
-  },
-  {
-    "id": "angular-standalone-components",
-    "category": "Angular",
-    "question": "Standalone Components",
-    "frequency": 4,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "What is the difference between Standalone Components and NgModules?"
-    ],
-    "answerSEE": {
-      "simple": "Standalone components don't need to be declared in an NgModule — they manage their own dependencies directly.",
-      "explain": "Set standalone: true, import dependencies directly in the component's imports array\nReduces boilerplate — no need for NgModules for every feature\nSimplifies lazy loading — can lazy-load a component directly, not just a module",
-      "example": "\"Standalone components let us skip NgModules entirely — the component declares its own dependencies directly in its imports array. This reduces a lot of boilerplate we used to write with NgModules for every small feature. I've used this for lazy-loading individual components directly via the router, which simplifies the module structure a lot in newer Angular projects.\"",
-      "summary10s": "No NgModule needed — component manages its own imports directly."
     }
   },
   {
@@ -2290,6 +2291,85 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "angular-http-interceptors",
+    "category": "Angular",
+    "question": "Angular HTTP Interceptors",
+    "frequency": 4,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "What is an HTTP Interceptor in Angular? Where would you use it?",
+      "How do multiple HTTP interceptors work together?",
+      "HTTP Interceptors → Token Handling | Custom Headers | Error Handling"
+    ],
+    "answerSEE": {
+      "simple": "Interceptors let you intercept and modify HTTP requests/responses globally before they're sent or after they're received.",
+      "explain": "Implement HttpInterceptor interface, override intercept() method\nCommon uses: attaching auth tokens, logging, error handling, loading spinners\nRegistered in providers array (or functional interceptors in newer Angular)",
+      "example": "\"HTTP Interceptors let me hook into every outgoing HTTP request or incoming response globally, without touching individual service calls. I implement the intercept() method, clone the request to modify it, and pass it along the chain. I've used them for automatically attaching a JWT token to every request's Authorization header, and for centralized error handling, like redirecting to login on a 401 response.\"",
+      "summary10s": "Intercepts every HTTP request/response globally — implement intercept()."
+    }
+  },
+  {
+    "id": "angular-micro-frontends",
+    "category": "Angular",
+    "question": "Micro Frontends",
+    "frequency": 4,
+    "companies": [
+      "Virtusa"
+    ],
+    "variations": [
+      "What is Micro Frontend Architecture and why use it in Angular?",
+      "Micro Frontends → Basic Understanding | How It Works | How to Set It Up (5+ Years Experience)"
+    ],
+    "answerSEE": {
+      "simple": "Micro Frontends split a large frontend application into smaller, independently deployable pieces, each owned by a different team.",
+      "explain": "Each MFE can be built, deployed, and versioned independently\nComposed together at runtime (or build time) into one cohesive application\nCommon implementation: Webpack Module Federation",
+      "example": "\"Micro Frontends apply the microservices idea to the frontend — instead of one large monolithic Angular app, we split it into smaller, independently deployable applications, often owned by different teams, and compose them together into a single user experience. I've worked with this using Webpack Module Federation, where a shell application loads remote modules at runtime.\"",
+      "summary10s": "Split a large frontend into independently deployable pieces — composed via Module Federation."
+    }
+  },
+  {
+    "id": "change-detection-how-it-works",
+    "category": "Angular",
+    "question": "Change Detection — How It Works",
+    "frequency": 4,
+    "companies": [
+      "TCS"
+    ],
+    "variations": [
+      "Change Detection & Zone.js",
+      "Change Detection?",
+      "Change Detection → How Change Detection Works | Role of Zone.js"
+    ],
+    "answerSEE": {
+      "simple": "Angular checks component tree for data changes and updates DOM when changes found.",
+      "explain": "Zone.js patches async operations and notifies Angular when something might have changed\nAngular traverses component tree from root checking each component\nDefault — every component checked every cycle\nOnPush — component skipped unless Input changed, async emitted, or DOM event fired",
+      "example": "\"Zone.js intercepts all async operations — setTimeout, HTTP calls, events — and triggers Angular change detection after each. Angular then walks the component tree from root to leaves checking if any data bound in templates changed. Default strategy checks everything. OnPush skips components unless they are specifically marked dirty.\"",
+      "summary10s": "Zone.js triggers detection, Angular walks tree checking templates, Default=all, OnPush=only marked dirty."
+    }
+  },
+  {
+    "id": "angular-custom-directives",
+    "category": "Angular",
+    "question": "Custom Directives",
+    "frequency": 4,
+    "companies": [
+      "Virtusa",
+      "Deloitte"
+    ],
+    "variations": [
+      "Have you created any Custom Directives?",
+      "Custom Directives → HostListener | ElementRef | Renderer2"
+    ],
+    "answerSEE": {
+      "simple": "Yes — created for reusable DOM behavior not covered by built-in directives.",
+      "explain": "Attribute directive example: highlight-on-hover, auto-focus, restrict input to numbers only\nUses @Directive decorator with a selector, injects ElementRef/Renderer2 to manipulate the DOM\nEncapsulates reusable behavior across multiple components without duplicating code",
+      "example": "\"Yes, I've created custom attribute directives — one example was a numeric-only input directive that restricted a text field to accept only digits, which I reused across multiple forms instead of duplicating the validation logic. I used the @Directive decorator with a selector, and injected ElementRef and Renderer2 to safely manipulate the DOM element's behavior.\"",
+      "summary10s": "Custom @Directive using ElementRef/Renderer2 for reusable DOM behavior."
+    }
+  },
+  {
     "id": "what-does-enableautoconfiguration-do",
     "category": "Spring Boot",
     "question": "What does @EnableAutoConfiguration do?",
@@ -2342,25 +2422,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Uses bucket-level locking (segment locking in older versions, CAS + synchronized in Java 8+)\nOnly the specific bucket being modified is locked, not the whole map\nReads are mostly lock-free, giving high concurrency",
       "example": "\"ConcurrentHashMap achieves thread-safety without locking the whole map. In Java 8 onwards, it uses CAS operations and synchronizes only on the specific bucket being updated, not the entire structure. This makes reads mostly lock-free and gives much better performance than a synchronized HashMap in multi-threaded scenarios.\"",
       "summary10s": "Locks only the bucket, not the whole map — high concurrency."
-    }
-  },
-  {
-    "id": "angular-http-interceptors",
-    "category": "Angular",
-    "question": "Angular HTTP Interceptors",
-    "frequency": 3,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "What is an HTTP Interceptor in Angular? Where would you use it?",
-      "How do multiple HTTP interceptors work together?"
-    ],
-    "answerSEE": {
-      "simple": "Interceptors let you intercept and modify HTTP requests/responses globally before they're sent or after they're received.",
-      "explain": "Implement HttpInterceptor interface, override intercept() method\nCommon uses: attaching auth tokens, logging, error handling, loading spinners\nRegistered in providers array (or functional interceptors in newer Angular)",
-      "example": "\"HTTP Interceptors let me hook into every outgoing HTTP request or incoming response globally, without touching individual service calls. I implement the intercept() method, clone the request to modify it, and pass it along the chain. I've used them for automatically attaching a JWT token to every request's Authorization header, and for centralized error handling, like redirecting to login on a 401 response.\"",
-      "summary10s": "Intercepts every HTTP request/response globally — implement intercept()."
     }
   },
   {
@@ -2463,24 +2524,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "@PathVariable — extract value from URL path like /users/123, id is path variable\n@RequestParam — extract from query string like /users?status=active, status is request param\nPathVariable for resource identity, RequestParam for filtering or optional inputs\nRequestParam can have default value and be optional",
       "example": "\"PathVariable is for identifying a specific resource — like /orders/456 where 456 is the order ID in the path. RequestParam is for filtering or optional data — like /orders?status=pending&page=1. I use PathVariable for required identifiers and RequestParam for optional filters, pagination, and search criteria.\"",
       "summary10s": "PathVariable=resource ID in URL path, RequestParam=optional filter in query string."
-    }
-  },
-  {
-    "id": "angular-micro-frontends",
-    "category": "Angular",
-    "question": "Micro Frontends",
-    "frequency": 3,
-    "companies": [
-      "Virtusa"
-    ],
-    "variations": [
-      "What is Micro Frontend Architecture and why use it in Angular?"
-    ],
-    "answerSEE": {
-      "simple": "Micro Frontends split a large frontend application into smaller, independently deployable pieces, each owned by a different team.",
-      "explain": "Each MFE can be built, deployed, and versioned independently\nComposed together at runtime (or build time) into one cohesive application\nCommon implementation: Webpack Module Federation",
-      "example": "\"Micro Frontends apply the microservices idea to the frontend — instead of one large monolithic Angular app, we split it into smaller, independently deployable applications, often owned by different teams, and compose them together into a single user experience. I've worked with this using Webpack Module Federation, where a shell application loads remote modules at runtime.\"",
-      "summary10s": "Split a large frontend into independently deployable pieces — composed via Module Federation."
     }
   },
   {
@@ -2800,25 +2843,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "change-detection-how-it-works",
-    "category": "Angular",
-    "question": "Change Detection — How It Works",
-    "frequency": 3,
-    "companies": [
-      "TCS"
-    ],
-    "variations": [
-      "Change Detection & Zone.js",
-      "Change Detection?"
-    ],
-    "answerSEE": {
-      "simple": "Angular checks component tree for data changes and updates DOM when changes found.",
-      "explain": "Zone.js patches async operations and notifies Angular when something might have changed\nAngular traverses component tree from root checking each component\nDefault — every component checked every cycle\nOnPush — component skipped unless Input changed, async emitted, or DOM event fired",
-      "example": "\"Zone.js intercepts all async operations — setTimeout, HTTP calls, events — and triggers Angular change detection after each. Angular then walks the component tree from root to leaves checking if any data bound in templates changed. Default strategy checks everything. OnPush skips components unless they are specifically marked dirty.\"",
-      "summary10s": "Zone.js triggers detection, Angular walks tree checking templates, Default=all, OnPush=only marked dirty."
-    }
-  },
-  {
     "id": "sysdesign-explain-architecture",
     "category": "System Design",
     "question": "Explain the architecture of one of your recent projects.",
@@ -2907,25 +2931,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "CanActivate checks if a route can be visited. CanDeactivate checks if you can leave (like unsaved changes). CanMatch/CanLoad prevents downloading lazy-loaded modules if the user isn't authorized.",
       "example": "\"I implement CanActivate to check if the user has a valid JWT token before letting them access the /dashboard route. If they don't, the guard returns false and redirects them to /login. I use CanDeactivate to warn users if they try to leave a form with unsaved changes.\"",
       "summary10s": "CanActivate (enter), CanDeactivate (leave), CanMatch (lazy load). Controls route access."
-    }
-  },
-  {
-    "id": "angular-custom-directives",
-    "category": "Angular",
-    "question": "Custom Directives",
-    "frequency": 3,
-    "companies": [
-      "Virtusa",
-      "Deloitte"
-    ],
-    "variations": [
-      "Have you created any Custom Directives?"
-    ],
-    "answerSEE": {
-      "simple": "Yes — created for reusable DOM behavior not covered by built-in directives.",
-      "explain": "Attribute directive example: highlight-on-hover, auto-focus, restrict input to numbers only\nUses @Directive decorator with a selector, injects ElementRef/Renderer2 to manipulate the DOM\nEncapsulates reusable behavior across multiple components without duplicating code",
-      "example": "\"Yes, I've created custom attribute directives — one example was a numeric-only input directive that restricted a text field to accept only digits, which I reused across multiple forms instead of duplicating the validation logic. I used the @Directive decorator with a selector, and injected ElementRef and Renderer2 to safely manipulate the DOM element's behavior.\"",
-      "summary10s": "Custom @Directive using ElementRef/Renderer2 for reusable DOM behavior."
     }
   },
   {
@@ -3420,6 +3425,81 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "employees.stream().sorted(Comparator.comparing(Employee::getSalary).reversed()).limit(N).collect(Collectors.toList())",
       "example": "\"For top 3 highest salaries, I map to salary, sort in reverse order, and use limit(3) before collecting.\"",
       "summary10s": "stream().sorted(reversed).limit(N)."
+    }
+  },
+  {
+    "id": "angular-performance-optimization",
+    "category": "Angular",
+    "question": "Performance Optimization → trackBy | OnPush | Pipes | Using Helper Functions and Services Appropriately | Keeping Components Lightweight",
+    "frequency": 3,
+    "companies": [
+      "TCS"
+    ],
+    "variations": [
+      "How would you improve the performance of an Angular application? For example, lazy loading, trackBy, pagination, etc."
+    ],
+    "answerSEE": {
+      "simple": "Optimize by reducing Change Detection cycles using OnPush, avoiding method calls in templates, and using trackBy in loops.",
+      "explain": "Angular's default change detection checks everything. Use `ChangeDetectionStrategy.OnPush` to only check when Inputs change. Never call functions in HTML templates (like `{{ calculateTotal() }}`) because they run on every cycle; use Pure Pipes or pre-calculate properties instead. Always use `trackBy` in `*ngFor` to prevent destroying and recreating DOM nodes.",
+      "example": "\"I saw an app lagging because a function was called inside an `*ngFor` string interpolation. It was running hundreds of times per second. I extracted that logic into a Pure Pipe, changed the component to `OnPush`, and added `trackBy` to the loop. The lag disappeared completely.\"",
+      "summary10s": "Use OnPush. Use trackBy in ngFor. NEVER call functions in templates—use Pure Pipes or pre-calculated fields."
+    }
+  },
+  {
+    "id": "angular-signals",
+    "category": "Angular",
+    "question": "Signals → What are Signals? | Types of Signals | What does effect() do?",
+    "frequency": 3,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Have you worked with Signals in Angular?",
+      "What types of Signals are available?"
+    ],
+    "answerSEE": {
+      "simple": "Signals are a reactive wrapper around values that instantly notify Angular when they change, enabling fine-grained change detection.",
+      "explain": "There are writable signals (`signal()`) that you can update, and computed signals (`computed()`) that derive values declaratively. `effect()` is a function that automatically runs a side effect whenever any Signal read inside it changes.",
+      "example": "\"Instead of using BehaviorSubjects, I use `count = signal(0)`. When I update it using `this.count.set(1)`, Angular knows exactly where `count` is used in the template and updates only that specific DOM element. I use `effect()` to log to the console automatically every time `count` changes.\"",
+      "summary10s": "Reactive state wrapper. Types: Writable (signal), Derived (computed), Side-effect (effect). Enables granular UI updates."
+    }
+  },
+  {
+    "id": "angular-pure-vs-impure-pipes",
+    "category": "Angular",
+    "question": "What is the difference between Pure and Impure Pipes?",
+    "frequency": 3,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "What are Pure and Impure Pipes?",
+      "Pure vs Impure Pipes → Custom Pipes"
+    ],
+    "answerSEE": {
+      "simple": "Pure pipes only execute when their input reference changes, while impure pipes execute on every single change detection cycle.",
+      "explain": "Pure pipes are highly optimized and only run when a primitive value or an object reference changes. Impure pipes run constantly, even on keystrokes or mouse movements, which can degrade performance.",
+      "example": "\"I always default to pure pipes because they are fast. If I pass an array to a pure pipe and push a new item, the pipe won't trigger because the array reference didn't change. If I absolutely need it to trigger on internal mutations, I'd make it impure by setting pure: false, but I try to avoid that for performance.\"",
+      "summary10s": "Pure = runs only on input reference change (fast). Impure = runs on every change detection cycle (slow)."
+    }
+  },
+  {
+    "id": "angular-lifecycle-events",
+    "category": "Angular",
+    "question": "Lifecycle Events → ngOnInit | ngAfterViewInit | ngOnDestroy | ngOnChanges",
+    "frequency": 3,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "What is ngOnChanges() and when is it triggered?",
+      "Lifecycle Events → ngOnInit | ngAfterViewInit | ngOnDestroy | ngOnChanges (especially with reusable components)"
+    ],
+    "answerSEE": {
+      "simple": "ngOnChanges for Input updates, ngOnInit for initialization, ngAfterViewInit for DOM access, ngOnDestroy for cleanup.",
+      "explain": "`ngOnChanges` fires whenever an `@Input` reference changes. `ngOnInit` fires once after initial inputs are set (ideal for API calls). `ngAfterViewInit` fires when the component's template and child views are fully initialized. `ngOnDestroy` fires before the component is destroyed (essential for unsubscribing).",
+      "example": "\"In a reusable chart component, I use `ngOnChanges` to redraw the chart when new data is passed in. I use `ngOnInit` for the initial setup. If I need to manipulate the canvas element directly, I have to wait for `ngAfterViewInit`. Finally, I unsubscribe from any RxJS streams in `ngOnDestroy`.\"",
+      "summary10s": "Changes (Inputs updated) -> Init (API calls) -> AfterViewInit (DOM ready) -> Destroy (Cleanup)."
     }
   },
   {
@@ -4614,24 +4694,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-performance-optimization",
-    "category": "Angular",
-    "question": "Performance Optimization → trackBy | OnPush | Pipes | Using Helper Functions and Services Appropriately | Keeping Components Lightweight",
-    "frequency": 2,
-    "companies": [
-      "TCS"
-    ],
-    "variations": [
-      "How would you improve the performance of an Angular application? For example, lazy loading, trackBy, pagination, etc."
-    ],
-    "answerSEE": {
-      "simple": "Optimize by reducing Change Detection cycles using OnPush, avoiding method calls in templates, and using trackBy in loops.",
-      "explain": "Angular's default change detection checks everything. Use `ChangeDetectionStrategy.OnPush` to only check when Inputs change. Never call functions in HTML templates (like `{{ calculateTotal() }}`) because they run on every cycle; use Pure Pipes or pre-calculate properties instead. Always use `trackBy` in `*ngFor` to prevent destroying and recreating DOM nodes.",
-      "example": "\"I saw an app lagging because a function was called inside an `*ngFor` string interpolation. It was running hundreds of times per second. I extracted that logic into a Pure Pipe, changed the component to `OnPush`, and added `trackBy` to the loop. The lag disappeared completely.\"",
-      "summary10s": "Use OnPush. Use trackBy in ngFor. NEVER call functions in templates—use Pure Pipes or pre-calculated fields."
-    }
-  },
-  {
     "id": "find-missing-number-in-array",
     "category": "Java Coding",
     "question": "Find Missing Number in Array",
@@ -5541,43 +5603,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Mention the LTS version used in the project and one or two features used from it.",
       "example": "\"I am currently using Java 17 in my project, taking advantage of features like records, pattern matching for instanceof, and text blocks.\"",
       "summary10s": "Java 17 or 21 (LTS), mention key features used."
-    }
-  },
-  {
-    "id": "angular-signals",
-    "category": "Angular",
-    "question": "Signals → What are Signals? | Types of Signals | What does effect() do?",
-    "frequency": 2,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "Have you worked with Signals in Angular?",
-      "What types of Signals are available?"
-    ],
-    "answerSEE": {
-      "simple": "Signals are a reactive wrapper around values that instantly notify Angular when they change, enabling fine-grained change detection.",
-      "explain": "There are writable signals (`signal()`) that you can update, and computed signals (`computed()`) that derive values declaratively. `effect()` is a function that automatically runs a side effect whenever any Signal read inside it changes.",
-      "example": "\"Instead of using BehaviorSubjects, I use `count = signal(0)`. When I update it using `this.count.set(1)`, Angular knows exactly where `count` is used in the template and updates only that specific DOM element. I use `effect()` to log to the console automatically every time `count` changes.\"",
-      "summary10s": "Reactive state wrapper. Types: Writable (signal), Derived (computed), Side-effect (effect). Enables granular UI updates."
-    }
-  },
-  {
-    "id": "angular-pure-vs-impure-pipes",
-    "category": "Angular",
-    "question": "What is the difference between Pure and Impure Pipes?",
-    "frequency": 2,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "What are Pure and Impure Pipes?"
-    ],
-    "answerSEE": {
-      "simple": "Pure pipes only execute when their input reference changes, while impure pipes execute on every single change detection cycle.",
-      "explain": "Pure pipes are highly optimized and only run when a primitive value or an object reference changes. Impure pipes run constantly, even on keystrokes or mouse movements, which can degrade performance.",
-      "example": "\"I always default to pure pipes because they are fast. If I pass an array to a pure pipe and push a new item, the pipe won't trigger because the array reference didn't change. If I absolutely need it to trigger on internal mutations, I'd make it impure by setting pure: false, but I try to avoid that for performance.\"",
-      "summary10s": "Pure = runs only on input reference change (fast). Impure = runs on every change detection cycle (slow)."
     }
   },
   {
@@ -6618,24 +6643,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-lifecycle-events",
-    "category": "Angular",
-    "question": "Lifecycle Events → ngOnInit | ngAfterViewInit | ngOnDestroy | ngOnChanges",
-    "frequency": 2,
-    "companies": [
-      "Infosys"
-    ],
-    "variations": [
-      "What is ngOnChanges() and when is it triggered?"
-    ],
-    "answerSEE": {
-      "simple": "ngOnChanges for Input updates, ngOnInit for initialization, ngAfterViewInit for DOM access, ngOnDestroy for cleanup.",
-      "explain": "`ngOnChanges` fires whenever an `@Input` reference changes. `ngOnInit` fires once after initial inputs are set (ideal for API calls). `ngAfterViewInit` fires when the component's template and child views are fully initialized. `ngOnDestroy` fires before the component is destroyed (essential for unsubscribing).",
-      "example": "\"In a reusable chart component, I use `ngOnChanges` to redraw the chart when new data is passed in. I use `ngOnInit` for the initial setup. If I need to manipulate the canvas element directly, I have to wait for `ngAfterViewInit`. Finally, I unsubscribe from any RxJS streams in `ngOnDestroy`.\"",
-      "summary10s": "Changes (Inputs updated) -> Init (API calls) -> AfterViewInit (DOM ready) -> Destroy (Cleanup)."
-    }
-  },
-  {
     "id": "findfirst-vs-findany",
     "category": "Java",
     "question": "findFirst() vs findAny()",
@@ -7435,6 +7442,218 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Time O(n), space O(n). For each nums[i], if map contains target - nums[i], return [map.get(complement), i]. Else put nums[i], i. Handle duplicate values by storing latest index or pair logic as stated.",
       "example": "\"I loop once with a HashMap from value to index. At each index I look for complement = target - nums[i]. If found, I return both indexes immediately. Otherwise I put the current number and index into the map.\"",
       "summary10s": "Single pass HashMap: complement lookup → O(n) time."
+    }
+  },
+  {
+    "id": "angular-component-communication",
+    "category": "Angular",
+    "question": "Angular Component Communication → Parent-Child Relationship and Communication Between Unrelated Components",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Parent-child uses @Input and @Output. Unrelated components use a shared Service with a Subject or RxJS BehaviorSubject.",
+      "explain": "For parent-to-child, you pass data via @Input() properties. For child-to-parent, you emit events using @Output() and EventEmitter. When components have no direct relationship, the best approach is a stateful service using a BehaviorSubject so any component can subscribe to or update the shared state.",
+      "example": "\"If I have a Sidebar and a Header that aren't related, I create a `UiStateService`. The Sidebar updates a `BehaviorSubject` when it collapses, and the Header subscribes to that subject to adjust its layout dynamically without tight coupling.\"",
+      "summary10s": "Parent-Child = @Input/@Output. Unrelated = Shared Service with BehaviorSubject."
+    }
+  },
+  {
+    "id": "angular-reusable-components",
+    "category": "Angular",
+    "question": "Reusable Components → @Input | @Output | How to Pass HTML to a Reusable Component",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use @Input for data, @Output for events, and <ng-content> to pass custom HTML into the component.",
+      "explain": "A highly reusable component is 'dumb'—it only relies on its @Inputs and emits @Outputs, avoiding injected services. To make it structurally flexible, you use Content Projection via `<ng-content>`, allowing the parent to pass arbitrary HTML into predefined slots.",
+      "example": "\"When I build a reusable Card component, I accept the title via `@Input`. But for the card body, which might be complex, I use `<ng-content select='[card-body]'>`. This lets the parent component inject any custom HTML or other components directly into the card.\"",
+      "summary10s": "Dumb components: data in via @Input, events out via @Output. Pass HTML via Content Projection (<ng-content>)."
+    }
+  },
+  {
+    "id": "angular-viewchild-templates",
+    "category": "Angular",
+    "question": "ViewChild | ng-template | ng-container",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ViewChild queries DOM/components. ng-template is an unrendered blueprint. ng-container is a logical grouping that doesn't render an extra DOM element.",
+      "explain": "`@ViewChild` allows the TS class to access elements or child components in the template. `<ng-template>` defines template content that is only rendered when explicitly instantiated (like in an `*ngIf`). `<ng-container>` is used to group elements or apply structural directives without adding a `<div>` or `<span>` to the final DOM.",
+      "example": "\"I use `<ng-container>` when I need to apply an `*ngIf` and an `*ngFor` simultaneously, because you can't put two structural directives on one element. I use `<ng-template>` for defining dynamic dialog content, which I grab in my class using `@ViewChild` to open it programmatically.\"",
+      "summary10s": "ViewChild = access DOM/child. ng-template = lazy blueprint. ng-container = invisible wrapper for directives."
+    }
+  },
+  {
+    "id": "angular-routing-query-params",
+    "category": "Angular",
+    "question": "Routing → Navigate with Query Parameters | Read Query Parameter Data",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use Router.navigate with the queryParams object to set them, and ActivatedRoute.queryParams to read them.",
+      "explain": "To navigate, inject the `Router` and pass `{ queryParams: { sort: 'asc' } }`. To read them, inject `ActivatedRoute` and subscribe to the `queryParams` observable, allowing the component to react dynamically if the URL changes without reloading the page.",
+      "example": "\"If a user selects a filter, I call `this.router.navigate([], { queryParams: { filter: 'active' } })`. In my `ngOnInit`, I subscribe to `this.activatedRoute.queryParams.subscribe(params => this.loadData(params['filter']))`. This ensures that even if they refresh the page, the filters remain active.\"",
+      "summary10s": "Write: `router.navigate([], { queryParams: { key: 'val' } })`. Read: `activatedRoute.queryParams.subscribe(...)`."
+    }
+  },
+  {
+    "id": "angular-avoid-memory-leaks",
+    "category": "Angular",
+    "question": "How to Avoid Memory Leaks → Unsubscribe | Subscription List | take | takeUntil | DestroyRef | AsyncPipe",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Always unsubscribe from Observables when a component is destroyed, ideally using the async pipe or takeUntil/DestroyRef.",
+      "explain": "Failing to unsubscribe leaves subscriptions running in the background, consuming memory. The best approach is the `| async` pipe in the HTML template, as it unsubscribes automatically. In TS, use `takeUntil(this.destroy$)` or the modern Angular v16 `takeUntilDestroyed(this.destroyRef)`.",
+      "example": "\"My primary rule is to never subscribe in the TS file if I can just use the `async` pipe in the template. If I must subscribe in code, I use the v16 `takeUntilDestroyed()` operator. Before v16, I used a `Subject` called `destroy$` that I triggered in `ngOnDestroy` and paired with `takeUntil(this.destroy$)`.\"",
+      "summary10s": "Use `async` pipe in HTML, or `takeUntilDestroyed()` / `ngOnDestroy` in TS to cancel subscriptions."
+    }
+  },
+  {
+    "id": "angular-ngrx-overview",
+    "category": "Angular",
+    "question": "NgRx → Basic Overview | Actions | Reducers | Effects | Selectors | Dispatching Actions",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "NgRx is a Redux-inspired state management library for Angular, providing a single source of truth.",
+      "explain": "You *Dispatch Actions* to describe events. *Reducers* take the action and current state to synchronously return a new state. *Effects* listen for actions to perform async side effects (like API calls) and dispatch new actions on success/failure. *Selectors* query and derive specific pieces of state for components.",
+      "example": "\"When a user clicks load, I dispatch a `loadUsers` action. The Reducer sets a loading flag. An Effect intercepts the action, makes an HTTP call, and dispatches `loadUsersSuccess` with the data. The Reducer updates the state with the users, and my component automatically gets the data via a Selector.\"",
+      "summary10s": "Action (Event) -> Effect (Async API) -> Action (Success) -> Reducer (Update State) -> Selector (Read State)."
+    }
+  },
+  {
+    "id": "angular-auth-authorization",
+    "category": "Angular",
+    "question": "Authentication and Authorization → Guards | Role-Based Directives",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Authentication verifies identity, while authorization verifies access rights, implemented in Angular using Route Guards and custom directives.",
+      "explain": "You protect routes from unauthorized access using functional `CanActivate` guards. For fine-grained UI control (like hiding an 'Edit' button), you create a structural directive (e.g., `*hasRole='ADMIN'`) that conditionally creates or destroys the DOM element based on the user's token claims.",
+      "example": "\"For routing, I write a `CanActivate` guard that checks my AuthService; if the user isn't an admin, it redirects them to a 403 page. But to clean up the UI, I built a `*appHasRole=\"['ADMIN']\"` directive. If the user isn't an admin, the directive removes the element from the DOM entirely, not just hiding it with CSS.\"",
+      "summary10s": "Route Guards protect URLs. Custom structural directives (*hasRole) protect UI elements based on token claims."
+    }
+  },
+  {
+    "id": "angular-dynamic-forms",
+    "category": "Angular",
+    "question": "Dynamic Forms → Stepper Forms | FormArray",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Dynamic forms use Reactive Forms and FormArray to dynamically add or remove form controls at runtime.",
+      "explain": "When the number of fields isn't known upfront (like adding multiple phone numbers), you use a `FormArray`. Stepper forms break large forms into steps, often maintaining one massive `FormGroup` at a parent level or sharing the state via a service.",
+      "example": "\"If a user needs to add multiple 'experience' entries in a resume builder, I create a `FormArray`. Every time they click 'Add', I push a new `FormGroup` into that array. For multi-step wizard forms, I keep a central `FormGroup` in the parent and pass the relevant nested groups down to each step component.\"",
+      "summary10s": "FormArray allows pushing/removing FormGroups dynamically at runtime. Great for repeating fields."
+    }
+  },
+  {
+    "id": "angular-role-based-application",
+    "category": "Angular",
+    "question": "Role-Based Application → Dynamic Menu Based on Role | Role-Based Guard | Role-Based Directive",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A holistic role-based app filters navigation menus, guards routes, and hides UI elements using a central Auth Service.",
+      "explain": "The application needs defense in depth. 1: The dynamic menu iterates over a config and only renders links the user has roles for. 2: Route guards (`CanActivate`) prevent deep-linking to restricted pages. 3: A structural directive (`*hasRole`) removes specific buttons on shared pages.",
+      "example": "\"When the user logs in, I decode their JWT to get their roles. My side-nav component filters the menu array based on those roles. Even if they type the URL manually, my Route Guard intercepts and blocks them. And for shared pages, my `*hasRole` directive ensures they don't even see the 'Delete' button.\"",
+      "summary10s": "Filter navigation menus, protect routes with Guards, and hide buttons with structural directives based on JWT roles."
+    }
+  },
+  {
+    "id": "angular-securing-application",
+    "category": "Angular",
+    "question": "Securing an Angular Application → Guards | CSRF Protection | Avoid Exposing Secrets | Token Security | Encryption for Storage | HttpOnlyCookie",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Secure the app by using Route Guards, storing tokens in HttpOnly cookies to prevent XSS, and utilizing Angular's built-in CSRF protection.",
+      "explain": "Never store sensitive API keys in Angular environments (they are public). Storing JWTs in LocalStorage exposes them to XSS; the best practice is having the backend set an `HttpOnly` cookie. Angular has built-in XSS sanitization and an `HttpClientXsrfModule` to automatically handle anti-CSRF tokens.",
+      "example": "\"Security starts with realizing the frontend is inherently insecure. I never put secrets in `environment.ts`. To protect user sessions, I coordinate with the backend to use `HttpOnly` cookies instead of localStorage, completely mitigating XSS token theft. I also rely on Angular's automatic DOM sanitization to prevent injection attacks.\"",
+      "summary10s": "Frontend is public. Don't store secrets. Use HttpOnly cookies instead of LocalStorage to prevent XSS."
+    }
+  },
+  {
+    "id": "angular-libraries",
+    "category": "Angular",
+    "question": "Angular Libraries → Angular Elements | How to Create Your Own Library | How to Deploy an Angular Library to npm",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "You can create shared code as an Angular Library workspace and publish it to npm, or compile components as Web Components using Angular Elements.",
+      "explain": "Using `ng generate library`, you create a secondary project in your workspace. You expose public API surfaces via `public-api.ts`. After building, you can `npm publish` the `dist` folder. Angular Elements allows packaging Angular components as standard custom HTML elements usable in React or plain HTML.",
+      "example": "\"In a large enterprise, we had a central UI design system. I created an Angular Workspace, generated a library for our custom buttons and charts, and published it to our private npm registry. We also used Angular Elements to wrap our chat widget so the marketing team could embed it on a non-Angular Wordpress site.\"",
+      "summary10s": "Libraries share Angular code across projects (published to npm). Elements compile components to agnostic Web Components."
+    }
+  },
+  {
+    "id": "angular-web-workers",
+    "category": "Angular",
+    "question": "Web Workers → Performing Heavy Operations on a Separate Thread",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Web Workers run heavy computational tasks on a background thread so they don't freeze the main UI thread.",
+      "explain": "JavaScript is single-threaded. If you process a massive array or do heavy cryptography, the browser UI will freeze. Angular CLI allows generating Web Workers (`ng generate web-worker`) which run in isolation and communicate with the main thread via message passing.",
+      "example": "\"I had to parse a massive 50MB CSV file on the client side. Initially, it froze the UI for 5 seconds. I generated an Angular Web Worker, passed the file data to it via `worker.postMessage()`, did the heavy parsing in the background, and returned the JSON result. The UI stayed completely responsive the whole time.\"",
+      "summary10s": "Offloads heavy JS computation (like parsing huge files) to a background thread to prevent UI freezing."
+    }
+  },
+  {
+    "id": "angular-testing",
+    "category": "Angular",
+    "question": "Testing → Jasmine | Karma | Jest | Vitest | Cypress",
+    "frequency": 2,
+    "companies": [],
+    "variations": [
+      "Testing → Jasmine | Karma | Jest | Vitest | Cypress (Knowledge of at least one testing framework)"
+    ],
+    "answerSEE": {
+      "simple": "Jasmine/Karma is the legacy default for unit testing. Jest/Vitest are modern, faster alternatives. Cypress is used for End-to-End (E2E) UI testing.",
+      "explain": "Unit tests use `TestBed` to configure a testing module, mocking dependencies to test components in isolation. Modern teams are migrating from Karma (browser-based) to Jest or Vitest (Node-based) for much faster test execution. Cypress actually spins up a real browser and clicks around the app like a real user.",
+      "example": "\"For unit testing, my team replaced the default Karma runner with Jest because it's significantly faster and runs headless natively. I use `TestBed` to mock my services and verify component logic. For E2E testing, we use Cypress to script user journeys, like logging in and clicking the checkout button.\"",
+      "summary10s": "Jest/Vitest for fast, headless unit tests (mocking with TestBed). Cypress for real browser End-to-End testing."
+    }
+  },
+  {
+    "id": "angular-third-party-integration",
+    "category": "Angular",
+    "question": "Third-Party Library Integration Experience → PrimeNG | Angular Material | AG Grid | Syncfusion | Chart.js",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Integrating UI libraries saves development time but requires understanding Angular's module system, styling, and change detection.",
+      "explain": "Libraries like Angular Material or PrimeNG provide pre-built, accessible components. Heavy data grids like AG Grid are essential for enterprise apps. When integrating non-Angular JS libraries (like vanilla Chart.js), you must wrap them in a component, manage their lifecycle (initialize in `ngAfterViewInit`), and destroy them to prevent leaks.",
+      "example": "\"I use Angular Material for standard form controls and dialogs because it's highly accessible. For enterprise data tables with millions of rows, I integrate AG Grid. When I had to use a pure JS library like Chart.js, I grabbed the canvas via `@ViewChild` in `ngAfterViewInit`, initialized the chart, and made sure to call `chart.destroy()` in `ngOnDestroy`.\"",
+      "summary10s": "Material/PrimeNG for UI components. Wrap non-Angular JS libraries in components and manage their init/destroy lifecycles."
+    }
+  },
+  {
+    "id": "angular-deployment-cicd",
+    "category": "Angular",
+    "question": "Deployment & CI/CD → How Deployment Happens | Basic Knowledge of Azure/AWS | CI/CD Pipeline | YAML",
+    "frequency": 2,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Angular compiles to static HTML/JS/CSS, which is deployed to a static host (S3, Azure Blob) via an automated CI/CD pipeline using YAML.",
+      "explain": "The CI/CD pipeline (e.g., GitHub Actions, Azure DevOps) triggers on code push. The YAML script runs `npm install`, runs tests, and executes `npm run build --prod`. The resulting `dist` folder contains pure static files, which are then copied to AWS S3, Azure Blob Storage, or NGINX, fronted by a CDN.",
+      "example": "\"In our GitHub Actions YAML file, when we merge to main, the pipeline installs dependencies, runs Jest tests, and builds the Angular app using AOT compilation. It then syncs the `dist` folder to an AWS S3 bucket and invalidates the CloudFront CDN cache. The server doesn't need Node.js because Angular builds output purely static assets.\"",
+      "summary10s": "Pipeline runs tests -> `ng build` -> outputs static HTML/JS/CSS -> deploys to AWS S3/Azure Blob -> served via CDN."
     }
   },
   {
@@ -13474,20 +13693,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-component-communication",
-    "category": "Angular",
-    "question": "Angular Component Communication → Parent-Child Relationship and Communication Between Unrelated Components",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Parent-child uses @Input and @Output. Unrelated components use a shared Service with a Subject or RxJS BehaviorSubject.",
-      "explain": "For parent-to-child, you pass data via @Input() properties. For child-to-parent, you emit events using @Output() and EventEmitter. When components have no direct relationship, the best approach is a stateful service using a BehaviorSubject so any component can subscribe to or update the shared state.",
-      "example": "\"If I have a Sidebar and a Header that aren't related, I create a `UiStateService`. The Sidebar updates a `BehaviorSubject` when it collapses, and the Header subscribes to that subject to adjust its layout dynamically without tight coupling.\"",
-      "summary10s": "Parent-Child = @Input/@Output. Unrelated = Shared Service with BehaviorSubject."
-    }
-  },
-  {
     "id": "angular-http-interceptors",
     "category": "Angular",
     "question": "HTTP Interceptors → Token Handling | Custom Headers | Error Handling",
@@ -13499,34 +13704,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "By implementing `HttpInterceptor`, you can clone the outgoing `HttpRequest` and attach a Bearer token to the headers before passing it to `next.handle()`. You can also pipe the response to catch errors (like a 401 Unauthorized) globally and trigger a logout or token refresh.",
       "example": "\"In my app, I have an `AuthInterceptor`. It intercepts every outgoing request, clones it, and attaches the JWT from local storage. Then I pipe the response, and if I catch a 401 error, I automatically redirect the user to the login page without having to handle it in every component.\"",
       "summary10s": "Intercept requests to attach Auth tokens. Intercept responses to handle global errors like 401."
-    }
-  },
-  {
-    "id": "angular-reusable-components",
-    "category": "Angular",
-    "question": "Reusable Components → @Input | @Output | How to Pass HTML to a Reusable Component",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use @Input for data, @Output for events, and <ng-content> to pass custom HTML into the component.",
-      "explain": "A highly reusable component is 'dumb'—it only relies on its @Inputs and emits @Outputs, avoiding injected services. To make it structurally flexible, you use Content Projection via `<ng-content>`, allowing the parent to pass arbitrary HTML into predefined slots.",
-      "example": "\"When I build a reusable Card component, I accept the title via `@Input`. But for the card body, which might be complex, I use `<ng-content select='[card-body]'>`. This lets the parent component inject any custom HTML or other components directly into the card.\"",
-      "summary10s": "Dumb components: data in via @Input, events out via @Output. Pass HTML via Content Projection (<ng-content>)."
-    }
-  },
-  {
-    "id": "angular-viewchild-templates",
-    "category": "Angular",
-    "question": "ViewChild | ng-template | ng-container",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "ViewChild queries DOM/components. ng-template is an unrendered blueprint. ng-container is a logical grouping that doesn't render an extra DOM element.",
-      "explain": "`@ViewChild` allows the TS class to access elements or child components in the template. `<ng-template>` defines template content that is only rendered when explicitly instantiated (like in an `*ngIf`). `<ng-container>` is used to group elements or apply structural directives without adding a `<div>` or `<span>` to the final DOM.",
-      "example": "\"I use `<ng-container>` when I need to apply an `*ngIf` and an `*ngFor` simultaneously, because you can't put two structural directives on one element. I use `<ng-template>` for defining dynamic dialog content, which I grab in my class using `@ViewChild` to open it programmatically.\"",
-      "summary10s": "ViewChild = access DOM/child. ng-template = lazy blueprint. ng-container = invisible wrapper for directives."
     }
   },
   {
@@ -13544,48 +13721,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "angular-routing-query-params",
-    "category": "Angular",
-    "question": "Routing → Navigate with Query Parameters | Read Query Parameter Data",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Use Router.navigate with the queryParams object to set them, and ActivatedRoute.queryParams to read them.",
-      "explain": "To navigate, inject the `Router` and pass `{ queryParams: { sort: 'asc' } }`. To read them, inject `ActivatedRoute` and subscribe to the `queryParams` observable, allowing the component to react dynamically if the URL changes without reloading the page.",
-      "example": "\"If a user selects a filter, I call `this.router.navigate([], { queryParams: { filter: 'active' } })`. In my `ngOnInit`, I subscribe to `this.activatedRoute.queryParams.subscribe(params => this.loadData(params['filter']))`. This ensures that even if they refresh the page, the filters remain active.\"",
-      "summary10s": "Write: `router.navigate([], { queryParams: { key: 'val' } })`. Read: `activatedRoute.queryParams.subscribe(...)`."
-    }
-  },
-  {
-    "id": "angular-avoid-memory-leaks",
-    "category": "Angular",
-    "question": "How to Avoid Memory Leaks → Unsubscribe | Subscription List | take | takeUntil | DestroyRef | AsyncPipe",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Always unsubscribe from Observables when a component is destroyed, ideally using the async pipe or takeUntil/DestroyRef.",
-      "explain": "Failing to unsubscribe leaves subscriptions running in the background, consuming memory. The best approach is the `| async` pipe in the HTML template, as it unsubscribes automatically. In TS, use `takeUntil(this.destroy$)` or the modern Angular v16 `takeUntilDestroyed(this.destroyRef)`.",
-      "example": "\"My primary rule is to never subscribe in the TS file if I can just use the `async` pipe in the template. If I must subscribe in code, I use the v16 `takeUntilDestroyed()` operator. Before v16, I used a `Subject` called `destroy$` that I triggered in `ngOnDestroy` and paired with `takeUntil(this.destroy$)`.\"",
-      "summary10s": "Use `async` pipe in HTML, or `takeUntilDestroyed()` / `ngOnDestroy` in TS to cancel subscriptions."
-    }
-  },
-  {
-    "id": "angular-ngrx-overview",
-    "category": "Angular",
-    "question": "NgRx → Basic Overview | Actions | Reducers | Effects | Selectors | Dispatching Actions",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "NgRx is a Redux-inspired state management library for Angular, providing a single source of truth.",
-      "explain": "You *Dispatch Actions* to describe events. *Reducers* take the action and current state to synchronously return a new state. *Effects* listen for actions to perform async side effects (like API calls) and dispatch new actions on success/failure. *Selectors* query and derive specific pieces of state for components.",
-      "example": "\"When a user clicks load, I dispatch a `loadUsers` action. The Reducer sets a loading flag. An Effect intercepts the action, makes an HTTP call, and dispatches `loadUsersSuccess` with the data. The Reducer updates the state with the users, and my component automatically gets the data via a Selector.\"",
-      "summary10s": "Action (Event) -> Effect (Async API) -> Action (Success) -> Reducer (Update State) -> Selector (Read State)."
-    }
-  },
-  {
     "id": "angular-change-detection-zonejs",
     "category": "Angular",
     "question": "Change Detection → How Change Detection Works | Role of Zone.js",
@@ -13597,132 +13732,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Angular doesn't constantly poll for changes. Zone.js intercepts things like click events, setTimeout, or HTTP requests. When they finish, Zone.js tells Angular, which then walks down the component tree checking bindings for changes. Signals are the future path to go 'Zoneless'.",
       "example": "\"If I click a button, Zone.js catches the click event, runs my component method, and then tells Angular to run Change Detection. Angular checks if any template variables changed. If I use a 3rd party library outside Angular, I might have to manually call `NgZone.run()` to force Angular to notice the updates.\"",
       "summary10s": "Zone.js intercepts async browser events (clicks, timers, HTTP) to trigger Angular's change detection cycle."
-    }
-  },
-  {
-    "id": "angular-auth-authorization",
-    "category": "Angular",
-    "question": "Authentication and Authorization → Guards | Role-Based Directives",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Authentication verifies identity, while authorization verifies access rights, implemented in Angular using Route Guards and custom directives.",
-      "explain": "You protect routes from unauthorized access using functional `CanActivate` guards. For fine-grained UI control (like hiding an 'Edit' button), you create a structural directive (e.g., `*hasRole='ADMIN'`) that conditionally creates or destroys the DOM element based on the user's token claims.",
-      "example": "\"For routing, I write a `CanActivate` guard that checks my AuthService; if the user isn't an admin, it redirects them to a 403 page. But to clean up the UI, I built a `*appHasRole=\"['ADMIN']\"` directive. If the user isn't an admin, the directive removes the element from the DOM entirely, not just hiding it with CSS.\"",
-      "summary10s": "Route Guards protect URLs. Custom structural directives (*hasRole) protect UI elements based on token claims."
-    }
-  },
-  {
-    "id": "angular-dynamic-forms",
-    "category": "Angular",
-    "question": "Dynamic Forms → Stepper Forms | FormArray",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Dynamic forms use Reactive Forms and FormArray to dynamically add or remove form controls at runtime.",
-      "explain": "When the number of fields isn't known upfront (like adding multiple phone numbers), you use a `FormArray`. Stepper forms break large forms into steps, often maintaining one massive `FormGroup` at a parent level or sharing the state via a service.",
-      "example": "\"If a user needs to add multiple 'experience' entries in a resume builder, I create a `FormArray`. Every time they click 'Add', I push a new `FormGroup` into that array. For multi-step wizard forms, I keep a central `FormGroup` in the parent and pass the relevant nested groups down to each step component.\"",
-      "summary10s": "FormArray allows pushing/removing FormGroups dynamically at runtime. Great for repeating fields."
-    }
-  },
-  {
-    "id": "angular-role-based-application",
-    "category": "Angular",
-    "question": "Role-Based Application → Dynamic Menu Based on Role | Role-Based Guard | Role-Based Directive",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "A holistic role-based app filters navigation menus, guards routes, and hides UI elements using a central Auth Service.",
-      "explain": "The application needs defense in depth. 1: The dynamic menu iterates over a config and only renders links the user has roles for. 2: Route guards (`CanActivate`) prevent deep-linking to restricted pages. 3: A structural directive (`*hasRole`) removes specific buttons on shared pages.",
-      "example": "\"When the user logs in, I decode their JWT to get their roles. My side-nav component filters the menu array based on those roles. Even if they type the URL manually, my Route Guard intercepts and blocks them. And for shared pages, my `*hasRole` directive ensures they don't even see the 'Delete' button.\"",
-      "summary10s": "Filter navigation menus, protect routes with Guards, and hide buttons with structural directives based on JWT roles."
-    }
-  },
-  {
-    "id": "angular-securing-application",
-    "category": "Angular",
-    "question": "Securing an Angular Application → Guards | CSRF Protection | Avoid Exposing Secrets | Token Security | Encryption for Storage | HttpOnlyCookie",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Secure the app by using Route Guards, storing tokens in HttpOnly cookies to prevent XSS, and utilizing Angular's built-in CSRF protection.",
-      "explain": "Never store sensitive API keys in Angular environments (they are public). Storing JWTs in LocalStorage exposes them to XSS; the best practice is having the backend set an `HttpOnly` cookie. Angular has built-in XSS sanitization and an `HttpClientXsrfModule` to automatically handle anti-CSRF tokens.",
-      "example": "\"Security starts with realizing the frontend is inherently insecure. I never put secrets in `environment.ts`. To protect user sessions, I coordinate with the backend to use `HttpOnly` cookies instead of localStorage, completely mitigating XSS token theft. I also rely on Angular's automatic DOM sanitization to prevent injection attacks.\"",
-      "summary10s": "Frontend is public. Don't store secrets. Use HttpOnly cookies instead of LocalStorage to prevent XSS."
-    }
-  },
-  {
-    "id": "angular-libraries",
-    "category": "Angular",
-    "question": "Angular Libraries → Angular Elements | How to Create Your Own Library | How to Deploy an Angular Library to npm",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "You can create shared code as an Angular Library workspace and publish it to npm, or compile components as Web Components using Angular Elements.",
-      "explain": "Using `ng generate library`, you create a secondary project in your workspace. You expose public API surfaces via `public-api.ts`. After building, you can `npm publish` the `dist` folder. Angular Elements allows packaging Angular components as standard custom HTML elements usable in React or plain HTML.",
-      "example": "\"In a large enterprise, we had a central UI design system. I created an Angular Workspace, generated a library for our custom buttons and charts, and published it to our private npm registry. We also used Angular Elements to wrap our chat widget so the marketing team could embed it on a non-Angular Wordpress site.\"",
-      "summary10s": "Libraries share Angular code across projects (published to npm). Elements compile components to agnostic Web Components."
-    }
-  },
-  {
-    "id": "angular-web-workers",
-    "category": "Angular",
-    "question": "Web Workers → Performing Heavy Operations on a Separate Thread",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Web Workers run heavy computational tasks on a background thread so they don't freeze the main UI thread.",
-      "explain": "JavaScript is single-threaded. If you process a massive array or do heavy cryptography, the browser UI will freeze. Angular CLI allows generating Web Workers (`ng generate web-worker`) which run in isolation and communicate with the main thread via message passing.",
-      "example": "\"I had to parse a massive 50MB CSV file on the client side. Initially, it froze the UI for 5 seconds. I generated an Angular Web Worker, passed the file data to it via `worker.postMessage()`, did the heavy parsing in the background, and returned the JSON result. The UI stayed completely responsive the whole time.\"",
-      "summary10s": "Offloads heavy JS computation (like parsing huge files) to a background thread to prevent UI freezing."
-    }
-  },
-  {
-    "id": "angular-testing",
-    "category": "Angular",
-    "question": "Testing → Jasmine | Karma | Jest | Vitest | Cypress",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Jasmine/Karma is the legacy default for unit testing. Jest/Vitest are modern, faster alternatives. Cypress is used for End-to-End (E2E) UI testing.",
-      "explain": "Unit tests use `TestBed` to configure a testing module, mocking dependencies to test components in isolation. Modern teams are migrating from Karma (browser-based) to Jest or Vitest (Node-based) for much faster test execution. Cypress actually spins up a real browser and clicks around the app like a real user.",
-      "example": "\"For unit testing, my team replaced the default Karma runner with Jest because it's significantly faster and runs headless natively. I use `TestBed` to mock my services and verify component logic. For E2E testing, we use Cypress to script user journeys, like logging in and clicking the checkout button.\"",
-      "summary10s": "Jest/Vitest for fast, headless unit tests (mocking with TestBed). Cypress for real browser End-to-End testing."
-    }
-  },
-  {
-    "id": "angular-third-party-integration",
-    "category": "Angular",
-    "question": "Third-Party Library Integration Experience → PrimeNG | Angular Material | AG Grid | Syncfusion | Chart.js",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Integrating UI libraries saves development time but requires understanding Angular's module system, styling, and change detection.",
-      "explain": "Libraries like Angular Material or PrimeNG provide pre-built, accessible components. Heavy data grids like AG Grid are essential for enterprise apps. When integrating non-Angular JS libraries (like vanilla Chart.js), you must wrap them in a component, manage their lifecycle (initialize in `ngAfterViewInit`), and destroy them to prevent leaks.",
-      "example": "\"I use Angular Material for standard form controls and dialogs because it's highly accessible. For enterprise data tables with millions of rows, I integrate AG Grid. When I had to use a pure JS library like Chart.js, I grabbed the canvas via `@ViewChild` in `ngAfterViewInit`, initialized the chart, and made sure to call `chart.destroy()` in `ngOnDestroy`.\"",
-      "summary10s": "Material/PrimeNG for UI components. Wrap non-Angular JS libraries in components and manage their init/destroy lifecycles."
-    }
-  },
-  {
-    "id": "angular-deployment-cicd",
-    "category": "Angular",
-    "question": "Deployment & CI/CD → How Deployment Happens | Basic Knowledge of Azure/AWS | CI/CD Pipeline | YAML",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "Angular compiles to static HTML/JS/CSS, which is deployed to a static host (S3, Azure Blob) via an automated CI/CD pipeline using YAML.",
-      "explain": "The CI/CD pipeline (e.g., GitHub Actions, Azure DevOps) triggers on code push. The YAML script runs `npm install`, runs tests, and executes `npm run build --prod`. The resulting `dist` folder contains pure static files, which are then copied to AWS S3, Azure Blob Storage, or NGINX, fronted by a CDN.",
-      "example": "\"In our GitHub Actions YAML file, when we merge to main, the pipeline installs dependencies, runs Jest tests, and builds the Angular app using AOT compilation. It then syncs the `dist` folder to an AWS S3 bucket and invalidates the CloudFront CDN cache. The server doesn't need Node.js because Angular builds output purely static assets.\"",
-      "summary10s": "Pipeline runs tests -> `ng build` -> outputs static HTML/JS/CSS -> deploys to AWS S3/Azure Blob -> served via CDN."
     }
   },
   {
@@ -22038,6 +22047,20 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "SELECT dep_id, MAX(salary) FROM USER GROUP BY dep_id. For full rows: join USER to (dep_id, max_sal) subquery on both dep_id and salary = max_sal.",
       "example": "\"First SELECT dep_id, MAX(salary) FROM USER GROUP BY dep_id. If they want who earns it, I join USER u to that result on u.dep_id and u.salary = max_sal.\"",
       "summary10s": "GROUP BY department + MAX(salary); join back for names if needed."
+    }
+  },
+  {
+    "id": "angular-topic-rxjs-subject-vs-behaviorsubj",
+    "category": "Angular",
+    "question": "RxJS → Subject vs BehaviorSubject | RxJS Operators: switchMap | concatMap | mergeMap | forkJoin | map | tap | retry | take | takeUntil | Debouncing",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Explanation of RxJS",
+      "explain": "Detailed concept for RxJS → Subject vs BehaviorSubject | RxJS Operators: switchMap | concatMap | mergeMap | forkJoin | map | tap | retry | take | takeUntil | Debouncing",
+      "example": "\"In my project, I implemented this by...\"",
+      "summary10s": "Key takeaway for RxJS"
     }
   }
 ];
