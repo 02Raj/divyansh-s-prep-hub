@@ -1,4 +1,4 @@
-import { SDTitle, SDHeading2, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
+import { SDTitle, SDHeading2, SDHeading3, SDParagraph, SDList, RememberBlock, InterviewQuestion, AsciiDiagram, PlainEnglish, LevelBadge, NextLesson } from '../ui/SystemDesignUI';
 
 export default function HLD06CachingAndQueues() {
   return (
