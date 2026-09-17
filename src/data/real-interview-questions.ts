@@ -22280,5 +22280,78 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "example": "```java\n// Code snippet for Find Employees Joining After a Given Year\n```",
       "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Employees Joining After a Given Year"
     }
+  },
+  {
+    "id": "java-coding-rotate-array",
+    "category": "Java Coding",
+    "question": "Rotate Array",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Can you solve it without using extra array?",
+      "Can you solve it using Reversal Algorithm?"
+    ],
+    "answerSEE": {
+      "simple": "To rotate an array by k steps without extra space, use the Reversal Algorithm.",
+      "explain": "The Reversal Algorithm involves three steps: 1. Reverse the entire array. 2. Reverse the first k elements. 3. Reverse the remaining n-k elements. This achieves the rotation in O(n) time complexity and O(1) space complexity.",
+      "example": "\"For an array [1,2,3,4,5,6,7] and k=3. First, I reverse the whole array to get [7,6,5,4,3,2,1]. Then, I reverse the first 3 elements giving [5,6,7, 4,3,2,1]. Finally, I reverse the remaining elements giving [5,6,7, 1,2,3,4]. This gives the exact answer without needing a new array.\"",
+      "summary10s": "Reverse all, reverse first k, reverse remaining n-k. O(n) time, O(1) space."
+    }
+  },
+  {
+    "id": "java-coding-minimum-length-subarray-sum",
+    "category": "Java Coding",
+    "question": "Find the minimum-length subarray whose sum equals a given target.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To find the minimum-length subarray with a given sum, use the sliding window technique (if all numbers are positive) or a HashMap to store prefix sums.",
+      "explain": "If the array contains only positive integers, a two-pointer sliding window is optimal O(n). We expand the right pointer to add to the sum, and shrink the left pointer when the sum exceeds the target. If negative numbers exist, we must use a HashMap to store the (prefix_sum, index). We check if prefix_sum - target exists in the map. This is also O(n) time and O(n) space.",
+      "example": "\"For an array of positive numbers, I would use a sliding window. I keep adding elements with a right pointer. If the sum hits the target, I record the length. If it exceeds the target, I shrink the window from the left. However, if there are negative numbers, sliding window fails because adding a number might decrease the sum. In that case, I use a HashMap to track prefix sums and check for (current_sum - target) to find the valid subarray length.\"",
+      "summary10s": "Positive numbers: Sliding Window O(n). Negative numbers allowed: HashMap of prefix sums O(n) space."
+    }
+  },
+  {
+    "id": "sql-rank-employees-experience",
+    "category": "SQL",
+    "question": "Write an SQL query to rank employees based on their experience.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the DENSE_RANK() or RANK() window function ordered by their hire date or experience years.",
+      "explain": "The query typically looks like: SELECT employee_id, experience_years, DENSE_RANK() OVER (ORDER BY experience_years DESC) as rank FROM employees. DENSE_RANK() ensures no gaps in ranking if two employees have the exact same experience.",
+      "example": "\"To rank employees by experience, I would use the DENSE_RANK window function. The query is SELECT employee_id, experience, DENSE_RANK() OVER (ORDER BY experience DESC) as emp_rank FROM employees. I prefer DENSE_RANK over RANK here so that if two employees tie for 2nd place, the next person is correctly ranked 3rd instead of 4th.\"",
+      "summary10s": "SELECT emp_id, DENSE_RANK() OVER (ORDER BY experience DESC) FROM employees."
+    }
+  },
+  {
+    "id": "sql-rank-dense-rank-row-number",
+    "category": "SQL",
+    "question": "Difference between RANK(), DENSE_RANK(), and ROW_NUMBER()",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "ROW_NUMBER gives a unique sequential number. RANK leaves gaps after ties. DENSE_RANK leaves no gaps after ties.",
+      "explain": "ROW_NUMBER() assigns 1, 2, 3, 4 even if values are identical. RANK() gives the same rank for ties but skips the next numbers (1, 2, 2, 4). DENSE_RANK() gives the same rank for ties without skipping (1, 2, 2, 3).",
+      "example": "\"If three employees score 90, 90, and 80. ROW_NUMBER gives 1, 2, 3 based on random or secondary sort. RANK gives 1, 1, 3 (skips 2). DENSE_RANK gives 1, 1, 2 (no gaps). I use DENSE_RANK most often for top-N queries so we don't accidentally skip positions.\"",
+      "summary10s": "ROW_NUMBER=1,2,3. RANK=1,1,3 (gaps). DENSE_RANK=1,1,2 (no gaps)."
+    }
+  },
+  {
+    "id": "sql-order-of-execution",
+    "category": "SQL",
+    "question": "Explain the order of execution of SQL query clauses.",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "SQL executes in this logical order: FROM, JOIN, WHERE, GROUP BY, HAVING, SELECT, ORDER BY, LIMIT/OFFSET.",
+      "explain": "The database engine first identifies the source tables (FROM/JOIN), then filters rows (WHERE), groups them (GROUP BY), filters the groups (HAVING), selects the specific columns (SELECT), sorts the final result (ORDER BY), and finally limits the output (LIMIT).",
+      "example": "\"Even though we write SELECT first, the DB engine evaluates FROM and JOINs first to get the base data. Then it applies WHERE filters. After filtering, it does GROUP BY and HAVING. Only then does it process the SELECT clause to pick columns and compute aliases. Finally, it sorts with ORDER BY and applies LIMIT. Knowing this is critical because you cannot use a SELECT alias in a WHERE clause, since WHERE executes before SELECT.\"",
+      "summary10s": "FROM/JOIN > WHERE > GROUP BY > HAVING > SELECT > ORDER BY > LIMIT. SELECT is near the end!"
+    }
   }
 ];
