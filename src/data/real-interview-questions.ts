@@ -66,7 +66,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "map-vs-flatmap",
     "category": "Java",
     "question": "map() vs flatMap()?",
-    "frequency": 21,
+    "frequency": 22,
     "companies": [
       "Deloitte",
       "EPAM",
@@ -85,7 +85,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Diff between map() and flatmap()",
       "Difference between map() and flatMap()",
       "map() vs flatMap()?",
-      "Explain 'map()' vs 'flatMap()' with an example."
+      "Explain 'map()' vs 'flatMap()' with an example.",
+      "Difference between map() and flatMap()."
     ],
     "answerSEE": {
       "simple": "map transforms each element one to one, flatMap transforms and flattens nested structures.",
@@ -172,7 +173,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-a-functional-interface",
     "category": "Java",
     "question": "What is a Functional Interface?",
-    "frequency": 18,
+    "frequency": 19,
     "companies": [
       "EPAM",
       "Deloitte",
@@ -538,7 +539,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-did-you-handle-global-exception-handling",
     "category": "Spring Boot",
     "question": "How did you handle global exception handling?",
-    "frequency": 10,
+    "frequency": 11,
     "companies": [
       "Flipkart",
       "Capgemini",
@@ -552,7 +553,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "How do you implement global exception handling?",
       "How do you handle multiple exceptions separately?",
       "How do you map custom exceptions to different handlers?",
-      "How do you implement global exception handling in Spring Boot?"
+      "How do you implement global exception handling in Spring Boot?",
+      "How do you handle exceptions in Spring Boot?"
     ],
     "answerSEE": {
       "simple": "By using @RestControllerAdvice and @ExceptionHandler annotations in Spring Boot.",
@@ -565,14 +567,15 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-do-you-secure-rest-apis",
     "category": "Spring Boot",
     "question": "How do you secure REST APIs?",
-    "frequency": 10,
+    "frequency": 11,
     "companies": [
       "Accenture",
       "Deloitte",
       "Atyeti",
       "Signify",
       "Altimetrik",
-      "EPAM"
+      "EPAM",
+      "Infosys"
     ],
     "variations": [
       "What type of security are you using in your current project?",
@@ -582,7 +585,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "How would you secure a REST API using JWT?",
       "How would you secure a Spring Boot REST API?",
       "How do you secure REST and SOAP APIs using JWT?",
-      "How do you secure REST APIs?"
+      "How do you secure REST APIs?",
+      "How do you implement JWT authentication?"
     ],
     "answerSEE": {
       "simple": "Configure SecurityFilterChain, add JWT filter, define public and protected routes.",
@@ -595,7 +599,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "what-is-spring-security",
     "category": "Spring Boot",
     "question": "What is Spring Security?",
-    "frequency": 10,
+    "frequency": 11,
     "companies": [
       "JPMorganChase",
       "Deloitte",
@@ -607,7 +611,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "Spring Security?",
       "What is Spring Security, and what have you used in your project?",
       "What is Spring Security?",
-      "Have you worked with Spring Security?"
+      "Have you worked with Spring Security?",
+      "How does Spring Security work?"
     ],
     "answerSEE": {
       "simple": "Spring Security is a filter chain that intercepts every request and handles authentication and authorization.",
@@ -650,7 +655,7 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-does-transactional-work-internally",
     "category": "Spring Boot",
     "question": "How does @Transactional work internally?",
-    "frequency": 10,
+    "frequency": 11,
     "companies": [
       "EPAM",
       "Infosys",
@@ -663,7 +668,8 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "What is @Transactional and where would you use it?",
       "Have you used @Transactional? Where and why did you use it?",
       "What happens internally when @Transactional is used?",
-      "How does '@Transactional' work internally?"
+      "How does '@Transactional' work internally?",
+      "How do you handle transactions in Spring Boot?"
     ],
     "answerSEE": {
       "simple": "Spring creates a proxy that opens a transaction before method and commits or rolls back after.",
@@ -1196,6 +1202,30 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "runnable-vs-callable",
+    "category": "Java",
+    "question": "Runnable vs Callable",
+    "frequency": 7,
+    "companies": [
+      "JPMorganChase",
+      "Deloitte INDIA",
+      "Deloitte"
+    ],
+    "variations": [
+      "Creating Threads — Thread, Runnable, Callable",
+      "Runnable vs Callable.",
+      "\"Runnable\" vs \"Callable\" — when would you choose each?",
+      "Runnable vs callble - Thread class",
+      "Difference between Runnable and Callable."
+    ],
+    "answerSEE": {
+      "simple": "Runnable doesn't return a result; Callable can return a result and throw checked exceptions.",
+      "explain": "Runnable — run(), no return value, no checked exceptions\nCallable — call(), returns a value via Future, can throw checked exceptions",
+      "example": "\"Runnable's run() doesn't return anything and can't throw checked exceptions. Callable's call() can return a result through a Future, and can also throw checked exceptions. I use Callable whenever I need the outcome of an async task, like fetching data in parallel.\"",
+      "summary10s": "Runnable = no result, Callable = returns result via Future."
+    }
+  },
+  {
     "id": "java-jvm-metrics",
     "category": "Java",
     "question": "Your Java API suddenly becomes slow in production. What JVM-level metrics do you check first?",
@@ -1253,28 +1283,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "final variables can't be reassigned, methods can't be overridden, and classes can't be inherited. finally is always executed after try-catch (used for resource cleanup). finalize() is called by the Garbage Collector before an object is destroyed.",
       "example": "\"I use 'final' to define constants or prevent classes from being inherited. 'finally' is my go-to block in try-catch to ensure resources like database connections are always closed regardless of exceptions. As for 'finalize()', I rarely use it because it's deprecated in newer Java versions; we now use try-with-resources or cleaner patterns for memory management.\"",
       "summary10s": "final = keyword (constant), finally = block (cleanup), finalize = method (GC)."
-    }
-  },
-  {
-    "id": "runnable-vs-callable",
-    "category": "Java",
-    "question": "Runnable vs Callable",
-    "frequency": 6,
-    "companies": [
-      "JPMorganChase",
-      "Deloitte INDIA"
-    ],
-    "variations": [
-      "Creating Threads — Thread, Runnable, Callable",
-      "Runnable vs Callable.",
-      "\"Runnable\" vs \"Callable\" — when would you choose each?",
-      "Runnable vs callble - Thread class"
-    ],
-    "answerSEE": {
-      "simple": "Runnable doesn't return a result; Callable can return a result and throw checked exceptions.",
-      "explain": "Runnable — run(), no return value, no checked exceptions\nCallable — call(), returns a value via Future, can throw checked exceptions",
-      "example": "\"Runnable's run() doesn't return anything and can't throw checked exceptions. Callable's call() can return a result through a Future, and can also throw checked exceptions. I use Callable whenever I need the outcome of an async task, like fetching data in parallel.\"",
-      "summary10s": "Runnable = no result, Callable = returns result via Future."
     }
   },
   {
@@ -2394,6 +2402,26 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
+    "id": "java-sleep-wait-join",
+    "category": "Java",
+    "question": "What is the difference between sleep(), wait(), and join()?",
+    "frequency": 4,
+    "companies": [
+      "HCL Technologies",
+      "Deloitte"
+    ],
+    "variations": [
+      "What is the difference between wait(), sleep(), and join()?",
+      "Difference between wait() and sleep()."
+    ],
+    "answerSEE": {
+      "simple": "sleep() pauses a thread without releasing locks, wait() pauses and releases locks, and join() waits for another thread to finish.",
+      "explain": "Thread.sleep() simply pauses execution. Object.wait() is used in inter-thread communication inside synchronized blocks—it releases the lock so other threads can work. thread.join() blocks the current thread until the target thread completes.",
+      "example": "\"If I want my main thread to wait until a worker thread is done, I use `worker.join()`. If I want a thread to pause for 1 second, I use `sleep(1000)`. If a consumer thread needs to wait for a producer to add items to a queue, it uses `wait()`, releasing the queue lock so the producer can actually add the item.\"",
+      "summary10s": "sleep = pause (keeps lock). wait = wait for signal (releases lock). join = wait for thread to die."
+    }
+  },
+  {
     "id": "what-does-enableautoconfiguration-do",
     "category": "Spring Boot",
     "question": "What does @EnableAutoConfiguration do?",
@@ -3262,24 +3290,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-sleep-wait-join",
-    "category": "Java",
-    "question": "What is the difference between sleep(), wait(), and join()?",
-    "frequency": 3,
-    "companies": [
-      "HCL Technologies"
-    ],
-    "variations": [
-      "What is the difference between wait(), sleep(), and join()?"
-    ],
-    "answerSEE": {
-      "simple": "sleep() pauses a thread without releasing locks, wait() pauses and releases locks, and join() waits for another thread to finish.",
-      "explain": "Thread.sleep() simply pauses execution. Object.wait() is used in inter-thread communication inside synchronized blocks—it releases the lock so other threads can work. thread.join() blocks the current thread until the target thread completes.",
-      "example": "\"If I want my main thread to wait until a worker thread is done, I use `worker.join()`. If I want a thread to pause for 1 second, I use `sleep(1000)`. If a consumer thread needs to wait for a producer to add items to a queue, it uses `wait()`, releasing the queue lock so the producer can actually add the item.\"",
-      "summary10s": "sleep = pause (keeps lock). wait = wait for signal (releases lock). join = wait for thread to die."
-    }
-  },
-  {
     "id": "how-to-achieve-multithreading",
     "category": "Java",
     "question": "How to achieve multithreading in Java? What is the modern production approach?",
@@ -3540,6 +3550,44 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Map result = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment))\nCount per department: Map countByDept = employees.stream().collect(groupingBy(Employee::getDepartment, counting()))\nAverage salary per department: Map avgSalary = employees.stream().collect(groupingBy(Employee::getDepartment, averagingDouble(Employee::getSalary)))",
       "example": "\"groupingBy is the key operator here. It groups stream elements by the classifier function and puts them in a Map. Value is a List by default. I can change the downstream collector — counting() for count per group, averagingDouble for average salary, mapping to extract just names. Very flexible. This single operator replaces what would be a complex loop with a Map and multiple list operations.\"",
       "summary10s": "collect(groupingBy(Employee::getDepartment)) returns Map<String,List<Employee>>, downstream collectors for aggregation."
+    }
+  },
+  {
+    "id": "this-vs-super",
+    "category": "Java",
+    "question": "this vs super keyword",
+    "frequency": 3,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Difference between this and super",
+      "this vs super",
+      "Difference between this and super keywords."
+    ],
+    "answerSEE": {
+      "simple": "this refers to the current class instance, super refers to the parent class instance.",
+      "explain": "this is used to access current class variables/methods and avoid shadowing (when parameter name matches field name).\nsuper is used to access parent class variables/methods, especially when they are overridden in the child class.\nboth must be the first statement if used as constructors (this() or super()).",
+      "example": "\"In a child class, if I override a method but still need the parent's logic, I call super.methodName(). I use this.fieldName to differentiate between a class field and a constructor parameter with the same name. Neither can be used in a static context.\"",
+      "summary10s": "this = current class instance. super = parent class instance. Both cannot be used in static methods."
+    }
+  },
+  {
+    "id": "java-start-vs-run",
+    "category": "Java",
+    "question": "What is the difference between start() and run()?",
+    "frequency": 3,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Difference between start() and run()."
+    ],
+    "answerSEE": {
+      "simple": "start() creates a new thread and then calls run(), while calling run() directly just executes the code in the current thread.",
+      "explain": "The start() method asks the JVM to allocate a new thread stack and transition the thread to the RUNNABLE state. If you call run() directly, it behaves like a normal method call, executing synchronously on the main thread, defeating the purpose of multithreading.",
+      "example": "\"A classic interview mistake is writing `thread.run()`. It compiles and works, but it completely blocks the main thread. You must call `thread.start()` to actually spin up a new concurrent execution path.\"",
+      "summary10s": "start() = new thread. run() = normal synchronous method call."
     }
   },
   {
@@ -4585,25 +4633,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "this-vs-super",
-    "category": "Java",
-    "question": "this vs super keyword",
-    "frequency": 2,
-    "companies": [
-      "Deloitte"
-    ],
-    "variations": [
-      "Difference between this and super",
-      "this vs super"
-    ],
-    "answerSEE": {
-      "simple": "this refers to the current class instance, super refers to the parent class instance.",
-      "explain": "this is used to access current class variables/methods and avoid shadowing (when parameter name matches field name).\nsuper is used to access parent class variables/methods, especially when they are overridden in the child class.\nboth must be the first statement if used as constructors (this() or super()).",
-      "example": "\"In a child class, if I override a method but still need the parent's logic, I call super.methodName(). I use this.fieldName to differentiate between a class field and a constructor parameter with the same name. Neither can be used in a static context.\"",
-      "summary10s": "this = current class instance. super = parent class instance. Both cannot be used in static methods."
-    }
-  },
-  {
     "id": "why-runtime-polymorphism-in-method-overriding",
     "category": "Java",
     "question": "Why runtime polymorphism is used in method overriding",
@@ -5116,20 +5145,6 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Processes are heavyweight, isolated by the OS, and communicate via IPC. Threads are lightweight, live inside a process, share the same heap memory, and context-switching between them is much faster.",
       "example": "\"Opening two tabs in Chrome creates two separate processes. But downloading a file while scrolling a webpage in the same tab uses two threads inside the same process.\"",
       "summary10s": "Process = heavy, isolated memory. Thread = light, shared memory."
-    }
-  },
-  {
-    "id": "java-start-vs-run",
-    "category": "Java",
-    "question": "What is the difference between start() and run()?",
-    "frequency": 2,
-    "companies": [],
-    "variations": [],
-    "answerSEE": {
-      "simple": "start() creates a new thread and then calls run(), while calling run() directly just executes the code in the current thread.",
-      "explain": "The start() method asks the JVM to allocate a new thread stack and transition the thread to the RUNNABLE state. If you call run() directly, it behaves like a normal method call, executing synchronously on the main thread, defeating the purpose of multithreading.",
-      "example": "\"A classic interview mistake is writing `thread.run()`. It compiles and works, but it completely blocks the main thread. You must call `thread.start()` to actually spin up a new concurrent execution path.\"",
-      "summary10s": "start() = new thread. run() = normal synchronous method call."
     }
   },
   {
@@ -7676,6 +7691,72 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "SELECT department_id, COUNT(*) FROM employees GROUP BY department_id.",
       "example": "\"I use SELECT dept, COUNT(id) FROM employees GROUP BY dept. If I want departments with 0 employees, I do a LEFT JOIN from the department table.\"",
       "summary10s": "GROUP BY dept with COUNT(*)."
+    }
+  },
+  {
+    "id": "java-coding-minimum-length-subarray-sum",
+    "category": "Java Coding",
+    "question": "Find the minimum-length subarray whose sum equals a given target.",
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "To find the minimum-length subarray with a given sum, use the sliding window technique (if all numbers are positive) or a HashMap to store prefix sums.",
+      "explain": "If the array contains only positive integers, a two-pointer sliding window is optimal O(n). We expand the right pointer to add to the sum, and shrink the left pointer when the sum exceeds the target. If negative numbers exist, we must use a HashMap to store the (prefix_sum, index). We check if prefix_sum - target exists in the map. This is also O(n) time and O(n) space.",
+      "example": "\"For an array of positive numbers, I would use a sliding window. I keep adding elements with a right pointer. If the sum hits the target, I record the length. If it exceeds the target, I shrink the window from the left. However, if there are negative numbers, sliding window fails because adding a number might decrease the sum. In that case, I use a HashMap to track prefix sums and check for (current_sum - target) to find the valid subarray length.\"",
+      "summary10s": "Positive numbers: Sliding Window O(n). Negative numbers allowed: HashMap of prefix sums O(n) space."
+    }
+  },
+  {
+    "id": "sql-rank-employees-experience",
+    "category": "SQL",
+    "question": "Write an SQL query to rank employees based on their experience.",
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the DENSE_RANK() or RANK() window function ordered by their hire date or experience years.",
+      "explain": "The query typically looks like: SELECT employee_id, experience_years, DENSE_RANK() OVER (ORDER BY experience_years DESC) as rank FROM employees. DENSE_RANK() ensures no gaps in ranking if two employees have the exact same experience.",
+      "example": "\"To rank employees by experience, I would use the DENSE_RANK window function. The query is SELECT employee_id, experience, DENSE_RANK() OVER (ORDER BY experience DESC) as emp_rank FROM employees. I prefer DENSE_RANK over RANK here so that if two employees tie for 2nd place, the next person is correctly ranked 3rd instead of 4th.\"",
+      "summary10s": "SELECT emp_id, DENSE_RANK() OVER (ORDER BY experience DESC) FROM employees."
+    }
+  },
+  {
+    "id": "sql-rank-dense-rank-row-number",
+    "category": "SQL",
+    "question": "Difference between RANK(), DENSE_RANK(), and ROW_NUMBER()",
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [
+      "Difference between RANK(), DENSE_RANK(), and ROW_NUMBER()."
+    ],
+    "answerSEE": {
+      "simple": "ROW_NUMBER gives a unique sequential number. RANK leaves gaps after ties. DENSE_RANK leaves no gaps after ties.",
+      "explain": "ROW_NUMBER() assigns 1, 2, 3, 4 even if values are identical. RANK() gives the same rank for ties but skips the next numbers (1, 2, 2, 4). DENSE_RANK() gives the same rank for ties without skipping (1, 2, 2, 3).",
+      "example": "\"If three employees score 90, 90, and 80. ROW_NUMBER gives 1, 2, 3 based on random or secondary sort. RANK gives 1, 1, 3 (skips 2). DENSE_RANK gives 1, 1, 2 (no gaps). I use DENSE_RANK most often for top-N queries so we don't accidentally skip positions.\"",
+      "summary10s": "ROW_NUMBER=1,2,3. RANK=1,1,3 (gaps). DENSE_RANK=1,1,2 (no gaps)."
+    }
+  },
+  {
+    "id": "sql-order-of-execution",
+    "category": "SQL",
+    "question": "Explain the order of execution of SQL query clauses.",
+    "frequency": 2,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "SQL executes in this logical order: FROM, JOIN, WHERE, GROUP BY, HAVING, SELECT, ORDER BY, LIMIT/OFFSET.",
+      "explain": "The database engine first identifies the source tables (FROM/JOIN), then filters rows (WHERE), groups them (GROUP BY), filters the groups (HAVING), selects the specific columns (SELECT), sorts the final result (ORDER BY), and finally limits the output (LIMIT).",
+      "example": "\"Even though we write SELECT first, the DB engine evaluates FROM and JOINs first to get the base data. Then it applies WHERE filters. After filtering, it does GROUP BY and HAVING. Only then does it process the SELECT clause to pick columns and compute aliases. Finally, it sorts with ORDER BY and applies LIMIT. Knowing this is critical because you cannot use a SELECT alias in a WHERE clause, since WHERE executes before SELECT.\"",
+      "summary10s": "FROM/JOIN > WHERE > GROUP BY > HAVING > SELECT > ORDER BY > LIMIT. SELECT is near the end!"
     }
   },
   {
@@ -20720,11 +20801,13 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "spring-boot-annotations-intro",
     "category": "Spring Boot",
     "question": "What are annotations in Spring Boot? Why are they used?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [
       "Infosys"
     ],
-    "variations": [],
+    "variations": [
+      "What are commonly used Spring Boot annotations?"
+    ],
     "answerSEE": {
       "simple": "Annotations are metadata tags (like `@RestController`) that tell the Spring framework how to treat a class, method, or field.",
       "explain": "They replace the massive XML configuration files used in traditional Spring. They provide hints to the Spring container for Bean creation (`@Component`), Dependency Injection (`@Autowired`), web routing (`@GetMapping`), and transaction management (`@Transactional`).",
@@ -22299,59 +22382,311 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     }
   },
   {
-    "id": "java-coding-minimum-length-subarray-sum",
-    "category": "Java Coding",
-    "question": "Find the minimum-length subarray whose sum equals a given target.",
+    "id": "java-8-features",
+    "category": "Java",
+    "question": "What are the key features introduced in Java 8?",
     "frequency": 1,
-    "companies": [],
+    "companies": [
+      "Deloitte"
+    ],
     "variations": [],
     "answerSEE": {
-      "simple": "To find the minimum-length subarray with a given sum, use the sliding window technique (if all numbers are positive) or a HashMap to store prefix sums.",
-      "explain": "If the array contains only positive integers, a two-pointer sliding window is optimal O(n). We expand the right pointer to add to the sum, and shrink the left pointer when the sum exceeds the target. If negative numbers exist, we must use a HashMap to store the (prefix_sum, index). We check if prefix_sum - target exists in the map. This is also O(n) time and O(n) space.",
-      "example": "\"For an array of positive numbers, I would use a sliding window. I keep adding elements with a right pointer. If the sum hits the target, I record the length. If it exceeds the target, I shrink the window from the left. However, if there are negative numbers, sliding window fails because adding a number might decrease the sum. In that case, I use a HashMap to track prefix sums and check for (current_sum - target) to find the valid subarray length.\"",
-      "summary10s": "Positive numbers: Sliding Window O(n). Negative numbers allowed: HashMap of prefix sums O(n) space."
+      "simple": "Java 8 introduced Lambda expressions, Stream API, Optional, Default methods, and the new Date/Time API.",
+      "explain": "Key features include: Lambdas for functional programming, Streams for bulk data operations, Optional to avoid NullPointerExceptions, Default/Static methods in interfaces to add new functionality without breaking existing code, and the java.time package for better date handling.",
+      "example": "\"When I moved to Java 8, the biggest impact was using the Stream API and Lambdas to replace verbose loops. We also heavily refactored our code to use Optional instead of returning nulls, which drastically reduced NullPointerExceptions.\"",
+      "summary10s": "Java 8 = Lambdas, Streams, Optional, Default methods, Date/Time API."
     }
   },
   {
-    "id": "sql-rank-employees-experience",
-    "category": "SQL",
-    "question": "Write an SQL query to rank employees based on their experience.",
+    "id": "stream-intermediate-terminal",
+    "category": "Java",
+    "question": "What are intermediate and terminal operations in Stream API?",
     "frequency": 1,
-    "companies": [],
+    "companies": [
+      "Deloitte"
+    ],
     "variations": [],
     "answerSEE": {
-      "simple": "Use the DENSE_RANK() or RANK() window function ordered by their hire date or experience years.",
-      "explain": "The query typically looks like: SELECT employee_id, experience_years, DENSE_RANK() OVER (ORDER BY experience_years DESC) as rank FROM employees. DENSE_RANK() ensures no gaps in ranking if two employees have the exact same experience.",
-      "example": "\"To rank employees by experience, I would use the DENSE_RANK window function. The query is SELECT employee_id, experience, DENSE_RANK() OVER (ORDER BY experience DESC) as emp_rank FROM employees. I prefer DENSE_RANK over RANK here so that if two employees tie for 2nd place, the next person is correctly ranked 3rd instead of 4th.\"",
-      "summary10s": "SELECT emp_id, DENSE_RANK() OVER (ORDER BY experience DESC) FROM employees."
+      "simple": "Intermediate operations return a new stream and are lazy, while terminal operations trigger the execution and return a non-stream result.",
+      "explain": "Intermediate operations (like filter, map, sorted) transform a stream into another stream and are only executed when a terminal operation is invoked (lazy evaluation). Terminal operations (like collect, forEach, reduce) consume the stream to produce a final result and close the stream.",
+      "example": "\"In my code, I often chain intermediate operations like .filter() and .map() to set up data transformation. None of this code actually runs until I call a terminal operation like .collect(Collectors.toList()), which triggers the pipeline and returns my final list.\"",
+      "summary10s": "Intermediate = lazy, returns stream. Terminal = eager, executes pipeline, returns result."
     }
   },
   {
-    "id": "sql-rank-dense-rank-row-number",
-    "category": "SQL",
-    "question": "Difference between RANK(), DENSE_RANK(), and ROW_NUMBER()",
+    "id": "overload-main-method",
+    "category": "Java",
+    "question": "Can we overload the main() method? Which one does JVM execute?",
     "frequency": 1,
-    "companies": [],
+    "companies": [
+      "Deloitte"
+    ],
     "variations": [],
     "answerSEE": {
-      "simple": "ROW_NUMBER gives a unique sequential number. RANK leaves gaps after ties. DENSE_RANK leaves no gaps after ties.",
-      "explain": "ROW_NUMBER() assigns 1, 2, 3, 4 even if values are identical. RANK() gives the same rank for ties but skips the next numbers (1, 2, 2, 4). DENSE_RANK() gives the same rank for ties without skipping (1, 2, 2, 3).",
-      "example": "\"If three employees score 90, 90, and 80. ROW_NUMBER gives 1, 2, 3 based on random or secondary sort. RANK gives 1, 1, 3 (skips 2). DENSE_RANK gives 1, 1, 2 (no gaps). I use DENSE_RANK most often for top-N queries so we don't accidentally skip positions.\"",
-      "summary10s": "ROW_NUMBER=1,2,3. RANK=1,1,3 (gaps). DENSE_RANK=1,1,2 (no gaps)."
+      "simple": "Yes, you can overload the main() method, but the JVM will only automatically execute the standard public static void main(String[] args).",
+      "explain": "Java allows you to write multiple main methods with different parameter lists, just like any other method. However, when you run the class, the JVM specifically looks for the signature `public static void main(String[] args)`. You'd have to call the overloaded versions manually from the standard main method.",
+      "example": "\"Yes, I've seen interview questions about this. You can totally overload `main()`, but it's just a normal method to the compiler. The JVM entry point is strictly the one taking a String array. Any other `main` has to be called explicitly.\"",
+      "summary10s": "Yes, can overload. JVM only runs the String[] args version automatically."
     }
   },
   {
-    "id": "sql-order-of-execution",
-    "category": "SQL",
-    "question": "Explain the order of execution of SQL query clauses.",
+    "id": "create-custom-exceptions",
+    "category": "Java",
+    "question": "How do you create and handle custom exceptions?",
     "frequency": 1,
-    "companies": [],
+    "companies": [
+      "Deloitte"
+    ],
     "variations": [],
     "answerSEE": {
-      "simple": "SQL executes in this logical order: FROM, JOIN, WHERE, GROUP BY, HAVING, SELECT, ORDER BY, LIMIT/OFFSET.",
-      "explain": "The database engine first identifies the source tables (FROM/JOIN), then filters rows (WHERE), groups them (GROUP BY), filters the groups (HAVING), selects the specific columns (SELECT), sorts the final result (ORDER BY), and finally limits the output (LIMIT).",
-      "example": "\"Even though we write SELECT first, the DB engine evaluates FROM and JOINs first to get the base data. Then it applies WHERE filters. After filtering, it does GROUP BY and HAVING. Only then does it process the SELECT clause to pick columns and compute aliases. Finally, it sorts with ORDER BY and applies LIMIT. Knowing this is critical because you cannot use a SELECT alias in a WHERE clause, since WHERE executes before SELECT.\"",
-      "summary10s": "FROM/JOIN > WHERE > GROUP BY > HAVING > SELECT > ORDER BY > LIMIT. SELECT is near the end!"
+      "simple": "Create a custom exception by extending Exception (for checked) or RuntimeException (for unchecked).",
+      "explain": "You define a class that extends `Exception` (if you want the compiler to force callers to handle it) or `RuntimeException` (if you want it to be optional). You typically provide a constructor that takes a String message and passes it to `super(message)`. Handle it using standard try-catch blocks.",
+      "example": "\"In our project, we created a `UserNotFoundException` that extends `RuntimeException`. Whenever a database lookup fails, we throw this exception with the user ID, and a global `@ExceptionHandler` catches it to return a 404 HTTP response.\"",
+      "summary10s": "Extend Exception(checked) or RuntimeException(unchecked), call super(msg)."
+    }
+  },
+  {
+    "id": "what-is-synchronization",
+    "category": "Java",
+    "question": "What is synchronization in Java?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Synchronization controls access to a shared resource by multiple threads to prevent data inconsistency.",
+      "explain": "In Java, you use the `synchronized` keyword on methods or blocks to ensure that only one thread can execute them at a time. It works by acquiring an intrinsic lock (monitor) on the object (or class, for static methods), preventing race conditions.",
+      "example": "\"When I had multiple threads updating a shared counter, I noticed missed updates due to race conditions. I added the `synchronized` keyword to the update block, which fixed the issue by ensuring mutual exclusion.\"",
+      "summary10s": "Locks shared resources so only 1 thread accesses at a time, preventing race conditions."
+    }
+  },
+  {
+    "id": "java-memory-areas",
+    "category": "Java",
+    "question": "Explain Java memory areas: Heap, Stack, Method Area, and Program Counter.",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Heap stores objects, Stack stores method execution/local variables, Method Area stores class structures, PC tracks execution.",
+      "explain": "Heap: Global memory for objects and JRE classes (garbage collected). Stack: Thread-local memory for method frames and primitives. Method Area (Metaspace): Stores class level data (static variables, method code). PC Register: Contains the address of the JVM instruction currently being executed by a thread.",
+      "example": "\"Whenever I create a new object using the 'new' keyword, I know it goes into the Heap. But the reference to that object, and any primitive types I declare inside a method, live on the Stack and disappear as soon as the method returns.\"",
+      "summary10s": "Heap=Objects. Stack=Method frames/primitives. Method Area=Class data. PC=Current instruction."
+    }
+  },
+  {
+    "id": "garbage-collection-finalize",
+    "category": "Java",
+    "question": "What is garbage collection? What is the purpose of finalize()?",
+    "frequency": 1,
+    "companies": [
+      "Deloitte"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Garbage collection automatically reclaims memory from unreachable objects. finalize() is a method called before an object is destroyed.",
+      "explain": "GC automatically runs in the background to free up Heap memory by destroying objects that have no active references. `finalize()` is a legacy method from the Object class that the GC calls just before reclaiming the object's memory, intended for resource cleanup (though it's deprecated and considered bad practice now).",
+      "example": "\"I rely on Java's Garbage Collector to manage memory so I don't have to manually free objects. I never use `finalize()` for cleanup because it's unpredictable and deprecated; instead, I use try-with-resources or the `Cleaner` API to close files and connections.\"",
+      "summary10s": "GC removes unreferenced objects. finalize() is a deprecated pre-destroy cleanup hook."
+    }
+  },
+  {
+    "id": "what-are-lambda-expressions",
+    "category": "Java",
+    "question": "What are Lambda Expressions?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Lambda expressions are anonymous functions that let you pass behavior as a parameter using a concise arrow syntax.",
+      "explain": "Introduced in Java 8, lambdas implement a Functional Interface in-line without writing a full anonymous class.\nSyntax: (parameters) -> expression or (parameters) -> { statements }\nThey enable functional-style programming — passing code as data to methods like forEach, map, filter.\nUnder the hood, the compiler uses invokedynamic instead of creating anonymous inner class bytecode.",
+      "example": "\"Lambda expressions let me write concise inline implementations of functional interfaces. Instead of creating an anonymous Comparator class, I write (a, b) -> a.compareTo(b). I use them heavily with Stream API — like list.stream().filter(x -> x > 10).collect(toList()). They make code shorter and more readable without the boilerplate of anonymous classes.\"",
+      "summary10s": "Anonymous function implementing a Functional Interface inline — (params) -> body."
+    }
+  },
+  {
+    "id": "what-is-the-stream-api",
+    "category": "Java",
+    "question": "What is the Stream API?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Stream API processes collections declaratively using a pipeline of operations like filter, map, and collect.",
+      "explain": "Introduced in Java 8, Stream is not a data structure — it is a pipeline that processes data from a source (Collection, array, I/O).\nIntermediate operations (filter, map, sorted) are lazy — they don't execute until a terminal operation is called.\nTerminal operations (collect, forEach, reduce) trigger the pipeline and produce a result.\nStreams can be parallelized with .parallelStream() for multi-core processing.",
+      "example": "\"Stream API lets me process collections in a declarative, pipeline style instead of writing manual loops. I chain intermediate operations like .filter() and .map() which are lazy — nothing runs until I call a terminal operation like .collect(). For example, employees.stream().filter(e -> e.getSalary() > 50000).map(Employee::getName).collect(Collectors.toList()) gives me all high-salary employee names in one readable chain.\"",
+      "summary10s": "Declarative pipeline on collections — filter/map are lazy, collect/forEach trigger execution."
+    }
+  },
+  {
+    "id": "transient-vs-volatile",
+    "category": "Java",
+    "question": "What is the difference between transient and volatile?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "transient excludes a field from serialization; volatile ensures a field is always read from main memory for thread visibility.",
+      "explain": "transient — marks a field to be skipped during Java serialization (ObjectOutputStream). When the object is deserialized, transient fields get default values (null, 0, false).\nvolatile — tells the JVM to never cache the variable in CPU registers or thread-local cache. Every read goes to main memory, every write flushes to main memory immediately.\nThey solve completely different problems: transient is about persistence, volatile is about concurrency.",
+      "example": "\"transient and volatile are unrelated keywords. transient tells Java serialization to skip that field — I use it for sensitive data like passwords or derived fields that can be recalculated. volatile guarantees visibility across threads — every thread reads the latest value from main memory instead of its CPU cache. I use volatile for flags like a shutdown boolean that one thread sets and another thread checks.\"",
+      "summary10s": "transient = skip during serialization. volatile = always read/write from main memory for thread visibility."
+    }
+  },
+  {
+    "id": "what-are-react-hooks",
+    "category": "Other",
+    "question": "What are React Hooks?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Hooks are functions that let you use state and lifecycle features in functional components without writing classes.",
+      "explain": "Introduced in React 16.8, hooks replaced class components for most use cases.\nuseState — adds local state to a functional component.\nuseEffect — handles side effects like API calls, subscriptions, and cleanup (replaces componentDidMount, componentDidUpdate, componentWillUnmount).\nCustom hooks let you extract and reuse stateful logic across components.\nRules: only call hooks at the top level, never inside loops or conditions.",
+      "example": "\"Hooks let me manage state and side effects inside functional components. useState gives me a state variable and setter — const [count, setCount] = useState(0). useEffect runs after render for side effects like fetching data — I pass a dependency array to control when it re-runs. Before hooks, I would have needed a class component for any of this. Now I write everything as functions and extract shared logic into custom hooks.\"",
+      "summary10s": "Functions for state (useState) and side effects (useEffect) in functional components — no classes needed."
+    }
+  },
+  {
+    "id": "what-is-react-router",
+    "category": "Other",
+    "question": "What is React Router?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "React Router is a library for client-side routing that lets you navigate between pages without full page reloads.",
+      "explain": "React is a single-page app framework — React Router handles URL-based navigation inside the browser.\nRoute component maps a URL path to a component.\nLink and NavLink replace anchor tags for client-side navigation without reloading.\nuseNavigate hook enables programmatic navigation from code (e.g., after form submit).\nSupports nested routes, dynamic parameters (:id), and route guards.",
+      "example": "\"React Router handles navigation in my React SPA without full page reloads. I wrap my app in BrowserRouter, define routes like <Route path='/users/:id' element={<UserDetail />} />, and use Link components instead of <a> tags for navigation. For programmatic navigation after a form submission, I use the useNavigate hook — const navigate = useNavigate(); navigate('/dashboard').\"",
+      "summary10s": "Client-side URL routing for React SPAs — Route maps paths to components, Link navigates without reload."
+    }
+  },
+  {
+    "id": "what-is-redux",
+    "category": "Other",
+    "question": "What is Redux and why is it used?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Redux is a predictable state management library that stores your entire app state in a single centralized store.",
+      "explain": "Redux solves the problem of sharing state across deeply nested or unrelated components without prop drilling.\nSingle store holds the entire app state as a plain object.\nActions describe what happened — dispatched to the store.\nReducers are pure functions that take current state + action and return new state.\nState is immutable — reducers always return a new object, never mutate.\nReact-Redux provides useSelector (read state) and useDispatch (send actions) hooks.",
+      "example": "\"Redux gives me a single centralized store for my app's state. When a user clicks 'Add to Cart', I dispatch an action like { type: 'ADD_ITEM', payload: item }. The reducer receives this action and returns a new state with the item added. Any component using useSelector automatically re-renders with the updated cart. This avoids prop drilling through 5+ levels of components.\"",
+      "summary10s": "Single store, dispatch actions, pure reducers return new state — avoids prop drilling."
+    }
+  },
+  {
+    "id": "useref-usecallback-usememo",
+    "category": "Other",
+    "question": "What is useRef(), useCallback() and useMemo()? Why are they used?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "What is useRef(), useCallback() and usMemo() why are they used?"
+    ],
+    "answerSEE": {
+      "simple": "useRef persists a mutable value across renders, useCallback memoizes a function, and useMemo memoizes a computed value — all to avoid unnecessary re-renders or recalculations.",
+      "explain": "useRef — returns a mutable .current object that persists across renders without triggering re-render. Used for DOM references and storing previous values.\nuseCallback — returns a memoized version of a callback function that only changes if dependencies change. Prevents child components from re-rendering when parent re-renders.\nuseMemo — returns a memoized computed value that only recalculates when dependencies change. Used for expensive calculations.\nAll three are performance optimization hooks.",
+      "example": "\"useRef gives me a persistent reference — I use it to access DOM elements like inputRef.current.focus() or to store a previous value without causing re-renders. useCallback memoizes a function so I can pass it to a child component wrapped in React.memo without causing unnecessary re-renders every time the parent renders. useMemo memoizes an expensive computation — like filtering a 10,000-item list — so it only recalculates when the list or filter actually changes.\"",
+      "summary10s": "useRef = persistent mutable ref (no re-render), useCallback = memoize function, useMemo = memoize value."
+    }
+  },
+  {
+    "id": "browserrouter-and-usenavigate",
+    "category": "Other",
+    "question": "Explain BrowserRouter and useNavigate().",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [
+      "Explain BrowserRouter and use navigate()."
+    ],
+    "answerSEE": {
+      "simple": "BrowserRouter uses the HTML5 History API for clean URLs, and useNavigate() is a hook for programmatic navigation.",
+      "explain": "BrowserRouter wraps your app and uses the browser's History API (pushState/popState) to keep the URL in sync with your UI without full page reloads. URLs look clean like /users/5 instead of hash-based /#/users/5.\nuseNavigate() returns a function to navigate programmatically — navigate('/dashboard') redirects, navigate(-1) goes back.\nBrowserRouter requires server-side configuration to serve index.html for all routes (otherwise you get 404 on refresh).",
+      "example": "\"BrowserRouter uses the HTML5 History API to give clean URLs like /products/123 instead of hash-based routing. I wrap my entire app in <BrowserRouter> at the top level. Inside components, I use the useNavigate hook for programmatic navigation — for example, after a successful login I call navigate('/dashboard') to redirect the user. navigate(-1) takes the user back to the previous page like browser back button.\"",
+      "summary10s": "BrowserRouter = clean URLs via History API. useNavigate() = programmatic redirect from code."
+    }
+  },
+  {
+    "id": "what-are-closures-in-javascript",
+    "category": "JavaScript",
+    "question": "What are closures in JavaScript?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A closure is a function that remembers and accesses variables from its outer scope even after the outer function has returned.",
+      "explain": "When a function is created inside another function, the inner function forms a closure — it carries a reference to its outer function's variables.\nThe outer function's execution context is gone, but the inner function still has access to those variables because they are preserved in the closure scope.\nUsed for data privacy (module pattern), callbacks, currying, and maintaining state in event handlers.",
+      "example": "\"A closure happens when an inner function remembers the variables of its outer function even after the outer function has finished executing. For example, function counter() { let count = 0; return () => ++count; } — calling counter() gives me a function that increments count each time, but count is private and cannot be accessed from outside. I use closures for data privacy and maintaining state in callbacks.\"",
+      "summary10s": "Inner function remembers outer scope variables even after outer function returns — used for data privacy and state."
+    }
+  },
+  {
+    "id": "what-is-hoisting-in-javascript",
+    "category": "JavaScript",
+    "question": "What is hoisting in JavaScript?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Hoisting is JavaScript's behavior of moving variable and function declarations to the top of their scope before code executes.",
+      "explain": "During compilation, JavaScript moves declarations (not initializations) to the top of their scope.\nvar declarations are hoisted and initialized as undefined — using before assignment gives undefined, not an error.\nlet and const are hoisted but stay in a Temporal Dead Zone (TDZ) — accessing before declaration throws ReferenceError.\nFunction declarations are fully hoisted — you can call them before their code line.\nFunction expressions and arrow functions are NOT hoisted (they follow variable hoisting rules).",
+      "example": "\"Hoisting means JavaScript moves declarations to the top during compilation. With var, the variable exists but is undefined until its assignment line. With let and const, they are hoisted but sit in a Temporal Dead Zone — accessing them before the declaration line throws a ReferenceError. Function declarations are fully hoisted so I can call greet() before defining function greet(). But arrow functions assigned to const are not hoisted since they follow const rules.\"",
+      "summary10s": "Declarations moved to top — var = undefined, let/const = TDZ error, function declarations = fully hoisted."
+    }
+  },
+  {
+    "id": "types-of-sql-joins",
+    "category": "SQL",
+    "question": "What are the different types of SQL joins?",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "INNER JOIN returns matching rows from both tables; LEFT/RIGHT JOIN includes all rows from one side; FULL OUTER JOIN includes all rows from both; CROSS JOIN gives the Cartesian product.",
+      "explain": "INNER JOIN — only rows where the join condition matches in both tables.\nLEFT JOIN — all rows from the left table, matched right table rows or NULL if no match.\nRIGHT JOIN — all rows from the right table, matched left table rows or NULL if no match.\nFULL OUTER JOIN — all rows from both tables, NULLs where no match on either side.\nCROSS JOIN — every row from table A paired with every row from table B (Cartesian product).\nSELF JOIN — joining a table with itself using aliases.",
+      "example": "\"INNER JOIN gives me only matching rows — like users who have placed orders. LEFT JOIN gives me all users even if they have no orders — unmatched orders columns show NULL. RIGHT JOIN is the reverse. FULL OUTER JOIN gives me everything from both sides. I use CROSS JOIN rarely — mainly for generating combinations like all products × all colors. SELF JOIN is useful for hierarchical data like finding each employee's manager from the same table.\"",
+      "summary10s": "INNER = matching only, LEFT/RIGHT = all from one side, FULL = all from both, CROSS = Cartesian product."
+    }
+  },
+  {
+    "id": "practical-sql-query-questions",
+    "category": "SQL",
+    "question": "Practical SQL/query-related questions.",
+    "frequency": 1,
+    "companies": [
+      "Infosys"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Common practical SQL questions test your ability to write queries using JOINs, GROUP BY, HAVING, subqueries, and window functions.",
+      "explain": "Typical patterns asked in interviews:\nFind Nth highest salary — SELECT DISTINCT salary FROM emp ORDER BY salary DESC LIMIT 1 OFFSET N-1 (or use DENSE_RANK).\nFind duplicates — GROUP BY column HAVING COUNT(*) > 1.\nJoin multiple tables — use INNER/LEFT JOIN with proper ON conditions.\nAggregate with conditions — GROUP BY + HAVING vs WHERE (WHERE filters rows before grouping, HAVING filters after).\nWindow functions — ROW_NUMBER(), RANK(), DENSE_RANK() OVER (PARTITION BY ... ORDER BY ...).",
+      "example": "\"In interviews I typically get asked to find the second highest salary — I use SELECT DISTINCT salary FROM employee ORDER BY salary DESC LIMIT 1 OFFSET 1, or DENSE_RANK() for handling ties. For finding duplicates I use GROUP BY email HAVING COUNT(*) > 1. I always clarify whether they want to handle ties and NULLs — that shows I think about edge cases.\"",
+      "summary10s": "Nth salary = DENSE_RANK or LIMIT OFFSET, duplicates = GROUP BY HAVING COUNT > 1, filter = WHERE vs HAVING."
     }
   }
 ];
