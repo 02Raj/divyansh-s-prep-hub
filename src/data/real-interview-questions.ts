@@ -236,13 +236,14 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "circuit-breaker",
     "category": "Microservices",
     "question": "Circuit Breaker",
-    "frequency": 15,
+    "frequency": 16,
     "companies": [
       "EPAM",
       "Deloitte",
       "Accenture",
       "Capgemini",
-      "HCL Technologies"
+      "HCL Technologies",
+      "Tech Mahindra"
     ],
     "variations": [
       "Explain Circuit Breaker, Retry and Timeout patterns.",
@@ -539,11 +540,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "how-did-you-handle-global-exception-handling",
     "category": "Spring Boot",
     "question": "How did you handle global exception handling?",
-    "frequency": 11,
+    "frequency": 12,
     "companies": [
       "Flipkart",
       "Capgemini",
-      "Infosys"
+      "Infosys",
+      "Tech Mahindra"
     ],
     "variations": [
       "Global Exception Handling",
@@ -682,11 +684,12 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "system-design-put-vs-patch",
     "category": "System Design",
     "question": "Difference between PUT and PATCH? How to make PATCH idempotent?",
-    "frequency": 9,
+    "frequency": 10,
     "companies": [
       "Atlassian",
       "Microsoft",
-      "Flipkart"
+      "Flipkart",
+      "Tech Mahindra"
     ],
     "variations": [
       "Are all REST methods idempotent?",
@@ -22144,14 +22147,22 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "angular-topic-rxjs-subject-vs-behaviorsubj",
     "category": "Angular",
     "question": "RxJS → Subject vs BehaviorSubject | RxJS Operators: switchMap | concatMap | mergeMap | forkJoin | map | tap | retry | take | takeUntil | Debouncing",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [
+      "Explain map() and mergeMap().",
+      "Explain switchMap().",
+      "What is the difference between mergeMap, switchMap, concatMap and exhaustMap?",
+      "How would you handle a search API where the previous request should be cancelled when a new search request comes in?",
+      "If a user clicks a Submit button 5–6 times quickly, how would you prevent duplicate API requests?"
+    ],
     "answerSEE": {
-      "simple": "Explanation of RxJS",
-      "explain": "Detailed concept for RxJS → Subject vs BehaviorSubject | RxJS Operators: switchMap | concatMap | mergeMap | forkJoin | map | tap | retry | take | takeUntil | Debouncing",
-      "example": "\"In my project, I implemented this by...\"",
-      "summary10s": "Key takeaway for RxJS"
+      "simple": "These operators map over observables. switchMap cancels previous requests, exhaustMap ignores new ones until the current finishes, concatMap queues them, and mergeMap runs them concurrently.",
+      "explain": "For API calls:\n- switchMap: great for search auto-complete (cancels previous pending request if a new keystroke comes in).\n- exhaustMap: great for login/submit buttons (ignores subsequent clicks until the first request completes).\n- concatMap: great for ordered saves (queues requests to run one after another).\n- mergeMap: great for parallel independent requests (runs everything at once).",
+      "example": "\"In a search typeahead, I use switchMap so if the user types 'A' then 'B', the API call for 'A' is aborted if it hasn't finished, saving bandwidth. For a 'Submit Payment' button, I use exhaustMap so that if the user double-clicks, the second click is completely ignored while the first payment is processing.\"",
+      "summary10s": "switchMap = cancel previous (search). exhaustMap = ignore new (submit). concatMap = queue (ordered). mergeMap = parallel."
     }
   },
   {
@@ -22312,14 +22323,18 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "java-coding-find-employee-with-highest-salary",
     "category": "Java Coding",
     "question": "Find Employee with Highest Salary",
-    "frequency": 1,
-    "companies": [],
-    "variations": [],
+    "frequency": 2,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [
+      "Can you write Java code to find the employee with the maximum salary from a list?"
+    ],
     "answerSEE": {
-      "simple": "Explanation of how to solve: Find Employee with Highest Salary",
-      "explain": "Detailed approach and time complexity for solving Find Employee with Highest Salary",
-      "example": "```java\n// Code snippet for Find Employee with Highest Salary\n```",
-      "summary10s": "Key algorithm/concept: e.g. using Maps, Set, or Java 8 Streams to solve Find Employee with Highest Salary"
+      "simple": "Use Stream API with max() and a Comparator.",
+      "explain": "You can stream the list of employees and use the max() function, passing Comparator.comparing(Employee::getSalary). This returns an Optional<Employee> containing the employee with the highest salary.",
+      "example": "\"In Java 8, I would write: employees.stream().max(Comparator.comparing(Employee::getSalary)).orElse(null); to find the employee with the maximum salary safely.\"",
+      "summary10s": "employees.stream().max(Comparator.comparing(Employee::getSalary))."
     }
   },
   {
@@ -22401,11 +22416,14 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
     "id": "stream-intermediate-terminal",
     "category": "Java",
     "question": "What are intermediate and terminal operations in Stream API?",
-    "frequency": 1,
+    "frequency": 2,
     "companies": [
-      "Deloitte"
+      "Deloitte",
+      "Tech Mahindra"
     ],
-    "variations": [],
+    "variations": [
+      "What is the difference between terminal and intermediate operations in Java?"
+    ],
     "answerSEE": {
       "simple": "Intermediate operations return a new stream and are lazy, while terminal operations trigger the execution and return a non-stream result.",
       "explain": "Intermediate operations (like filter, map, sorted) transform a stream into another stream and are only executed when a terminal operation is invoked (lazy evaluation). Terminal operations (like collect, forEach, reduce) consume the stream to produce a final result and close the stream.",
@@ -22687,6 +22705,681 @@ export const realInterviewQuestions: RealInterviewQuestion[] = [
       "explain": "Typical patterns asked in interviews:\nFind Nth highest salary — SELECT DISTINCT salary FROM emp ORDER BY salary DESC LIMIT 1 OFFSET N-1 (or use DENSE_RANK).\nFind duplicates — GROUP BY column HAVING COUNT(*) > 1.\nJoin multiple tables — use INNER/LEFT JOIN with proper ON conditions.\nAggregate with conditions — GROUP BY + HAVING vs WHERE (WHERE filters rows before grouping, HAVING filters after).\nWindow functions — ROW_NUMBER(), RANK(), DENSE_RANK() OVER (PARTITION BY ... ORDER BY ...).",
       "example": "\"In interviews I typically get asked to find the second highest salary — I use SELECT DISTINCT salary FROM employee ORDER BY salary DESC LIMIT 1 OFFSET 1, or DENSE_RANK() for handling ties. For finding duplicates I use GROUP BY email HAVING COUNT(*) > 1. I always clarify whether they want to handle ties and NULLs — that shows I think about edge cases.\"",
       "summary10s": "Nth salary = DENSE_RANK or LIMIT OFFSET, duplicates = GROUP BY HAVING COUNT > 1, filter = WHERE vs HAVING."
+    }
+  },
+  {
+    "id": "js-capitalize-reverse-words",
+    "category": "JS Coding",
+    "question": "Capitalize each word & reverse words: india is my country → aidnI sI yM yrtnuoC",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Capitalize each word, then reverse the characters of each word individually.",
+      "explain": "Split the string by spaces to get an array of words.\nFor each word: capitalize the first letter, then reverse the entire word.\nJoin them back with spaces.\nstr.split(' ').map(w => w[0].toUpperCase() + w.slice(1)).map(w => w.split('').reverse().join('')).join(' ')",
+      "example": "\"I split the string into words, capitalize the first character of each word, then reverse each word character by character. 'india' becomes 'India' then reversed to 'aidnI'. I chain .map() calls for clean one-liner code.\"",
+      "summary10s": "Split → capitalize first char → reverse each word → join back."
+    }
+  },
+  {
+    "id": "js-first-non-repeating-char",
+    "category": "JS Coding",
+    "question": "Find the first non-repeating character: \"swiss\"",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Count character frequencies, then return the first character with a count of 1.",
+      "explain": "Build a frequency map by iterating through the string once.\nIterate through the string a second time and return the first character whose count is 1.\nTime: O(n), Space: O(1) since character set is bounded.\nFor 'swiss': s=3, w=1, i=1 → first non-repeating is 'w'.",
+      "example": "\"I build a frequency map in one pass, then iterate again to find the first character with count 1. For 'swiss', s appears 3 times, w and i appear once each — but w comes first in the string, so that's my answer. Two passes, O(n) time.\"",
+      "summary10s": "Frequency map in one pass, second pass finds first char with count === 1."
+    }
+  },
+  {
+    "id": "js-promisify-function",
+    "category": "JS Coding",
+    "question": "Promisify a function",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Convert a callback-based function into one that returns a Promise.",
+      "explain": "Wrap the callback-style function inside a new Promise.\nInside the Promise executor, call the original function.\nIn the callback: if error, call reject(err); otherwise call resolve(result).\nNode.js has util.promisify() built-in that does this automatically.\nUseful for converting legacy fs.readFile, setTimeout, etc. to async/await style.",
+      "example": "\"Promisifying means wrapping a callback-based function in a Promise. I return new Promise((resolve, reject) => { originalFn(args, (err, data) => err ? reject(err) : resolve(data)); }). In Node.js I can also use util.promisify(fs.readFile) to do this in one line. This lets me use async/await instead of nested callbacks.\"",
+      "summary10s": "Wrap callback fn in new Promise — resolve on success, reject on error. Node has util.promisify()."
+    }
+  },
+  {
+    "id": "js-array-flattening",
+    "category": "JS Coding",
+    "question": "Array flattening",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Convert a nested array into a single flat array — [1,[2,[3]]] → [1,2,3].",
+      "explain": "Built-in: arr.flat(Infinity) flattens all levels.\nRecursive approach: iterate each element — if it's an array, recursively flatten it; otherwise push to result.\nUsing reduce: arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatten(val) : val), []).\nStack-based iterative approach also possible to avoid recursion depth issues.",
+      "example": "\"The simplest way is arr.flat(Infinity) which flattens all nested levels. If asked to implement it manually, I use recursion — for each element, if it's an array I recurse, otherwise I push it to the result. I can also use reduce with concat for a functional style. In interviews I usually show the recursive version first then mention .flat() as the modern shortcut.\"",
+      "summary10s": "arr.flat(Infinity) or recursive: if Array.isArray → recurse, else push to result."
+    }
+  },
+  {
+    "id": "js-move-zeros-to-end",
+    "category": "JS Coding",
+    "question": "Move all zeros to the end",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Move all zeros to the end of the array while maintaining the order of non-zero elements.",
+      "explain": "Two-pointer approach: maintain a pointer for the next non-zero position.\nIterate through the array — when a non-zero element is found, swap it with the position at the pointer and increment the pointer.\nAll non-zero elements bubble to the front in original order, zeros fill the end.\nTime: O(n), Space: O(1) in-place.",
+      "example": "\"I use a two-pointer technique. I keep a 'writeIndex' starting at 0. As I iterate, whenever I find a non-zero, I swap it with arr[writeIndex] and increment writeIndex. After the loop, all non-zeros are at the front in original order and zeros fill the remaining positions. It's O(n) time and in-place.\"",
+      "summary10s": "Two pointers — swap non-zero to front, zeros naturally fill the end. O(n) in-place."
+    }
+  },
+  {
+    "id": "js-find-duplicate-numbers",
+    "category": "JS Coding",
+    "question": "Find duplicate numbers in an array",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Find duplicates: [1,2,3,4,3,2,9,7,4,9,8,2,4] → [2,3,4,9]"
+    ],
+    "answerSEE": {
+      "simple": "Use a Set to track seen numbers — if a number is already in the Set, it's a duplicate.",
+      "explain": "Iterate through the array with two Sets: 'seen' and 'duplicates'.\nFor each number: if seen.has(num), add to duplicates; otherwise add to seen.\nReturn Array.from(duplicates).\nAlternative: sort first and check adjacent elements — O(n log n) time, O(1) space.\nAlternative: frequency map, filter entries with count > 1.",
+      "example": "\"I use two Sets — 'seen' tracks numbers I've encountered, 'duplicates' collects the ones that appear more than once. As I iterate, if seen already has the number, I add it to duplicates. This gives me O(n) time. For [1,2,3,4,3,2,9,7,4,9,8,2,4] I get [2,3,4,9] as duplicates.\"",
+      "summary10s": "Two Sets — seen + duplicates. If seen.has(num) → duplicate. O(n) time."
+    }
+  },
+  {
+    "id": "js-print-1-100-without-loops",
+    "category": "JS Coding",
+    "question": "Print 1–100 without loops",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use recursion — a function that prints the current number and calls itself with n+1 until 100.",
+      "explain": "Recursive approach: function print(n) { if(n > 100) return; console.log(n); print(n+1); } — call print(1).\nAlternative: Array.from({length: 100}, (_, i) => i + 1).forEach(console.log).\nAlternative: use toString with Array constructor — [...Array(100).keys()].map(i => console.log(i + 1)).\nThe interview is testing whether you know recursion as an alternative to iteration.",
+      "example": "\"The cleanest way without a loop is recursion. I write a function that logs the number, then calls itself with n+1, with a base case at 100. I can also use Array.from({length:100}, (_, i) => console.log(i+1)) which uses array generation instead of an explicit loop. The interviewer usually wants to see recursion here.\"",
+      "summary10s": "Recursion: print(n), if n <= 100 log and call print(n+1). Or Array.from + forEach."
+    }
+  },
+  {
+    "id": "js-print-1-5-with-delay",
+    "category": "JS Coding",
+    "question": "Print 1–5 with a 1-second delay",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use setTimeout with increasing delays, or use async/await with a sleep helper to print 1 through 5 one second apart.",
+      "explain": "Using let in a loop: for(let i=1; i<=5; i++) setTimeout(() => console.log(i), i*1000) — let creates block scope so each iteration captures its own i.\nUsing var: must use IIFE or closure to capture i.\nAsync/await approach: async function run() { for(let i=1; i<=5; i++) { await new Promise(r => setTimeout(r, 1000)); console.log(i); } }\nThis tests understanding of closures, scoping, and event loop.",
+      "example": "\"With let, I just write for(let i=1; i<=5; i++) setTimeout(() => console.log(i), i*1000). Each iteration has its own scoped i. If forced to use var, I wrap in an IIFE to capture i. My preferred modern approach is async/await — I create a sleep function that returns a Promise resolved after 1 second, then await it in a loop.\"",
+      "summary10s": "let + setTimeout(i*1000) works directly. var needs IIFE/closure. Best: async/await + sleep Promise."
+    }
+  },
+  {
+    "id": "js-two-sum",
+    "category": "JS Coding",
+    "question": "Two Sum: find two numbers that add up to a target",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Two Sum: [1,4,7,-1,6], target = 5"
+    ],
+    "answerSEE": {
+      "simple": "Use a Map to store each number's complement — if the complement exists, return the pair.",
+      "explain": "Iterate through the array. For each number, calculate complement = target - num.\nCheck if complement exists in the Map — if yes, return [complement, num].\nIf not, store num in the Map.\nTime: O(n), Space: O(n).\nFor [1,4,7,-1,6] target 5: at index 3, -1's complement is 6 → 6 not in map. At index 4, 6's complement is -1 → -1 is in map → answer [-1, 6].",
+      "example": "\"I use a hash map approach. As I iterate, I compute the complement (target - current). If the complement is already in my map, I've found the pair. Otherwise I store the current number. For [1,4,7,-1,6] with target 5: when I reach 6, its complement -1 is already in my map, so the answer is [-1, 6]. O(n) time instead of O(n²) brute force.\"",
+      "summary10s": "Map stores numbers. For each num, check if (target - num) exists in map. O(n) time."
+    }
+  },
+  {
+    "id": "js-check-palindrome",
+    "category": "JS Coding",
+    "question": "Check if a string is a palindrome",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A palindrome reads the same forwards and backwards — compare the string with its reverse.",
+      "explain": "Simple: str === str.split('').reverse().join('').\nTwo-pointer approach (optimal): compare characters from both ends moving inward.\nFor case-insensitive: normalize with toLowerCase() and optionally remove non-alphanumeric characters.\nTwo-pointer is O(n) time, O(1) space vs reverse which is O(n) space.",
+      "example": "\"The quickest check is str === str.split('').reverse().join(''). But in interviews I prefer the two-pointer approach — I compare str[left] with str[right], moving inward. If any pair mismatches, it's not a palindrome. This is O(n) time and O(1) space since I don't create a new string.\"",
+      "summary10s": "Two pointers from both ends — if all pairs match, it's a palindrome. O(n) time, O(1) space."
+    }
+  },
+  {
+    "id": "js-kth-largest-element",
+    "category": "JS Coding",
+    "question": "Find the Kth largest element in an array",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Sort descending and return the element at index k-1, or use a min-heap of size k for better efficiency.",
+      "explain": "Sort approach: arr.sort((a,b) => b-a)[k-1] — O(n log n) time.\nMin-heap approach: maintain a heap of size k. Iterate through array — if element > heap top, replace. After processing, heap top is kth largest — O(n log k).\nQuickselect (Hoare's algorithm): partition like quicksort, recurse only into the side containing kth element — O(n) average.",
+      "example": "\"The simplest way is sort descending and pick index k-1. For interviews I mention the min-heap approach — maintain a heap of size k, so the top is always the kth largest. Even better is QuickSelect which gives O(n) average time by partitioning like quicksort but only recursing into one half. I start with sort for clarity then optimize.\"",
+      "summary10s": "Sort = O(n log n), Min-heap of size k = O(n log k), QuickSelect = O(n) average."
+    }
+  },
+  {
+    "id": "js-elements-greater-than-neighbors",
+    "category": "JS Coding",
+    "question": "Find elements greater than their immediate neighbors",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Iterate from index 1 to n-2 and check if arr[i] is greater than both arr[i-1] and arr[i+1].",
+      "explain": "These are called 'local maxima' or 'peaks'.\nFor boundary elements: first element only compares with right, last with left.\nFor middle elements: check arr[i] > arr[i-1] && arr[i] > arr[i+1].\nSingle pass O(n) solution.",
+      "example": "\"I iterate through the array checking each element against its immediate neighbors. For the first element I only check the right neighbor, for the last only the left, and for everything else I check both sides. If the element is greater than both neighbors, it's a peak. Simple single-pass O(n) solution.\"",
+      "summary10s": "Loop i from 0 to n-1, check arr[i] > left neighbor AND arr[i] > right neighbor."
+    }
+  },
+  {
+    "id": "js-longest-substring",
+    "category": "JS Coding",
+    "question": "Find the longest substring without repeating characters",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Find the longest substring in a string"
+    ],
+    "answerSEE": {
+      "simple": "Use a sliding window with a Set — expand right, shrink left when a duplicate is found, track max length.",
+      "explain": "Two pointers (left, right) define a window. Use a Set to track characters in current window.\nExpand right: if char not in Set, add it and update maxLength.\nIf char already in Set: remove chars from left until duplicate is gone.\nTime: O(n), Space: O(min(n, alphabet size)).\nExample: 'abcabcbb' → 'abc' length 3.",
+      "example": "\"I use the sliding window technique with a Set. I expand the right pointer adding characters. When I hit a duplicate, I shrink from the left until the window has no duplicates. I track the maximum window size throughout. For 'abcabcbb', the longest window without repeating chars is 'abc' with length 3. It's O(n) because each character is added and removed at most once.\"",
+      "summary10s": "Sliding window + Set. Expand right, shrink left on duplicate, track max length. O(n)."
+    }
+  },
+  {
+    "id": "js-count-vowels",
+    "category": "JS Coding",
+    "question": "Count vowels in a string",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Check whether a string contains a vowel"
+    ],
+    "answerSEE": {
+      "simple": "Iterate through the string and count characters that are a, e, i, o, u (case-insensitive).",
+      "explain": "Approach 1: str.toLowerCase().split('').filter(c => 'aeiou'.includes(c)).length.\nApproach 2: regex — (str.match(/[aeiou]/gi) || []).length.\nApproach 3: loop with a Set of vowels for O(1) lookup per character.\nTo check if string contains a vowel: /[aeiou]/i.test(str) — returns boolean.",
+      "example": "\"I use regex for a clean one-liner: (str.match(/[aeiou]/gi) || []).length. The || [] handles the case where no vowels are found and match returns null. To just check if a vowel exists, I use /[aeiou]/i.test(str). In a loop approach, I'd use a Set of vowels for O(1) lookups.\"",
+      "summary10s": "Regex: str.match(/[aeiou]/gi).length. Check exists: /[aeiou]/i.test(str)."
+    }
+  },
+  {
+    "id": "js-square-roots-odd-numbers",
+    "category": "JS Coding",
+    "question": "Find square roots of odd numbers in an array",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Filter the array for odd numbers, then map each to its square root using Math.sqrt().",
+      "explain": "Chain filter and map: arr.filter(n => n % 2 !== 0).map(n => Math.sqrt(n)).\nOdd check: n % 2 !== 0 (works for negative numbers too with Math.abs).\nMath.sqrt returns a float — use toFixed() or Math.round() if precision is needed.\nThis tests functional programming chaining with filter + map.",
+      "example": "\"I chain filter and map — arr.filter(n => n % 2 !== 0).map(n => Math.sqrt(n)). Filter keeps only odd numbers, then map transforms each to its square root. For [1,2,3,4,5] I get [1, 1.732, 2.236]. Clean functional approach, no manual loops.\"",
+      "summary10s": "arr.filter(n => n % 2 !== 0).map(Math.sqrt) — filter odds, map to square root."
+    }
+  },
+  {
+    "id": "js-count-repeated-words",
+    "category": "JS Coding",
+    "question": "Count repeated words: \"apple banana apple orange banana apple\"",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Split by space, build a frequency map, then filter for words with count > 1.",
+      "explain": "Split string into words array.\nReduce into a frequency map: { apple: 3, banana: 2, orange: 1 }.\nFilter entries where count > 1 to get repeated words.\nAlternative: use Map for better performance on large inputs.\nEdge cases: handle case sensitivity with toLowerCase(), punctuation with regex.",
+      "example": "\"I split the string into words and reduce into a frequency object. str.split(' ').reduce((map, word) => { map[word] = (map[word] || 0) + 1; return map; }, {}). Then I filter for entries with count > 1. For 'apple banana apple orange banana apple', apple=3 and banana=2 are the repeated words.\"",
+      "summary10s": "Split → reduce into frequency map → filter count > 1 for repeated words."
+    }
+  },
+  {
+    "id": "js-string-anagrams",
+    "category": "JS Coding",
+    "question": "String anagrams — check if two strings are anagrams",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "String anagrams"
+    ],
+    "answerSEE": {
+      "simple": "Two strings are anagrams if they have the same characters with the same frequencies — sort both and compare.",
+      "explain": "Sort approach: sort both strings alphabetically and compare — O(n log n).\nFrequency map approach: build character frequency map for both strings, compare maps — O(n).\nSingle map optimization: increment for string1, decrement for string2 — all values should be 0.\nEdge case: different lengths → immediately not anagrams.",
+      "example": "\"The quick check is to sort both strings and compare: s1.split('').sort().join('') === s2.split('').sort().join(''). For better performance I use a frequency map — I increment counts for the first string and decrement for the second. If all values are zero, they're anagrams. I also check lengths first as an early exit.\"",
+      "summary10s": "Sort both and compare, or frequency map: increment for s1, decrement for s2, all must be 0."
+    }
+  },
+  {
+    "id": "js-split-array-into-chunks",
+    "category": "JS Coding",
+    "question": "Split array into chunks: [1,2,3,4,5,6], k=2 → [[1,2],[3,4],[5,6]]",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Loop through the array slicing k elements at a time and pushing each slice into a result array.",
+      "explain": "for (let i = 0; i < arr.length; i += k) result.push(arr.slice(i, i + k)).\nslice(i, i+k) extracts k elements starting from index i.\nThe last chunk may be smaller than k if the array length isn't evenly divisible.\nAlternative: use Array.from with Math.ceil(arr.length / k) groups.",
+      "example": "\"I iterate with step size k, slicing k elements each time: for(let i=0; i < arr.length; i+=k) result.push(arr.slice(i, i+k)). For [1,2,3,4,5,6] with k=2, I get [[1,2],[3,4],[5,6]]. If the array doesn't divide evenly, the last chunk is just smaller. Simple and clean.\"",
+      "summary10s": "Loop with step k, arr.slice(i, i+k) each iteration. Last chunk may be smaller."
+    }
+  },
+  {
+    "id": "js-adjacent-elements-sum-target",
+    "category": "JS Coding",
+    "question": "Find adjacent elements whose sum equals a target (e.g., 9)",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Find adjacent elements whose sum is 9"
+    ],
+    "answerSEE": {
+      "simple": "Iterate through the array and check if arr[i] + arr[i+1] equals the target for each consecutive pair.",
+      "explain": "Loop from i=0 to arr.length-2 (need i+1 to exist).\nCheck if arr[i] + arr[i+1] === target.\nCollect all matching pairs in a result array.\nTime: O(n) single pass, Space: O(1) excluding result.",
+      "example": "\"I loop from index 0 to length-2 and check if each pair of adjacent elements sums to the target. for(let i=0; i < arr.length-1; i++) { if(arr[i] + arr[i+1] === 9) result.push([arr[i], arr[i+1]]); }. Simple single pass O(n) solution.\"",
+      "summary10s": "Loop i to n-2, check arr[i] + arr[i+1] === target. O(n) single pass."
+    }
+  },
+  {
+    "id": "js-natural-sort",
+    "category": "JS Coding",
+    "question": "Natural sort: ['A1','A10','A11','A12','A2','A3','A4','B10','B2','F1','F12','F3']",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use localeCompare with the 'numeric' option so that 'A2' sorts before 'A10' instead of after.",
+      "explain": "Default string sort is lexicographic: 'A10' < 'A2' because '1' < '2'.\nNatural sort treats numeric parts as numbers: A1, A2, A3, A4, A10, A11, A12.\narr.sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).\nlocaleCompare with numeric:true handles mixed alpha-numeric strings correctly.\nAlternative: manually split into alpha and numeric parts, compare separately.",
+      "example": "\"I use localeCompare with the numeric option: arr.sort((a, b) => a.localeCompare(b, undefined, { numeric: true })). This treats numeric portions as actual numbers, so A2 correctly comes before A10. Without this option, default sort puts A10 before A2 because it compares character by character.\"",
+      "summary10s": "arr.sort((a,b) => a.localeCompare(b, undefined, {numeric: true})) — treats numbers as numbers, not characters."
+    }
+  },
+  {
+    "id": "js-reverse-string-without-reverse",
+    "category": "JS Coding",
+    "question": "Reverse a string without .reverse() and sort an array",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "Reverse \"atozdebug\" without .reverse() + sort [8,2,1,4,9]"
+    ],
+    "answerSEE": {
+      "simple": "Reverse by iterating backwards or using two pointers; sort with a comparison function or implement manually.",
+      "explain": "Reverse without .reverse(): loop from end to start appending each char, or use two-pointer swap on a char array.\nlet reversed = ''; for(let i = str.length-1; i >= 0; i--) reversed += str[i];\nSort array: arr.sort((a,b) => a-b) for ascending, or implement bubble/selection sort manually.\nInterview tests if you know the underlying algorithms, not just built-in methods.",
+      "example": "\"For reversing without .reverse(), I iterate backwards: let result = ''; for(let i = str.length-1; i >= 0; i--) result += str[i]. 'atozdebug' becomes 'gudebzota'. For sorting [8,2,1,4,9], I use arr.sort((a,b) => a-b) which gives [1,2,4,8,9]. If they want manual sort, I implement bubble sort with nested loops and swap.\"",
+      "summary10s": "Reverse: loop backwards building new string. Sort: .sort((a,b) => a-b) or manual bubble sort."
+    }
+  },
+  {
+    "id": "js-event-loop-output-prediction",
+    "category": "JavaScript",
+    "question": "Predict the output: setImmediate vs setTimeout vs Promise vs process.nextTick vs console.log",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Synchronous code runs first, then process.nextTick (microtask), then Promise.then (microtask), then setTimeout/setImmediate (macrotask).",
+      "explain": "Execution order in Node.js event loop:\n1. Synchronous code — 'Last line of the file'\n2. process.nextTick — runs after current operation, before any I/O or timers — 'process.nextTick'\n3. Inner nextTick — nested nextTick runs in same microtask phase — 'Inner nextTick'\n4. Promise.then — microtask queue, after nextTick — 'promise'\n5. setTimeout 0 and setImmediate — macrotask queue, order depends on context\nKey: nextTick > Promise > setTimeout/setImmediate.",
+      "example": "\"The output order is: 'Last line of the file' (sync), 'process.nextTick' (nextTick queue), 'Inner nextTick' (nested nextTick still in microtask phase), 'promise' (Promise microtask after nextTick), then 'Timer expired' and 'setImmediate' — their order depends on system timing but setTimeout(0) usually fires first in the timer phase. The key rule is: sync → nextTick → Promises → macrotasks.\"",
+      "summary10s": "sync → nextTick (all, including nested) → Promise.then → setTimeout/setImmediate."
+    }
+  },
+  {
+    "id": "js-var-settimeout-loop-output",
+    "category": "JavaScript",
+    "question": "What is the output? for(var i=1; i<=3; i++) setTimeout(() => console.log(i), 1000)",
+    "frequency": 1,
+    "companies": [],
+    "variations": [
+      "What is the output? for(var i=0; i<3; i++) setTimeout(() => console.log(i), 0)",
+      "Explain the output of a var loop with setTimeout",
+      "Explain the execution order of foo(), bar() with setTimeout, and baz()"
+    ],
+    "answerSEE": {
+      "simple": "It prints 4, 4, 4 — because var is function-scoped, so all callbacks share the same i which is 4 after the loop ends.",
+      "explain": "var is function-scoped, not block-scoped — there's only ONE i variable shared across all iterations.\nThe loop runs synchronously: i goes 1→2→3→4 (exits at 4).\nAll three setTimeout callbacks are queued and execute AFTER the loop finishes.\nBy then i is 4, so all three print 4.\nFix: use let (block-scoped, each iteration gets its own i) or IIFE to capture i.\nfor(var i=0; i<3; i++) setTimeout(()=>console.log(i), 0) → prints 3, 3, 3 (same reason).",
+      "example": "\"var creates one shared variable for the entire function. The loop finishes before any setTimeout callback runs because setTimeout is asynchronous. By the time the callbacks execute, i has already reached 4 (the exit condition). So all three print 4. The fix is using let instead of var — let creates a new i per iteration, so each callback captures its own value: 1, 2, 3.\"",
+      "summary10s": "var = one shared i, loop finishes first, all callbacks see final value. Fix: use let for block scope."
+    }
+  },
+  {
+    "id": "js-let-loop-continue-output",
+    "category": "JavaScript",
+    "question": "What is the output? for(let i=0; i<5; i++) { if(i === 3) continue; console.log(i); }",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Prints 0, 1, 2, 4 — continue skips the iteration when i is 3.",
+      "explain": "The loop runs from 0 to 4.\ncontinue skips the rest of the loop body for the current iteration and jumps to the next iteration.\nWhen i === 3, continue is hit, console.log(3) is skipped.\nAll other values (0, 1, 2, 4) print normally.\nNote: the original code has if(1 === 3) which is always false — so ALL values 0-4 would print. But semantically the question likely means if(i === 3).",
+      "example": "\"The loop iterates i from 0 to 4. When i equals 3, continue skips that iteration — so 3 is never printed. The output is 0, 1, 2, 4. continue doesn't break out of the loop like break does — it just skips the current iteration's remaining code and moves to the next one.\"",
+      "summary10s": "continue skips current iteration. Output: 0, 1, 2, 4 — 3 is skipped."
+    }
+  },
+  {
+    "id": "js-typeof-typeof-1",
+    "category": "JavaScript",
+    "question": "What is the output of console.log(typeof typeof 1)?",
+    "frequency": 1,
+    "companies": [],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Output is 'string' — typeof 1 returns 'number' (a string), then typeof 'number' returns 'string'.",
+      "explain": "Step 1: typeof 1 evaluates to the string 'number'.\nStep 2: typeof 'number' — since 'number' is a string value, typeof returns 'string'.\ntypeof always returns a string — so typeof typeof anything will always be 'string'.\nThis is a tricky one-liner that tests understanding that typeof returns a string, not the type itself.",
+      "example": "\"typeof 1 gives the string 'number'. Then typeof 'number' — since that's a string — gives 'string'. The key insight is that typeof always returns a string. So typeof typeof of literally anything will always be 'string'. It's a common trick question.\"",
+      "summary10s": "typeof 1 = 'number' (string), typeof 'number' = 'string'. typeof always returns a string."
+    }
+  },
+  {
+    "id": "java-coding-convert-list-strings-uppercase",
+    "category": "Java Coding",
+    "question": "Can you write Java code to convert a list of strings to uppercase?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use the Stream API's map() function combined with String::toUpperCase.",
+      "explain": "Convert the list to a stream using .stream(), apply the .map(String::toUpperCase) operation to transform each element, and then collect the results back into a List using .collect(Collectors.toList()).",
+      "example": "\"I would use Java 8 Streams for a clean, declarative approach. I'd write: list.stream().map(String::toUpperCase).collect(Collectors.toList()); This streams the elements, maps each to its uppercase equivalent, and collects them into a new list.\"",
+      "summary10s": "list.stream().map(String::toUpperCase).collect(Collectors.toList())"
+    }
+  },
+  {
+    "id": "java-use-of-optional-class",
+    "category": "Java",
+    "question": "What is the use of the Optional class?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Optional is a container object used to represent a value that might be null, helping prevent NullPointerException.",
+      "explain": "Introduced in Java 8, Optional forces the developer to explicitly handle the case where a value might be absent. Instead of returning null, a method returns Optional<T>. The caller then uses methods like isPresent(), ifPresent(), or orElse() to handle the value safely without explicit null checks.",
+      "example": "\"I use Optional as a return type for methods that might not find a result, like a database query. Instead of returning null and risking a NullPointerException, I return an Optional. Then the caller can use .orElseThrow() or .ifPresent() to handle the data gracefully.\"",
+      "summary10s": "A wrapper class that explicitly handles null values and prevents NullPointerException."
+    }
+  },
+  {
+    "id": "java-use-of-records",
+    "category": "Java",
+    "question": "What is the use of records in Java?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Records are a concise way to create immutable data carrier classes without boilerplate code.",
+      "explain": "Introduced in Java 14 (preview) and standard in Java 16, records automatically generate boilerplate code like constructors, getters, equals(), hashCode(), and toString() for immutable objects. You simply declare the fields in the record header: public record User(String name, int age) {}.",
+      "example": "\"When I need a simple DTO or data carrier, I use records instead of creating a full class. Writing 'public record Employee(int id, String name) {}' automatically gives me an immutable object with a constructor, getters, and equals/hashcode, saving me from writing or generating tons of boilerplate.\"",
+      "summary10s": "Concise syntax to declare immutable data carrier classes. Auto-generates constructor, getters, equals, hashCode."
+    }
+  },
+  {
+    "id": "java-sealed-classes",
+    "category": "Java",
+    "question": "What are sealed classes?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Sealed classes restrict which other classes can extend them, giving you strict control over inheritance.",
+      "explain": "Introduced in Java 15 (preview) and standard in Java 17, the 'sealed' keyword allows a class or interface to explicitly list its permitted subclasses using the 'permits' keyword. This provides a way to define a closed hierarchy, unlike 'final' which prevents inheritance entirely, or default/public which allows open inheritance.",
+      "example": "\"If I'm designing a domain model for payments, I can create a sealed interface PaymentMethod permits CreditCard, PayPal, BankTransfer. This ensures nobody else can create an unexpected payment method type, making my domain logic much more predictable and secure.\"",
+      "summary10s": "Restricts inheritance to a specific list of permitted subclasses. Middle ground between final and open inheritance."
+    }
+  },
+  {
+    "id": "spring-boot-scopes-default",
+    "category": "Spring Boot",
+    "question": "What are the different scopes available in the Spring framework and what is the default scope?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "The scopes are Singleton, Prototype, Request, Session, Application, and Websocket. The default is Singleton.",
+      "explain": "Singleton (one instance per Spring container) is the default. Prototype creates a new instance every time. Request, Session, Application, and Websocket are specifically for web-aware Spring ApplicationContexts (like Spring MVC).",
+      "example": "\"In Spring, the core scopes are singleton and prototype, while web apps add request, session, and application scopes. Unless I specify otherwise using the @Scope annotation, Spring creates beans as singletons by default, meaning one shared instance for the whole application.\"",
+      "summary10s": "Scopes: Singleton, Prototype, Request, Session, Application. Default is Singleton."
+    }
+  },
+  {
+    "id": "spring-boot-singleton-vs-prototype",
+    "category": "Spring Boot",
+    "question": "What is the difference between singleton and prototype scopes in Spring?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Singleton returns the exact same bean instance every time, while Prototype returns a brand new instance every time it's requested.",
+      "explain": "A Singleton bean is created once per Spring IoC container and cached. Any request for that bean returns the shared instance (stateless). A Prototype bean causes the IoC container to create a new object instance every time the bean is injected or requested (useful for stateful beans).",
+      "example": "\"I use the default Singleton scope for standard stateless services and repositories because they just contain logic. If I have a bean that holds conversational state specific to a particular task, I'll annotate it with @Scope(\\\"prototype\\\") so each requester gets their own fresh instance to work with.\"",
+      "summary10s": "Singleton = 1 instance per container (stateless). Prototype = new instance every time (stateful)."
+    }
+  },
+  {
+    "id": "system-design-singleton-pattern",
+    "category": "System Design",
+    "question": "What is the Singleton design pattern?",
+    "frequency": 1,
+    "companies": [
+      "Tech Mahindra"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "A creational pattern that ensures a class has only one instance while providing a global point of access to it.",
+      "explain": "It is implemented by making the constructor private and providing a public static method (like getInstance()) that returns the single static instance of the class. It is often used for configuration managers, connection pools, or logging services where multiple instances would cause issues.",
+      "example": "\"Singleton guarantees only one instance of a class exists. I usually implement it by making the constructor private and holding a static volatile instance variable. Then I use a double-checked locking mechanism in the getInstance() method to ensure it's thread-safe without sacrificing performance.\"",
+      "summary10s": "Creational pattern. Private constructor + static getInstance() method. Ensures exactly one instance exists."
+    }
+  },
+  {
+    "id": "angular-standalone-components",
+    "category": "Angular",
+    "question": "What is the difference between standalone components and the traditional NgModule-based approach?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [
+      "Have you worked with Angular 18 and standalone components?",
+      "What challenges did you face while working with standalone applications?",
+      "What are the advantages of standalone components over NgModules?"
+    ],
+    "answerSEE": {
+      "simple": "Standalone components don't require an NgModule. They manage their own dependencies via the 'imports' array inside the @Component decorator.",
+      "explain": "Traditionally, components had to be declared in an NgModule, which often led to bloated modules and confusing dependency trees. Standalone components simplify this by allowing a component to directly import what it needs. Advantages include less boilerplate, easier lazy loading (routing directly to a component), and better tree-shaking. Challenges include migrating large legacy codebases that are heavily coupled to NgModules.",
+      "example": "\"In Angular 18, I build applications completely without NgModules. By setting 'standalone: true' in the @Component decorator, I can directly import other standalone components, directives, and pipes. It makes my code much easier to read and test because the component's dependencies are explicitly listed right where the component is defined.\"",
+      "summary10s": "standalone: true eliminates NgModule. Dependencies are imported directly in @Component. Less boilerplate, easier lazy loading."
+    }
+  },
+  {
+    "id": "angular-ngrx-vs-behaviorsubject",
+    "category": "Angular",
+    "question": "Can you explain NgRx (Store, Actions, Reducers, Selectors, Effects)? When would you use NgRx versus a BehaviorSubject?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [
+      "Have you worked with state management in Angular?",
+      "Can you explain NgRx?",
+      "What are Store, Actions, Reducers, Selectors and Effects in NgRx?",
+      "When would you use NgRx versus a BehaviorSubject?",
+      "What use cases have you handled using NgRx and BehaviorSubject?"
+    ],
+    "answerSEE": {
+      "simple": "BehaviorSubject is great for simple, local state. NgRx is a robust Redux-based global state management library for complex applications.",
+      "explain": "NgRx flow: Components dispatch Actions. Reducers take Actions and update the Store (global state). Selectors pull specific data from the Store. Effects handle side effects (like API calls) and dispatch new Actions. BehaviorSubject is just an RxJS observable that holds a single value and emits it to new subscribers. Use NgRx when state is complex, shared across many distant components, or requires strict traceability (Redux DevTools). Use BehaviorSubject for simple component-level or service-level state (like a toggle or simple user session).",
+      "example": "\"For a shopping cart used across the entire application, I use NgRx because it handles complex state changes predictably with Reducers and Effects for the API sync. But for a simple dark mode toggle or a local component loading state, I just use a BehaviorSubject in a service because NgRx would be overkill.\"",
+      "summary10s": "BehaviorSubject = simple local state. NgRx = complex global state with Actions, Reducers, Effects, Selectors."
+    }
+  },
+  {
+    "id": "angular-api-service-vs-ngrx",
+    "category": "Angular",
+    "question": "When would you use a service directly versus NgRx for API integration?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [
+      "How do you integrate APIs in Angular?"
+    ],
+    "answerSEE": {
+      "simple": "Use a service directly for one-off API calls. Use NgRx Effects when the API response needs to update global state used by multiple components.",
+      "explain": "If an API call fetches data only needed by one specific component (like a detailed view), calling the HttpClient service directly from the component is efficient. If the API call modifies or fetches data that impacts the entire application (like user authentication status or a global shopping cart), using NgRx Effects is better so the state is centralized and side effects are decoupled from the component.",
+      "example": "\"If I'm fetching a list of users just to display in a single datatable component, I'll inject the UserService and call the API directly. But if I'm fetching the logged-in User Profile which affects the header, sidebar, and dashboard, I will dispatch a 'LoadProfile' action and let an NgRx Effect call the API and update the global store.\"",
+      "summary10s": "Direct service = local/one-off data. NgRx Effect = data that updates global state."
+    }
+  },
+  {
+    "id": "js-promises-vs-observables",
+    "category": "Angular",
+    "question": "What is the difference between Promises and Observables?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Promises handle a single asynchronous event and execute immediately. Observables handle a stream of events over time and are lazy.",
+      "explain": "Promises execute eagerly (the moment they are created) and resolve/reject only once. Observables (from RxJS) are lazy (only execute when subscribed to), can emit multiple values over time, can be cancelled (unsubscribed), and provide powerful operators (map, filter, switchMap) to manipulate the data stream.",
+      "example": "\"I use Promises for one-time operations like a native fetch() where I only expect one response. I use Observables for everything in Angular, especially Http requests, because I can cancel them if the user navigates away, and I can use RxJS operators to easily retry failed requests or transform the data stream.\"",
+      "summary10s": "Promise = eager, single value, not cancellable. Observable = lazy, multiple values, cancellable, has RxJS operators."
+    }
+  },
+  {
+    "id": "angular-global-api-error-handling",
+    "category": "Angular",
+    "question": "How would you implement global API error handling in Angular?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "By implementing an HttpInterceptor to catch HTTP errors globally.",
+      "explain": "An HttpInterceptor intercepts all outgoing HTTP requests and incoming responses. To handle errors, you implement the intercept() method, catch errors using the catchError() RxJS operator, and process them (e.g., show a toast notification, redirect to login on 401 Unauthorized, or log to a monitoring service) before throwing the error back to the component.",
+      "example": "\"I create a GlobalErrorInterceptor class implementing HttpInterceptor. Inside the intercept method, I pipe the request and use catchError. If the error status is 401, I trigger the AuthService to log the user out and redirect to the login page. For 500s, I trigger a Toastr service to show a generic error message. This keeps my components clean from repetitive error handling logic.\"",
+      "summary10s": "Implement an HttpInterceptor, use catchError() to intercept responses, show toasts, or redirect on 401/403."
+    }
+  },
+  {
+    "id": "angular-role-based-route-guards",
+    "category": "Angular",
+    "question": "How would you implement role-based route guards?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [
+      "Have you worked with Angular Guards?",
+      "Can you give an example of restricting pages based on Admin/Customer roles?"
+    ],
+    "answerSEE": {
+      "simple": "Use the CanActivate guard to check the user's role before allowing navigation to a route.",
+      "explain": "Route guards (like CanActivate) prevent unauthorized users from accessing specific routes. For role-based access, you define the required roles in the route's 'data' object. In the guard's canActivate method, you inject the AuthService, check if the logged-in user's role matches the required roles, and return true if authorized, or redirect to an unauthorized page if not.",
+      "example": "\"I set up my route with data: { roles: ['Admin'] }. Then I create an AuthGuard implementing CanActivate. Inside the guard, I read the expected roles from route.data, check my AuthService for the current user's role, and if they don't match, I use the Router to navigate them to a 'Forbidden' page and return false.\"",
+      "summary10s": "CanActivate guard. Pass required roles in route data, check against AuthService user role, return boolean or URL tree."
+    }
+  },
+  {
+    "id": "angular-signals-vs-observables",
+    "category": "Angular",
+    "question": "What are Angular Signals (signal, computed, effect) and how are they different from RxJS Observables?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [
+      "What are Angular Signals?",
+      "How are Signals different from RxJS Observables?",
+      "What is signal(), computed() and effect()?"
+    ],
+    "answerSEE": {
+      "simple": "Signals are Angular's new reactive primitive for managing state synchronously, unlike Observables which handle asynchronous streams.",
+      "explain": "A Signal is a wrapper around a value that notifies consumers when it changes. \n- signal(): creates a writable state.\n- computed(): creates derived state that automatically updates when its dependent signals change.\n- effect(): runs side effects when a signal changes.\nUnlike Observables, Signals always have a current value, don't require subscriptions/unsubscriptions, and are synchronous, making them easier to use for UI state.",
+      "example": "\"I use signal() to store a counter. I use computed() to create a 'doubleCounter' that automatically updates when the counter changes. I use effect() to log the counter value to the console whenever it changes. I prefer Signals for synchronous UI state because I don't have to worry about memory leaks or async pipes, reserving RxJS for async events like API calls.\"",
+      "summary10s": "Signals = sync UI state, no subscribe/unsubscribe needed. signal=state, computed=derived, effect=side-effect."
+    }
+  },
+  {
+    "id": "java-coding-reverse-array",
+    "category": "Java Coding",
+    "question": "Reverse an array such as [1,2,3,4,5].",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Use a two-pointer approach, swapping the first and last elements and moving inwards.",
+      "explain": "Set one pointer at the beginning (left = 0) and one at the end (right = length - 1). While left is less than right, swap the elements at these indices, then increment left and decrement right. This reverses the array in-place with O(N) time and O(1) space.",
+      "example": "\"I use an in-place two-pointer swap. I loop from 0 to half the array length, swapping array[i] with array[length - 1 - i]. This is the most optimal way because it doesn't require creating a new array.\"",
+      "summary10s": "Two pointers (left and right), swap elements and move inwards until they meet. O(N) time, O(1) space."
+    }
+  },
+  {
+    "id": "java-coding-reverse-array-streams",
+    "category": "Java Coding",
+    "question": "Can you solve the array reversal using Java Streams?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Yes, by streaming IntStream from the array length down to 0 and mapping the elements.",
+      "explain": "Java Streams aren't designed for backwards iteration, so you have to work around it by streaming the indices in reverse. You use IntStream.rangeClosed(1, arr.length).map(i -> arr[arr.length - i]).toArray().",
+      "example": "\"Streams aren't naturally meant for reversing, but I can do it by mapping indices. I'd write IntStream.rangeClosed(1, arr.length).map(i -> arr[arr.length - i]).toArray(). It creates a new reversed array instead of modifying in-place.\"",
+      "summary10s": "IntStream.rangeClosed(1, length).map(i -> arr[length - i]).toArray(). Creates a new array."
+    }
+  },
+  {
+    "id": "java-array-vs-linkedlist",
+    "category": "Java",
+    "question": "What is the difference between an Array and a Linked List?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Arrays have fixed size and contiguous memory for O(1) access. Linked lists use nodes with pointers for O(1) insertions/deletions but O(N) access.",
+      "explain": "Arrays store elements in contiguous memory blocks. Accessing an element by index is O(1), but inserting/deleting in the middle is O(N) because elements must shift. Linked Lists store elements in non-contiguous nodes containing a value and a pointer to the next node. Accessing takes O(N) since you must traverse, but inserting/deleting at a known node is O(1).",
+      "example": "\"If I need to read data frequently by index, I choose an Array or ArrayList for the O(1) lookup speed. But if I'm building a queue or frequently adding and removing items from the middle, I choose a LinkedList because it just requires updating pointers without shifting entire data blocks.\"",
+      "summary10s": "Array = contiguous memory, O(1) access, O(N) insert. LinkedList = scattered nodes, O(N) access, O(1) insert."
+    }
+  },
+  {
+    "id": "java-overloading-vs-overriding",
+    "category": "Java",
+    "question": "What is the difference between method overloading and method overriding?",
+    "frequency": 1,
+    "companies": [
+      "Mastercard"
+    ],
+    "variations": [],
+    "answerSEE": {
+      "simple": "Overloading is same method name with different parameters in the same class (compile-time). Overriding is same method signature in a subclass (run-time).",
+      "explain": "Method Overloading (Static/Compile-time Polymorphism) occurs when multiple methods in the same class share the same name but have different parameter lists (type or number). Method Overriding (Dynamic/Run-time Polymorphism) occurs when a subclass provides a specific implementation for a method already defined in its parent class, keeping the exact same signature.",
+      "example": "\"For overloading, think of System.out.println() — it can take an int, string, or object. That's compile-time polymorphism. For overriding, think of the toString() method. Every class inherits it from Object, but I override it in my custom classes to return a specific string format. That's run-time polymorphism.\"",
+      "summary10s": "Overloading = same class, different params (compile-time). Overriding = subclass, same signature (run-time)."
     }
   }
 ];
