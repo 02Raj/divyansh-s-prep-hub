@@ -9,12 +9,19 @@ import HLD06CachingAndQueues from '@/components/system-design/content/HLD06_Cach
 import HLD07ReliabilityAndScale from '@/components/system-design/content/HLD07_ReliabilityAndScale';
 import HLD08CaseStudies from '@/components/system-design/content/HLD08_CaseStudies';
 import HLD09InterviewDeepDive from '@/components/system-design/content/HLD09_InterviewDeepDive';
+import HLD10DataIntensiveEssentials from '@/components/system-design/content/HLD10_DataIntensiveEssentials';
+import HLD11ProductionReadiness from '@/components/system-design/content/HLD11_ProductionReadiness';
+import LLD00OOPModeling from '@/components/system-design/content/LLD00_OOPModeling';
 import LLD01DesignPrinciples from '@/components/system-design/content/LLD01_DesignPrinciples';
 import LLD02DesignPatterns from '@/components/system-design/content/LLD02_DesignPatterns';
 import LLD03SpringBootArchitecture from '@/components/system-design/content/LLD03_SpringBootArchitecture';
 import LLD04DatabaseIntegration from '@/components/system-design/content/LLD04_DatabaseIntegration';
 import LLD05ConcurrencyAndAsync from '@/components/system-design/content/LLD05_ConcurrencyAndAsync';
 import LLD06ClassDesignWalkthrough from '@/components/system-design/content/LLD06_ClassDesignWalkthrough';
+import LLD07DDDHexagonalTesting from '@/components/system-design/content/LLD07_DDDHexagonalTesting';
+import LLD08CaseStudies from '@/components/system-design/content/LLD08_CaseStudies';
+import SystemDesignGlossary from '@/components/system-design/content/SystemDesignGlossary';
+import SystemDesignResources from '@/components/system-design/content/SystemDesignResources';
 
 export interface NavItem {
   id: string;
@@ -33,6 +40,7 @@ export const systemDesignNav: NavSection[] = [
     items: [
       { id: 'roadmap', title: '📍 Course roadmap (read first)', component: SystemDesignRoadmap },
       { id: 'basics', title: 'Core ideas in simple English', component: SystemDesignBasics },
+      { id: 'glossary', title: '50-word easy glossary', component: SystemDesignGlossary },
     ],
   },
   {
@@ -47,17 +55,28 @@ export const systemDesignNav: NavSection[] = [
       { id: 'hld-07-reliability', title: 'Step 7: Reliability & CAP', component: HLD07ReliabilityAndScale },
       { id: 'hld-08-cases', title: 'Step 8: Famous systems (URL, chat…)', component: HLD08CaseStudies },
       { id: 'hld-09-interview', title: 'Step 9: Interview trade-offs', component: HLD09InterviewDeepDive },
+      { id: 'hld-10-data-intensive', title: 'Step 10: DDIA essentials', component: HLD10DataIntensiveEssentials },
+      { id: 'hld-11-production', title: 'Step 11: Production-ready design', component: HLD11ProductionReadiness },
     ],
   },
   {
     title: 'LLD — code & classes (Spring Boot focus)',
     items: [
+      { id: 'lld-00-modeling', title: 'Step 0: OOP modelling method', component: LLD00OOPModeling },
       { id: 'lld-01-principles', title: 'Step 1: SOLID & clean code', component: LLD01DesignPrinciples },
       { id: 'lld-02-patterns', title: 'Step 2: Design patterns', component: LLD02DesignPatterns },
       { id: 'lld-03-architecture', title: 'Step 3: Spring layers', component: LLD03SpringBootArchitecture },
       { id: 'lld-04-database', title: 'Step 4: JPA & repositories', component: LLD04DatabaseIntegration },
       { id: 'lld-05-concurrency', title: 'Step 5: Threads & async', component: LLD05ConcurrencyAndAsync },
       { id: 'lld-06-class-design', title: 'Step 6: Class design (parking lot)', component: LLD06ClassDesignWalkthrough },
+      { id: 'lld-07-ddd-hexagonal', title: 'Step 7: DDD & hexagonal Spring', component: LLD07DDDHexagonalTesting },
+      { id: 'lld-08-cases', title: 'Step 8: Common LLD blueprints', component: LLD08CaseStudies },
+    ],
+  },
+  {
+    title: 'Revise & go deeper',
+    items: [
+      { id: 'resources', title: 'Trusted resources & reading path', component: SystemDesignResources },
     ],
   },
 ];

@@ -30,20 +30,20 @@ export default function SystemDesignRoadmap() {
       <StepByStep
         steps={[
           {
-            title: 'Basics',
-            body: 'Learn words like scalability, availability, and the 7-step thinking habit. Takes ~10 minutes.',
+            title: 'Basics + easy glossary',
+            body: 'Learn the thinking habit first. Keep the 50-word glossary open whenever a term feels unfamiliar.',
           },
           {
-            title: 'HLD track (Steps 1–9)',
-            body: 'Big boxes: requirements, architecture, APIs, databases, cache, queues, reliability, real products, interview script.',
+            title: 'HLD track (Steps 1–11)',
+            body: 'Requirements to production: APIs, data, cache, queues, reliability, DDIA essentials, observability, security, deployment, and recovery.',
           },
           {
-            title: 'LLD track (Steps 1–6)',
-            body: 'Code-level design: SOLID, patterns, Spring layers, JPA, threads, and a full class-design walkthrough.',
+            title: 'LLD track (Steps 0–8)',
+            body: 'OOP modelling, SOLID, patterns, Spring layers, JPA, concurrency, DDD/hexagonal design, testing, and common interview blueprints.',
           },
           {
             title: 'Practice out loud',
-            body: 'Pick one case study (URL shortener or chat). Say each step in 1–2 minutes — same as a real interview.',
+            body: 'Pick one HLD and one LLD case. Explain requirements, design, failure, and trade-offs aloud—then use the resource page only for weak areas.',
           },
         ]}
       />

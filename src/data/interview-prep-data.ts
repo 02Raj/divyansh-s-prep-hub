@@ -1,3 +1,6 @@
+import { angularMncInterviewSet } from './angular-mnc-interview-set';
+import { javaSpringMncInterviewSet } from './java-spring-mnc-interview-set';
+
 // Angular Interview Sets for Tab 2
 export interface InterviewSetDetail {
   id: string;
@@ -7,9 +10,26 @@ export interface InterviewSetDetail {
   questionCount: number;
   technology: string;
   questions: string[];
+  description?: string;
+  sections?: InterviewQuestionSection[];
+}
+
+export interface InterviewQuestionAnswer {
+  question: string;
+  what: string;
+  why: string;
+  how: string;
+  sayIt: string;
+  memory: string;
+}
+
+export interface InterviewQuestionSection {
+  title: string;
+  questions: InterviewQuestionAnswer[];
 }
 
 export const angularInterviewSets: InterviewSetDetail[] = [
+  angularMncInterviewSet,
   {
     id: 'angular-set-1',
     title: 'Angular Fundamentals – First Round Interview',
@@ -200,6 +220,7 @@ export const systemDesignTopics = [
 
 // Java/Spring Boot Interview Sets for Tab 7
 export const javaSpringInterviewSets: InterviewSetDetail[] = [
+  javaSpringMncInterviewSet,
   {
     id: 'java-set-1',
     title: 'Core Java – Campus Placement Round',

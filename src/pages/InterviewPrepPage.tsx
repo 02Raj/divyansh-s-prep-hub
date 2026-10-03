@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Breadcrumb } from '@/components/topics/Breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -21,14 +21,13 @@ import {
   Search
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { cn } from '@/lib/utils';
-import { realInterviewQuestions, QuestionCategory } from '@/data/real-interview-questions';
+import { realInterviewQuestions, QuestionCategory, RealInterviewQuestion } from '@/data/real-interview-questions';
+import { javaCodingInterviewCategories, javaCodingQuestionCount } from '@/data/java-coding-interview-questions';
 import { 
   angularInterviewSets,
   javascriptTopicsList,
   codingPatterns,
   jsRepoStats,
-  javaTopicsChecklist,
   systemDesignTopics,
   javaSpringInterviewSets,
   InterviewSetDetail
@@ -39,7 +38,23 @@ export default function InterviewPrepPage() {
   const [activeTab, setActiveTab] = useState('interview-questions');
   const [selectedCategory, setSelectedCategory] = useState<QuestionCategory | 'All'>('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [codingSearchQuery, setCodingSearchQuery] = useState('');
+  const [completedCodingQuestions, setCompletedCodingQuestions] = useState<Set<string>>(() => {
+    try {
+      const saved = window.localStorage.getItem('java-coding-prep-completed');
+      return new Set<string>(saved ? JSON.parse(saved) : []);
+    } catch {
+      return new Set<string>();
+    }
+  });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      'java-coding-prep-completed',
+      JSON.stringify([...completedCodingQuestions]),
+    );
+  }, [completedCodingQuestions]);
 
   const categories: (QuestionCategory | 'All')[] = ['All', 'Java', 'Spring Boot', 'Microservices', 'Angular', 'JavaScript', 'SQL', 'System Design', 'Java Coding', 'JS Coding', 'DevOps', 'Other'];
 
@@ -61,11 +76,32 @@ export default function InterviewPrepPage() {
     return realInterviewQuestions.filter(q => q.category === cat).length;
   };
 
+  const filteredCodingCategories = javaCodingInterviewCategories
+    .map(category => ({
+      ...category,
+      questions: category.questions.filter(item => {
+        const query = codingSearchQuery.trim().toLowerCase();
+        if (!query) return true;
+        return [item.question, item.pattern, item.difficulty, item.priority]
+          .some(value => value.toLowerCase().includes(query));
+      })
+    }))
+    .filter(category => category.questions.length > 0);
+
+  const toggleCodingQuestion = (id: string) => {
+    setCompletedCodingQuestions(previous => {
+      const next = new Set(previous);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
   const handleViewQuestions = (set: InterviewSetDetail) => {
     navigate(`/interview-set/${set.id}`, { state: { set } });
   };
 
-  const handleCopyQuestion = (e: React.MouseEvent, q: any) => {
+  const handleCopyQuestion = (e: React.MouseEvent, q: RealInterviewQuestion) => {
     e.stopPropagation();
     const textToCopy = `Question: ${q.question}
 
@@ -374,39 +410,110 @@ ${q.answerSEE.summary10s}`;
 
           {/* Tab 4: Java Coding / Interview Prep */}
           <TabsContent value="java-prep" className="mt-6">
-            <div className="bg-background border border-border rounded-lg p-6">
-              <h2 className="text-xl font-semibold mb-4 text-foreground">
-                Java Interview Preparation Checklist
-              </h2>
-              <p className="text-muted-foreground mb-6 text-sm">
-                Track your progress through essential Java topics
-              </p>
-              <div className="space-y-3">
-                {javaTopicsChecklist.map((item, index) => (
-                  <div 
-                    key={index} 
-                    className={cn(
-                      "flex items-center gap-3 py-3 px-4 rounded-md border transition-colors",
-                      item.completed 
-                        ? "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800" 
-                        : "bg-muted/30 border-border"
-                    )}
-                  >
-                    {item.completed ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                    ) : (
-                      <Circle className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-                    )}
-                    <span className={cn(
-                      "text-sm",
-                      item.completed ? "text-green-800 dark:text-green-200" : "text-foreground"
-                    )}>
-                      {item.topic}
-                    </span>
+            <div className="mb-6 rounded-xl border border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50 p-6 dark:border-orange-900 dark:from-orange-950/30 dark:to-amber-950/20">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="max-w-3xl">
+                  <div className="mb-3 flex flex-wrap gap-2">
+                    <Badge className="bg-orange-600 hover:bg-orange-600">8–12 LPA Target</Badge>
+                    <Badge variant="secondary">Most Frequently Asked</Badge>
+                    <Badge variant="outline">Basic → Intermediate</Badge>
                   </div>
-                ))}
+                  <h2 className="mb-2 text-2xl font-bold text-foreground">Java Coding Confidence List</h2>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {javaCodingQuestionCount} high-return questions selected from repeated interview patterns. No unnecessary hard DP or graph overload—finish the Must Do questions first, then complete the remaining frequently asked set.
+                  </p>
+                </div>
+                <div className="min-w-32 rounded-lg border border-orange-200 bg-background/80 p-4 text-center dark:border-orange-900">
+                  <div className="text-2xl font-bold text-orange-600">{completedCodingQuestions.size}/{javaCodingQuestionCount}</div>
+                  <div className="text-xs text-muted-foreground">Prepared</div>
+                </div>
+              </div>
+              <div className="mt-4 h-2 overflow-hidden rounded-full bg-orange-100 dark:bg-orange-950">
+                <div
+                  className="h-full rounded-full bg-orange-500 transition-all"
+                  style={{ width: `${(completedCodingQuestions.size / javaCodingQuestionCount) * 100}%` }}
+                />
               </div>
             </div>
+
+            <div className="sticky top-16 z-10 mb-5 rounded-xl border border-border bg-background/95 p-3 shadow-sm backdrop-blur">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  value={codingSearchQuery}
+                  onChange={(event) => setCodingSearchQuery(event.target.value)}
+                  placeholder="Search question, pattern, or difficulty..."
+                  className="pl-9"
+                />
+              </div>
+            </div>
+
+            <Accordion type="multiple" defaultValue={['Arrays', 'Strings']} className="space-y-4">
+              {filteredCodingCategories.map(category => (
+                <AccordionItem key={category.title} value={category.title} className="rounded-xl border border-border bg-background px-4 sm:px-6">
+                  <AccordionTrigger className="hover:no-underline">
+                    <div className="mr-4 text-left">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-semibold text-foreground">{category.title}</span>
+                        <Badge variant="outline" className="text-xs">{category.questions.length} Questions</Badge>
+                      </div>
+                      <p className="mt-1 text-xs font-normal text-muted-foreground">{category.description}</p>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-5">
+                    <div className="space-y-2">
+                      {category.questions.map((item, index) => {
+                        const completed = completedCodingQuestions.has(item.id);
+                        return (
+                          <div
+                            key={item.id}
+                            className={`flex items-start gap-3 rounded-lg border p-3 transition-colors ${
+                              completed
+                                ? 'border-green-200 bg-green-50 dark:border-green-900 dark:bg-green-950/25'
+                                : 'border-border bg-muted/20 hover:bg-muted/40'
+                            }`}
+                          >
+                            <button
+                              type="button"
+                              onClick={() => toggleCodingQuestion(item.id)}
+                              className="mt-0.5 shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                              aria-label={completed ? `Mark ${item.question} as incomplete` : `Mark ${item.question} as prepared`}
+                            >
+                              {completed ? (
+                                <CheckCircle2 className="h-5 w-5 text-green-600" />
+                              ) : (
+                                <Circle className="h-5 w-5 text-muted-foreground" />
+                              )}
+                            </button>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex gap-2">
+                                <span className="w-6 shrink-0 text-xs font-medium text-muted-foreground">{String(index + 1).padStart(2, '0')}.</span>
+                                <p className={`text-sm leading-relaxed ${completed ? 'text-green-900 line-through decoration-green-400 dark:text-green-200' : 'text-foreground'}`}>
+                                  {item.question}
+                                </p>
+                              </div>
+                              <div className="ml-8 mt-2 flex flex-wrap gap-2">
+                                <Badge variant={item.priority === 'Must Do' ? 'default' : 'secondary'} className="text-[10px]">
+                                  {item.priority === 'Must Do' ? '🔥 Must Do' : 'Asked Often'}
+                                </Badge>
+                                <Badge variant="outline" className="text-[10px]">{item.difficulty}</Badge>
+                                <Badge variant="outline" className="text-[10px] text-muted-foreground">Pattern: {item.pattern}</Badge>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
+            {filteredCodingCategories.length === 0 && (
+              <div className="rounded-xl border border-dashed border-border py-12 text-center text-muted-foreground">
+                No matching coding question found.
+              </div>
+            )}
           </TabsContent>
 
           {/* Tab 5: System Design */}
